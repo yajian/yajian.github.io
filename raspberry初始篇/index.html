@@ -7,7 +7,7 @@
 
 <html class="theme-next pisces use-motion" lang="zh-Hans">
 <head><meta name="generator" content="Hexo 3.8.0">
-  <meta charset="UTF-8">
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><meta charset="UTF-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 <script src="//cdn.bootcss.com/pace/1.0.2/pace.min.js"></script>
@@ -113,18 +113,18 @@
 
 
 
-<meta name="description" content="&amp;emsp;&amp;emsp;之前就在一些论坛上看到过树莓派相关的技术贴，一直没机会玩，碰巧在今年公司圣诞节活动上得到了一块raspberry pi 3 model b开发版，配齐了显示器、摄像头、云台等配件，想先从机器视觉入手做些小项目。配置raspberry的时候踩到了一些坑，下面详细介绍一下从拆箱到能运行opencv获取视频流的过程。 ##安装系统&amp;emsp;&amp;emsp;raspberry pi">
+<meta name="description" content="&amp;emsp;&amp;emsp;之前就在一些论坛上看到过树莓派相关的技术贴，一直没机会玩，碰巧在今年公司圣诞节活动上得到了一块raspberry pi 3 model b开发版，配齐了显示器、摄像头、云台等配件，想先从机器视觉入手做些小项目。配置raspberry的时候踩到了一些坑，下面详细介绍一下从拆箱到能运行opencv获取视频流的过程。 安装系统&amp;emsp;&amp;emsp;raspberry pi 3">
 <meta name="keywords" content="raspberry配置">
 <meta property="og:type" content="article">
 <meta property="og:title" content="raspberry初始篇">
 <meta property="og:url" content="http://yajian.github.io/raspberry初始篇/index.html">
 <meta property="og:site_name" content="小建儿的小站">
-<meta property="og:description" content="&amp;emsp;&amp;emsp;之前就在一些论坛上看到过树莓派相关的技术贴，一直没机会玩，碰巧在今年公司圣诞节活动上得到了一块raspberry pi 3 model b开发版，配齐了显示器、摄像头、云台等配件，想先从机器视觉入手做些小项目。配置raspberry的时候踩到了一些坑，下面详细介绍一下从拆箱到能运行opencv获取视频流的过程。 ##安装系统&amp;emsp;&amp;emsp;raspberry pi">
+<meta property="og:description" content="&amp;emsp;&amp;emsp;之前就在一些论坛上看到过树莓派相关的技术贴，一直没机会玩，碰巧在今年公司圣诞节活动上得到了一块raspberry pi 3 model b开发版，配齐了显示器、摄像头、云台等配件，想先从机器视觉入手做些小项目。配置raspberry的时候踩到了一些坑，下面详细介绍一下从拆箱到能运行opencv获取视频流的过程。 安装系统&amp;emsp;&amp;emsp;raspberry pi 3">
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:updated_time" content="2018-01-08T12:49:46.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="raspberry初始篇">
-<meta name="twitter:description" content="&amp;emsp;&amp;emsp;之前就在一些论坛上看到过树莓派相关的技术贴，一直没机会玩，碰巧在今年公司圣诞节活动上得到了一块raspberry pi 3 model b开发版，配齐了显示器、摄像头、云台等配件，想先从机器视觉入手做些小项目。配置raspberry的时候踩到了一些坑，下面详细介绍一下从拆箱到能运行opencv获取视频流的过程。 ##安装系统&amp;emsp;&amp;emsp;raspberry pi">
+<meta name="twitter:description" content="&amp;emsp;&amp;emsp;之前就在一些论坛上看到过树莓派相关的技术贴，一直没机会玩，碰巧在今年公司圣诞节活动上得到了一块raspberry pi 3 model b开发版，配齐了显示器、摄像头、云台等配件，想先从机器视觉入手做些小项目。配置raspberry的时候踩到了一些坑，下面详细介绍一下从拆箱到能运行opencv获取视频流的过程。 安装系统&amp;emsp;&amp;emsp;raspberry pi 3">
 
 
 
@@ -160,7 +160,7 @@
 
 
 
-  <title>raspberry初始篇 | 小建儿的小站</title>
+  <title>raspberry初始篇 | 小建儿的小站</title><!-- hexo-inject:begin --><!-- hexo-inject:end -->
   
 
 
@@ -179,7 +179,7 @@
     
   
 
-  <div class="container sidebar-position-left page-post-detail">
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><div class="container sidebar-position-left page-post-detail">
     <div class="headband"></div>
 
     <header id="header" class="header" itemscope="" itemtype="http://schema.org/WPHeader">
@@ -450,11 +450,11 @@
 
       
         <p>&emsp;&emsp;之前就在一些论坛上看到过树莓派相关的技术贴，一直没机会玩，碰巧在今年公司圣诞节活动上得到了一块raspberry pi 3 model b开发版，配齐了显示器、摄像头、云台等配件，想先从机器视觉入手做些小项目。配置raspberry的时候踩到了一些坑，下面详细介绍一下从拆箱到能运行opencv获取视频流的过程。</p>
-<p>##安装系统<br>&emsp;&emsp;raspberry pi 3 model b很小巧，只有巴掌大小，最基本的套餐只有板子，其他的配件都不带。电源部分需要自己配一个安卓充电器和数据线，用之前安卓手机的就可以；存储部分需要准备一张sd卡，一样从原来的安卓手机上拆。接下来就是烧录系统，跟着官网的<a href="https://www.raspberrypi.org/documentation/installation/installing-images/README.md" target="_blank" rel="noopener">document</a>做，首先从<a href="https://www.raspberrypi.org/downloads/raspbian/" target="_blank" rel="noopener">官网</a>下载RASPBIAN STRETCH WITH DESKTOP系统，文件1.6G，建议用utorrent下载。下载好系统后，制作启动盘，我用的是mac，所以下载<a href="https://etcher.io/" target="_blank" rel="noopener">Etcher</a>。Etcher的使用很简单，跟着官方使用方法3步就可以把系统烧到sd卡中，然后上电启动，raspberry就可以正常运行了。</p>
-<p>##触屏校正<br>&emsp;&emsp;建议买一块带触摸功能的屏幕，没有键盘的时候还能进行简单的点击操作，装个虚拟键盘可以打字。屏幕是淘宝的3.5寸HDMI电阻屏，附上淘宝<a href="https://item.taobao.com/item.htm?spm=a1z09.2.0.0.5345c157cwgnrR&amp;id=553530372753&amp;_u=71p5273o0b4a" target="_blank" rel="noopener">链接</a>，里面可以找到具体的屏幕参数。在没有安装驱动之前，显示的分辨率和触屏功能都是有问题的，首先要安装驱动，链接里也有详细说明，这里贴一下。</p>
+<h2 id="安装系统"><a href="#安装系统" class="headerlink" title="安装系统"></a>安装系统</h2><p>&emsp;&emsp;raspberry pi 3 model b很小巧，只有巴掌大小，最基本的套餐只有板子，其他的配件都不带。电源部分需要自己配一个安卓充电器和数据线，用之前安卓手机的就可以；存储部分需要准备一张sd卡，一样从原来的安卓手机上拆。接下来就是烧录系统，跟着官网的<a href="https://www.raspberrypi.org/documentation/installation/installing-images/README.md" target="_blank" rel="noopener">document</a>做，首先从<a href="https://www.raspberrypi.org/downloads/raspbian/" target="_blank" rel="noopener">官网</a>下载RASPBIAN STRETCH WITH DESKTOP系统，文件1.6G，建议用utorrent下载。下载好系统后，制作启动盘，我用的是mac，所以下载<a href="https://etcher.io/" target="_blank" rel="noopener">Etcher</a>。Etcher的使用很简单，跟着官方使用方法3步就可以把系统烧到sd卡中，然后上电启动，raspberry就可以正常运行了。</p>
+<h2 id="触屏校正"><a href="#触屏校正" class="headerlink" title="触屏校正"></a>触屏校正</h2><p>&emsp;&emsp;建议买一块带触摸功能的屏幕，没有键盘的时候还能进行简单的点击操作，装个虚拟键盘可以打字。屏幕是淘宝的3.5寸HDMI电阻屏，附上淘宝<a href="https://item.taobao.com/item.htm?spm=a1z09.2.0.0.5345c157cwgnrR&amp;id=553530372753&amp;_u=71p5273o0b4a" target="_blank" rel="noopener">链接</a>，里面可以找到具体的屏幕参数。在没有安装驱动之前，显示的分辨率和触屏功能都是有问题的，首先要安装驱动，链接里也有详细说明，这里贴一下。</p>
 <figure class="highlight gauss"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">sudo rm -rf LCD-<span class="keyword">show</span></span><br><span class="line"></span><br><span class="line">git clone https:<span class="comment">//github.com/goodtft/LCD-show.git</span></span><br><span class="line"></span><br><span class="line">chmod -R <span class="number">755</span> LCD-<span class="keyword">show</span></span><br><span class="line"></span><br><span class="line">cd LCD-<span class="keyword">show</span>/</span><br><span class="line"></span><br><span class="line">sudo ./MPI3508_480_320-<span class="keyword">show</span></span><br></pre></td></tr></table></figure>
 <p>&emsp;&emsp;这步搞完，屏幕的触摸功能依然不好用，左右是颠倒的，点击左边选择的却是右边，需要进行校正。运行xinput_calibrator工具，屏幕四个角会出现十字，按顺序点击，就搞定了触屏校正。具体的参考见<a href="http://shumeipai.nxez.com/2013/10/02/raspberry-pi-to-install-touch-screen.html" target="_blank" rel="noopener">给树莓派装上触摸屏</a>，跟着指示做，亲测有效。<br>&emsp;&emsp;到此，你的树莓派已经可以正常的显示桌面，和正常操作触摸功能了。</p>
-<p>##摄像头安装及监控程序安装<br>&emsp;&emsp;摄像头也是淘宝的，附上链接<a href="https://item.taobao.com/item.htm?spm=a1z09.2.0.0.402d80bcmbDsbn&amp;id=558993629563&amp;_u=81p5273ofec9" target="_blank" rel="noopener">摄像头</a>，为了之后能跟踪运动物体，建议连云台一起买了。这款摄像头是usb接口的，即插即用，可以使用lsusb查看设备，如果有“Bus 001 Device 004: ID 1908:2310 GEMBIRD”就说明设备已经连接了。</p>
+<h2 id="摄像头安装及监控程序安装"><a href="#摄像头安装及监控程序安装" class="headerlink" title="摄像头安装及监控程序安装"></a>摄像头安装及监控程序安装</h2><p>&emsp;&emsp;摄像头也是淘宝的，附上链接<a href="https://item.taobao.com/item.htm?spm=a1z09.2.0.0.402d80bcmbDsbn&amp;id=558993629563&amp;_u=81p5273ofec9" target="_blank" rel="noopener">摄像头</a>，为了之后能跟踪运动物体，建议连云台一起买了。这款摄像头是usb接口的，即插即用，可以使用lsusb查看设备，如果有“Bus 001 Device 004: ID 1908:2310 GEMBIRD”就说明设备已经连接了。</p>
 <p>&emsp;&emsp;接下来就是装一款获取视频流的软件，试试摄像头好不好用，最开始我安装的motion，非常卡！！建议安装另一款软件mjpg-streamer，安装这玩意也是费了九牛二虎之力。说说中间遇到的问题，首先去github复制<a href="https://github.com/jacksonliam/mjpg-streamer" target="_blank" rel="noopener">mjpg-streamer项目</a>，然后make，目前一切正常。然而执行./start.sh就报Init v4L2 failed !! exit fatal错误，开始查了半天说是不支持YUV编码，那改启动脚本，加上-y参数使用YUV编码，改完之后是这样</p>
 <figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-id">#start</span>.sh</span><br><span class="line"></span><br><span class="line">./mjpg_streamer -<span class="selector-tag">i</span> <span class="string">"./input_uvc.so -y"</span> -o <span class="string">"./output_http.so -w ./www</span></span><br></pre></td></tr></table></figure>
 <p>此时应该好了吧？！再执行还他么不行，继续报Init v4L2 failed !! exit fatal i: init_VideoIn failed。又查了半天才知道是v4l2没有加载到linux内核，执行</p>
@@ -462,13 +462,13 @@
 <p>再次执行启动文件，就ok了。后来又修改了一下/etc/modules-load.d/modules.conf文件，把 bcm2835-v4l2加上去，这样就保险了。</p>
 <p>&emsp;&emsp;程序启动后出现下面的命令说明启动正常，访问ip:8080/stream.html，就可以获取实时图像了，速度很快。</p>
 <figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">MJPG Streamer Version.: 2.0</span><br><span class="line"> i: Using V4L2 device.: /dev/video0</span><br><span class="line"> i: Desired Resolution: 640 x 480</span><br><span class="line"> i: Frames Per Second.: -1</span><br><span class="line"> i: Format<span class="built_in">..</span><span class="built_in">..</span><span class="built_in">..</span><span class="built_in">..</span><span class="built_in">..</span><span class="built_in">..</span>: YUYV</span><br><span class="line"> i: JPEG Quality<span class="built_in">..</span><span class="built_in">..</span><span class="built_in">..</span>: 80</span><br><span class="line"> i: TV-Norm<span class="built_in">..</span><span class="built_in">..</span><span class="built_in">..</span><span class="built_in">..</span><span class="built_in">..</span>.: DEFAULT</span><br><span class="line"> o: www-folder-path<span class="built_in">..</span><span class="built_in">..</span><span class="built_in">..</span>: ./www/</span><br><span class="line"> o: HTTP TCP port<span class="built_in">..</span><span class="built_in">..</span><span class="built_in">..</span><span class="built_in">..</span>: 8080</span><br><span class="line"> o: HTTP Listen Address<span class="built_in">..</span>: (<span class="literal">null</span>)</span><br><span class="line"> o: username:password<span class="built_in">..</span><span class="built_in">..</span>: disabled</span><br><span class="line"> o: commands<span class="built_in">..</span><span class="built_in">..</span><span class="built_in">..</span><span class="built_in">..</span><span class="built_in">..</span><span class="built_in">..</span>.: enabled</span><br></pre></td></tr></table></figure>
-<p>##opencv安装<br>&emsp;&emsp;接下来安装opencv，还是先去github下载<a href="https://github.com/opencv/opencv" target="_blank" rel="noopener">opencv</a>和<a href="https://github.com/opencv/opencv_contrib" target="_blank" rel="noopener">opencv_contrib</a>，然后新建个build文件夹，执行cmake编译</p>
+<h2 id="opencv安装"><a href="#opencv安装" class="headerlink" title="opencv安装"></a>opencv安装</h2><p>&emsp;&emsp;接下来安装opencv，还是先去github下载<a href="https://github.com/opencv/opencv" target="_blank" rel="noopener">opencv</a>和<a href="https://github.com/opencv/opencv_contrib" target="_blank" rel="noopener">opencv_contrib</a>，然后新建个build文件夹，执行cmake编译</p>
 <figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">cmake -D <span class="attribute">CMAKE_BUILD_TYPE</span>=RELEASE \</span><br><span class="line">-D <span class="attribute">CMAKE_INSTALL_PREFIX</span>=/usr/local \</span><br><span class="line">-D <span class="attribute">INSTALL_C_EXAMPLES</span>=ON \</span><br><span class="line">-D <span class="attribute">INSTALL_PYTHON_EXAMPLES</span>=ON \</span><br><span class="line">-D <span class="attribute">OPENCV_EXTRA_MODULES_PATH</span>=../../opencv_contrib/modules \</span><br><span class="line">-D <span class="attribute">BUILD_EXAMPLES</span>=ON <span class="built_in">..</span></span><br></pre></td></tr></table></figure>
 <p>完事正式编译opencv，使用make -j4命令，然后执行到80%多就死机了，每次都是执行了个把小时，真是无语。。。后来发现4核一起会死机！直接make毛事没有，最终编译了过去。附上<a href="http://www.trtos.com/web/wp/?p=1340" target="_blank" rel="noopener">参考贴</a>。</p>
 <p>&emsp;&emsp;摄像头和opencv都准备好了，可以用opencv试试获取实时视频流，写个python脚本</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> cv2</span><br><span class="line">clicked = <span class="keyword">False</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">onMouse</span><span class="params">(event,x,y,flags,param)</span>:</span></span><br><span class="line">    <span class="keyword">global</span> clicked</span><br><span class="line">    <span class="keyword">if</span> event == cv2.EVENT_LBUTTONUP:</span><br><span class="line">        clicked = <span class="keyword">True</span></span><br><span class="line">cameraCapture=cv2.VideoCapture(<span class="number">0</span>)</span><br><span class="line">cv2.namedWindow(<span class="string">'My Window'</span>)</span><br><span class="line">cv2.setMouseCallback(<span class="string">'My Window'</span>,onMouse)</span><br><span class="line"><span class="keyword">print</span> <span class="string">'showing camera feed, Click window or press any key to stop'</span></span><br><span class="line">success,frame = cameraCapture.read()</span><br><span class="line"><span class="keyword">while</span> success <span class="keyword">and</span> cv2.waitKey(<span class="number">1</span>)==<span class="number">-1</span> <span class="keyword">and</span> <span class="keyword">not</span> clicked:</span><br><span class="line">    cv2.imshow(<span class="string">'My Window'</span>,frame)</span><br><span class="line">    success,frame = cameraCapture.read()</span><br><span class="line">cv2.destroyWindow(<span class="string">'My Window'</span>)</span><br><span class="line">cameraCapture.release()</span><br></pre></td></tr></table></figure>
 <p>执行之后就可以获取实时视频流了。</p>
-<p>##总结<br>&emsp;&emsp;环境准备是个大坑，每个人遇到的问题都不一样，这时候就知道了google的好处。不过好歹是把基本环境搭建了起来，之后看看用opencv做点小项目玩玩，有新进展将继续更新。</p>
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>&emsp;&emsp;环境准备是个大坑，每个人遇到的问题都不一样，这时候就知道了google的好处。不过好歹是把基本环境搭建了起来，之后看看用opencv做点小项目玩玩，有新进展将继续更新。</p>
 
       
     </div>
@@ -648,8 +648,17 @@ var jiathis_config={
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
 
-      <section class="site-overview-wrap sidebar-panel sidebar-panel-active">
+      <section class="site-overview-wrap sidebar-panel">
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
             
@@ -720,6 +729,22 @@ var jiathis_config={
         </div>
       </section>
 
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#安装系统"><span class="nav-number">1.</span> <span class="nav-text">安装系统</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#触屏校正"><span class="nav-number">2.</span> <span class="nav-text">触屏校正</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#摄像头安装及监控程序安装"><span class="nav-number">3.</span> <span class="nav-text">摄像头安装及监控程序安装</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#opencv安装"><span class="nav-number">4.</span> <span class="nav-text">opencv安装</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#总结"><span class="nav-number">5.</span> <span class="nav-text">总结</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
       
 
       
@@ -1298,7 +1323,24 @@ var jiathis_config={
   
 
   
-    <script type="text/javascript" src="//cdn.bootcss.com/canvas-nest.js/1.0.0/canvas-nest.min.js"></script>
+    <script type="text/javascript" src="//cdn.bootcss.com/canvas-nest.js/1.0.0/canvas-nest.min.js"></script><!-- hexo-inject:begin --><!-- Begin: Injected MathJax -->
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config("");
+</script>
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i=0; i < all.length; i += 1) {
+      all[i].SourceElement().parentNode.className += ' has-jax';
+    }
+  });
+</script>
+
+<script type="text/javascript" src="custom_mathjax_source">
+</script>
+<!-- End: Injected MathJax -->
+<!-- hexo-inject:end -->
   
 </body>
 </html>

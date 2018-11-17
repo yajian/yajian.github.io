@@ -7,7 +7,7 @@
 
 <html class="theme-next pisces use-motion" lang="zh-Hans">
 <head><meta name="generator" content="Hexo 3.8.0">
-  <meta charset="UTF-8">
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><meta charset="UTF-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 <script src="//cdn.bootcss.com/pace/1.0.2/pace.min.js"></script>
@@ -121,12 +121,12 @@
 <meta property="og:site_name" content="小建儿的小站">
 <meta property="og:description" content="&amp;emsp;&amp;emsp;第二周的课程主要介绍了神经网络的基础知识，NG以Logistic回归为例讲述了神经网络正向、反向传播原理以及利用python进行矩阵运算的编程技巧。虽然本周课程的重点在于理解神经网络的正向传播反向传播机制，课程未对LR的推导过程详加阐述，但是个人认为LR作为常见算法之一仍需要掌握其理论推导过程。&amp;emsp;&amp;emsp;Logistic回归是一种常见的二分类算法，它利用sig">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:image" content="http://yajian.github.io/Logistic回归公式推导/Logistic回归公式推导/sigmoid.png">
+<meta property="og:image" content="http://yajian.github.io/Logistic回归公式推导/sigmoid.png">
 <meta property="og:updated_time" content="2018-04-02T12:59:06.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="神经网络基础--Logistic回归理论推导">
 <meta name="twitter:description" content="&amp;emsp;&amp;emsp;第二周的课程主要介绍了神经网络的基础知识，NG以Logistic回归为例讲述了神经网络正向、反向传播原理以及利用python进行矩阵运算的编程技巧。虽然本周课程的重点在于理解神经网络的正向传播反向传播机制，课程未对LR的推导过程详加阐述，但是个人认为LR作为常见算法之一仍需要掌握其理论推导过程。&amp;emsp;&amp;emsp;Logistic回归是一种常见的二分类算法，它利用sig">
-<meta name="twitter:image" content="http://yajian.github.io/Logistic回归公式推导/Logistic回归公式推导/sigmoid.png">
+<meta name="twitter:image" content="http://yajian.github.io/Logistic回归公式推导/sigmoid.png">
 
 
 
@@ -162,7 +162,7 @@
 
 
 
-  <title>神经网络基础--Logistic回归理论推导 | 小建儿的小站</title>
+  <title>神经网络基础--Logistic回归理论推导 | 小建儿的小站</title><!-- hexo-inject:begin --><!-- hexo-inject:end -->
   
 
 
@@ -181,7 +181,7 @@
     
   
 
-  <div class="container sidebar-position-left page-post-detail">
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><div class="container sidebar-position-left page-post-detail">
     <div class="headband"></div>
 
     <header id="header" class="header" itemscope="" itemtype="http://schema.org/WPHeader">
@@ -451,10 +451,22 @@
       
 
       
-        <p>&emsp;&emsp;第二周的课程主要介绍了神经网络的基础知识，NG以Logistic回归为例讲述了神经网络正向、反向传播原理以及利用python进行矩阵运算的编程技巧。虽然本周课程的重点在于理解神经网络的正向传播反向传播机制，课程未对LR的推导过程详加阐述，但是个人认为LR作为常见算法之一仍需要掌握其理论推导过程。<br>&emsp;&emsp;Logistic回归是一种常见的二分类算法，它利用sigmoid函数将线性回归的值域压缩至0～1之间，从而实现二分类。sigmoid的函数表达式如下所示：<br>$$f\left(x\right)=\frac{1}{1+e^{-x}}$$<br>其函数图像为</p>
-<div align="center"><br>    <img src="Logistic回归公式推导/sigmoid.png" width="450" height="400" title="sigmoid函数图像"><br></div>
+        <p>&emsp;&emsp;第二周的课程主要介绍了神经网络的基础知识，NG以Logistic回归为例讲述了神经网络正向、反向传播原理以及利用python进行矩阵运算的编程技巧。虽然本周课程的重点在于理解神经网络的正向传播反向传播机制，课程未对LR的推导过程详加阐述，但是个人认为LR作为常见算法之一仍需要掌握其理论推导过程。<br>&emsp;&emsp;Logistic回归是一种常见的二分类算法，它利用sigmoid函数将线性回归的值域压缩至0～1之间，从而实现二分类。sigmoid的函数表达式如下所示：</p>
+<script type="math/tex; mode=display">f\left(x\right)=\frac{1}{1+e^{-x}}</script><p>其函数图像为</p>
+<div align="center">
+    <img src="/Logistic回归公式推导/sigmoid.png" width="450" height="400" title="sigmoid函数图像">
+</div>
 
-<p>sigmoid的导数可以表示为<br>$$f’\left(x \right)=f\left(x \right)\left[1-f\left(x \right) \right]$$<br>该公式会在后续推导中使用到。<br>&emsp;&emsp;线性回归我们并不陌生，其表达形式为$z=\theta_{0}+\theta_{1}x_{1}+\theta_{2}x_{2}+……+\theta_{n}x_{n}=\theta ^{T}x$，将$z$带入sigmoid函数中，得到<br>$$h_{\theta}\left(x \right)=\frac{1}{1+e^{-z}}=\frac{1}{1+e^{-\theta ^{T}x}}$$<br>所以线性回归的的结果被映射到了sigmoid函数中。在sigmoid函数图像中可以看出，其函数值介于0～1，中间值为0.5，因此$h_{\theta}\left(x \right)$的输出可以看作分类的概率。当$h_{\theta}\left(x \right)&gt;0.5$，说明$x$属于A类；反之，$h_{\theta}\left(x \right)&lt;0.5$，则$x$属于B类。<br>&emsp;&emsp;假设用$y$表示分类的结果，类别分别用0，1表示，则分类结果为1的概率表示为<br>$$P\left(y=1|x;\theta \right)=h_{\theta}\left(x \right)$$<br>分类结果为0的概率表示为<br>$$P\left(y=0|x;\theta \right)=1-h_{\theta}\left(x \right)$$<br>其中权重$\theta$为未知变量，接下来的目标就是求解$\theta$的值。<br>&emsp;&emsp;根据最大似然估计可以推导出LR的损失函数，首先根据上式得到概率函数<br>$$P\left(y|x;\theta \right)=h_{\theta}\left(x \right)^{y}\left[1-h_{\theta}\left(x \right) \right]^\left(1-y \right)$$<br>因为m个样本互相独立，所以其联合分布可以看作各个样本概率之积，则似然函数为<br>$$L\left(\theta \right)=\prod_{i=1}^{m}P\left(y^i|x^i;\theta \right)$$<br>$$L\left(\theta \right)=\prod_{i=1}^{m}h_{\theta}\left(x^i\right)^{y^i}\left[1-h_{\theta}\left(x^i \right) \right]^\left(1-y^i\right)$$<br>取对数似然函数<br>$$l\left(\theta \right)=\sum_{i=1}^{m}P\left(y^\left(i \right)|x^\left(i \right);\theta \right)=\sum_{i=0}^{m}y^\left(i \right)log\left(h_{\theta}\left(x^i \right) \right)+\left(1-y^i \right)log\left(1-h_{\theta}\left(x^i \right) \right)$$<br>当$l\left(\theta \right)$取最大值时，$\theta$的值为最终的解。求$l\left(\theta \right)$对$\theta^i$的导数<br>$$l’\left(\theta \right)=    \sum_{i=1}^{m}\left[\frac{y^i}{h_{\theta}\left(x^i \right)} - \frac{1-y^i}{1-h_{\theta}\left(x^i \right)}\right]h’<em>{\theta}\left(x^i\right)$$<br>因为$h’</em>{\theta}\left(x^i\right)=h_{\theta}\left(x^i\right)\left[1-h_{\theta}\left(x^i\right)\right]x^i$，所以有<br>$$l’\left(\theta \right)=\sum_{i=1}^{m}\left(y^i-h_\theta\left(x^i\right)\right)x^i$$<br>求出导数后，在实际工程应用中可以用梯度上升算法迭代求解，后续会详细介绍梯度上升算法。</p>
+<p>sigmoid的导数可以表示为</p>
+<script type="math/tex; mode=display">f'\left(x \right)=f\left(x \right)\left[1-f\left(x \right) \right]</script><p>该公式会在后续推导中使用到。<br>&emsp;&emsp;线性回归我们并不陌生，其表达形式为$z=\theta<em>{0}+\theta</em>{1}x<em>{1}+\theta</em>{2}x<em>{2}+……+\theta</em>{n}x_{n}=\theta ^{T}x$，将$z$带入sigmoid函数中，得到</p>
+<script type="math/tex; mode=display">h_{\theta}\left(x \right)=\frac{1}{1+e^{-z}}=\frac{1}{1+e^{-\theta ^{T}x}}</script><p>所以线性回归的的结果被映射到了sigmoid函数中。在sigmoid函数图像中可以看出，其函数值介于0～1，中间值为0.5，因此$h<em>{\theta}\left(x \right)$的输出可以看作分类的概率。当$h</em>{\theta}\left(x \right)&gt;0.5$，说明$x$属于A类；反之，$h_{\theta}\left(x \right)&lt;0.5$，则$x$属于B类。<br>&emsp;&emsp;假设用$y$表示分类的结果，类别分别用0，1表示，则分类结果为1的概率表示为</p>
+<script type="math/tex; mode=display">P\left(y=1|x;\theta \right)=h_{\theta}\left(x \right)</script><p>分类结果为0的概率表示为</p>
+<script type="math/tex; mode=display">P\left(y=0|x;\theta \right)=1-h_{\theta}\left(x \right)</script><p>其中权重$\theta$为未知变量，接下来的目标就是求解$\theta$的值。<br>&emsp;&emsp;根据最大似然估计可以推导出LR的损失函数，首先根据上式得到概率函数</p>
+<script type="math/tex; mode=display">P\left(y|x;\theta \right)=h_{\theta}\left(x \right)^{y}\left[1-h_{\theta}\left(x \right) \right]^\left(1-y \right)</script><p>因为m个样本互相独立，所以其联合分布可以看作各个样本概率之积，则似然函数为</p>
+<script type="math/tex; mode=display">L\left(\theta \right)=\prod_{i=1}^{m}P\left(y^i|x^i;\theta \right)</script><script type="math/tex; mode=display">L\left(\theta \right)=\prod_{i=1}^{m}h_{\theta}\left(x^i\right)^{y^i}\left[1-h_{\theta}\left(x^i \right) \right]^\left(1-y^i\right)</script><p>取对数似然函数  </p>
+<script type="math/tex; mode=display">l\left(\theta \right)=\sum_{i=1}^{m}P\left(y^\left(i \right)|x^\left(i \right);\theta \right)=\sum_{i=0}^{m}y^\left(i \right)log\left(h_{\theta}\left(x^i \right) \right)+\left(1-y^i \right)log\left(1-h_{\theta}\left(x^i \right) \right)</script><p>当$l\left(\theta \right)$取最大值时，$\theta$的值为最终的解。求$l\left(\theta \right)$对$\theta^i$的导数  </p>
+<script type="math/tex; mode=display">l'\left(\theta \right)=    \sum_{i=1}^{m}\left[\frac{y^i}{h_{\theta}\left(x^i \right)} - \frac{1-y^i}{1-h_{\theta}\left(x^i \right)}\right]h'_{\theta}\left(x^i\right)</script><p>因为$h’<em>{\theta}\left(x^i\right)=h</em>{\theta}\left(x^i\right)\left[1-h_{\theta}\left(x^i\right)\right]x^i$，所以有  </p>
+<script type="math/tex; mode=display">l'\left(\theta \right)=\sum_{i=1}^{m}\left(y^i-h_\theta\left(x^i\right)\right)x^i</script><p>求出导数后，在实际工程应用中可以用梯度上升算法迭代求解，后续会详细介绍梯度上升算法。</p>
 
       
     </div>
@@ -1300,7 +1312,24 @@ var jiathis_config={
   
 
   
-    <script type="text/javascript" src="//cdn.bootcss.com/canvas-nest.js/1.0.0/canvas-nest.min.js"></script>
+    <script type="text/javascript" src="//cdn.bootcss.com/canvas-nest.js/1.0.0/canvas-nest.min.js"></script><!-- hexo-inject:begin --><!-- Begin: Injected MathJax -->
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config("");
+</script>
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i=0; i < all.length; i += 1) {
+      all[i].SourceElement().parentNode.className += ' has-jax';
+    }
+  });
+</script>
+
+<script type="text/javascript" src="custom_mathjax_source">
+</script>
+<!-- End: Injected MathJax -->
+<!-- hexo-inject:end -->
   
 </body>
 </html>

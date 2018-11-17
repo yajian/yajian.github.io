@@ -7,7 +7,7 @@
 
 <html class="theme-next pisces use-motion" lang="zh-Hans">
 <head><meta name="generator" content="Hexo 3.8.0">
-  <meta charset="UTF-8">
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><meta charset="UTF-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 <script src="//cdn.bootcss.com/pace/1.0.2/pace.min.js"></script>
@@ -121,12 +121,12 @@
 <meta property="og:site_name" content="小建儿的小站">
 <meta property="og:description" content="&amp;emsp;&amp;emsp;上周和这周的前两天一直在解决工作中遇到的一个问题，问题的背景是这样的：我们搭建的平台中使用了lucene的IKAnalyzer分词工具，该工具在进行分词时会先读取resource文件夹下的config文件，每次在本地跑ut测试的时候都能顺利通过，但是放到集群上执行的时候会报找不到config文件路径的错误。问题很清楚，但是就是不知道为什么无法找到文件，最后把路径信息打出来发">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:image" content="http://yajian.github.io/spark读取jar中文件的路径问题/spark读取jar中文件的路径问题/目录结构.jpg">
+<meta property="og:image" content="http://yajian.github.io/spark读取jar中文件的路径问题/目录结构.jpg">
 <meta property="og:updated_time" content="2018-06-25T12:18:34.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="spark读取jar中文件的路径问题">
 <meta name="twitter:description" content="&amp;emsp;&amp;emsp;上周和这周的前两天一直在解决工作中遇到的一个问题，问题的背景是这样的：我们搭建的平台中使用了lucene的IKAnalyzer分词工具，该工具在进行分词时会先读取resource文件夹下的config文件，每次在本地跑ut测试的时候都能顺利通过，但是放到集群上执行的时候会报找不到config文件路径的错误。问题很清楚，但是就是不知道为什么无法找到文件，最后把路径信息打出来发">
-<meta name="twitter:image" content="http://yajian.github.io/spark读取jar中文件的路径问题/spark读取jar中文件的路径问题/目录结构.jpg">
+<meta name="twitter:image" content="http://yajian.github.io/spark读取jar中文件的路径问题/目录结构.jpg">
 
 
 
@@ -162,7 +162,7 @@
 
 
 
-  <title>spark读取jar中文件的路径问题 | 小建儿的小站</title>
+  <title>spark读取jar中文件的路径问题 | 小建儿的小站</title><!-- hexo-inject:begin --><!-- hexo-inject:end -->
   
 
 
@@ -181,7 +181,7 @@
     
   
 
-  <div class="container sidebar-position-left page-post-detail">
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><div class="container sidebar-position-left page-post-detail">
     <div class="headband"></div>
 
     <header id="header" class="header" itemscope="" itemtype="http://schema.org/WPHeader">
@@ -453,7 +453,9 @@
       
         <p>&emsp;&emsp;上周和这周的前两天一直在解决工作中遇到的一个问题，问题的背景是这样的：我们搭建的平台中使用了lucene的IKAnalyzer分词工具，该工具在进行分词时会先读取resource文件夹下的config文件，每次在本地跑ut测试的时候都能顺利通过，但是放到集群上执行的时候会报找不到config文件路径的错误。问题很清楚，但是就是不知道为什么无法找到文件，最后把路径信息打出来发现其中有个“！”，才知道问题的根结在于读取文件的方式。</p>
 <p>&emsp;&emsp;先说说java中获取文件路径的几种方式，工程的目录结构如下</p>
-<div align="center"><br>    <img src="spark读取jar中文件的路径问题/目录结构.jpg" width="300" height="380" tile="目录结构" align="center"><br></div>
+<div align="center">
+    <img src="/spark读取jar中文件的路径问题/目录结构.jpg" width="300" height="380" tile="目录结构" align="center">
+</div>
 
 
 <figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="keyword">public</span> void testPath() &#123;</span><br><span class="line">       <span class="comment">// 第一种：获取类加载的根路径</span></span><br><span class="line">       URL url1 = <span class="keyword">this</span>.getClass().getResource(<span class="string">"/"</span>);</span><br><span class="line">       System.<span class="keyword">out</span>.println(url1.getPath());</span><br><span class="line">       <span class="comment">//输出：/Users/name/test/target/classes/</span></span><br><span class="line"></span><br><span class="line">       <span class="comment">// 第二种：获取当前类的所在工程路径(不加“/”）     </span></span><br><span class="line">       URL url2 = <span class="keyword">this</span>.getClass().getResource(<span class="string">""</span>);</span><br><span class="line">       System.<span class="keyword">out</span>.println(url2.getPath());</span><br><span class="line">       <span class="comment">//输出：/Users/name/test/target/classes/test/</span></span><br><span class="line"></span><br><span class="line">       <span class="comment">// 第三种：在资源加载的过程中，使用的逐级向上委托的形式加载，不能以“/”开头</span></span><br><span class="line">       URL url3 =<span class="keyword">this</span>.getClass().getClassLoader().getResource(<span class="string">""</span>);</span><br><span class="line">       System.<span class="keyword">out</span>.println(url3.getPath());</span><br><span class="line">       <span class="comment">//输出：file:/Users/name/test/target/classes/</span></span><br><span class="line">       URL url4 =<span class="keyword">this</span>.getClass().getClassLoader().getResource(<span class="string">"/"</span>);</span><br><span class="line">       System.<span class="keyword">out</span>.println(url3.getPath());</span><br><span class="line">       <span class="comment">//输出：null</span></span><br><span class="line"></span><br><span class="line">   &#125;</span><br></pre></td></tr></table></figure>
@@ -1291,7 +1293,24 @@ var jiathis_config={
   
 
   
-    <script type="text/javascript" src="//cdn.bootcss.com/canvas-nest.js/1.0.0/canvas-nest.min.js"></script>
+    <script type="text/javascript" src="//cdn.bootcss.com/canvas-nest.js/1.0.0/canvas-nest.min.js"></script><!-- hexo-inject:begin --><!-- Begin: Injected MathJax -->
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config("");
+</script>
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i=0; i < all.length; i += 1) {
+      all[i].SourceElement().parentNode.className += ' has-jax';
+    }
+  });
+</script>
+
+<script type="text/javascript" src="custom_mathjax_source">
+</script>
+<!-- End: Injected MathJax -->
+<!-- hexo-inject:end -->
   
 </body>
 </html>

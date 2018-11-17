@@ -7,7 +7,7 @@
 
 <html class="theme-next pisces use-motion" lang="zh-Hans">
 <head><meta name="generator" content="Hexo 3.8.0">
-  <meta charset="UTF-8">
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><meta charset="UTF-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 <script src="//cdn.bootcss.com/pace/1.0.2/pace.min.js"></script>
@@ -158,7 +158,7 @@
 
 
 
-  <title>小建儿的小站</title>
+  <title>小建儿的小站</title><!-- hexo-inject:begin --><!-- hexo-inject:end -->
   
 
 
@@ -177,7 +177,7 @@
     
   
 
-  <div class="container sidebar-position-left 
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><div class="container sidebar-position-left 
   page-home">
     <div class="headband"></div>
 
@@ -1620,7 +1620,7 @@
       
         
           
-            <p>###第57条 只针对异常的情况才使用异常<br>&emsp;&emsp;异常应该只用于异常的情况下，永远不应该用于正常控制流</p>
+            <h3 id="第57条-只针对异常的情况才使用异常"><a href="#第57条-只针对异常的情况才使用异常" class="headerlink" title="第57条 只针对异常的情况才使用异常"></a>第57条 只针对异常的情况才使用异常</h3><p>&emsp;&emsp;异常应该只用于异常的情况下，永远不应该用于正常控制流</p>
 <p>&emsp;&emsp;设计良好的api不应该强迫它的客户端为了正常的控制流而使用异常</p>
 <p>&emsp;&emsp;可以使用“状态测试方法”或“可识别的返回值方法”避免异常滥用。</p>
 <ul>
@@ -1636,23 +1636,23 @@
 <p>&emsp;&emsp;当“状态相关”的方法被调用时，当该对象处于不适当的状态时，返回一个可识别的值，如null。</p>
 <p>&emsp;&emsp;如果单独的“状态测试”必须重复“状态相关”方法的工作，从性能角度考虑，就应该使用可被识别的返回值</p>
 <p>&emsp;&emsp;如果其他条件一样，“状态测试”方法优于“返回值”方法，因为前者可读性更强。</p>
-<p>###第58条 对于可恢复的情况使用受检异常，对于编程错误使用运行时异常<br>&emsp;&emsp;Java三种可抛出结构：受检异常（checked Exception)、运行时异常（runtime Exception）、错误（error）。</p>
+<h3 id="第58条-对于可恢复的情况使用受检异常，对于编程错误使用运行时异常"><a href="#第58条-对于可恢复的情况使用受检异常，对于编程错误使用运行时异常" class="headerlink" title="第58条 对于可恢复的情况使用受检异常，对于编程错误使用运行时异常"></a>第58条 对于可恢复的情况使用受检异常，对于编程错误使用运行时异常</h3><p>&emsp;&emsp;Java三种可抛出结构：受检异常（checked Exception)、运行时异常（runtime Exception）、错误（error）。</p>
 <ul>
 <li>受检异常：期望调用者能够适当地恢复</li>
 <li>运行时异常：表明编程错误</li>
 </ul>
-<p>###第59条 避免不必要地使用受检异常<br>&emsp;&emsp;过分使用受检异常会让api使用起来变得不方便<br>&emsp;&emsp;把受检异常变成未受检异常的方法：把抛异常的方法分成两个方法，一个返回boolean表示是否应该抛异常</p>
+<h3 id="第59条-避免不必要地使用受检异常"><a href="#第59条-避免不必要地使用受检异常" class="headerlink" title="第59条 避免不必要地使用受检异常"></a>第59条 避免不必要地使用受检异常</h3><p>&emsp;&emsp;过分使用受检异常会让api使用起来变得不方便<br>&emsp;&emsp;把受检异常变成未受检异常的方法：把抛异常的方法分成两个方法，一个返回boolean表示是否应该抛异常</p>
 <figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//invocation with checked exception</span></span><br><span class="line"><span class="keyword">try</span>&#123;</span><br><span class="line">	obj.action(args)</span><br><span class="line">&#125;<span class="keyword">catch</span>(<span class="keyword">Exception</span> e)&#123;</span><br><span class="line"><span class="comment">// handle exceptional condition</span></span><br><span class="line">	...</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p>改为</p>
 <figure class="highlight maxima"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">//invocation with state-testing <span class="built_in">method</span> <span class="keyword">and</span> unchecked exception</span><br><span class="line"><span class="keyword">if</span>(obj.actionPermitted(<span class="built_in">args</span>))&#123;</span><br><span class="line">	obj.action(<span class="built_in">args</span>)</span><br><span class="line">&#125;<span class="keyword">else</span>&#123;</span><br><span class="line">	//Handle exceptional condition</span><br><span class="line">	...</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>###优先使用标准的异常</p>
-<p>好处：  </p>
+<h3 id="优先使用标准的异常"><a href="#优先使用标准的异常" class="headerlink" title="优先使用标准的异常"></a>优先使用标准的异常</h3><p>好处：  </p>
 <ol>
 <li>让API更加易于学习和使用  </li>
 <li>可读性会很好  </li>
 <li>异常类少，意味着内存印迹（footprint）越小，装载这些类的时间开销越少  </li>
 </ol>
 <p>常用异常</p>
+<div class="table-container">
 <table>
 <thead>
 <tr>
@@ -1687,6 +1687,7 @@
 </tr>
 </tbody>
 </table>
+</div>
 <h3 id="第61条-抛出与抽象相对应的异常"><a href="#第61条-抛出与抽象相对应的异常" class="headerlink" title="第61条 抛出与抽象相对应的异常"></a>第61条 抛出与抽象相对应的异常</h3><p>&emsp;&emsp;底层异常经过传播，当高层方法捕捉异常后会出现异常与任务没有明显联系的情况，解决方案：  </p>
 <ol>
 <li>异常转译<br>&emsp;&emsp; catch底层异常后new一个新的对应的高层异常  </li>
@@ -1695,7 +1696,7 @@
 <h3 id="第62条-每个方法抛出的异常都要有文档"><a href="#第62条-每个方法抛出的异常都要有文档" class="headerlink" title="第62条 每个方法抛出的异常都要有文档"></a>第62条 每个方法抛出的异常都要有文档</h3><p>&emsp;&emsp;如果一个方法抛出多个异常类，不要抛出异常类的超类，如“throws Exception”</p>
 <p>文档自觉吧。。。</p>
 <h3 id="第63条-在细节消息中包含能捕获失败的信息"><a href="#第63条-在细节消息中包含能捕获失败的信息" class="headerlink" title="第63条 在细节消息中包含能捕获失败的信息"></a>第63条 在细节消息中包含能捕获失败的信息</h3><p>&emsp;&emsp;异常的细节信息应该包含“对该异常有贡献”的参数和域的值，例如IndexOutOfBoundsException异常的细节消息应包含下界、上界以及没有落在界内的下标值<br>&emsp;&emsp;在异常构造器中引入造成失败的参数  </p>
-<p>###第64条 努力使失败保持原子性<br>&emsp;&emsp;失败的方法调用应该使对象保持在被调用之前的状态</p>
+<h3 id="第64条-努力使失败保持原子性"><a href="#第64条-努力使失败保持原子性" class="headerlink" title="第64条 努力使失败保持原子性"></a>第64条 努力使失败保持原子性</h3><p>&emsp;&emsp;失败的方法调用应该使对象保持在被调用之前的状态</p>
 <p>实现方法：</p>
 <ul>
 <li>设计一个不可变对象，如果操作失败，可能会阻止创建新对象，永远也不会使已有对象处于不一致的状态中。</li>
@@ -1704,7 +1705,7 @@
 <li>写恢复代码，不常用</li>
 <li>在临时拷贝上执行操作，在用临时拷贝对象内容代替对象内容</li>
 </ul>
-<p>###第65条 不要忽略异常<br>&emsp;&emsp;不要空置catch块，若不得不空置，需要注释这样做的原因</p>
+<h3 id="第65条-不要忽略异常"><a href="#第65条-不要忽略异常" class="headerlink" title="第65条 不要忽略异常"></a>第65条 不要忽略异常</h3><p>&emsp;&emsp;不要空置catch块，若不得不空置，需要注释这样做的原因</p>
 
           
         
@@ -1897,7 +1898,7 @@
       
         
           
-            <p>###第45条 将局部变量的作用与最小化<br>&emsp;&emsp;要是局部变量的作用与最小化，最有力的方法就是在第一次使用它的地方声明。</p>
+            <h3 id="第45条-将局部变量的作用与最小化"><a href="#第45条-将局部变量的作用与最小化" class="headerlink" title="第45条 将局部变量的作用与最小化"></a>第45条 将局部变量的作用与最小化</h3><p>&emsp;&emsp;要是局部变量的作用与最小化，最有力的方法就是在第一次使用它的地方声明。</p>
 <p>&emsp;&emsp;for循环优于while循环，for循环定义的变量作用与仅限于循环内，while需要初始化变量</p>
 <p>&emsp;&emsp;对局部变量作用域最小化的循环做法：</p>
 <figure class="highlight matlab"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span>( int <span class="built_in">i</span> = <span class="number">0</span> , n= computeSize(); <span class="built_in">i</span>&lt;n; <span class="built_in">i</span>++)&#123;</span><br><span class="line">...</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
@@ -1918,7 +1919,7 @@
 <li>字符串不适合代替聚集类型，如String key = className + “#” + i.next();</li>
 <li>字符串不适合代替能力表（unforgeable key, 也被叫做能力表capability）</li>
 </ol>
-<p>###第51条 当心字符串链接的性能<br>&emsp;&emsp;不要使用“+”连接字符串，使用StringBuilder</p>
+<h3 id="第51条-当心字符串链接的性能"><a href="#第51条-当心字符串链接的性能" class="headerlink" title="第51条 当心字符串链接的性能"></a>第51条 当心字符串链接的性能</h3><p>&emsp;&emsp;不要使用“+”连接字符串，使用StringBuilder</p>
 <h3 id="第52条-使用接口引用对象"><a href="#第52条-使用接口引用对象" class="headerlink" title="第52条 使用接口引用对象"></a>第52条 使用接口引用对象</h3><p>&emsp;&emsp;如果有合适的接口类型存在，那么对于参数、返回值、变量和域来说，都应该使用接口类型声明。</p>
 <h3 id="第53条-接口优先于反射机制"><a href="#第53条-接口优先于反射机制" class="headerlink" title="第53条 接口优先于反射机制"></a>第53条 接口优先于反射机制</h3><p>反射缺点：</p>
 <ol>
@@ -2140,7 +2141,7 @@
           
             <h3 id="第38条-检查参数有效性"><a href="#第38条-检查参数有效性" class="headerlink" title="第38条 检查参数有效性"></a>第38条 检查参数有效性</h3><p>&emsp;&emsp;对于开放方法，使用exception</p>
 <p>&emsp;&emsp;对于私有方法，可以使用assert</p>
-<p>###第39条 必要时进行保护性拷贝<br>&emsp;&emsp;在与对外接口交互过程中，确保接收或返回的对象是不可变的。</p>
+<h3 id="第39条-必要时进行保护性拷贝"><a href="#第39条-必要时进行保护性拷贝" class="headerlink" title="第39条 必要时进行保护性拷贝"></a>第39条 必要时进行保护性拷贝</h3><p>&emsp;&emsp;在与对外接口交互过程中，确保接收或返回的对象是不可变的。</p>
 <p>&emsp;&emsp;对于赋值时传入的对象，可以把关键信息重新赋值给新对象，防止外部对该对象进行修改时随之改变</p>
 <p>&emsp;&emsp;对于使用get访问一个对象时，为了防止拿到对象的类对其进行修改，可以把关键信息放在一个新对象里并返回（与创建试图思想一致）进行保护性拷贝会造成性能损失，对于同一个项目里，只在内部用到的类，只需确保编码时不会对其用到的参数类进行修改即可，对于与外界交互的类，需要注意该条建议</p>
 <h3 id="第40条-谨慎设计方法签名"><a href="#第40条-谨慎设计方法签名" class="headerlink" title="第40条 谨慎设计方法签名"></a>第40条 谨慎设计方法签名</h3><ol>
@@ -2356,9 +2357,9 @@
       
         
           
-            <p>##运行时数据区域<br>&emsp;&emsp;运行时数据区域主要包括堆、虚拟机栈、本地方法栈、程序计数器、方法区。</p>
-<p>###程序计数器<br>&emsp;&emsp;程序计数器可以看作是当前线程所执行的字节码的行号指示器。每条线程都有独立的程序计数器。该区域是唯一一个在Java虚拟机规范中没有规定任何OutOfMemeryError情况的区域</p>
-<p>###Java虚拟机栈<br>&emsp;&emsp;栈是线程私有的，生命周期与线程一样。其描述的是Java方法执行的内存模型，每个方法在执行期间会创建一个栈帧(stack frame)，用于存储局部变量表、操作数栈、动态链接、方法出口等信息。</p>
+            <h2 id="运行时数据区域"><a href="#运行时数据区域" class="headerlink" title="运行时数据区域"></a>运行时数据区域</h2><p>&emsp;&emsp;运行时数据区域主要包括堆、虚拟机栈、本地方法栈、程序计数器、方法区。</p>
+<h3 id="程序计数器"><a href="#程序计数器" class="headerlink" title="程序计数器"></a>程序计数器</h3><p>&emsp;&emsp;程序计数器可以看作是当前线程所执行的字节码的行号指示器。每条线程都有独立的程序计数器。该区域是唯一一个在Java虚拟机规范中没有规定任何OutOfMemeryError情况的区域</p>
+<h3 id="Java虚拟机栈"><a href="#Java虚拟机栈" class="headerlink" title="Java虚拟机栈"></a>Java虚拟机栈</h3><p>&emsp;&emsp;栈是线程私有的，生命周期与线程一样。其描述的是Java方法执行的内存模型，每个方法在执行期间会创建一个栈帧(stack frame)，用于存储局部变量表、操作数栈、动态链接、方法出口等信息。</p>
 <p>&emsp;&emsp;局部变量表存放了编译器可知的各种基本数据类型、对象引用、returnAddress类型。其内存空间在编译阶段完成分配，方法运行期间不会改变局部变量表的大小。</p>
 <p>&emsp;&emsp;这个区域规定了两种异常状况。</p>
 <ul>
@@ -2367,17 +2368,16 @@
 <li><p>虚拟机栈可以动态扩展，若扩展时无法获得足够的内存，会抛出OutOfMemoryError异常</p>
 </li>
 </ul>
-<p>###本地方法栈<br>&emsp;&emsp;与虚拟机栈作用类似，区别在于虚拟机栈为执行java方法服务，本地方法栈为Native方法服务。</p>
-<p>###Java堆<br>&emsp;&emsp;Java堆(Heap)是Java虚拟机管理内存中最大的一块，被所有线程共享。其唯一作用就是存放对象实例。</p>
+<h3 id="本地方法栈"><a href="#本地方法栈" class="headerlink" title="本地方法栈"></a>本地方法栈</h3><p>&emsp;&emsp;与虚拟机栈作用类似，区别在于虚拟机栈为执行java方法服务，本地方法栈为Native方法服务。</p>
+<h3 id="Java堆"><a href="#Java堆" class="headerlink" title="Java堆"></a>Java堆</h3><p>&emsp;&emsp;Java堆(Heap)是Java虚拟机管理内存中最大的一块，被所有线程共享。其唯一作用就是存放对象实例。</p>
 <p>&emsp;&emsp;<strong>绝大多数对象示例及数组要在堆上分配，但是随着JIT编译器的发展和逃逸分析技术逐渐成熟，栈上分配、标量替换优化技术导致一些微妙变化的发生，所有对象都分配在堆上也不那么绝对了</strong></p>
 <p>&emsp;&emsp;堆是垃圾收集器管理的主要区域，基本都采用分代收集算法。</p>
 <p>&emsp;&emsp;Java堆可以处于物理上不连续的空间中，只要逻辑连续就可以。</p>
-<p>###方法区<br>&emsp;&emsp;方法区与堆一样，是线程共享的，它用于存储已经被虚拟机加载的类信息、常量、静态变量、即时编译后的代码等数据。</p>
+<h3 id="方法区"><a href="#方法区" class="headerlink" title="方法区"></a>方法区</h3><p>&emsp;&emsp;方法区与堆一样，是线程共享的，它用于存储已经被虚拟机加载的类信息、常量、静态变量、即时编译后的代码等数据。</p>
 <p>&emsp;&emsp;垃圾收集行为在这个区域比较少见，其主要的内存回收目标是针对常量池的回收和对类型的卸载。</p>
-<p>###运行时常量池<br>&emsp;&emsp;是方法区的一部分，主要用于存放编译期生成的各种字面量和符号引用。</p>
-<p>###直接内存<br>&emsp;&emsp;不是虚拟机运行时数据区的一部分，也不是java虚拟机规范中定义的内存区域。NIO类引入了基于通道（Channel）与缓冲区（Buffer）的I/O方式，它可以使用Native函数直接分配堆外内存，然后通过一个存储在Java堆中的DirectByteBuffer对象作为这块内存的引用进行操作。这样能显著提高性能，因为避免了在Java堆和Native堆中来回复制数据。</p>
-<p>##HotSpot虚拟机对象探秘</p>
-<p>###对象的创建<br>&emsp;&emsp;对象创建过程如下：</p>
+<h3 id="运行时常量池"><a href="#运行时常量池" class="headerlink" title="运行时常量池"></a>运行时常量池</h3><p>&emsp;&emsp;是方法区的一部分，主要用于存放编译期生成的各种字面量和符号引用。</p>
+<h3 id="直接内存"><a href="#直接内存" class="headerlink" title="直接内存"></a>直接内存</h3><p>&emsp;&emsp;不是虚拟机运行时数据区的一部分，也不是java虚拟机规范中定义的内存区域。NIO类引入了基于通道（Channel）与缓冲区（Buffer）的I/O方式，它可以使用Native函数直接分配堆外内存，然后通过一个存储在Java堆中的DirectByteBuffer对象作为这块内存的引用进行操作。这样能显著提高性能，因为避免了在Java堆和Native堆中来回复制数据。</p>
+<h2 id="HotSpot虚拟机对象探秘"><a href="#HotSpot虚拟机对象探秘" class="headerlink" title="HotSpot虚拟机对象探秘"></a>HotSpot虚拟机对象探秘</h2><h3 id="对象的创建"><a href="#对象的创建" class="headerlink" title="对象的创建"></a>对象的创建</h3><p>&emsp;&emsp;对象创建过程如下：</p>
 <ol>
 <li>类加载检查：当虚拟机遇到new指令时，首先去检查指令的参数是否能在常量池中定位到一个类的符号引用，并检查这个符号引用代表的类是否已经被加载、解析和初始化过。如果没有，那必须执行相应的类加载过程。</li>
 <li><p>分配内存：对象所需内存的大小在类加载完成后便可完全确定，为对象分配空间的任务等同于把一块确定大小的内存从Java堆中划分出来。划分空间方案：</p>
@@ -2397,13 +2397,13 @@
 <li>对象初始化：执行new指令后会执行init方法，把对象初始化。</li>
 </ol>
 <p>&emsp;&emsp;经过以上步骤，一个对象就被产生出来。</p>
-<p>###对象内存布局<br>&emsp;&emsp;对象在内存中的布局分为3块区域：对象头（Header）、实例数据（Instance Data）、对齐填充（Padding）。</p>
-<p>####对象头<br>&emsp;&emsp;包含两部分信息</p>
+<h3 id="对象内存布局"><a href="#对象内存布局" class="headerlink" title="对象内存布局"></a>对象内存布局</h3><p>&emsp;&emsp;对象在内存中的布局分为3块区域：对象头（Header）、实例数据（Instance Data）、对齐填充（Padding）。</p>
+<h4 id="对象头"><a href="#对象头" class="headerlink" title="对象头"></a>对象头</h4><p>&emsp;&emsp;包含两部分信息</p>
 <ul>
 <li>存储对象自身运行时数据，如HashCode、GC分代年龄、锁状态、线程持有的锁、偏向线程ID、偏向时戳。这部分数据称为“Mark Word”</li>
 <li>类型指针，即对象指向它的类元数据的指针，虚拟机通过这个指针确定类是哪个类的实例，但并不是所有虚拟机都必须在对象数据上保留类型指针。如果对象是一个数组，还需要记录数组长度。</li>
 </ul>
-<p>###对象访问定位<br>&emsp;&emsp;有两种方式：</p>
+<h3 id="对象访问定位"><a href="#对象访问定位" class="headerlink" title="对象访问定位"></a>对象访问定位</h3><p>&emsp;&emsp;有两种方式：</p>
 <ul>
 <li>句柄访问：Java堆中划分出一部分内存作为句柄池，栈里的reference存储的是对象句柄的地址，句柄中包含了实例数字与类型数据的具体地址信息。好处：reference中存储稳定的句柄地址，对象被移动时只改变句柄中的实例数据指针，而reference中的地址不需要改变。</li>
 <li>直接指针：reference直接存放指针。好处：速度快，节省了一次指针定位的开销。</li>
@@ -2600,15 +2600,13 @@
       
         
           
-            <p>&emsp;&emsp;上一篇博客介绍了knn算法，以及简单的python实现代码，其中使用了线形扫描(linear scan)方式逐一计算输入实例与训练数据间的距离，复杂度较大，本篇博客将介绍knn算法的另一种高效实现方式–kd树。</p>
-<p>#简介<br>&emsp;&emsp;kd树是一种对k维空间中的实例点进行存储以便对其进行快速检索的树形数据结构。kd树是二叉树，表示对k维空间的一个划分。构造kd树相当于不断地用垂直于坐标轴的超平面将k维空间切分，构成一系列的k维超矩形区域。kd树每个节点对应一个k维超矩形区域。在进行k近邻查找时，遍历kd树，实现减少计算量的目的。</p>
-<p>#原理</p>
-<p>##构建kd树</p>
-<p>###定义节点</p>
-<ul>
+            <p>&emsp;&emsp;上一篇博客介绍了knn算法，以及简单的python实现代码，其中使用了线形扫描(linear scan)方式逐一计算输入实例与训练数据间的距离，复杂度较大，本篇博客将介绍knn算法的另一种高效实现方式—kd树。</p>
+<h1 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h1><p>&emsp;&emsp;kd树是一种对k维空间中的实例点进行存储以便对其进行快速检索的树形数据结构。kd树是二叉树，表示对k维空间的一个划分。构造kd树相当于不断地用垂直于坐标轴的超平面将k维空间切分，构成一系列的k维超矩形区域。kd树每个节点对应一个k维超矩形区域。在进行k近邻查找时，遍历kd树，实现减少计算量的目的。</p>
+<h1 id="原理"><a href="#原理" class="headerlink" title="原理"></a>原理</h1><h2 id="构建kd树"><a href="#构建kd树" class="headerlink" title="构建kd树"></a>构建kd树</h2><h3 id="定义节点"><a href="#定义节点" class="headerlink" title="定义节点"></a>定义节点</h3><ul>
 <li>算法描述</li>
 </ul>
 <p>&emsp;&emsp;首先需要定义二叉树节点Node，其中需要包括的信息有</p>
+<div class="table-container">
 <table>
 <thead>
 <tr>
@@ -2645,13 +2643,12 @@
 </tr>
 </tbody>
 </table>
+</div>
 <ul>
 <li>python实现</li>
 </ul>
 <figure class="highlight ruby"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#encoding:utf8</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Node</span>(<span class="title">object</span>):</span></span><br><span class="line">	<span class="function"><span class="keyword">def</span> <span class="title">__init__</span><span class="params">(<span class="keyword">self</span>,point,left,right,split,label)</span></span><span class="symbol">:</span></span><br><span class="line">		<span class="comment">#左子树</span></span><br><span class="line">		<span class="keyword">self</span>.left = left</span><br><span class="line">		<span class="comment">#右子树</span></span><br><span class="line">		<span class="keyword">self</span>.right = right</span><br><span class="line">		<span class="comment">#数据节点</span></span><br><span class="line">		<span class="keyword">self</span>.point = point</span><br><span class="line">		<span class="comment">#分割维度</span></span><br><span class="line">		<span class="keyword">self</span>.split = split</span><br><span class="line">		<span class="comment">#标签</span></span><br><span class="line">		<span class="keyword">self</span>.label = label</span><br></pre></td></tr></table></figure>
-<p>###构建平衡kd树</p>
-<p>####算法描述</p>
-<ul>
+<h3 id="构建平衡kd树"><a href="#构建平衡kd树" class="headerlink" title="构建平衡kd树"></a>构建平衡kd树</h3><h4 id="算法描述"><a href="#算法描述" class="headerlink" title="算法描述"></a>算法描述</h4><ul>
 <li><p>输入：K维空间数据集$T=\lbrace x_1,x_2,…,x_n\rbrace$，其中$x_i = (x_i^{(1)},x_i^{(2)},…,x_i^{(k)})^T$，$i=1,2,…,N$</p>
 </li>
 <li><p>输出：kd树</p>
@@ -2665,9 +2662,8 @@
 <li>在左右子区域上分别重复执行步骤2，直到两个子区域没有实例存在时停止，完成kd树的构建</li>
 </ol>
 <h4 id="python实现"><a href="#python实现" class="headerlink" title="python实现"></a>python实现</h4><figure class="highlight nix"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#encoding:utf8</span></span><br><span class="line"><span class="built_in">import</span> numpy as np</span><br><span class="line">from node <span class="built_in">import</span> Node</span><br><span class="line"></span><br><span class="line">def constructKDTree(dataset,datalabel):</span><br><span class="line">	<span class="attr">length</span> = len(dataset)</span><br><span class="line">	<span class="keyword">if</span> <span class="attr">length</span> == <span class="number">0</span>:</span><br><span class="line">		return</span><br><span class="line">	<span class="attr">median</span> = length/<span class="number">2</span></span><br><span class="line">	<span class="comment">#计算维度个数</span></span><br><span class="line">	<span class="attr">dimension</span> = len(dataset[<span class="number">0</span>])</span><br><span class="line">	<span class="comment">#求每个维度的方差，axis=0是按列运算的意思，axis=1是按行运算</span></span><br><span class="line">	<span class="attr">vars</span> = np.var(dataset,<span class="attr">axis=0)</span></span><br><span class="line">	<span class="comment">#求方差最大的维度索引，即分割维度</span></span><br><span class="line">	<span class="attr">index</span> = np.argmax(vars)</span><br><span class="line">	<span class="comment">#按照方差最大的维度进行排序</span></span><br><span class="line">	<span class="attr">sorted_index</span> = dataset[:,index].argsort()</span><br><span class="line">	<span class="attr">sorted_data</span> = dataset[sorted_index]</span><br><span class="line">	<span class="attr">sorted_label</span> = datalabel[sorted_index]</span><br><span class="line">	<span class="comment">#左子树是小于中位数的部分</span></span><br><span class="line">	<span class="attr">left_data</span> = sorted_data[:median]</span><br><span class="line">	<span class="attr">left_label</span> = datalabel[:median]</span><br><span class="line">	<span class="comment">#父节点是中位数</span></span><br><span class="line">	<span class="attr">median_data</span> = sorted_data[median]</span><br><span class="line">	<span class="attr">median_label</span> = datalabel[median]</span><br><span class="line">	<span class="comment">#右子树是大于中位数的部分</span></span><br><span class="line">	<span class="attr">right_data</span> = sorted_data[median+<span class="number">1</span>:]</span><br><span class="line">	<span class="attr">right_label</span> = datalabel[median+<span class="number">1</span>:]</span><br><span class="line">	<span class="comment">#递归建立kd树</span></span><br><span class="line">	return Node(median_data,constructKDTree(left_data,left_label),constructKDTree(right_data,right_label),index,median_label)</span><br></pre></td></tr></table></figure>
-<p>##搜索kd树<br>&emsp;&emsp;kd树相当于给训练数据建立了索引，所以利用kd树可以快速搜索到距离输入实例最近的训练数据点。</p>
-<p>###算法描述</p>
-<ul>
+<h2 id="搜索kd树"><a href="#搜索kd树" class="headerlink" title="搜索kd树"></a>搜索kd树</h2><p>&emsp;&emsp;kd树相当于给训练数据建立了索引，所以利用kd树可以快速搜索到距离输入实例最近的训练数据点。</p>
+<h3 id="算法描述-1"><a href="#算法描述-1" class="headerlink" title="算法描述"></a>算法描述</h3><ul>
 <li>输入：构造好的kd树，输入实例x</li>
 <li>输出：x的最近邻</li>
 <li>过程：</li>
@@ -2682,37 +2678,57 @@
 </li>
 <li>当回退到根节点，搜索结束，最后的“当前结点“即为x的最近邻。</li>
 </ol>
-<p>###python实现</p>
-<figure class="highlight nix"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line">def find_nearest_neighbor(target,tree):</span><br><span class="line">	<span class="comment">#记录到叶子结点节点前搜索过的节点</span></span><br><span class="line">	<span class="attr">path_deque</span> = path_to_leaf_node(target,tree,deque()) </span><br><span class="line">	<span class="comment">#回溯第一个节点</span></span><br><span class="line">	<span class="attr">kd_node</span> = path_deque.pop()</span><br><span class="line">	<span class="comment">#假设第一个节点为最近邻</span></span><br><span class="line">	<span class="attr">nearest_point</span> = kd_node.point</span><br><span class="line">	<span class="comment">#计算最近邻节点与输入实例间距离</span></span><br><span class="line">	<span class="attr">nearest_dist</span> = distance(target,nearest_point)</span><br><span class="line">	<span class="comment">#最近邻节点的标签</span></span><br><span class="line">	<span class="attr">nearest_label</span> = kd_node.label</span><br><span class="line">	<span class="comment">#回溯</span></span><br><span class="line">	while path_deque:</span><br><span class="line">		<span class="attr">kd_node</span> = path_deque.pop()</span><br><span class="line">		<span class="comment">#计算实例点与最近邻节点父节点的距离</span></span><br><span class="line">		<span class="attr">node_dist</span> = distance(target,kd_node.point)</span><br><span class="line">		<span class="comment">#更新最近邻节点</span></span><br><span class="line">		<span class="keyword">if</span> node_dist &lt; nearest_dist:</span><br><span class="line">			<span class="attr">nearest_point</span> = kd_node.point</span><br><span class="line">			<span class="attr">nearest_dist</span> = node_dist</span><br><span class="line">			<span class="attr">nearest_label</span> = kd_node.label</span><br><span class="line">		<span class="comment">#获取分割维度</span></span><br><span class="line">		<span class="attr">s</span> = kd_node.split</span><br><span class="line">		<span class="comment">#判断是否需要进入最近邻节点的左右子空间进行搜索</span></span><br><span class="line">		<span class="keyword">if</span> abs(target[s] - kd_node.point[s]) &lt; nearest_dist:</span><br><span class="line">			<span class="comment">#进入右子树</span></span><br><span class="line">			<span class="keyword">if</span> target[s] &lt;  kd_node.point[s]:</span><br><span class="line">				<span class="attr">path_deque</span> = path_to_leaf_node(target,kd_node.right,path_deque)</span><br><span class="line">			<span class="comment">#进入左子树</span></span><br><span class="line">			<span class="keyword">else</span>:</span><br><span class="line">				<span class="attr">path_deque</span> = path_to_leaf_node(target,kd_node.left,path_deque)</span><br><span class="line"></span><br><span class="line">	return nearest_point,nearest_label,nearest_dist</span><br></pre></td></tr></table></figure>
+<h3 id="python实现-1"><a href="#python实现-1" class="headerlink" title="python实现"></a>python实现</h3><figure class="highlight nix"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line">def find_nearest_neighbor(target,tree):</span><br><span class="line">	<span class="comment">#记录到叶子结点节点前搜索过的节点</span></span><br><span class="line">	<span class="attr">path_deque</span> = path_to_leaf_node(target,tree,deque()) </span><br><span class="line">	<span class="comment">#回溯第一个节点</span></span><br><span class="line">	<span class="attr">kd_node</span> = path_deque.pop()</span><br><span class="line">	<span class="comment">#假设第一个节点为最近邻</span></span><br><span class="line">	<span class="attr">nearest_point</span> = kd_node.point</span><br><span class="line">	<span class="comment">#计算最近邻节点与输入实例间距离</span></span><br><span class="line">	<span class="attr">nearest_dist</span> = distance(target,nearest_point)</span><br><span class="line">	<span class="comment">#最近邻节点的标签</span></span><br><span class="line">	<span class="attr">nearest_label</span> = kd_node.label</span><br><span class="line">	<span class="comment">#回溯</span></span><br><span class="line">	while path_deque:</span><br><span class="line">		<span class="attr">kd_node</span> = path_deque.pop()</span><br><span class="line">		<span class="comment">#计算实例点与最近邻节点父节点的距离</span></span><br><span class="line">		<span class="attr">node_dist</span> = distance(target,kd_node.point)</span><br><span class="line">		<span class="comment">#更新最近邻节点</span></span><br><span class="line">		<span class="keyword">if</span> node_dist &lt; nearest_dist:</span><br><span class="line">			<span class="attr">nearest_point</span> = kd_node.point</span><br><span class="line">			<span class="attr">nearest_dist</span> = node_dist</span><br><span class="line">			<span class="attr">nearest_label</span> = kd_node.label</span><br><span class="line">		<span class="comment">#获取分割维度</span></span><br><span class="line">		<span class="attr">s</span> = kd_node.split</span><br><span class="line">		<span class="comment">#判断是否需要进入最近邻节点的左右子空间进行搜索</span></span><br><span class="line">		<span class="keyword">if</span> abs(target[s] - kd_node.point[s]) &lt; nearest_dist:</span><br><span class="line">			<span class="comment">#进入右子树</span></span><br><span class="line">			<span class="keyword">if</span> target[s] &lt;  kd_node.point[s]:</span><br><span class="line">				<span class="attr">path_deque</span> = path_to_leaf_node(target,kd_node.right,path_deque)</span><br><span class="line">			<span class="comment">#进入左子树</span></span><br><span class="line">			<span class="keyword">else</span>:</span><br><span class="line">				<span class="attr">path_deque</span> = path_to_leaf_node(target,kd_node.left,path_deque)</span><br><span class="line"></span><br><span class="line">	return nearest_point,nearest_label,nearest_dist</span><br></pre></td></tr></table></figure>
 <p> &emsp;&emsp;代码详见<a href="https://github.com/yajian/machine_learning/tree/master/kdtree" target="_blank" rel="noopener">kdtree</a></p>
-<p>#示例<br>&emsp;&emsp;以《统计学习方法》中的例题为例，直观地解释kd树的构建和搜索。</p>
-<p>##问题描述<br>给定一个二维空间的数据集$T=\lbrace(2,3)^T,(5,4)^T,(9,6)^T,(4,7)^T,(8,1)^T,(7,2)^T\rbrace$，其在二维空间中的位置如图所示，求点(2.1,3.1)和(2,4.5)的最近邻。</p>
-<div align="center"><br><img src="kd树/点位置.png" width="300" height="250" title="数据分布示意"><br></div>
+<h1 id="示例"><a href="#示例" class="headerlink" title="示例"></a>示例</h1><p>&emsp;&emsp;以《统计学习方法》中的例题为例，直观地解释kd树的构建和搜索。</p>
+<h2 id="问题描述"><a href="#问题描述" class="headerlink" title="问题描述"></a>问题描述</h2><p>给定一个二维空间的数据集$T=\lbrace(2,3)^T,(5,4)^T,(9,6)^T,(4,7)^T,(8,1)^T,(7,2)^T\rbrace$，其在二维空间中的位置如图所示，求点(2.1,3.1)和(2,4.5)的最近邻。</p>
+<div align="center">
+<img src="/kd树/点位置.png" width="300" height="250" title="数据分布示意">
+</div>
 
-<p>##构建kd树<br>&emsp;&emsp;首先，计算x、y方向上的方差，其中var(x)=5.805,var(y)=4.472，x方向上的方差更大所以先选取x方向为分割方向。<br>&emsp;&emsp;其次，选择x方向上的中位数，即(4,7)^T，空间划分如下图</p>
-<div align="center"><br><img src="kd树/x1分割.png" width="300" height="250" title="第一次空间划分"><br></div><br>&emsp;&emsp;以此类推，经过三次划分构建好kd树，如gif所示<br><div align="center"><br><img src="kd树/空间划分过程.gif" width="300" height="250" title="空间划分过程"><br></div><br>&emsp;&emsp;构建的树形结构如下图所示<br><div align="center"><br><img src="kd树/kdtree.png" width="150" height="150" title="kdtree"><br></div>
+<h2 id="构建kd树-1"><a href="#构建kd树-1" class="headerlink" title="构建kd树"></a>构建kd树</h2><p>&emsp;&emsp;首先，计算x、y方向上的方差，其中var(x)=5.805,var(y)=4.472，x方向上的方差更大所以先选取x方向为分割方向。<br>&emsp;&emsp;其次，选择x方向上的中位数，即(4,7)^T，空间划分如下图</p>
+<div align="center">
+<img src="/kd树/x1分割.png" width="300" height="250" title="第一次空间划分">
+</div>
+&emsp;&emsp;以此类推，经过三次划分构建好kd树，如gif所示
+<div align="center">
+<img src="/kd树/空间划分过程.gif" width="300" height="250" title="空间划分过程">
+</div>
+&emsp;&emsp;构建的树形结构如下图所示
+<div align="center">
+<img src="/kd树/kdtree.png" width="150" height="150" title="kdtree">
+</div>
 
-<p>##搜索kd树</p>
-<p>###点(2.1,3.1)的最近邻</p>
-<p>&emsp;&emsp;首先在kd树上搜索距离点(2.1,3.1)最近的叶子结点，结果为(2，3)，距离为0.1414，搜索过程如下所示</p>
-<div align="center"><br><img src="kd树/搜索过程1.jpeg" width="300" height="250" title="搜索过程1"><br></div>
+<h2 id="搜索kd树-1"><a href="#搜索kd树-1" class="headerlink" title="搜索kd树"></a>搜索kd树</h2><h3 id="点-2-1-3-1-的最近邻"><a href="#点-2-1-3-1-的最近邻" class="headerlink" title="点(2.1,3.1)的最近邻"></a>点(2.1,3.1)的最近邻</h3><p>&emsp;&emsp;首先在kd树上搜索距离点(2.1,3.1)最近的叶子结点，结果为(2，3)，距离为0.1414，搜索过程如下所示</p>
+<div align="center">
+<img src="/kd树/搜索过程1.jpeg" width="300" height="250" title="搜索过程1">
+</div>
 
 <p>&emsp;&emsp;但是叶子结点不一定是离点(2.1,3.1)最近的结点，所以向上进行回溯。先回溯到父节点(5,4)，计算距离为3.036，不满足最近邻要求。接下来判断是否需要进入父节点的其他子节点空间，以(2.1,3.1)为圆心，0.1414为半径画圆，发现该圆与切分超平面y=4不相交，因此不进入(5,4)右子节点搜索。</p>
 <p>&emsp;&emsp;继续向上回溯到父节点(7,2)，计算距离为5.022，不满足最近邻要求。接下来判断是否需要进入父节点的其他子节点空间，以(2.1,3.1)为圆心，0.1414为半径画圆，如下图所示发现该圆与切分超平面x=7不相交，因此不进入(7,2)右子节点搜索。</p>
-<div align="center"><br><img src="kd树/子空间判断1.png" width="300" height="250" title="子空间判断1"><br></div>
+<div align="center">
+<img src="/kd树/子空间判断1.png" width="300" height="250" title="子空间判断1">
+</div>
 
 <p>&emsp;&emsp;至此，搜索路径中的结点已经完全回溯完，返回最近邻节点(2，3)，距离为0.1414。</p>
-<p>###点(2,4.5)的最近邻</p>
-<p>&emsp;&emsp;同理先搜索叶子结点，过程如下所示</p>
-<div align="center"><br><img src="kd树/搜索过程2.jpg" width="300" height="250" title="搜索过程2"><br></div><br>&emsp;&emsp;叶子结点为(4,7)，距离为3.202。回溯到父节点(5,4)，计算距离为3.041，最近邻更新为该点。接下来判断是否需要进入父节点的其他子节点空间，以(2,4.5)为圆心，3.041为半径画圆，如下图所示，发现该圆与切分超平面y=4相交，因此进入(5,4)左子节点搜索。<br><br><div align="center"><br><img src="kd树/子空间判断2.png" width="300" height="250" title="子空间判断2"><br></div>
+<h3 id="点-2-4-5-的最近邻"><a href="#点-2-4-5-的最近邻" class="headerlink" title="点(2,4.5)的最近邻"></a>点(2,4.5)的最近邻</h3><p>&emsp;&emsp;同理先搜索叶子结点，过程如下所示</p>
+<div align="center">
+<img src="/kd树/搜索过程2.jpg" width="300" height="250" title="搜索过程2">
+</div>
+&emsp;&emsp;叶子结点为(4,7)，距离为3.202。回溯到父节点(5,4)，计算距离为3.041，最近邻更新为该点。接下来判断是否需要进入父节点的其他子节点空间，以(2,4.5)为圆心，3.041为半径画圆，如下图所示，发现该圆与切分超平面y=4相交，因此进入(5,4)左子节点搜索。
+
+<div align="center">
+<img src="/kd树/子空间判断2.png" width="300" height="250" title="子空间判断2">
+</div>
 
 <p>&emsp;&emsp;计算与点(2,3)距离为1.5，最近邻更新为当前节点。</p>
 <p>&emsp;&emsp;继续向上回溯到父节点(7,2)，计算距离为5.59，不满足最近邻要求。接下来判断是否需要进入父节点的其他子节点空间，以(2,4.5)为圆心，1.5为半径画圆，发现该圆与切分超平面x=7不相交，因此不进入(7,2)右子节点搜索。</p>
-<div align="center"><br><img src="kd树/子空间判断3.png" width="300" height="250" title="子空间判断3"><br></div>
+<div align="center">
+<img src="/kd树/子空间判断3.png" width="300" height="250" title="子空间判断3">
+</div>
 
 <p>&emsp;&emsp;至此，搜索路径中的结点已经完全回溯完，返回最近邻节点(2，3)，距离为1.5。</p>
-<p>#参考</p>
-<ul>
+<h1 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h1><ul>
 <li><p>统计学习方法，李航，清华大学出版社</p>
 </li>
 <li><p>机器学习实战，Peter Harrington，人民邮电出版社</p>
@@ -3445,7 +3461,24 @@
   
 
   
-    <script type="text/javascript" src="//cdn.bootcss.com/canvas-nest.js/1.0.0/canvas-nest.min.js"></script>
+    <script type="text/javascript" src="//cdn.bootcss.com/canvas-nest.js/1.0.0/canvas-nest.min.js"></script><!-- hexo-inject:begin --><!-- Begin: Injected MathJax -->
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config("");
+</script>
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i=0; i < all.length; i += 1) {
+      all[i].SourceElement().parentNode.className += ' has-jax';
+    }
+  });
+</script>
+
+<script type="text/javascript" src="custom_mathjax_source">
+</script>
+<!-- End: Injected MathJax -->
+<!-- hexo-inject:end -->
   
 </body>
 </html>

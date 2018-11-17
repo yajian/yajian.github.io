@@ -7,7 +7,7 @@
 
 <html class="theme-next pisces use-motion" lang="zh-Hans">
 <head><meta name="generator" content="Hexo 3.8.0">
-  <meta charset="UTF-8">
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><meta charset="UTF-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 <script src="//cdn.bootcss.com/pace/1.0.2/pace.min.js"></script>
@@ -113,18 +113,18 @@
 
 
 
-<meta name="description" content="##背景 &amp;emsp;&amp;emsp;目前项目中用到了反射，但是java反射机制会造成一定的性能损失，需要初步确定其造成的损失程度。这次测试场景较为粗糙，有待进一步详细测试。 ##测试场景 ###硬件设备  电脑型号：MacBook Pro   系统版本：macOS High Sierra 10.13.1  处理器：2.7 GHz Intel Core i5  内存：8G  jvm版本：1.8.0_1">
+<meta name="description" content="背景&amp;emsp;&amp;emsp;目前项目中用到了反射，但是java反射机制会造成一定的性能损失，需要初步确定其造成的损失程度。这次测试场景较为粗糙，有待进一步详细测试。 测试场景硬件设备 电脑型号：MacBook Pro   系统版本：macOS High Sierra 10.13.1  处理器：2.7 GHz Intel Core i5  内存：8G  jvm版本：1.8.0_144  堆最大内存：">
 <meta name="keywords" content="reflect">
 <meta property="og:type" content="article">
 <meta property="og:title" content="反射机制性能测试">
 <meta property="og:url" content="http://yajian.github.io/反射机制性能测试/index.html">
 <meta property="og:site_name" content="小建儿的小站">
-<meta property="og:description" content="##背景 &amp;emsp;&amp;emsp;目前项目中用到了反射，但是java反射机制会造成一定的性能损失，需要初步确定其造成的损失程度。这次测试场景较为粗糙，有待进一步详细测试。 ##测试场景 ###硬件设备  电脑型号：MacBook Pro   系统版本：macOS High Sierra 10.13.1  处理器：2.7 GHz Intel Core i5  内存：8G  jvm版本：1.8.0_1">
+<meta property="og:description" content="背景&amp;emsp;&amp;emsp;目前项目中用到了反射，但是java反射机制会造成一定的性能损失，需要初步确定其造成的损失程度。这次测试场景较为粗糙，有待进一步详细测试。 测试场景硬件设备 电脑型号：MacBook Pro   系统版本：macOS High Sierra 10.13.1  处理器：2.7 GHz Intel Core i5  内存：8G  jvm版本：1.8.0_144  堆最大内存：">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2018-05-06T05:00:10.000Z">
+<meta property="og:updated_time" content="2018-11-17T10:02:15.171Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="反射机制性能测试">
-<meta name="twitter:description" content="##背景 &amp;emsp;&amp;emsp;目前项目中用到了反射，但是java反射机制会造成一定的性能损失，需要初步确定其造成的损失程度。这次测试场景较为粗糙，有待进一步详细测试。 ##测试场景 ###硬件设备  电脑型号：MacBook Pro   系统版本：macOS High Sierra 10.13.1  处理器：2.7 GHz Intel Core i5  内存：8G  jvm版本：1.8.0_1">
+<meta name="twitter:description" content="背景&amp;emsp;&amp;emsp;目前项目中用到了反射，但是java反射机制会造成一定的性能损失，需要初步确定其造成的损失程度。这次测试场景较为粗糙，有待进一步详细测试。 测试场景硬件设备 电脑型号：MacBook Pro   系统版本：macOS High Sierra 10.13.1  处理器：2.7 GHz Intel Core i5  内存：8G  jvm版本：1.8.0_144  堆最大内存：">
 
 
 
@@ -160,7 +160,7 @@
 
 
 
-  <title>反射机制性能测试 | 小建儿的小站</title>
+  <title>反射机制性能测试 | 小建儿的小站</title><!-- hexo-inject:begin --><!-- hexo-inject:end -->
   
 
 
@@ -179,7 +179,7 @@
     
   
 
-  <div class="container sidebar-position-left page-post-detail">
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><div class="container sidebar-position-left page-post-detail">
     <div class="headband"></div>
 
     <header id="header" class="header" itemscope="" itemtype="http://schema.org/WPHeader">
@@ -449,11 +449,8 @@
       
 
       
-        <p>##背景</p>
-<p>&emsp;&emsp;目前项目中用到了反射，但是java反射机制会造成一定的性能损失，需要初步确定其造成的损失程度。这次测试场景较为粗糙，有待进一步详细测试。</p>
-<p>##测试场景</p>
-<p>###硬件设备</p>
-<ul>
+        <h2 id="背景"><a href="#背景" class="headerlink" title="背景"></a>背景</h2><p>&emsp;&emsp;目前项目中用到了反射，但是java反射机制会造成一定的性能损失，需要初步确定其造成的损失程度。这次测试场景较为粗糙，有待进一步详细测试。</p>
+<h2 id="测试场景"><a href="#测试场景" class="headerlink" title="测试场景"></a>测试场景</h2><h3 id="硬件设备"><a href="#硬件设备" class="headerlink" title="硬件设备"></a>硬件设备</h3><ul>
 <li><p>电脑型号：MacBook Pro </p>
 </li>
 <li><p>系统版本：macOS High Sierra 10.13.1</p>
@@ -477,30 +474,46 @@
 <li>简单方法，get一个int行变量</li>
 <li>稍复杂方法，add两个long型变量</li>
 </ul>
-<p>##测试用例</p>
-<p>###待反射类定义</p>
-<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">InvokeClass</span> &#123;</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">int</span> a = <span class="number">1</span>;</span><br><span class="line">    </span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">getA</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> a;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">long</span> <span class="title">add</span><span class="params">(<span class="keyword">long</span> a, <span class="keyword">long</span> b)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> a + b;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>###反射执行get方法</p>
-<p>执行次数：Integer.MAX_VALUE，即(2^31 - 1)次</p>
+<h2 id="测试用例"><a href="#测试用例" class="headerlink" title="测试用例"></a>测试用例</h2><h3 id="待反射类定义"><a href="#待反射类定义" class="headerlink" title="待反射类定义"></a>待反射类定义</h3><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">InvokeClass</span> &#123;</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">int</span> a = <span class="number">1</span>;</span><br><span class="line">    </span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">getA</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> a;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">long</span> <span class="title">add</span><span class="params">(<span class="keyword">long</span> a, <span class="keyword">long</span> b)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> a + b;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="反射执行get方法"><a href="#反射执行get方法" class="headerlink" title="反射执行get方法"></a>反射执行get方法</h3><p>执行次数：Integer.MAX_VALUE，即(2^31 - 1)次</p>
 <h4 id="直接调用"><a href="#直接调用" class="headerlink" title="直接调用"></a>直接调用</h4><figure class="highlight arduino"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">InvokeClass invokeClass = <span class="keyword">new</span> InvokeClass();</span><br><span class="line"><span class="keyword">long</span> start = System.currentTimeMillis();</span><br><span class="line"><span class="built_in">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; Integer.MAX_VALUE; i++) &#123;</span><br><span class="line">    invokeClass.getA();</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">long</span> <span class="built_in">end</span> = System.currentTimeMillis();</span><br><span class="line">System.out.<span class="built_in">println</span>(<span class="built_in">end</span> - start);</span><br></pre></td></tr></table></figure>
 <p>平均耗时5ms</p>
-<p>####Java反射</p>
-<figure class="highlight oxygene"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">Method</span> <span class="title">method</span> = <span class="title">InvokeClass</span>.<span class="title">class</span>.<span class="title">getMethod</span><span class="params">("getA")</span>;</span></span><br><span class="line"><span class="keyword">set</span>.setAccessible(<span class="keyword">true</span>); <span class="comment">//此处很重要，不设置的话每次反射会去判断方法是否能访问，造成性能损失，大约耗时5000ms</span></span><br><span class="line">long start = System.currentTimeMillis();</span><br><span class="line"><span class="keyword">for</span> (int i = <span class="number">0</span>; i &lt; Integer.MAX_VALUE; i++) <span class="comment">&#123;</span></span><br><span class="line"><span class="comment">    method.invoke(invokeClass);</span></span><br><span class="line"><span class="comment">&#125;</span></span><br><span class="line">long <span class="keyword">end</span> = System.currentTimeMillis();</span><br><span class="line">System.out.println(<span class="keyword">end</span> - start);</span><br></pre></td></tr></table></figure>
+<h4 id="Java反射"><a href="#Java反射" class="headerlink" title="Java反射"></a>Java反射</h4><figure class="highlight oxygene"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">Method</span> <span class="title">method</span> = <span class="title">InvokeClass</span>.<span class="title">class</span>.<span class="title">getMethod</span><span class="params">("getA")</span>;</span></span><br><span class="line"><span class="keyword">set</span>.setAccessible(<span class="keyword">true</span>); <span class="comment">//此处很重要，不设置的话每次反射会去判断方法是否能访问，造成性能损失，大约耗时5000ms</span></span><br><span class="line">long start = System.currentTimeMillis();</span><br><span class="line"><span class="keyword">for</span> (int i = <span class="number">0</span>; i &lt; Integer.MAX_VALUE; i++) <span class="comment">&#123;</span></span><br><span class="line"><span class="comment">    method.invoke(invokeClass);</span></span><br><span class="line"><span class="comment">&#125;</span></span><br><span class="line">long <span class="keyword">end</span> = System.currentTimeMillis();</span><br><span class="line">System.out.println(<span class="keyword">end</span> - start);</span><br></pre></td></tr></table></figure>
 <p>平均耗时3000ms</p>
-<p>####ReflectAsm反射</p>
-<figure class="highlight arduino"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">MethodAccess methodAccess = MethodAccess.<span class="built_in">get</span>(InvokeClass.class);</span><br><span class="line"><span class="keyword">int</span> index = methodAccess.getIndex(<span class="string">"getA"</span>);</span><br><span class="line"><span class="keyword">long</span> start = System.currentTimeMillis();</span><br><span class="line"><span class="built_in">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; Integer.MAX_VALUE; i++) &#123;</span><br><span class="line">    methodAccess.invoke(invokeClass, index);</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">long</span> <span class="built_in">end</span> = System.currentTimeMillis();</span><br><span class="line">System.out.<span class="built_in">println</span>(<span class="built_in">end</span> - start);</span><br></pre></td></tr></table></figure>
+<h4 id="ReflectAsm反射"><a href="#ReflectAsm反射" class="headerlink" title="ReflectAsm反射"></a>ReflectAsm反射</h4><figure class="highlight arduino"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">MethodAccess methodAccess = MethodAccess.<span class="built_in">get</span>(InvokeClass.class);</span><br><span class="line"><span class="keyword">int</span> index = methodAccess.getIndex(<span class="string">"getA"</span>);</span><br><span class="line"><span class="keyword">long</span> start = System.currentTimeMillis();</span><br><span class="line"><span class="built_in">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; Integer.MAX_VALUE; i++) &#123;</span><br><span class="line">    methodAccess.invoke(invokeClass, index);</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">long</span> <span class="built_in">end</span> = System.currentTimeMillis();</span><br><span class="line">System.out.<span class="built_in">println</span>(<span class="built_in">end</span> - start);</span><br></pre></td></tr></table></figure>
 <p>平均耗时30ms</p>
-<p>###反射执行Add方法</p>
-<p>####直接调用</p>
-<figure class="highlight arduino"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">InvokeClass invokeClass = <span class="keyword">new</span> InvokeClass();</span><br><span class="line"><span class="keyword">long</span> start = System.currentTimeMillis();</span><br><span class="line"><span class="built_in">for</span> (<span class="keyword">long</span> i = <span class="number">0</span>; i &lt; Integer.MAX_VALUE; i++) &#123;</span><br><span class="line">    invokeClass.add(i, i);</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">long</span> <span class="built_in">end</span> = System.currentTimeMillis();</span><br><span class="line">System.out.<span class="built_in">println</span>(<span class="built_in">end</span> - start);</span><br></pre></td></tr></table></figure>
+<h3 id="反射执行Add方法"><a href="#反射执行Add方法" class="headerlink" title="反射执行Add方法"></a>反射执行Add方法</h3><h4 id="直接调用-1"><a href="#直接调用-1" class="headerlink" title="直接调用"></a>直接调用</h4><figure class="highlight arduino"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">InvokeClass invokeClass = <span class="keyword">new</span> InvokeClass();</span><br><span class="line"><span class="keyword">long</span> start = System.currentTimeMillis();</span><br><span class="line"><span class="built_in">for</span> (<span class="keyword">long</span> i = <span class="number">0</span>; i &lt; Integer.MAX_VALUE; i++) &#123;</span><br><span class="line">    invokeClass.add(i, i);</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">long</span> <span class="built_in">end</span> = System.currentTimeMillis();</span><br><span class="line">System.out.<span class="built_in">println</span>(<span class="built_in">end</span> - start);</span><br></pre></td></tr></table></figure>
 <p>平均耗时1000ms</p>
-<p>####java反射</p>
-<figure class="highlight oxygene"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">Method</span> <span class="title">method</span> = <span class="title">InvokeClass</span>.<span class="title">class</span>.<span class="title">getMethod</span><span class="params">("<span class="keyword">add</span>", long.<span class="keyword">class</span>, long.<span class="keyword">class</span>)</span>;</span></span><br><span class="line"><span class="keyword">set</span>.setAccessible(<span class="keyword">true</span>);</span><br><span class="line">long start = System.currentTimeMillis();</span><br><span class="line"><span class="keyword">for</span> (long i = <span class="number">0</span>; i &lt; Integer.MAX_VALUE; i++) <span class="comment">&#123;</span></span><br><span class="line"><span class="comment">    method.invoke(invokeClass, i, i);</span></span><br><span class="line"><span class="comment">&#125;</span></span><br><span class="line">long <span class="keyword">end</span> = System.currentTimeMillis();</span><br><span class="line">System.out.println(<span class="keyword">end</span> - start);</span><br></pre></td></tr></table></figure>
+<h4 id="java反射"><a href="#java反射" class="headerlink" title="java反射"></a>java反射</h4><figure class="highlight oxygene"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">Method</span> <span class="title">method</span> = <span class="title">InvokeClass</span>.<span class="title">class</span>.<span class="title">getMethod</span><span class="params">("<span class="keyword">add</span>", long.<span class="keyword">class</span>, long.<span class="keyword">class</span>)</span>;</span></span><br><span class="line"><span class="keyword">set</span>.setAccessible(<span class="keyword">true</span>);</span><br><span class="line">long start = System.currentTimeMillis();</span><br><span class="line"><span class="keyword">for</span> (long i = <span class="number">0</span>; i &lt; Integer.MAX_VALUE; i++) <span class="comment">&#123;</span></span><br><span class="line"><span class="comment">    method.invoke(invokeClass, i, i);</span></span><br><span class="line"><span class="comment">&#125;</span></span><br><span class="line">long <span class="keyword">end</span> = System.currentTimeMillis();</span><br><span class="line">System.out.println(<span class="keyword">end</span> - start);</span><br></pre></td></tr></table></figure>
 <p>平均耗时18000ms</p>
-<p>####ReflectAsm反射</p>
-<figure class="highlight arduino"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">MethodAccess methodAccess = MethodAccess.<span class="built_in">get</span>(InvokeClass.class);</span><br><span class="line"><span class="keyword">int</span> index = methodAccess.getIndex(<span class="string">"add"</span>, <span class="keyword">long</span>.class, <span class="keyword">long</span>.class);</span><br><span class="line"><span class="keyword">long</span> start = System.currentTimeMillis();</span><br><span class="line"><span class="built_in">for</span> (<span class="keyword">long</span> i = <span class="number">0</span>; i &lt; Integer.MAX_VALUE; i++) &#123;</span><br><span class="line">    methodAccess.invoke(invokeClass, index, i, i);</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">long</span> <span class="built_in">end</span> = System.currentTimeMillis();</span><br><span class="line">System.out.<span class="built_in">println</span>(<span class="built_in">end</span> - start);</span><br></pre></td></tr></table></figure>
+<h4 id="ReflectAsm反射-1"><a href="#ReflectAsm反射-1" class="headerlink" title="ReflectAsm反射"></a>ReflectAsm反射</h4><figure class="highlight arduino"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">MethodAccess methodAccess = MethodAccess.<span class="built_in">get</span>(InvokeClass.class);</span><br><span class="line"><span class="keyword">int</span> index = methodAccess.getIndex(<span class="string">"add"</span>, <span class="keyword">long</span>.class, <span class="keyword">long</span>.class);</span><br><span class="line"><span class="keyword">long</span> start = System.currentTimeMillis();</span><br><span class="line"><span class="built_in">for</span> (<span class="keyword">long</span> i = <span class="number">0</span>; i &lt; Integer.MAX_VALUE; i++) &#123;</span><br><span class="line">    methodAccess.invoke(invokeClass, index, i, i);</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">long</span> <span class="built_in">end</span> = System.currentTimeMillis();</span><br><span class="line">System.out.<span class="built_in">println</span>(<span class="built_in">end</span> - start);</span><br></pre></td></tr></table></figure>
 <p>平均耗时2700ms</p>
-<p>##对比及结论<br>|直接调用|Java反射|ReflectASM反射<br>:—:|:—:|:—:|:—:<br>get方法|    5    |3000    |30<br>add方法|    1000    |18000    |2700</p>
+<h2 id="对比及结论"><a href="#对比及结论" class="headerlink" title="对比及结论"></a>对比及结论</h2><div class="table-container">
+<table>
+<thead>
+<tr>
+<th style="text-align:center"></th>
+<th style="text-align:center">直接调用</th>
+<th style="text-align:center">Java反射</th>
+<th style="text-align:center">ReflectASM反射</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">get方法</td>
+<td style="text-align:center">5</td>
+<td style="text-align:center">3000</td>
+<td style="text-align:center">30</td>
+</tr>
+<tr>
+<td style="text-align:center">add方法</td>
+<td style="text-align:center">1000</td>
+<td style="text-align:center">18000</td>
+<td style="text-align:center">2700</td>
+</tr>
+</tbody>
+</table>
+</div>
 <p>经过简单测试，可以发现</p>
 <ol>
 <li>反射确实会带来性能损失，ReflectAsm相比Java原生反射机制能提升一定性能</li>
@@ -540,7 +553,7 @@
   <p><span>本文标题:</span><a href="/反射机制性能测试/">反射机制性能测试</a></p>
   <p><span>文章作者:</span><a href="/" title="访问 小建儿 的个人博客">小建儿</a></p>
   <p><span>发布时间:</span>2018年03月23日 - 17:03</p>
-  <p><span>最后更新:</span>2018年05月06日 - 13:05</p>
+  <p><span>最后更新:</span>2018年11月17日 - 18:11</p>
   <p><span>原始链接:</span><a href="/反射机制性能测试/" title="反射机制性能测试">http://yajian.github.io/反射机制性能测试/</a>
     <span class="copy-path" title="点击复制文章链接"><i class="fa fa-clipboard" data-clipboard-text="http://yajian.github.io/反射机制性能测试/" aria-label="复制成功！"></i></span>
   </p>
@@ -776,7 +789,7 @@ var jiathis_config={
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#方法调用机制"><span class="nav-number">1.</span> <span class="nav-text">方法调用机制</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#待执行方法"><span class="nav-number">2.</span> <span class="nav-text">待执行方法</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#直接调用"><span class="nav-number">2.1.</span> <span class="nav-text">直接调用</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#背景"><span class="nav-number">1.</span> <span class="nav-text">背景</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#测试场景"><span class="nav-number">2.</span> <span class="nav-text">测试场景</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#硬件设备"><span class="nav-number">2.1.</span> <span class="nav-text">硬件设备</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#方法调用机制"><span class="nav-number">2.2.</span> <span class="nav-text">方法调用机制</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#待执行方法"><span class="nav-number">2.3.</span> <span class="nav-text">待执行方法</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#测试用例"><span class="nav-number">3.</span> <span class="nav-text">测试用例</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#待反射类定义"><span class="nav-number">3.1.</span> <span class="nav-text">待反射类定义</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#反射执行get方法"><span class="nav-number">3.2.</span> <span class="nav-text">反射执行get方法</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#直接调用"><span class="nav-number">3.2.1.</span> <span class="nav-text">直接调用</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Java反射"><span class="nav-number">3.2.2.</span> <span class="nav-text">Java反射</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#ReflectAsm反射"><span class="nav-number">3.2.3.</span> <span class="nav-text">ReflectAsm反射</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#反射执行Add方法"><span class="nav-number">3.3.</span> <span class="nav-text">反射执行Add方法</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#直接调用-1"><span class="nav-number">3.3.1.</span> <span class="nav-text">直接调用</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#java反射"><span class="nav-number">3.3.2.</span> <span class="nav-text">java反射</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#ReflectAsm反射-1"><span class="nav-number">3.3.3.</span> <span class="nav-text">ReflectAsm反射</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#对比及结论"><span class="nav-number">4.</span> <span class="nav-text">对比及结论</span></a></li></ol></div>
             
 
           </div>
@@ -1360,7 +1373,24 @@ var jiathis_config={
   
 
   
-    <script type="text/javascript" src="//cdn.bootcss.com/canvas-nest.js/1.0.0/canvas-nest.min.js"></script>
+    <script type="text/javascript" src="//cdn.bootcss.com/canvas-nest.js/1.0.0/canvas-nest.min.js"></script><!-- hexo-inject:begin --><!-- Begin: Injected MathJax -->
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config("");
+</script>
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i=0; i < all.length; i += 1) {
+      all[i].SourceElement().parentNode.className += ' has-jax';
+    }
+  });
+</script>
+
+<script type="text/javascript" src="custom_mathjax_source">
+</script>
+<!-- End: Injected MathJax -->
+<!-- hexo-inject:end -->
   
 </body>
 </html>

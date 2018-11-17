@@ -7,7 +7,7 @@
 
 <html class="theme-next pisces use-motion" lang="zh-Hans">
 <head><meta name="generator" content="Hexo 3.8.0">
-  <meta charset="UTF-8">
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><meta charset="UTF-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 <script src="//cdn.bootcss.com/pace/1.0.2/pace.min.js"></script>
@@ -113,18 +113,18 @@
 
 
 
-<meta name="description" content="###第57条 只针对异常的情况才使用异常&amp;emsp;&amp;emsp;异常应该只用于异常的情况下，永远不应该用于正常控制流 &amp;emsp;&amp;emsp;设计良好的api不应该强迫它的客户端为了正常的控制流而使用异常 &amp;emsp;&amp;emsp;可以使用“状态测试方法”或“可识别的返回值方法”避免异常滥用。  “状态测试方法” &amp;emsp;&amp;emsp;当类具有“状态相关”的方法，即只有在特定的不可预测的条件下才">
+<meta name="description" content="第57条 只针对异常的情况才使用异常&amp;emsp;&amp;emsp;异常应该只用于异常的情况下，永远不应该用于正常控制流 &amp;emsp;&amp;emsp;设计良好的api不应该强迫它的客户端为了正常的控制流而使用异常 &amp;emsp;&amp;emsp;可以使用“状态测试方法”或“可识别的返回值方法”避免异常滥用。  “状态测试方法” &amp;emsp;&amp;emsp;当类具有“状态相关”的方法，即只有在特定的不可预测的条件下才可以被">
 <meta name="keywords" content="effective java">
 <meta property="og:type" content="article">
 <meta property="og:title" content="effective java(9)-异常">
 <meta property="og:url" content="http://yajian.github.io/effective-java-9-异常/index.html">
 <meta property="og:site_name" content="小建儿的小站">
-<meta property="og:description" content="###第57条 只针对异常的情况才使用异常&amp;emsp;&amp;emsp;异常应该只用于异常的情况下，永远不应该用于正常控制流 &amp;emsp;&amp;emsp;设计良好的api不应该强迫它的客户端为了正常的控制流而使用异常 &amp;emsp;&amp;emsp;可以使用“状态测试方法”或“可识别的返回值方法”避免异常滥用。  “状态测试方法” &amp;emsp;&amp;emsp;当类具有“状态相关”的方法，即只有在特定的不可预测的条件下才">
+<meta property="og:description" content="第57条 只针对异常的情况才使用异常&amp;emsp;&amp;emsp;异常应该只用于异常的情况下，永远不应该用于正常控制流 &amp;emsp;&amp;emsp;设计良好的api不应该强迫它的客户端为了正常的控制流而使用异常 &amp;emsp;&amp;emsp;可以使用“状态测试方法”或“可识别的返回值方法”避免异常滥用。  “状态测试方法” &amp;emsp;&amp;emsp;当类具有“状态相关”的方法，即只有在特定的不可预测的条件下才可以被">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2018-05-06T05:15:22.000Z">
+<meta property="og:updated_time" content="2018-11-17T10:05:40.500Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="effective java(9)-异常">
-<meta name="twitter:description" content="###第57条 只针对异常的情况才使用异常&amp;emsp;&amp;emsp;异常应该只用于异常的情况下，永远不应该用于正常控制流 &amp;emsp;&amp;emsp;设计良好的api不应该强迫它的客户端为了正常的控制流而使用异常 &amp;emsp;&amp;emsp;可以使用“状态测试方法”或“可识别的返回值方法”避免异常滥用。  “状态测试方法” &amp;emsp;&amp;emsp;当类具有“状态相关”的方法，即只有在特定的不可预测的条件下才">
+<meta name="twitter:description" content="第57条 只针对异常的情况才使用异常&amp;emsp;&amp;emsp;异常应该只用于异常的情况下，永远不应该用于正常控制流 &amp;emsp;&amp;emsp;设计良好的api不应该强迫它的客户端为了正常的控制流而使用异常 &amp;emsp;&amp;emsp;可以使用“状态测试方法”或“可识别的返回值方法”避免异常滥用。  “状态测试方法” &amp;emsp;&amp;emsp;当类具有“状态相关”的方法，即只有在特定的不可预测的条件下才可以被">
 
 
 
@@ -160,7 +160,7 @@
 
 
 
-  <title>effective java(9)-异常 | 小建儿的小站</title>
+  <title>effective java(9)-异常 | 小建儿的小站</title><!-- hexo-inject:begin --><!-- hexo-inject:end -->
   
 
 
@@ -179,7 +179,7 @@
     
   
 
-  <div class="container sidebar-position-left page-post-detail">
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><div class="container sidebar-position-left page-post-detail">
     <div class="headband"></div>
 
     <header id="header" class="header" itemscope="" itemtype="http://schema.org/WPHeader">
@@ -449,7 +449,7 @@
       
 
       
-        <p>###第57条 只针对异常的情况才使用异常<br>&emsp;&emsp;异常应该只用于异常的情况下，永远不应该用于正常控制流</p>
+        <h3 id="第57条-只针对异常的情况才使用异常"><a href="#第57条-只针对异常的情况才使用异常" class="headerlink" title="第57条 只针对异常的情况才使用异常"></a>第57条 只针对异常的情况才使用异常</h3><p>&emsp;&emsp;异常应该只用于异常的情况下，永远不应该用于正常控制流</p>
 <p>&emsp;&emsp;设计良好的api不应该强迫它的客户端为了正常的控制流而使用异常</p>
 <p>&emsp;&emsp;可以使用“状态测试方法”或“可识别的返回值方法”避免异常滥用。</p>
 <ul>
@@ -465,23 +465,23 @@
 <p>&emsp;&emsp;当“状态相关”的方法被调用时，当该对象处于不适当的状态时，返回一个可识别的值，如null。</p>
 <p>&emsp;&emsp;如果单独的“状态测试”必须重复“状态相关”方法的工作，从性能角度考虑，就应该使用可被识别的返回值</p>
 <p>&emsp;&emsp;如果其他条件一样，“状态测试”方法优于“返回值”方法，因为前者可读性更强。</p>
-<p>###第58条 对于可恢复的情况使用受检异常，对于编程错误使用运行时异常<br>&emsp;&emsp;Java三种可抛出结构：受检异常（checked Exception)、运行时异常（runtime Exception）、错误（error）。</p>
+<h3 id="第58条-对于可恢复的情况使用受检异常，对于编程错误使用运行时异常"><a href="#第58条-对于可恢复的情况使用受检异常，对于编程错误使用运行时异常" class="headerlink" title="第58条 对于可恢复的情况使用受检异常，对于编程错误使用运行时异常"></a>第58条 对于可恢复的情况使用受检异常，对于编程错误使用运行时异常</h3><p>&emsp;&emsp;Java三种可抛出结构：受检异常（checked Exception)、运行时异常（runtime Exception）、错误（error）。</p>
 <ul>
 <li>受检异常：期望调用者能够适当地恢复</li>
 <li>运行时异常：表明编程错误</li>
 </ul>
-<p>###第59条 避免不必要地使用受检异常<br>&emsp;&emsp;过分使用受检异常会让api使用起来变得不方便<br>&emsp;&emsp;把受检异常变成未受检异常的方法：把抛异常的方法分成两个方法，一个返回boolean表示是否应该抛异常</p>
+<h3 id="第59条-避免不必要地使用受检异常"><a href="#第59条-避免不必要地使用受检异常" class="headerlink" title="第59条 避免不必要地使用受检异常"></a>第59条 避免不必要地使用受检异常</h3><p>&emsp;&emsp;过分使用受检异常会让api使用起来变得不方便<br>&emsp;&emsp;把受检异常变成未受检异常的方法：把抛异常的方法分成两个方法，一个返回boolean表示是否应该抛异常</p>
 <figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//invocation with checked exception</span></span><br><span class="line"><span class="keyword">try</span>&#123;</span><br><span class="line">	obj.action(args)</span><br><span class="line">&#125;<span class="keyword">catch</span>(<span class="keyword">Exception</span> e)&#123;</span><br><span class="line"><span class="comment">// handle exceptional condition</span></span><br><span class="line">	...</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p>改为</p>
 <figure class="highlight maxima"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">//invocation with state-testing <span class="built_in">method</span> <span class="keyword">and</span> unchecked exception</span><br><span class="line"><span class="keyword">if</span>(obj.actionPermitted(<span class="built_in">args</span>))&#123;</span><br><span class="line">	obj.action(<span class="built_in">args</span>)</span><br><span class="line">&#125;<span class="keyword">else</span>&#123;</span><br><span class="line">	//Handle exceptional condition</span><br><span class="line">	...</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>###优先使用标准的异常</p>
-<p>好处：  </p>
+<h3 id="优先使用标准的异常"><a href="#优先使用标准的异常" class="headerlink" title="优先使用标准的异常"></a>优先使用标准的异常</h3><p>好处：  </p>
 <ol>
 <li>让API更加易于学习和使用  </li>
 <li>可读性会很好  </li>
 <li>异常类少，意味着内存印迹（footprint）越小，装载这些类的时间开销越少  </li>
 </ol>
 <p>常用异常</p>
+<div class="table-container">
 <table>
 <thead>
 <tr>
@@ -516,6 +516,7 @@
 </tr>
 </tbody>
 </table>
+</div>
 <h3 id="第61条-抛出与抽象相对应的异常"><a href="#第61条-抛出与抽象相对应的异常" class="headerlink" title="第61条 抛出与抽象相对应的异常"></a>第61条 抛出与抽象相对应的异常</h3><p>&emsp;&emsp;底层异常经过传播，当高层方法捕捉异常后会出现异常与任务没有明显联系的情况，解决方案：  </p>
 <ol>
 <li>异常转译<br>&emsp;&emsp; catch底层异常后new一个新的对应的高层异常  </li>
@@ -524,7 +525,7 @@
 <h3 id="第62条-每个方法抛出的异常都要有文档"><a href="#第62条-每个方法抛出的异常都要有文档" class="headerlink" title="第62条 每个方法抛出的异常都要有文档"></a>第62条 每个方法抛出的异常都要有文档</h3><p>&emsp;&emsp;如果一个方法抛出多个异常类，不要抛出异常类的超类，如“throws Exception”</p>
 <p>文档自觉吧。。。</p>
 <h3 id="第63条-在细节消息中包含能捕获失败的信息"><a href="#第63条-在细节消息中包含能捕获失败的信息" class="headerlink" title="第63条 在细节消息中包含能捕获失败的信息"></a>第63条 在细节消息中包含能捕获失败的信息</h3><p>&emsp;&emsp;异常的细节信息应该包含“对该异常有贡献”的参数和域的值，例如IndexOutOfBoundsException异常的细节消息应包含下界、上界以及没有落在界内的下标值<br>&emsp;&emsp;在异常构造器中引入造成失败的参数  </p>
-<p>###第64条 努力使失败保持原子性<br>&emsp;&emsp;失败的方法调用应该使对象保持在被调用之前的状态</p>
+<h3 id="第64条-努力使失败保持原子性"><a href="#第64条-努力使失败保持原子性" class="headerlink" title="第64条 努力使失败保持原子性"></a>第64条 努力使失败保持原子性</h3><p>&emsp;&emsp;失败的方法调用应该使对象保持在被调用之前的状态</p>
 <p>实现方法：</p>
 <ul>
 <li>设计一个不可变对象，如果操作失败，可能会阻止创建新对象，永远也不会使已有对象处于不一致的状态中。</li>
@@ -533,7 +534,7 @@
 <li>写恢复代码，不常用</li>
 <li>在临时拷贝上执行操作，在用临时拷贝对象内容代替对象内容</li>
 </ul>
-<p>###第65条 不要忽略异常<br>&emsp;&emsp;不要空置catch块，若不得不空置，需要注释这样做的原因</p>
+<h3 id="第65条-不要忽略异常"><a href="#第65条-不要忽略异常" class="headerlink" title="第65条 不要忽略异常"></a>第65条 不要忽略异常</h3><p>&emsp;&emsp;不要空置catch块，若不得不空置，需要注释这样做的原因</p>
 
       
     </div>
@@ -568,7 +569,7 @@
   <p><span>本文标题:</span><a href="/effective-java-9-异常/">effective java(9)-异常</a></p>
   <p><span>文章作者:</span><a href="/" title="访问 小建儿 的个人博客">小建儿</a></p>
   <p><span>发布时间:</span>2018年05月06日 - 13:05</p>
-  <p><span>最后更新:</span>2018年05月06日 - 13:05</p>
+  <p><span>最后更新:</span>2018年11月17日 - 18:11</p>
   <p><span>原始链接:</span><a href="/effective-java-9-异常/" title="effective java(9)-异常">http://yajian.github.io/effective-java-9-异常/</a>
     <span class="copy-path" title="点击复制文章链接"><i class="fa fa-clipboard" data-clipboard-text="http://yajian.github.io/effective-java-9-异常/" aria-label="复制成功！"></i></span>
   </p>
@@ -804,7 +805,7 @@ var jiathis_config={
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#第61条-抛出与抽象相对应的异常"><span class="nav-number">1.</span> <span class="nav-text">第61条 抛出与抽象相对应的异常</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#第62条-每个方法抛出的异常都要有文档"><span class="nav-number">2.</span> <span class="nav-text">第62条 每个方法抛出的异常都要有文档</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#第63条-在细节消息中包含能捕获失败的信息"><span class="nav-number">3.</span> <span class="nav-text">第63条 在细节消息中包含能捕获失败的信息</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#第57条-只针对异常的情况才使用异常"><span class="nav-number">1.</span> <span class="nav-text">第57条 只针对异常的情况才使用异常</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#第58条-对于可恢复的情况使用受检异常，对于编程错误使用运行时异常"><span class="nav-number">2.</span> <span class="nav-text">第58条 对于可恢复的情况使用受检异常，对于编程错误使用运行时异常</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#第59条-避免不必要地使用受检异常"><span class="nav-number">3.</span> <span class="nav-text">第59条 避免不必要地使用受检异常</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#优先使用标准的异常"><span class="nav-number">4.</span> <span class="nav-text">优先使用标准的异常</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#第61条-抛出与抽象相对应的异常"><span class="nav-number">5.</span> <span class="nav-text">第61条 抛出与抽象相对应的异常</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#第62条-每个方法抛出的异常都要有文档"><span class="nav-number">6.</span> <span class="nav-text">第62条 每个方法抛出的异常都要有文档</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#第63条-在细节消息中包含能捕获失败的信息"><span class="nav-number">7.</span> <span class="nav-text">第63条 在细节消息中包含能捕获失败的信息</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#第64条-努力使失败保持原子性"><span class="nav-number">8.</span> <span class="nav-text">第64条 努力使失败保持原子性</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#第65条-不要忽略异常"><span class="nav-number">9.</span> <span class="nav-text">第65条 不要忽略异常</span></a></li></ol></div>
             
 
           </div>
@@ -1388,7 +1389,24 @@ var jiathis_config={
   
 
   
-    <script type="text/javascript" src="//cdn.bootcss.com/canvas-nest.js/1.0.0/canvas-nest.min.js"></script>
+    <script type="text/javascript" src="//cdn.bootcss.com/canvas-nest.js/1.0.0/canvas-nest.min.js"></script><!-- hexo-inject:begin --><!-- Begin: Injected MathJax -->
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config("");
+</script>
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i=0; i < all.length; i += 1) {
+      all[i].SourceElement().parentNode.className += ' has-jax';
+    }
+  });
+</script>
+
+<script type="text/javascript" src="custom_mathjax_source">
+</script>
+<!-- End: Injected MathJax -->
+<!-- hexo-inject:end -->
   
 </body>
 </html>

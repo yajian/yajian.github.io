@@ -7,7 +7,7 @@
 
 <html class="theme-next pisces use-motion" lang="zh-Hans">
 <head><meta name="generator" content="Hexo 3.8.0">
-  <meta charset="UTF-8">
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><meta charset="UTF-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 <script src="//cdn.bootcss.com/pace/1.0.2/pace.min.js"></script>
@@ -158,7 +158,7 @@
 
 
 
-  <title>小建儿的小站</title>
+  <title>小建儿的小站</title><!-- hexo-inject:begin --><!-- hexo-inject:end -->
   
 
 
@@ -177,7 +177,7 @@
     
   
 
-  <div class="container sidebar-position-left 
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><div class="container sidebar-position-left 
   page-home">
     <div class="headband"></div>
 
@@ -470,7 +470,7 @@
 <p>可以发现BoltGetter还实现了不同的分组方式，如</p>
 <figure class="highlight haxe"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="keyword">private</span> BoltDeclarer grouping(<span class="keyword">String</span> componentId, <span class="keyword">String</span> streamId, Grouping grouping) &#123;</span><br><span class="line">    _commons.<span class="keyword">get</span>(_boltId).put_to_inputs(<span class="keyword">new</span> <span class="type">GlobalStreamId</span>(componentId, streamId), grouping);</span><br><span class="line">    <span class="keyword">return</span> <span class="built_in">this</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p>分组的本质是在_common中通过对应的boltId找到对应的ComponentCommon对象，对inputs属性进行设置。</p>
-<h3 id="createTopology"><a href="#createTopology" class="headerlink" title="createTopology()"></a>createTopology()</h3><p>&emsp;&emsp;TopologyBuilder中还有一个比较重要的方法–createTopology()，其主要完成最后的封装工作。</p>
+<h3 id="createTopology"><a href="#createTopology" class="headerlink" title="createTopology()"></a>createTopology()</h3><p>&emsp;&emsp;TopologyBuilder中还有一个比较重要的方法—createTopology()，其主要完成最后的封装工作。</p>
 <figure class="highlight haxe"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">   <span class="keyword">public</span> StormTopology createTopology() &#123;</span><br><span class="line"><span class="comment">//bolt集合</span></span><br><span class="line">       Map&lt;<span class="keyword">String</span>, Bolt&gt; boltSpecs = <span class="keyword">new</span> <span class="type">HashMap</span>&lt;&gt;();</span><br><span class="line"><span class="comment">//spout集合</span></span><br><span class="line">       Map&lt;<span class="keyword">String</span>, SpoutSpec&gt; spoutSpecs = <span class="keyword">new</span> <span class="type">HashMap</span>&lt;&gt;();</span><br><span class="line">       maybeAddCheckpointSpout();</span><br><span class="line">       <span class="keyword">for</span>(<span class="keyword">String</span> boltId: <span class="type">_bolts</span>.keySet()) &#123;</span><br><span class="line">    <span class="comment">//通过boltId获取Bolt</span></span><br><span class="line">           IRichBolt bolt = _bolts.<span class="keyword">get</span>(boltId);</span><br><span class="line">           bolt = maybeAddCheckpointTupleForwarder(bolt);</span><br><span class="line">    <span class="comment">//设置对应ComponentCommon对象的streams属性(输出的字段列表是否为直接流)</span></span><br><span class="line">           ComponentCommon common = getComponentCommon(boltId, bolt);</span><br><span class="line">           <span class="keyword">try</span>&#123;</span><br><span class="line">               maybeAddCheckpointInputs(common);</span><br><span class="line">	<span class="comment">//把bolt和common一起放入bolt集合</span></span><br><span class="line">               boltSpecs.put(boltId, <span class="keyword">new</span> <span class="type">Bolt</span>(ComponentObject.serialized_java(Utils.javaSerialize(bolt)), common));</span><br><span class="line">           &#125;<span class="keyword">catch</span>(RuntimeException wrapperCause)&#123;</span><br><span class="line">               <span class="keyword">if</span> (wrapperCause.getCause() != <span class="literal">null</span> &amp;&amp; NotSerializableException.class.equals(wrapperCause.getCause().getClass()))&#123;</span><br><span class="line">                   <span class="keyword">throw</span> <span class="keyword">new</span> <span class="type">IllegalStateException</span>(</span><br><span class="line">                       <span class="string">"Bolt '"</span> + boltId + <span class="string">"' contains a non-serializable field of type "</span> + wrapperCause.getCause().getMessage() + <span class="string">", "</span> +</span><br><span class="line">                       <span class="string">"which was instantiated prior to topology creation. "</span> + wrapperCause.getCause().getMessage() + <span class="string">" "</span> +</span><br><span class="line">                       <span class="string">"should be instantiated within the prepare method of '"</span> + boltId + <span class="string">" at the earliest."</span>, wrapperCause);</span><br><span class="line">               &#125;</span><br><span class="line">               <span class="keyword">throw</span> wrapperCause;</span><br><span class="line">           &#125;</span><br><span class="line">       &#125;</span><br><span class="line"><span class="comment">//对spout的处理和bolt的处理基本一致</span></span><br><span class="line">       <span class="keyword">for</span>(<span class="keyword">String</span> spoutId: <span class="type">_spouts</span>.keySet()) &#123;</span><br><span class="line">           IRichSpout spout = _spouts.<span class="keyword">get</span>(spoutId);</span><br><span class="line">           ComponentCommon common = getComponentCommon(spoutId, spout);</span><br><span class="line">           <span class="keyword">try</span>&#123;</span><br><span class="line">               spoutSpecs.put(spoutId, <span class="keyword">new</span> <span class="type">SpoutSpec</span>(ComponentObject.serialized_java(Utils.javaSerialize(spout)), common));</span><br><span class="line">           &#125;<span class="keyword">catch</span>(RuntimeException wrapperCause)&#123;</span><br><span class="line">               <span class="keyword">if</span> (wrapperCause.getCause() != <span class="literal">null</span> &amp;&amp; NotSerializableException.class.equals(wrapperCause.getCause().getClass()))&#123;</span><br><span class="line">                   <span class="keyword">throw</span> <span class="keyword">new</span> <span class="type">IllegalStateException</span>(</span><br><span class="line">                       <span class="string">"Spout '"</span> + spoutId + <span class="string">"' contains a non-serializable field of type "</span> + wrapperCause.getCause().getMessage() + <span class="string">", "</span> +</span><br><span class="line">                       <span class="string">"which was instantiated prior to topology creation. "</span> + wrapperCause.getCause().getMessage() + <span class="string">" "</span> +</span><br><span class="line">                       <span class="string">"should be instantiated within the prepare method of '"</span> + spoutId + <span class="string">" at the earliest."</span>, wrapperCause);</span><br><span class="line">               &#125;</span><br><span class="line">               <span class="keyword">throw</span> wrapperCause;</span><br><span class="line">           &#125;</span><br><span class="line">       &#125;</span><br><span class="line"></span><br><span class="line">       StormTopology stormTopology = <span class="keyword">new</span> <span class="type">StormTopology</span>(spoutSpecs,</span><br><span class="line">               boltSpecs,</span><br><span class="line">               <span class="keyword">new</span> <span class="type">HashMap</span>&lt;<span class="keyword">String</span>, StateSpoutSpec&gt;());</span><br><span class="line"></span><br><span class="line">       stormTopology.set_worker_hooks(_workerHooks);</span><br><span class="line"></span><br><span class="line">       <span class="keyword">return</span> Utils.addVersions(stormTopology);</span><br></pre></td></tr></table></figure>
 <p>最终我们设置的bolt和spout都被封装到了StormTopology中。</p>
 <h1 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h1><p>&emsp;&emsp;总的来讲TopologyBuilder就是根据分组方式把spout和bolt节点连接起来形成一个拓扑结构。</p>
@@ -674,7 +674,9 @@
 <h2 id="executor-1"><a href="#executor-1" class="headerlink" title="executor"></a>executor</h2><p>&emsp;&emsp;executor是真正的并行度。executor初始数量=spout数量+bolt数量+acker数量，也就是task个数，默认一个executor对应一个task。其中spout、bolt、acker数量运行时是不会变化的，但是executor数量是可以变化的。</p>
 <h2 id="task-1"><a href="#task-1" class="headerlink" title="task"></a>task</h2><p>&emsp;&emsp;task的存在是为了topology扩展的灵活性，与并行度无关。task在实际执行数据处理。如果单纯提高task个数，不增加executor个数，并不一定能提高性能。提高task任务数量，可以为后期进行弹性计算（rebalance）即后期动态调整某一组件的并行度。</p>
 <h1 id="并行度计算"><a href="#并行度计算" class="headerlink" title="并行度计算"></a>并行度计算</h1><p>计算并行度官网有个比较好的例子</p>
-<div align="center"><br><img src="storm系列2-并行度和资源分配/并行度计算.jpg" width="400" height="300" title="并行度计算"><br></div>
+<div align="center">
+<img src="/storm系列2-并行度和资源分配/并行度计算.jpg" width="400" height="300" title="并行度计算">
+</div>
 
 <p>上图中，有2个worker进程，</p>
 <ul>
@@ -3129,7 +3131,24 @@
   
 
   
-    <script type="text/javascript" src="//cdn.bootcss.com/canvas-nest.js/1.0.0/canvas-nest.min.js"></script>
+    <script type="text/javascript" src="//cdn.bootcss.com/canvas-nest.js/1.0.0/canvas-nest.min.js"></script><!-- hexo-inject:begin --><!-- Begin: Injected MathJax -->
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config("");
+</script>
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i=0; i < all.length; i += 1) {
+      all[i].SourceElement().parentNode.className += ' has-jax';
+    }
+  });
+</script>
+
+<script type="text/javascript" src="custom_mathjax_source">
+</script>
+<!-- End: Injected MathJax -->
+<!-- hexo-inject:end -->
   
 </body>
 </html>

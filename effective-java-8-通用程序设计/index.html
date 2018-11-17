@@ -7,7 +7,7 @@
 
 <html class="theme-next pisces use-motion" lang="zh-Hans">
 <head><meta name="generator" content="Hexo 3.8.0">
-  <meta charset="UTF-8">
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><meta charset="UTF-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 <script src="//cdn.bootcss.com/pace/1.0.2/pace.min.js"></script>
@@ -113,18 +113,18 @@
 
 
 
-<meta name="description" content="###第45条 将局部变量的作用与最小化&amp;emsp;&amp;emsp;要是局部变量的作用与最小化，最有力的方法就是在第一次使用它的地方声明。 &amp;emsp;&amp;emsp;for循环优于while循环，for循环定义的变量作用与仅限于循环内，while需要初始化变量 &amp;emsp;&amp;emsp;对局部变量作用域最小化的循环做法： 123for( int i = 0 , n= computeSize(); i&amp;lt">
+<meta name="description" content="第45条 将局部变量的作用与最小化&amp;emsp;&amp;emsp;要是局部变量的作用与最小化，最有力的方法就是在第一次使用它的地方声明。 &amp;emsp;&amp;emsp;for循环优于while循环，for循环定义的变量作用与仅限于循环内，while需要初始化变量 &amp;emsp;&amp;emsp;对局部变量作用域最小化的循环做法： 123for( int i = 0 , n= computeSize(); i&amp;lt;n;">
 <meta name="keywords" content="effective java">
 <meta property="og:type" content="article">
 <meta property="og:title" content="effective java(8)-通用程序设计">
 <meta property="og:url" content="http://yajian.github.io/effective-java-8-通用程序设计/index.html">
 <meta property="og:site_name" content="小建儿的小站">
-<meta property="og:description" content="###第45条 将局部变量的作用与最小化&amp;emsp;&amp;emsp;要是局部变量的作用与最小化，最有力的方法就是在第一次使用它的地方声明。 &amp;emsp;&amp;emsp;for循环优于while循环，for循环定义的变量作用与仅限于循环内，while需要初始化变量 &amp;emsp;&amp;emsp;对局部变量作用域最小化的循环做法： 123for( int i = 0 , n= computeSize(); i&amp;lt">
+<meta property="og:description" content="第45条 将局部变量的作用与最小化&amp;emsp;&amp;emsp;要是局部变量的作用与最小化，最有力的方法就是在第一次使用它的地方声明。 &amp;emsp;&amp;emsp;for循环优于while循环，for循环定义的变量作用与仅限于循环内，while需要初始化变量 &amp;emsp;&amp;emsp;对局部变量作用域最小化的循环做法： 123for( int i = 0 , n= computeSize(); i&amp;lt;n;">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2018-05-06T05:13:50.000Z">
+<meta property="og:updated_time" content="2018-11-17T10:05:25.475Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="effective java(8)-通用程序设计">
-<meta name="twitter:description" content="###第45条 将局部变量的作用与最小化&amp;emsp;&amp;emsp;要是局部变量的作用与最小化，最有力的方法就是在第一次使用它的地方声明。 &amp;emsp;&amp;emsp;for循环优于while循环，for循环定义的变量作用与仅限于循环内，while需要初始化变量 &amp;emsp;&amp;emsp;对局部变量作用域最小化的循环做法： 123for( int i = 0 , n= computeSize(); i&amp;lt">
+<meta name="twitter:description" content="第45条 将局部变量的作用与最小化&amp;emsp;&amp;emsp;要是局部变量的作用与最小化，最有力的方法就是在第一次使用它的地方声明。 &amp;emsp;&amp;emsp;for循环优于while循环，for循环定义的变量作用与仅限于循环内，while需要初始化变量 &amp;emsp;&amp;emsp;对局部变量作用域最小化的循环做法： 123for( int i = 0 , n= computeSize(); i&amp;lt;n;">
 
 
 
@@ -160,7 +160,7 @@
 
 
 
-  <title>effective java(8)-通用程序设计 | 小建儿的小站</title>
+  <title>effective java(8)-通用程序设计 | 小建儿的小站</title><!-- hexo-inject:begin --><!-- hexo-inject:end -->
   
 
 
@@ -179,7 +179,7 @@
     
   
 
-  <div class="container sidebar-position-left page-post-detail">
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><div class="container sidebar-position-left page-post-detail">
     <div class="headband"></div>
 
     <header id="header" class="header" itemscope="" itemtype="http://schema.org/WPHeader">
@@ -449,7 +449,7 @@
       
 
       
-        <p>###第45条 将局部变量的作用与最小化<br>&emsp;&emsp;要是局部变量的作用与最小化，最有力的方法就是在第一次使用它的地方声明。</p>
+        <h3 id="第45条-将局部变量的作用与最小化"><a href="#第45条-将局部变量的作用与最小化" class="headerlink" title="第45条 将局部变量的作用与最小化"></a>第45条 将局部变量的作用与最小化</h3><p>&emsp;&emsp;要是局部变量的作用与最小化，最有力的方法就是在第一次使用它的地方声明。</p>
 <p>&emsp;&emsp;for循环优于while循环，for循环定义的变量作用与仅限于循环内，while需要初始化变量</p>
 <p>&emsp;&emsp;对局部变量作用域最小化的循环做法：</p>
 <figure class="highlight matlab"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span>( int <span class="built_in">i</span> = <span class="number">0</span> , n= computeSize(); <span class="built_in">i</span>&lt;n; <span class="built_in">i</span>++)&#123;</span><br><span class="line">...</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
@@ -470,7 +470,7 @@
 <li>字符串不适合代替聚集类型，如String key = className + “#” + i.next();</li>
 <li>字符串不适合代替能力表（unforgeable key, 也被叫做能力表capability）</li>
 </ol>
-<p>###第51条 当心字符串链接的性能<br>&emsp;&emsp;不要使用“+”连接字符串，使用StringBuilder</p>
+<h3 id="第51条-当心字符串链接的性能"><a href="#第51条-当心字符串链接的性能" class="headerlink" title="第51条 当心字符串链接的性能"></a>第51条 当心字符串链接的性能</h3><p>&emsp;&emsp;不要使用“+”连接字符串，使用StringBuilder</p>
 <h3 id="第52条-使用接口引用对象"><a href="#第52条-使用接口引用对象" class="headerlink" title="第52条 使用接口引用对象"></a>第52条 使用接口引用对象</h3><p>&emsp;&emsp;如果有合适的接口类型存在，那么对于参数、返回值、变量和域来说，都应该使用接口类型声明。</p>
 <h3 id="第53条-接口优先于反射机制"><a href="#第53条-接口优先于反射机制" class="headerlink" title="第53条 接口优先于反射机制"></a>第53条 接口优先于反射机制</h3><p>反射缺点：</p>
 <ol>
@@ -532,7 +532,7 @@
   <p><span>本文标题:</span><a href="/effective-java-8-通用程序设计/">effective java(8)-通用程序设计</a></p>
   <p><span>文章作者:</span><a href="/" title="访问 小建儿 的个人博客">小建儿</a></p>
   <p><span>发布时间:</span>2018年05月06日 - 13:05</p>
-  <p><span>最后更新:</span>2018年05月06日 - 13:05</p>
+  <p><span>最后更新:</span>2018年11月17日 - 18:11</p>
   <p><span>原始链接:</span><a href="/effective-java-8-通用程序设计/" title="effective java(8)-通用程序设计">http://yajian.github.io/effective-java-8-通用程序设计/</a>
     <span class="copy-path" title="点击复制文章链接"><i class="fa fa-clipboard" data-clipboard-text="http://yajian.github.io/effective-java-8-通用程序设计/" aria-label="复制成功！"></i></span>
   </p>
@@ -768,7 +768,7 @@ var jiathis_config={
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#第46条-for-each循环优于传统for循环"><span class="nav-number">1.</span> <span class="nav-text">第46条 for-each循环优于传统for循环</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#第47条-了解使用类库"><span class="nav-number">2.</span> <span class="nav-text">第47条 了解使用类库</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#如果需要精确答案，避免使用float和double"><span class="nav-number">3.</span> <span class="nav-text">如果需要精确答案，避免使用float和double</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#第49条-基本类型优于装箱基本类型"><span class="nav-number">4.</span> <span class="nav-text">第49条 基本类型优于装箱基本类型</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#第50条-如果其他类型更合适，避免使用字符串"><span class="nav-number">5.</span> <span class="nav-text">第50条 如果其他类型更合适，避免使用字符串</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#第52条-使用接口引用对象"><span class="nav-number">6.</span> <span class="nav-text">第52条 使用接口引用对象</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#第53条-接口优先于反射机制"><span class="nav-number">7.</span> <span class="nav-text">第53条 接口优先于反射机制</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#第54条-谨慎的使用本地方法"><span class="nav-number">8.</span> <span class="nav-text">第54条 谨慎的使用本地方法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#第55条-谨慎地进行优化"><span class="nav-number">9.</span> <span class="nav-text">第55条 谨慎地进行优化</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#第56条-遵守普遍接受的命名惯例"><span class="nav-number">10.</span> <span class="nav-text">第56条 遵守普遍接受的命名惯例</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#第45条-将局部变量的作用与最小化"><span class="nav-number">1.</span> <span class="nav-text">第45条 将局部变量的作用与最小化</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#第46条-for-each循环优于传统for循环"><span class="nav-number">2.</span> <span class="nav-text">第46条 for-each循环优于传统for循环</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#第47条-了解使用类库"><span class="nav-number">3.</span> <span class="nav-text">第47条 了解使用类库</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#如果需要精确答案，避免使用float和double"><span class="nav-number">4.</span> <span class="nav-text">如果需要精确答案，避免使用float和double</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#第49条-基本类型优于装箱基本类型"><span class="nav-number">5.</span> <span class="nav-text">第49条 基本类型优于装箱基本类型</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#第50条-如果其他类型更合适，避免使用字符串"><span class="nav-number">6.</span> <span class="nav-text">第50条 如果其他类型更合适，避免使用字符串</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#第51条-当心字符串链接的性能"><span class="nav-number">7.</span> <span class="nav-text">第51条 当心字符串链接的性能</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#第52条-使用接口引用对象"><span class="nav-number">8.</span> <span class="nav-text">第52条 使用接口引用对象</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#第53条-接口优先于反射机制"><span class="nav-number">9.</span> <span class="nav-text">第53条 接口优先于反射机制</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#第54条-谨慎的使用本地方法"><span class="nav-number">10.</span> <span class="nav-text">第54条 谨慎的使用本地方法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#第55条-谨慎地进行优化"><span class="nav-number">11.</span> <span class="nav-text">第55条 谨慎地进行优化</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#第56条-遵守普遍接受的命名惯例"><span class="nav-number">12.</span> <span class="nav-text">第56条 遵守普遍接受的命名惯例</span></a></li></ol></div>
             
 
           </div>
@@ -1352,7 +1352,24 @@ var jiathis_config={
   
 
   
-    <script type="text/javascript" src="//cdn.bootcss.com/canvas-nest.js/1.0.0/canvas-nest.min.js"></script>
+    <script type="text/javascript" src="//cdn.bootcss.com/canvas-nest.js/1.0.0/canvas-nest.min.js"></script><!-- hexo-inject:begin --><!-- Begin: Injected MathJax -->
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config("");
+</script>
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i=0; i < all.length; i += 1) {
+      all[i].SourceElement().parentNode.className += ' has-jax';
+    }
+  });
+</script>
+
+<script type="text/javascript" src="custom_mathjax_source">
+</script>
+<!-- End: Injected MathJax -->
+<!-- hexo-inject:end -->
   
 </body>
 </html>

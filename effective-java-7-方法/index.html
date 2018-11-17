@@ -7,7 +7,7 @@
 
 <html class="theme-next pisces use-motion" lang="zh-Hans">
 <head><meta name="generator" content="Hexo 3.8.0">
-  <meta charset="UTF-8">
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><meta charset="UTF-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 <script src="//cdn.bootcss.com/pace/1.0.2/pace.min.js"></script>
@@ -113,18 +113,18 @@
 
 
 
-<meta name="description" content="第38条 检查参数有效性&amp;emsp;&amp;emsp;对于开放方法，使用exception &amp;emsp;&amp;emsp;对于私有方法，可以使用assert ###第39条 必要时进行保护性拷贝&amp;emsp;&amp;emsp;在与对外接口交互过程中，确保接收或返回的对象是不可变的。 &amp;emsp;&amp;emsp;对于赋值时传入的对象，可以把关键信息重新赋值给新对象，防止外部对该对象进行修改时随之改变 &amp;emsp;&amp;emsp">
+<meta name="description" content="第38条 检查参数有效性&amp;emsp;&amp;emsp;对于开放方法，使用exception &amp;emsp;&amp;emsp;对于私有方法，可以使用assert 第39条 必要时进行保护性拷贝&amp;emsp;&amp;emsp;在与对外接口交互过程中，确保接收或返回的对象是不可变的。 &amp;emsp;&amp;emsp;对于赋值时传入的对象，可以把关键信息重新赋值给新对象，防止外部对该对象进行修改时随之改变 &amp;emsp;&amp;emsp;对于">
 <meta name="keywords" content="effective java">
 <meta property="og:type" content="article">
 <meta property="og:title" content="effective java(7)-方法">
 <meta property="og:url" content="http://yajian.github.io/effective-java-7-方法/index.html">
 <meta property="og:site_name" content="小建儿的小站">
-<meta property="og:description" content="第38条 检查参数有效性&amp;emsp;&amp;emsp;对于开放方法，使用exception &amp;emsp;&amp;emsp;对于私有方法，可以使用assert ###第39条 必要时进行保护性拷贝&amp;emsp;&amp;emsp;在与对外接口交互过程中，确保接收或返回的对象是不可变的。 &amp;emsp;&amp;emsp;对于赋值时传入的对象，可以把关键信息重新赋值给新对象，防止外部对该对象进行修改时随之改变 &amp;emsp;&amp;emsp">
+<meta property="og:description" content="第38条 检查参数有效性&amp;emsp;&amp;emsp;对于开放方法，使用exception &amp;emsp;&amp;emsp;对于私有方法，可以使用assert 第39条 必要时进行保护性拷贝&amp;emsp;&amp;emsp;在与对外接口交互过程中，确保接收或返回的对象是不可变的。 &amp;emsp;&amp;emsp;对于赋值时传入的对象，可以把关键信息重新赋值给新对象，防止外部对该对象进行修改时随之改变 &amp;emsp;&amp;emsp;对于">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2018-05-06T05:16:24.000Z">
+<meta property="og:updated_time" content="2018-11-17T10:05:15.580Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="effective java(7)-方法">
-<meta name="twitter:description" content="第38条 检查参数有效性&amp;emsp;&amp;emsp;对于开放方法，使用exception &amp;emsp;&amp;emsp;对于私有方法，可以使用assert ###第39条 必要时进行保护性拷贝&amp;emsp;&amp;emsp;在与对外接口交互过程中，确保接收或返回的对象是不可变的。 &amp;emsp;&amp;emsp;对于赋值时传入的对象，可以把关键信息重新赋值给新对象，防止外部对该对象进行修改时随之改变 &amp;emsp;&amp;emsp">
+<meta name="twitter:description" content="第38条 检查参数有效性&amp;emsp;&amp;emsp;对于开放方法，使用exception &amp;emsp;&amp;emsp;对于私有方法，可以使用assert 第39条 必要时进行保护性拷贝&amp;emsp;&amp;emsp;在与对外接口交互过程中，确保接收或返回的对象是不可变的。 &amp;emsp;&amp;emsp;对于赋值时传入的对象，可以把关键信息重新赋值给新对象，防止外部对该对象进行修改时随之改变 &amp;emsp;&amp;emsp;对于">
 
 
 
@@ -160,7 +160,7 @@
 
 
 
-  <title>effective java(7)-方法 | 小建儿的小站</title>
+  <title>effective java(7)-方法 | 小建儿的小站</title><!-- hexo-inject:begin --><!-- hexo-inject:end -->
   
 
 
@@ -179,7 +179,7 @@
     
   
 
-  <div class="container sidebar-position-left page-post-detail">
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><div class="container sidebar-position-left page-post-detail">
     <div class="headband"></div>
 
     <header id="header" class="header" itemscope="" itemtype="http://schema.org/WPHeader">
@@ -451,7 +451,7 @@
       
         <h3 id="第38条-检查参数有效性"><a href="#第38条-检查参数有效性" class="headerlink" title="第38条 检查参数有效性"></a>第38条 检查参数有效性</h3><p>&emsp;&emsp;对于开放方法，使用exception</p>
 <p>&emsp;&emsp;对于私有方法，可以使用assert</p>
-<p>###第39条 必要时进行保护性拷贝<br>&emsp;&emsp;在与对外接口交互过程中，确保接收或返回的对象是不可变的。</p>
+<h3 id="第39条-必要时进行保护性拷贝"><a href="#第39条-必要时进行保护性拷贝" class="headerlink" title="第39条 必要时进行保护性拷贝"></a>第39条 必要时进行保护性拷贝</h3><p>&emsp;&emsp;在与对外接口交互过程中，确保接收或返回的对象是不可变的。</p>
 <p>&emsp;&emsp;对于赋值时传入的对象，可以把关键信息重新赋值给新对象，防止外部对该对象进行修改时随之改变</p>
 <p>&emsp;&emsp;对于使用get访问一个对象时，为了防止拿到对象的类对其进行修改，可以把关键信息放在一个新对象里并返回（与创建试图思想一致）进行保护性拷贝会造成性能损失，对于同一个项目里，只在内部用到的类，只需确保编码时不会对其用到的参数类进行修改即可，对于与外界交互的类，需要注意该条建议</p>
 <h3 id="第40条-谨慎设计方法签名"><a href="#第40条-谨慎设计方法签名" class="headerlink" title="第40条 谨慎设计方法签名"></a>第40条 谨慎设计方法签名</h3><ol>
@@ -509,7 +509,7 @@
   <p><span>本文标题:</span><a href="/effective-java-7-方法/">effective java(7)-方法</a></p>
   <p><span>文章作者:</span><a href="/" title="访问 小建儿 的个人博客">小建儿</a></p>
   <p><span>发布时间:</span>2018年05月06日 - 13:05</p>
-  <p><span>最后更新:</span>2018年05月06日 - 13:05</p>
+  <p><span>最后更新:</span>2018年11月17日 - 18:11</p>
   <p><span>原始链接:</span><a href="/effective-java-7-方法/" title="effective java(7)-方法">http://yajian.github.io/effective-java-7-方法/</a>
     <span class="copy-path" title="点击复制文章链接"><i class="fa fa-clipboard" data-clipboard-text="http://yajian.github.io/effective-java-7-方法/" aria-label="复制成功！"></i></span>
   </p>
@@ -745,7 +745,7 @@ var jiathis_config={
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#第38条-检查参数有效性"><span class="nav-number">1.</span> <span class="nav-text">第38条 检查参数有效性</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#第40条-谨慎设计方法签名"><span class="nav-number">2.</span> <span class="nav-text">第40条 谨慎设计方法签名</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#第41条-慎用重载"><span class="nav-number">3.</span> <span class="nav-text">第41条 慎用重载</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#第42条-慎用可变长参数"><span class="nav-number">4.</span> <span class="nav-text">第42条 慎用可变长参数</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#返回零长度的数组或者集合，而不是null"><span class="nav-number">5.</span> <span class="nav-text">返回零长度的数组或者集合，而不是null</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#第44条-写文档"><span class="nav-number">6.</span> <span class="nav-text">第44条 写文档</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#第38条-检查参数有效性"><span class="nav-number">1.</span> <span class="nav-text">第38条 检查参数有效性</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#第39条-必要时进行保护性拷贝"><span class="nav-number">2.</span> <span class="nav-text">第39条 必要时进行保护性拷贝</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#第40条-谨慎设计方法签名"><span class="nav-number">3.</span> <span class="nav-text">第40条 谨慎设计方法签名</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#第41条-慎用重载"><span class="nav-number">4.</span> <span class="nav-text">第41条 慎用重载</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#第42条-慎用可变长参数"><span class="nav-number">5.</span> <span class="nav-text">第42条 慎用可变长参数</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#返回零长度的数组或者集合，而不是null"><span class="nav-number">6.</span> <span class="nav-text">返回零长度的数组或者集合，而不是null</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#第44条-写文档"><span class="nav-number">7.</span> <span class="nav-text">第44条 写文档</span></a></li></ol></div>
             
 
           </div>
@@ -1329,7 +1329,24 @@ var jiathis_config={
   
 
   
-    <script type="text/javascript" src="//cdn.bootcss.com/canvas-nest.js/1.0.0/canvas-nest.min.js"></script>
+    <script type="text/javascript" src="//cdn.bootcss.com/canvas-nest.js/1.0.0/canvas-nest.min.js"></script><!-- hexo-inject:begin --><!-- Begin: Injected MathJax -->
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config("");
+</script>
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i=0; i < all.length; i += 1) {
+      all[i].SourceElement().parentNode.className += ' has-jax';
+    }
+  });
+</script>
+
+<script type="text/javascript" src="custom_mathjax_source">
+</script>
+<!-- End: Injected MathJax -->
+<!-- hexo-inject:end -->
   
 </body>
 </html>

@@ -7,7 +7,7 @@
 
 <html class="theme-next pisces use-motion" lang="zh-Hans">
 <head><meta name="generator" content="Hexo 3.8.0">
-  <meta charset="UTF-8">
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><meta charset="UTF-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 <script src="//cdn.bootcss.com/pace/1.0.2/pace.min.js"></script>
@@ -113,23 +113,23 @@
 
 
 
-<meta name="description" content="&amp;emsp;&amp;emsp;课程01《神经网络和深度学习》的学习告一段落，这周开始课程02《改善深层神经网络：超参数调试、正则化及优化》的学习，第一周课程讲述了数据集的划分、方差与偏差的概念、正则化、梯度消失和梯度爆炸等知识点，都是在实际应用中会遇到的一些问题。 ##数据集的划分 &amp;emsp;&amp;emsp;首先明确一下训练集、验证集和测试集的概念，之前很少强调验证集，导致把验证集和测试集的概念混淆。 #">
+<meta name="description" content="&amp;emsp;&amp;emsp;课程01《神经网络和深度学习》的学习告一段落，这周开始课程02《改善深层神经网络：超参数调试、正则化及优化》的学习，第一周课程讲述了数据集的划分、方差与偏差的概念、正则化、梯度消失和梯度爆炸等知识点，都是在实际应用中会遇到的一些问题。 数据集的划分&amp;emsp;&amp;emsp;首先明确一下训练集、验证集和测试集的概念，之前很少强调验证集，导致把验证集和测试集的概念混淆。 训练集&amp;">
 <meta name="keywords" content="deeplearning.ai学习笔记">
 <meta property="og:type" content="article">
 <meta property="og:title" content="正则化与梯度">
 <meta property="og:url" content="http://yajian.github.io/正则化与梯度/index.html">
 <meta property="og:site_name" content="小建儿的小站">
-<meta property="og:description" content="&amp;emsp;&amp;emsp;课程01《神经网络和深度学习》的学习告一段落，这周开始课程02《改善深层神经网络：超参数调试、正则化及优化》的学习，第一周课程讲述了数据集的划分、方差与偏差的概念、正则化、梯度消失和梯度爆炸等知识点，都是在实际应用中会遇到的一些问题。 ##数据集的划分 &amp;emsp;&amp;emsp;首先明确一下训练集、验证集和测试集的概念，之前很少强调验证集，导致把验证集和测试集的概念混淆。 #">
+<meta property="og:description" content="&amp;emsp;&amp;emsp;课程01《神经网络和深度学习》的学习告一段落，这周开始课程02《改善深层神经网络：超参数调试、正则化及优化》的学习，第一周课程讲述了数据集的划分、方差与偏差的概念、正则化、梯度消失和梯度爆炸等知识点，都是在实际应用中会遇到的一些问题。 数据集的划分&amp;emsp;&amp;emsp;首先明确一下训练集、验证集和测试集的概念，之前很少强调验证集，导致把验证集和测试集的概念混淆。 训练集&amp;">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:image" content="http://yajian.github.io/正则化与梯度/正则化与梯度/方差vs偏差.jpg">
-<meta property="og:image" content="http://yajian.github.io/正则化与梯度/正则化与梯度/early_stopping.jpg">
-<meta property="og:image" content="http://yajian.github.io/正则化与梯度/正则化与梯度/dropout.jpg">
-<meta property="og:image" content="http://yajian.github.io/正则化与梯度/正则化与梯度/过拟合曲线.jpg">
-<meta property="og:updated_time" content="2017-11-16T02:36:28.000Z">
+<meta property="og:image" content="http://yajian.github.io/正则化与梯度/方差vs偏差.jpg">
+<meta property="og:image" content="http://yajian.github.io/正则化与梯度/early_stopping.jpg">
+<meta property="og:image" content="http://yajian.github.io/正则化与梯度/dropout.jpg">
+<meta property="og:image" content="http://yajian.github.io/正则化与梯度/过拟合曲线.jpg">
+<meta property="og:updated_time" content="2018-11-17T10:04:00.203Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="正则化与梯度">
-<meta name="twitter:description" content="&amp;emsp;&amp;emsp;课程01《神经网络和深度学习》的学习告一段落，这周开始课程02《改善深层神经网络：超参数调试、正则化及优化》的学习，第一周课程讲述了数据集的划分、方差与偏差的概念、正则化、梯度消失和梯度爆炸等知识点，都是在实际应用中会遇到的一些问题。 ##数据集的划分 &amp;emsp;&amp;emsp;首先明确一下训练集、验证集和测试集的概念，之前很少强调验证集，导致把验证集和测试集的概念混淆。 #">
-<meta name="twitter:image" content="http://yajian.github.io/正则化与梯度/正则化与梯度/方差vs偏差.jpg">
+<meta name="twitter:description" content="&amp;emsp;&amp;emsp;课程01《神经网络和深度学习》的学习告一段落，这周开始课程02《改善深层神经网络：超参数调试、正则化及优化》的学习，第一周课程讲述了数据集的划分、方差与偏差的概念、正则化、梯度消失和梯度爆炸等知识点，都是在实际应用中会遇到的一些问题。 数据集的划分&amp;emsp;&amp;emsp;首先明确一下训练集、验证集和测试集的概念，之前很少强调验证集，导致把验证集和测试集的概念混淆。 训练集&amp;">
+<meta name="twitter:image" content="http://yajian.github.io/正则化与梯度/方差vs偏差.jpg">
 
 
 
@@ -165,7 +165,7 @@
 
 
 
-  <title>正则化与梯度 | 小建儿的小站</title>
+  <title>正则化与梯度 | 小建儿的小站</title><!-- hexo-inject:begin --><!-- hexo-inject:end -->
   
 
 
@@ -184,7 +184,7 @@
     
   
 
-  <div class="container sidebar-position-left page-post-detail">
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><div class="container sidebar-position-left page-post-detail">
     <div class="headband"></div>
 
     <header id="header" class="header" itemscope="" itemtype="http://schema.org/WPHeader">
@@ -455,34 +455,42 @@
 
       
         <p>&emsp;&emsp;课程01《神经网络和深度学习》的学习告一段落，这周开始课程02《改善深层神经网络：超参数调试、正则化及优化》的学习，第一周课程讲述了数据集的划分、方差与偏差的概念、正则化、梯度消失和梯度爆炸等知识点，都是在实际应用中会遇到的一些问题。</p>
-<p>##数据集的划分</p>
-<p>&emsp;&emsp;首先明确一下训练集、验证集和测试集的概念，之前很少强调验证集，导致把验证集和测试集的概念混淆。</p>
-<p>###训练集<br>&emsp;&emsp;训练集（training set）用来构建模型、确定模型参数的样本。</p>
-<p>###验证集<br>&emsp;&emsp;验证集（validation set）用于模型优化、确定网络结构或者控制模型复杂程度的参数，主要是辅助模型构建。</p>
-<p>###测试集<br>&emsp;&emsp;测试集（training set）用于检验训练好的模型的预测能力。<br>&emsp;&emsp;以前没有仔细区分验证集和测试集，一些demo也只是将数据集划分为training set和test test，此处需要注意验证集的基本概念。ng在视频中说对一般量级的数据进行划分的时候，可以取训练集：验证集：测试集=3:1:1的比例；如果分为两类，一般是训练集：测试集=7:3。在大数量级数据的情况下，验证集和测试集占的比例可能较小。ng特意强调了保证测试集和验证集来自同一分布</p>
-<p>##方差与偏差</p>
-<p>###方差<br>&emsp;&emsp;方差描述的是预测值相对于期望值的波动范围，也可以说是离散程度。方差越大，数据的分布越分散，波动范围越大；反之亦然。</p>
-<p>###偏差<br>&emsp;&emsp;描述的是预测值的期望与真实值之间的差距。偏差越大，和真实值差的越多。</p>
+<h2 id="数据集的划分"><a href="#数据集的划分" class="headerlink" title="数据集的划分"></a>数据集的划分</h2><p>&emsp;&emsp;首先明确一下训练集、验证集和测试集的概念，之前很少强调验证集，导致把验证集和测试集的概念混淆。</p>
+<h3 id="训练集"><a href="#训练集" class="headerlink" title="训练集"></a>训练集</h3><p>&emsp;&emsp;训练集（training set）用来构建模型、确定模型参数的样本。</p>
+<h3 id="验证集"><a href="#验证集" class="headerlink" title="验证集"></a>验证集</h3><p>&emsp;&emsp;验证集（validation set）用于模型优化、确定网络结构或者控制模型复杂程度的参数，主要是辅助模型构建。</p>
+<h3 id="测试集"><a href="#测试集" class="headerlink" title="测试集"></a>测试集</h3><p>&emsp;&emsp;测试集（training set）用于检验训练好的模型的预测能力。<br>&emsp;&emsp;以前没有仔细区分验证集和测试集，一些demo也只是将数据集划分为training set和test test，此处需要注意验证集的基本概念。ng在视频中说对一般量级的数据进行划分的时候，可以取训练集：验证集：测试集=3:1:1的比例；如果分为两类，一般是训练集：测试集=7:3。在大数量级数据的情况下，验证集和测试集占的比例可能较小。ng特意强调了保证测试集和验证集来自同一分布</p>
+<h2 id="方差与偏差"><a href="#方差与偏差" class="headerlink" title="方差与偏差"></a>方差与偏差</h2><h3 id="方差"><a href="#方差" class="headerlink" title="方差"></a>方差</h3><p>&emsp;&emsp;方差描述的是预测值相对于期望值的波动范围，也可以说是离散程度。方差越大，数据的分布越分散，波动范围越大；反之亦然。</p>
+<h3 id="偏差"><a href="#偏差" class="headerlink" title="偏差"></a>偏差</h3><p>&emsp;&emsp;描述的是预测值的期望与真实值之间的差距。偏差越大，和真实值差的越多。</p>
 <p>下图比较形象的说明了两者的区别</p>
-<div align="center"><br>    <img src="正则化与梯度/方差vs偏差.jpg " width="300" height="300" align="center" title="方差vs偏差"><br></div>
+<div align="center">
+    <img src="/正则化与梯度/方差vs偏差.jpg " width="300" height="300" align="center" title="方差vs偏差">
+</div>
 
-<p>##正则化<br>&emsp;&emsp;当模型在训练集的效果在训练集上效果表现很好，但是在测试集上表现很差的话，说明出现了过拟合的情况。举个例子来说，就好比上学的时候做练习题，如果一个学生练习题做的很好，但是考试好不过，说明学习方法有问题，不能很好的掌握所学知识，出现了过拟合的问题。解决过拟合的问题有以下几种方法：数据集扩增、early stopping、正则化。</p>
+<h2 id="正则化"><a href="#正则化" class="headerlink" title="正则化"></a>正则化</h2><p>&emsp;&emsp;当模型在训练集的效果在训练集上效果表现很好，但是在测试集上表现很差的话，说明出现了过拟合的情况。举个例子来说，就好比上学的时候做练习题，如果一个学生练习题做的很好，但是考试好不过，说明学习方法有问题，不能很好的掌握所学知识，出现了过拟合的问题。解决过拟合的问题有以下几种方法：数据集扩增、early stopping、正则化。</p>
 <h3 id="数据集扩增"><a href="#数据集扩增" class="headerlink" title="数据集扩增"></a>数据集扩增</h3><p>&emsp;&emsp;对抗过拟合的一个有效方法就是用更多的训练数据去训练模型，用于训练模型的数据多了，说明模型使用范围更广泛。就好比一个学生做的练习题多了，把知识都融会贯通了，考试自然就能考高分。<br>&emsp;&emsp;数据集扩增不太容易办到，ng讲了几个例子可以较方便的扩展数据集，主要包括产生镜像图片、旋转原图、图像加噪声等。</p>
 <h3 id="early-stopping"><a href="#early-stopping" class="headerlink" title="early stopping"></a>early stopping</h3><p>&emsp;&emsp;随着代价函数的不断减小，训练误差是一个不断变小的过程，验证误差起初也会不断减小，但是当出现过拟合的时候验证误差会慢慢增加，eraly stopping就是在验证误差即将增大的时候停止迭代的过程。下图能比较明显的表示这个过程。</p>
-<div align="center"><br>    <img src="正则化与梯度/early_stopping.jpg " width="300" height="200" align="center" title="early_stopping"><br></div>
+<div align="center">
+    <img src="/正则化与梯度/early_stopping.jpg " width="300" height="200" align="center" title="early_stopping">
+</div>
 
-<h3 id="正则化"><a href="#正则化" class="headerlink" title="正则化"></a>正则化</h3><p>&emsp;&emsp;正则化方法是指在进行目标函数优化时，在目标函数后面加上一个正则项，来达到防止过拟合的目的，即$C = J(W,b)+R$，其中$J(W,b)$是原损失函数，$R$是正则项。常见的正则项有L1正则和L2正则。</p>
-<p>####L1正则化</p>
-<p>&emsp;&emsp;L1正则化就是在原损失函数基础上加上L1范数，即$C = J(W,b)+\frac{\lambda}{n}\sum^{n}<em>{i=1}|w</em>{i}|$。L1正则化对所求权重产生的影响从下面推导的过程看出来，首先求导<br>$$\frac{\partial{C}}{\partial{w}}=\frac{\partial{J(W,b)}}{\partial{w}}+\frac{\lambda}{n}sign(w)$$<br>则梯度更新的过程为<br>$$w:=w-\eta\frac{\partial{J(W,b)}}{\partial{w}}-\eta\frac{\lambda}{n}sign(w)$$<br>&emsp;&emsp;当$w&gt;0$时，更新后的$w$变小；而当$w&lt;0$时，更新后的$w$变大，所以产生的效果就是使得$w$趋近于0。</p>
-<p>####L2正则化</p>
-<p>&emsp;&emsp;L1正则化就是在原损失函数基础上加上L1范数，即$C = J(W,b)+\frac{\lambda}{2n}\sum^{n}<em>{i=1}w</em>{i}^2$。同样可以通过推导来看L2范数对权重产生的影响，首先求导<br>$$\frac{\partial{C}}{\partial{w}}=\frac{\partial{J(W,b)}}{\partial{w}}+\frac{\lambda}{n}w$$<br>则梯度更新的过程为<br>$$w:=w-\eta\frac{\partial{J(W,b)}}{\partial{w}}-\eta\frac{\lambda}{n}w = （1-\eta\frac{\lambda}{n})w-\eta\frac{\partial{J(W,b)}}{\partial{w}}$$<br>因为$\eta，\lambda，n$都是大于0的，所以更新后的$w$相对于没加L2正则的时候变小了，有缩减系数的效果。</p>
-<p>####DropOut正则化</p>
-<p>&emsp;&emsp;Dropout是深度学习正则化的一种方式，它指按照一定的概率将一些神经元暂时从网络中丢弃，被丢弃的神经元不会对后面的计算产生影响，效果如下图。</p>
-<div align="center"><br>    <img src="正则化与梯度/dropout.jpg " width="350" height="200" align="center" title="dropout示意图"><br></div>
+<h3 id="正则化-1"><a href="#正则化-1" class="headerlink" title="正则化"></a>正则化</h3><p>&emsp;&emsp;正则化方法是指在进行目标函数优化时，在目标函数后面加上一个正则项，来达到防止过拟合的目的，即$C = J(W,b)+R$，其中$J(W,b)$是原损失函数，$R$是正则项。常见的正则项有L1正则和L2正则。</p>
+<h4 id="L1正则化"><a href="#L1正则化" class="headerlink" title="L1正则化"></a>L1正则化</h4><p>&emsp;&emsp;L1正则化就是在原损失函数基础上加上L1范数，即$C = J(W,b)+\frac{\lambda}{n}\sum^{n}<em>{i=1}|w</em>{i}|$。L1正则化对所求权重产生的影响从下面推导的过程看出来，首先求导</p>
+<script type="math/tex; mode=display">\frac{\partial{C}}{\partial{w}}=\frac{\partial{J(W,b)}}{\partial{w}}+\frac{\lambda}{n}sign(w)</script><p>则梯度更新的过程为</p>
+<script type="math/tex; mode=display">w:=w-\eta\frac{\partial{J(W,b)}}{\partial{w}}-\eta\frac{\lambda}{n}sign(w)</script><p>&emsp;&emsp;当$w&gt;0$时，更新后的$w$变小；而当$w&lt;0$时，更新后的$w$变大，所以产生的效果就是使得$w$趋近于0。</p>
+<h4 id="L2正则化"><a href="#L2正则化" class="headerlink" title="L2正则化"></a>L2正则化</h4><p>&emsp;&emsp;L1正则化就是在原损失函数基础上加上L1范数，即$C = J(W,b)+\frac{\lambda}{2n}\sum^{n}<em>{i=1}w</em>{i}^2$。同样可以通过推导来看L2范数对权重产生的影响，首先求导</p>
+<script type="math/tex; mode=display">\frac{\partial{C}}{\partial{w}}=\frac{\partial{J(W,b)}}{\partial{w}}+\frac{\lambda}{n}w</script><p>则梯度更新的过程为</p>
+<script type="math/tex; mode=display">w:=w-\eta\frac{\partial{J(W,b)}}{\partial{w}}-\eta\frac{\lambda}{n}w = （1-\eta\frac{\lambda}{n})w-\eta\frac{\partial{J(W,b)}}{\partial{w}}</script><p>因为$\eta，\lambda，n$都是大于0的，所以更新后的$w$相对于没加L2正则的时候变小了，有缩减系数的效果。</p>
+<h4 id="DropOut正则化"><a href="#DropOut正则化" class="headerlink" title="DropOut正则化"></a>DropOut正则化</h4><p>&emsp;&emsp;Dropout是深度学习正则化的一种方式，它指按照一定的概率将一些神经元暂时从网络中丢弃，被丢弃的神经元不会对后面的计算产生影响，效果如下图。</p>
+<div align="center">
+    <img src="/正则化与梯度/dropout.jpg " width="350" height="200" align="center" title="dropout示意图">
+</div>
 
-<p>##梯度消失和梯度爆炸<br>&emsp;&emsp;假设有n层网络，b暂时忽略不计，激活函数为线性激活函数，则一个神经元的输出为$z=Wx$，那么经过n层网络输出为<br>$$y=W^{(n)}W^{(n-1)}W^{(n-2)}……W^{(2)}W^{(1)}x$$<br>所以当$W$的值稍比单位矩阵大，经过指数变换，得到的结果会很大；相应的若$W$的值稍比1小，经过指数变换，得到的结果也会变小。<br>&emsp;&emsp;考虑激活函数的话也会产生类似的效果，所以在搭建神经网络时，要考虑激活函数和权重初值，避免出现梯度消失和梯度爆炸的情况。</p>
-<p>##小结<br>&emsp;&emsp;关于正则化的问题，有两点要说明。首先，对于正则化缩减系数的理解：所求的$w$是特征的权重值，当出现过拟合时，几乎样本中的每个点都在拟合的曲线上，就像下图所示。</p>
-<p><div align="center"><br>    <img src="正则化与梯度/过拟合曲线.jpg" width="300" height="200" align="center" title="过拟合曲线示意图"><br></div><br>我们可以看出和二次曲线相比，该图像的其斜率较大。由于自变量的阶数对斜率的影响较小，从而可以推断出斜率变大的主要起因是权重值过大。所以减轻过拟合现象就要控制权重值不能过大，这也是为什么要加上正则项。<br>&emsp;&emsp;第二点就是目前接触到的教材都是告诉我们正则有这样几种方法，但是并没有深究这种方法的理论来源。其实正则项推导和贝叶斯学派有一定的关系，但是我比较疑惑的是添加正则项后的模型效果更好，是否说明贝叶斯学派的理论相比频率学派更优呢？关于如何从贝叶斯学派的理论推导出正则项之后再单开一篇博客进行介绍。</p>
+<h2 id="梯度消失和梯度爆炸"><a href="#梯度消失和梯度爆炸" class="headerlink" title="梯度消失和梯度爆炸"></a>梯度消失和梯度爆炸</h2><p>&emsp;&emsp;假设有n层网络，b暂时忽略不计，激活函数为线性激活函数，则一个神经元的输出为$z=Wx$，那么经过n层网络输出为</p>
+<script type="math/tex; mode=display">y=W^{(n)}W^{(n-1)}W^{(n-2)}……W^{(2)}W^{(1)}x</script><p>所以当$W$的值稍比单位矩阵大，经过指数变换，得到的结果会很大；相应的若$W$的值稍比1小，经过指数变换，得到的结果也会变小。<br>&emsp;&emsp;考虑激活函数的话也会产生类似的效果，所以在搭建神经网络时，要考虑激活函数和权重初值，避免出现梯度消失和梯度爆炸的情况。</p>
+<h2 id="小结"><a href="#小结" class="headerlink" title="小结"></a>小结</h2><p>&emsp;&emsp;关于正则化的问题，有两点要说明。首先，对于正则化缩减系数的理解：所求的$w$是特征的权重值，当出现过拟合时，几乎样本中的每个点都在拟合的曲线上，就像下图所示。</p>
+<p><div align="center">
+    <img src="/正则化与梯度/过拟合曲线.jpg" width="300" height="200" align="center" title="过拟合曲线示意图">
+</div><br>我们可以看出和二次曲线相比，该图像的其斜率较大。由于自变量的阶数对斜率的影响较小，从而可以推断出斜率变大的主要起因是权重值过大。所以减轻过拟合现象就要控制权重值不能过大，这也是为什么要加上正则项。<br>&emsp;&emsp;第二点就是目前接触到的教材都是告诉我们正则有这样几种方法，但是并没有深究这种方法的理论来源。其实正则项推导和贝叶斯学派有一定的关系，但是我比较疑惑的是添加正则项后的模型效果更好，是否说明贝叶斯学派的理论相比频率学派更优呢？关于如何从贝叶斯学派的理论推导出正则项之后再单开一篇博客进行介绍。</p>
 
       
     </div>
@@ -517,7 +525,7 @@
   <p><span>本文标题:</span><a href="/正则化与梯度/">正则化与梯度</a></p>
   <p><span>文章作者:</span><a href="/" title="访问 小建儿 的个人博客">小建儿</a></p>
   <p><span>发布时间:</span>2017年11月12日 - 18:11</p>
-  <p><span>最后更新:</span>2017年11月16日 - 10:11</p>
+  <p><span>最后更新:</span>2018年11月17日 - 18:11</p>
   <p><span>原始链接:</span><a href="/正则化与梯度/" title="正则化与梯度">http://yajian.github.io/正则化与梯度/</a>
     <span class="copy-path" title="点击复制文章链接"><i class="fa fa-clipboard" data-clipboard-text="http://yajian.github.io/正则化与梯度/" aria-label="复制成功！"></i></span>
   </p>
@@ -753,7 +761,7 @@ var jiathis_config={
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#数据集扩增"><span class="nav-number">1.</span> <span class="nav-text">数据集扩增</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#early-stopping"><span class="nav-number">2.</span> <span class="nav-text">early stopping</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#正则化"><span class="nav-number">3.</span> <span class="nav-text">正则化</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#数据集的划分"><span class="nav-number">1.</span> <span class="nav-text">数据集的划分</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#训练集"><span class="nav-number">1.1.</span> <span class="nav-text">训练集</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#验证集"><span class="nav-number">1.2.</span> <span class="nav-text">验证集</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#测试集"><span class="nav-number">1.3.</span> <span class="nav-text">测试集</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#方差与偏差"><span class="nav-number">2.</span> <span class="nav-text">方差与偏差</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#方差"><span class="nav-number">2.1.</span> <span class="nav-text">方差</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#偏差"><span class="nav-number">2.2.</span> <span class="nav-text">偏差</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#正则化"><span class="nav-number">3.</span> <span class="nav-text">正则化</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#数据集扩增"><span class="nav-number">3.1.</span> <span class="nav-text">数据集扩增</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#early-stopping"><span class="nav-number">3.2.</span> <span class="nav-text">early stopping</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#正则化-1"><span class="nav-number">3.3.</span> <span class="nav-text">正则化</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#L1正则化"><span class="nav-number">3.3.1.</span> <span class="nav-text">L1正则化</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#L2正则化"><span class="nav-number">3.3.2.</span> <span class="nav-text">L2正则化</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#DropOut正则化"><span class="nav-number">3.3.3.</span> <span class="nav-text">DropOut正则化</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#梯度消失和梯度爆炸"><span class="nav-number">4.</span> <span class="nav-text">梯度消失和梯度爆炸</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#小结"><span class="nav-number">5.</span> <span class="nav-text">小结</span></a></li></ol></div>
             
 
           </div>
@@ -1357,7 +1365,24 @@ var jiathis_config={
   
 
   
-    <script type="text/javascript" src="//cdn.bootcss.com/canvas-nest.js/1.0.0/canvas-nest.min.js"></script>
+    <script type="text/javascript" src="//cdn.bootcss.com/canvas-nest.js/1.0.0/canvas-nest.min.js"></script><!-- hexo-inject:begin --><!-- Begin: Injected MathJax -->
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config("");
+</script>
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i=0; i < all.length; i += 1) {
+      all[i].SourceElement().parentNode.className += ' has-jax';
+    }
+  });
+</script>
+
+<script type="text/javascript" src="custom_mathjax_source">
+</script>
+<!-- End: Injected MathJax -->
+<!-- hexo-inject:end -->
   
 </body>
 </html>

@@ -7,7 +7,7 @@
 
 <html class="theme-next pisces use-motion" lang="zh-Hans">
 <head><meta name="generator" content="Hexo 3.8.0">
-  <meta charset="UTF-8">
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><meta charset="UTF-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 <script src="//cdn.bootcss.com/pace/1.0.2/pace.min.js"></script>
@@ -121,7 +121,7 @@
 <meta property="og:site_name" content="小建儿的小站">
 <meta property="og:description" content="&amp;emsp;&amp;emsp;目前AI领域很多开源框架都朝着低门槛的方向发展，以keras为例，极大地简化了tensorflow的使用。我们的项目同样面临这个问题，为了降低使用门槛，需要使用解析器把易于常人理解的配置转化为复杂的后端执行代码。在调研过程中，遇到了有很多表达式解析工具，如ik-expression、aviator等，最后我学习spark-sql的时候了解了spark2.0底层的sql解析器">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2018-05-06T05:01:30.000Z">
+<meta property="og:updated_time" content="2018-11-17T10:04:51.979Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="ANTLR简介">
 <meta name="twitter:description" content="&amp;emsp;&amp;emsp;目前AI领域很多开源框架都朝着低门槛的方向发展，以keras为例，极大地简化了tensorflow的使用。我们的项目同样面临这个问题，为了降低使用门槛，需要使用解析器把易于常人理解的配置转化为复杂的后端执行代码。在调研过程中，遇到了有很多表达式解析工具，如ik-expression、aviator等，最后我学习spark-sql的时候了解了spark2.0底层的sql解析器">
@@ -160,7 +160,7 @@
 
 
 
-  <title>ANTLR简介 | 小建儿的小站</title>
+  <title>ANTLR简介 | 小建儿的小站</title><!-- hexo-inject:begin --><!-- hexo-inject:end -->
   
 
 
@@ -179,7 +179,7 @@
     
   
 
-  <div class="container sidebar-position-left page-post-detail">
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><div class="container sidebar-position-left page-post-detail">
     <div class="headband"></div>
 
     <header id="header" class="header" itemscope="" itemtype="http://schema.org/WPHeader">
@@ -450,8 +450,7 @@
 
       
         <p>&emsp;&emsp;目前AI领域很多开源框架都朝着低门槛的方向发展，以keras为例，极大地简化了tensorflow的使用。我们的项目同样面临这个问题，为了降低使用门槛，需要使用解析器把易于常人理解的配置转化为复杂的后端执行代码。在调研过程中，遇到了有很多表达式解析工具，如ik-expression、aviator等，最后我学习spark-sql的时候了解了spark2.0底层的sql解析器使用了ANTLR ，后来发现ANTLR 是一款优秀的工业级语法分析器，所以决定用到我们的项目中。</p>
-<p>##基本概念</p>
-<ul>
+<h2 id="基本概念"><a href="#基本概念" class="headerlink" title="基本概念"></a>基本概念</h2><ul>
 <li>语言：一门语言是一个有效语句的集合，语句(sentence)由词组组成，词组(phrase)由子词组组成，子词组(subphrase)又由更小的词组组成，依次类推；</li>
 <li>语法：语法定义了语言的语义规则，语法中的每条规则定义了一种词组结构；</li>
 <li>语义树或语法分析树：代表了语句的结构，其中的每个子树的根节点都使用一个抽象的名字给包含的元素命名。即子树的根节点对应了语法规则的名字。树的叶子结点是语句的符号或者词法的符号；</li>
@@ -497,7 +496,7 @@
   <p><span>本文标题:</span><a href="/ANTLR简介/">ANTLR简介</a></p>
   <p><span>文章作者:</span><a href="/" title="访问 小建儿 的个人博客">小建儿</a></p>
   <p><span>发布时间:</span>2018年03月16日 - 18:03</p>
-  <p><span>最后更新:</span>2018年05月06日 - 13:05</p>
+  <p><span>最后更新:</span>2018年11月17日 - 18:11</p>
   <p><span>原始链接:</span><a href="/ANTLR简介/" title="ANTLR简介">http://yajian.github.io/ANTLR简介/</a>
     <span class="copy-path" title="点击复制文章链接"><i class="fa fa-clipboard" data-clipboard-text="http://yajian.github.io/ANTLR简介/" aria-label="复制成功！"></i></span>
   </p>
@@ -642,8 +641,17 @@ var jiathis_config={
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
 
-      <section class="site-overview-wrap sidebar-panel sidebar-panel-active">
+      <section class="site-overview-wrap sidebar-panel">
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
             
@@ -714,6 +722,22 @@ var jiathis_config={
         </div>
       </section>
 
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#基本概念"><span class="nav-number">1.</span> <span class="nav-text">基本概念</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
       
 
       
@@ -1292,7 +1316,24 @@ var jiathis_config={
   
 
   
-    <script type="text/javascript" src="//cdn.bootcss.com/canvas-nest.js/1.0.0/canvas-nest.min.js"></script>
+    <script type="text/javascript" src="//cdn.bootcss.com/canvas-nest.js/1.0.0/canvas-nest.min.js"></script><!-- hexo-inject:begin --><!-- Begin: Injected MathJax -->
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config("");
+</script>
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i=0; i < all.length; i += 1) {
+      all[i].SourceElement().parentNode.className += ' has-jax';
+    }
+  });
+</script>
+
+<script type="text/javascript" src="custom_mathjax_source">
+</script>
+<!-- End: Injected MathJax -->
+<!-- hexo-inject:end -->
   
 </body>
 </html>
