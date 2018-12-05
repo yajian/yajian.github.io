@@ -318,6 +318,213 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yajian.github.io/设计模式-单例模式/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="小建儿">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="小建儿的小站">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/设计模式-单例模式/" itemprop="url">设计模式-单例模式</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-07-19T14:38:43+08:00">
+                2018-07-19
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
+                  <a href="/categories/设计模式/" itemprop="url" rel="index">
+                    <span itemprop="name">设计模式</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/设计模式-单例模式/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count disqus-comment-count" data-disqus-identifier="设计模式-单例模式/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">
+                  
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h1 id="单例模式"><a href="#单例模式" class="headerlink" title="单例模式"></a>单例模式</h1><p>&emsp;&emsp;单例模式是比较常用的设计模式之一，单例对象的类必须保证全局只有一个实例存在。其实现方式有很多种，本篇博客主要介绍常见的几种实现方式。</p>
+<p>&emsp;&emsp;单例模式最基本的原则：保证该类构造方法的访问权限为private。</p>
+<h2 id="饿汉模式"><a href="#饿汉模式" class="headerlink" title="饿汉模式"></a>饿汉模式</h2><p>&emsp;&emsp;饿汉模式是指类初始化的时候先创建好该类实例，获取实例的时候总是返回该实例。</p>
+<figure class="highlight smali"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">public class StarveSingleton &#123;</span><br><span class="line"></span><br><span class="line">	//先产生实例</span><br><span class="line">   <span class="keyword"> private</span><span class="keyword"> static</span> StarveSingleton<span class="built_in"> instance </span>=<span class="built_in"> new </span>StarveSingleton();</span><br><span class="line">    	//保证构造函数私有化，这样无法从外部初始化该类</span><br><span class="line">   <span class="keyword"> private</span> StarveSingleton()&#123;&#125;</span><br><span class="line">	//提供获取实例方法</span><br><span class="line">   <span class="keyword"> public</span><span class="keyword"> static</span> StarveSingleton getInstance() &#123;</span><br><span class="line">       <span class="built_in"> return </span>instance;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="懒汉模式"><a href="#懒汉模式" class="headerlink" title="懒汉模式"></a>懒汉模式</h2><p>&emsp;&emsp;懒汉模式可以延迟类的初始化，即类加载阶段不进行初始化操作，只在第一次使用单例类的时候进行初始化，主要用于一些类初始化开销比较大的情况。<br>&emsp;&emsp;缺点：多线程情况下需要特殊处理。</p>
+<figure class="highlight cs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title">LazySingleton</span> &#123;</span><br><span class="line"></span><br><span class="line">	<span class="comment">//初始化是该引用为null	</span></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> LazySingleton instance = <span class="literal">null</span>;</span><br><span class="line">	<span class="comment">//私有化构造方法</span></span><br><span class="line">    <span class="function"><span class="keyword">private</span> <span class="title">LazySingleton</span>(<span class="params"></span>)</span> &#123;</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line">	<span class="comment">//获取类实例方法</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> LazySingleton <span class="title">getInstance</span>(<span class="params"></span>)</span> &#123;</span><br><span class="line">	<span class="comment">//第一次调用getInstance方法时，完成初始化</span></span><br><span class="line">        <span class="keyword">if</span> (instance == <span class="literal">null</span>) &#123;</span><br><span class="line">            instance = <span class="keyword">new</span> LazySingleton();</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> instance;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="静态内部类"><a href="#静态内部类" class="headerlink" title="静态内部类"></a>静态内部类</h2><p>&emsp;&emsp;饿汉模式不能实现延迟加载，占用内存；懒汉模式需要进行线程安全控制，并且影响性能。这时候静态内部类模式提供了另一种比较好的方式。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">StaticSingleton</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">	<span class="comment">//私有化构造方法</span></span><br><span class="line">    <span class="function"><span class="keyword">private</span> <span class="title">StaticSingleton</span><span class="params">()</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line">	<span class="comment">//静态内部类</span></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="class"><span class="keyword">class</span> <span class="title">SingletonHolder</span> </span>&#123;</span><br><span class="line">        <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> StaticSingleton STATIC_SINGLETON = <span class="keyword">new</span> StaticSingleton();</span><br><span class="line">    &#125;</span><br><span class="line">	<span class="comment">//获取类实例方法</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> StaticSingleton <span class="title">getInstance</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> SingletonHolder.STATIC_SINGLETON;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>&emsp;&emsp;由于外部类的初始化并不会引发静态内部类SingletonHolder的初始化，所以只有在第一次调用getInstance方法时才会触发静态内部类的初始化，从而完成实例化工程。</p>
+<h2 id="枚举类"><a href="#枚举类" class="headerlink" title="枚举类"></a>枚举类</h2><p>&emsp;&emsp;枚举类是目前比较推荐的实现单例的方案，因为枚举类实现简单，并且可以保证线程安全和序列化的安全。</p>
+<figure class="highlight crystal"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">public <span class="class"><span class="keyword">enum</span> <span class="title">EnumSingleton</span> &#123;</span></span><br><span class="line"></span><br><span class="line">    Instance;</span><br><span class="line">    </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="双检锁"><a href="#双检锁" class="headerlink" title="双检锁"></a>双检锁</h2><p>&emsp;&emsp;前面提到过懒汉模式可能会遇到线程安全问题，双检索实现方式可以保证线程安全和延迟初始化。但是该模式只能保证在1.5版本之后的jvm上运行的效果。</p>
+<figure class="highlight smali"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">public class DoubleCheckSignelton &#123;</span><br><span class="line">	//引用设置为空，并且用volatile修饰	</span><br><span class="line">   <span class="keyword"> private</span><span class="keyword"> static</span> volatile DoubleCheckSignelton<span class="built_in"> instance </span>= null;</span><br><span class="line">	//私有化构造方法</span><br><span class="line">   <span class="keyword"> private</span> DoubleCheckSignelton() &#123;</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line">	//提供获取实例方法</span><br><span class="line">   <span class="keyword"> public</span><span class="keyword"> static</span> DoubleCheckSignelton getInstance() &#123;</span><br><span class="line">	//第一次判断引用是否为空</span><br><span class="line">       <span class="built_in"> if </span>(instance == null) &#123;</span><br><span class="line">		//防止多条线程同时实例化该类，所以加锁</span><br><span class="line">            synchronized (DoubleCheckSingleton.class) &#123;</span><br><span class="line">		//此时有可能其他线程已经完成了实例化，所以再进行一次非空检测，确认是否需要进行类的实例化</span><br><span class="line">               <span class="built_in"> if </span>(instance == null) &#123;</span><br><span class="line">			//确认没有进行过实例化，new一个新实例</span><br><span class="line">                   <span class="built_in"> instance </span>=<span class="built_in"> new </span>DoubleCheckSignelton();</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">       <span class="built_in"> return </span>instance;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>相比枚举实现方式，双检索复杂一些。其中instance必须要用volatile修饰，此处的volatile并不是为了保证可见性，而是为了禁止重排序。产生新实例的时候一般按照开辟内存空间-创建实例-引用指向实例内存地址，但是重排序可能会将这个顺序改为开辟内存空间-引用指向实例内存地址-创建实例，如果一个线程按照第二种顺序进行操作，最后创建实例出现了问题，没有完成创建对象的工作，下一个线程进行非空检测时发现引用已经指向了新的实例地址，认为初始化工作已完成，直接返回了该引用，但实际上无法使用该实例。所以需要volatile保证类的初始化顺序。</p>
+<h1 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h1><p>&emsp;&emsp;以上就是常见的实现单例模式的方法，但是上述模式并不能完全保证全局只有一个实例，下一篇我们将深入地讲解哪些操作可以破坏单例模式，以及如何防止这些情况的发生。</p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+
+
+    
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://yajian.github.io/java多线程-Unsafe/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
@@ -2173,216 +2380,6 @@
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yajian.github.io/java源码解读-vector-stack/">
-
-    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="小建儿">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="小建儿的小站">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/java源码解读-vector-stack/" itemprop="url">java源码解读--vector&stack</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-06-05T10:37:00+08:00">
-                2018-06-05
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category">
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
-                  <a href="/categories/java/" itemprop="url" rel="index">
-                    <span itemprop="name">java</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-              <span class="post-comments-count">
-                <span class="post-meta-divider">|</span>
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-comment-o"></i>
-                </span>
-                <a href="/java源码解读-vector-stack/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count disqus-comment-count" data-disqus-identifier="java源码解读-vector-stack/" itemprop="commentCount"></span>
-                </a>
-              </span>
-            
-          
-
-          
-          
-
-          
-
-          
-            <div class="post-wordcount">
-              
-                
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-file-word-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">字数统计&#58;</span>
-                
-                <span title="字数统计">
-                  
-                </span>
-              
-
-              
-                <span class="post-meta-divider">|</span>
-              
-
-              
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-clock-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
-                
-                <span title="阅读时长">
-                  
-                </span>
-              
-            </div>
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h1 id="Vector"><a href="#Vector" class="headerlink" title="Vector"></a>Vector</h1><p>vector是jdk1.0引入的，底层实现也是可变长数组，和arraylist类似，其区别如下：</p>
-<ol>
-<li>vector是线程安全的，对外暴露的方法几乎都加了sychronized关键字</li>
-<li>扩容时默认扩充原数组大小的一倍，而arrayList一次扩容0.5倍</li>
-</ol>
-<h2 id="类定义"><a href="#类定义" class="headerlink" title="类定义"></a>类定义</h2><p>与arraylist定义一致，继承了abstractList类，实现了list、randomaccess、cloneable、serializable接口。</p>
-<figure class="highlight actionscript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Vector</span>&lt;<span class="title">E</span>&gt;</span></span><br><span class="line"><span class="class">    <span class="keyword">extends</span> <span class="title">AbstractList</span>&lt;<span class="title">E</span>&gt;</span></span><br><span class="line"><span class="class">    <span class="keyword">implements</span> <span class="title">List</span>&lt;<span class="title">E</span>&gt;, <span class="title">RandomAccess</span>, <span class="title">Cloneable</span>, <span class="title">java</span>.<span class="title">io</span>.<span class="title">Serializable</span></span></span><br></pre></td></tr></table></figure>
-<h2 id="成员变量"><a href="#成员变量" class="headerlink" title="成员变量"></a>成员变量</h2><figure class="highlight processing"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//用于存储数据的数组</span></span><br><span class="line">   <span class="keyword">protected</span> <span class="keyword">Object</span>[] elementData;</span><br><span class="line"></span><br><span class="line"><span class="comment">//元素个数</span></span><br><span class="line">   <span class="keyword">protected</span> <span class="built_in">int</span> elementCount;</span><br><span class="line"></span><br><span class="line"><span class="comment">//扩容时增加的容量</span></span><br><span class="line">   <span class="keyword">protected</span> <span class="built_in">int</span> capacityIncrement;</span><br></pre></td></tr></table></figure>
-<h2 id="构造方法"><a href="#构造方法" class="headerlink" title="构造方法"></a>构造方法</h2><figure class="highlight aspectj"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//初始化传入初始容量和扩容容量</span></span><br><span class="line">   <span class="function"><span class="keyword">public</span> <span class="title">Vector</span><span class="params">(<span class="keyword">int</span> initialCapacity, <span class="keyword">int</span> capacityIncrement)</span> </span>&#123;</span><br><span class="line">       <span class="keyword">super</span>();</span><br><span class="line">       <span class="keyword">if</span> (initialCapacity &lt; <span class="number">0</span>)</span><br><span class="line">           <span class="keyword">throw</span> <span class="keyword">new</span> IllegalArgumentException(<span class="string">"Illegal Capacity: "</span>+</span><br><span class="line">                                              initialCapacity);</span><br><span class="line">       <span class="keyword">this</span>.elementData = <span class="keyword">new</span> Object[initialCapacity];</span><br><span class="line">       <span class="keyword">this</span>.capacityIncrement = capacityIncrement;</span><br><span class="line">   &#125;</span><br><span class="line"><span class="comment">//传入初始容量，扩容容量默认为0</span></span><br><span class="line">   <span class="function"><span class="keyword">public</span> <span class="title">Vector</span><span class="params">(<span class="keyword">int</span> initialCapacity)</span> </span>&#123;</span><br><span class="line">       <span class="keyword">this</span>(initialCapacity, <span class="number">0</span>);</span><br><span class="line">   &#125;</span><br><span class="line"><span class="comment">//初始容量默认为10</span></span><br><span class="line">   <span class="function"><span class="keyword">public</span> <span class="title">Vector</span><span class="params">()</span> </span>&#123;</span><br><span class="line">       <span class="keyword">this</span>(<span class="number">10</span>);</span><br><span class="line">   &#125;</span><br><span class="line"></span><br><span class="line">   <span class="function"><span class="keyword">public</span> <span class="title">Vector</span><span class="params">(Collection&lt;? <span class="keyword">extends</span> E&gt; c)</span> </span>&#123;</span><br><span class="line">       elementData = c.toArray();</span><br><span class="line">       elementCount = elementData.length;</span><br><span class="line">       <span class="comment">// c.toArray might (incorrectly) not return Object[] (see 6260652)</span></span><br><span class="line">       <span class="keyword">if</span> (elementData.getClass() != Object[].class)</span><br><span class="line">           elementData = Arrays.copyOf(elementData, elementCount, Object[].class);</span><br><span class="line">   &#125;</span><br></pre></td></tr></table></figure>
-<h2 id="扩容逻辑"><a href="#扩容逻辑" class="headerlink" title="扩容逻辑"></a>扩容逻辑</h2><figure class="highlight haxe"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//默认最大容量2的31次方-8</span></span><br><span class="line">   <span class="keyword">private</span> <span class="keyword">static</span> final int MAX_ARRAY_SIZE = Integer.MAX_VALUE - <span class="number">8</span>;</span><br><span class="line"></span><br><span class="line">   <span class="keyword">private</span> void grow(int minCapacity) &#123;</span><br><span class="line">       <span class="comment">// overflow-conscious code</span></span><br><span class="line">       int oldCapacity = elementData.length;</span><br><span class="line"><span class="comment">//如果扩容增加个数大于0，则一次扩容capacityIncrement个；如果capacityIncrement等于0，则一次扩容原来容量的一倍</span></span><br><span class="line">       int <span class="keyword">new</span><span class="type">Capacity</span> = oldCapacity + ((capacityIncrement &gt; <span class="number">0</span>) ?</span><br><span class="line">                                        capacityIncrement : <span class="type">oldCapacity</span>);</span><br><span class="line">       <span class="keyword">if</span> (<span class="keyword">new</span><span class="type">Capacity</span> - minCapacity &lt; <span class="number">0</span>)</span><br><span class="line">           <span class="keyword">new</span><span class="type">Capacity</span> = minCapacity;</span><br><span class="line">       <span class="keyword">if</span> (<span class="keyword">new</span><span class="type">Capacity</span> - MAX_ARRAY_SIZE &gt; <span class="number">0</span>)</span><br><span class="line">           <span class="keyword">new</span><span class="type">Capacity</span> = hugeCapacity(minCapacity);</span><br><span class="line">       elementData = Arrays.copyOf(elementData, <span class="keyword">new</span><span class="type">Capacity</span>);</span><br><span class="line">   &#125;</span><br><span class="line"></span><br><span class="line">   <span class="keyword">private</span> <span class="keyword">static</span> int hugeCapacity(int minCapacity) &#123;</span><br><span class="line">       <span class="keyword">if</span> (minCapacity &lt; <span class="number">0</span>) <span class="comment">// overflow</span></span><br><span class="line">           <span class="keyword">throw</span> <span class="keyword">new</span> <span class="type">OutOfMemoryError</span>();</span><br><span class="line">       <span class="keyword">return</span> (minCapacity &gt; MAX_ARRAY_SIZE) ?</span><br><span class="line">           Integer.MAX_VALUE :<span class="type"></span></span><br><span class="line"><span class="type">           MAX_ARRAY_SIZE</span>;</span><br><span class="line">   &#125;</span><br></pre></td></tr></table></figure>
-<h2 id="elements"><a href="#elements" class="headerlink" title="elements"></a>elements</h2><p>该方法返回一个Enumeration，类似迭代器，区别在于iterator可以修改数据（remove方法），而enumeration不能，iterator支持fail-fast机制，enumerator不支持</p>
-<figure class="highlight gradle"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> Enumeration&lt;E&gt; elements() &#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">new</span> Enumeration&lt;E&gt;() &#123;</span><br><span class="line">        <span class="keyword">int</span> <span class="keyword">count</span> = <span class="number">0</span>;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">public</span> <span class="keyword">boolean</span> hasMoreElements() &#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="keyword">count</span> &lt; elementCount;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">public</span> E nextElement() &#123;</span><br><span class="line">            <span class="keyword">synchronized</span> (Vector.<span class="keyword">this</span>) &#123;</span><br><span class="line">                <span class="keyword">if</span> (<span class="keyword">count</span> &lt; elementCount) &#123;</span><br><span class="line">                    <span class="keyword">return</span> elementData(<span class="keyword">count</span>++);</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">throw</span> <span class="keyword">new</span> NoSuchElementException(<span class="string">"Vector Enumeration"</span>);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h2 id="其他"><a href="#其他" class="headerlink" title="其他"></a>其他</h2><p>vector其他方法与arraylist类似，但是大部分添加了sychronized关键字进行同步，该类目前已弃用，了解一下就好</p>
-<h1 id="Stack"><a href="#Stack" class="headerlink" title="Stack"></a>Stack</h1><p>stack类实现了栈的功能，即先进后出，也是线程安全的。</p>
-<h2 id="类定义-1"><a href="#类定义-1" class="headerlink" title="类定义"></a>类定义</h2><p>继承了Vector类</p>
-<figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">public</span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Stack&lt;E&gt;</span> <span class="keyword">extends</span> <span class="title">Vector&lt;E&gt;</span> </span>&#123;</span><br></pre></td></tr></table></figure>
-<h2 id="重要方法"><a href="#重要方法" class="headerlink" title="重要方法"></a>重要方法</h2><p>实现了peek、pop、push等常用方法</p>
-<figure class="highlight aspectj"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//添加元素</span></span><br><span class="line">   <span class="keyword">public</span> <span class="function">E <span class="title">push</span><span class="params">(E item)</span> </span>&#123;</span><br><span class="line">       addElement(item);</span><br><span class="line"></span><br><span class="line">       <span class="keyword">return</span> item;</span><br><span class="line">   &#125;</span><br><span class="line"><span class="comment">//取栈顶元素</span></span><br><span class="line">   <span class="keyword">public</span> <span class="keyword">synchronized</span> <span class="function">E <span class="title">pop</span><span class="params">()</span> </span>&#123;</span><br><span class="line">       E       obj;</span><br><span class="line">       <span class="keyword">int</span>     len = size();</span><br><span class="line"></span><br><span class="line">       obj = peek();</span><br><span class="line">       removeElementAt(len - <span class="number">1</span>);</span><br><span class="line"></span><br><span class="line">       <span class="keyword">return</span> obj;</span><br><span class="line">   &#125;</span><br><span class="line"><span class="comment">//查询栈顶元素</span></span><br><span class="line">   <span class="keyword">public</span> <span class="keyword">synchronized</span> <span class="function">E <span class="title">peek</span><span class="params">()</span> </span>&#123;</span><br><span class="line">       <span class="keyword">int</span>     len = size();</span><br><span class="line"></span><br><span class="line">       <span class="keyword">if</span> (len == <span class="number">0</span>)</span><br><span class="line">           <span class="keyword">throw</span> <span class="keyword">new</span> EmptyStackException();</span><br><span class="line">       <span class="function"><span class="keyword">return</span> <span class="title">elementAt</span><span class="params">(len - <span class="number">1</span>)</span></span>;</span><br><span class="line">   &#125;</span><br><span class="line"></span><br><span class="line">   <span class="keyword">public</span> <span class="function"><span class="keyword">boolean</span> <span class="title">empty</span><span class="params">()</span> </span>&#123;</span><br><span class="line">       <span class="keyword">return</span> size() == <span class="number">0</span>;</span><br><span class="line">   &#125;</span><br><span class="line"></span><br><span class="line">   <span class="keyword">public</span> <span class="keyword">synchronized</span> <span class="function"><span class="keyword">int</span> <span class="title">search</span><span class="params">(Object o)</span> </span>&#123;</span><br><span class="line">       <span class="keyword">int</span> i = lastIndexOf(o);</span><br><span class="line"></span><br><span class="line">       <span class="keyword">if</span> (i &gt;= <span class="number">0</span>) &#123;</span><br><span class="line">           <span class="keyword">return</span> size() - i;</span><br><span class="line">       &#125;</span><br><span class="line">       <span class="keyword">return</span> <span class="number">-1</span>;</span><br><span class="line">   &#125;</span><br></pre></td></tr></table></figure>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-
-
-    
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
@@ -2435,7 +2432,7 @@
               
                 <a href="/archives">
               
-                  <span class="site-state-item-count">48</span>
+                  <span class="site-state-item-count">49</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -2457,7 +2454,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">15</span>
+                  <span class="site-state-item-count">16</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>
