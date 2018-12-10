@@ -461,7 +461,7 @@
 <li>平行迭代，如集合a,b，每次迭代顺序取得a,b第n个元素</li>
 </ol>
 <h3 id="第47条-了解使用类库"><a href="#第47条-了解使用类库" class="headerlink" title="第47条 了解使用类库"></a>第47条 了解使用类库</h3><p>&emsp;&emsp;熟悉java.lang, java.utils, java.io</p>
-<h3 id="如果需要精确答案，避免使用float和double"><a href="#如果需要精确答案，避免使用float和double" class="headerlink" title="如果需要精确答案，避免使用float和double"></a>如果需要精确答案，避免使用float和double</h3><p>&emsp;&emsp;float和double是为了在广泛的数值上提供较为精确结果的场合设计的， <strong>不能提供完全精确的结果</strong>，尤其不适合货币计算</p>
+<h3 id="如果需要精确答案，避免使用float和double"><a href="#如果需要精确答案，避免使用float和double" class="headerlink" title="如果需要精确答案，避免使用float和double"></a>如果需要精确答案，避免使用float和double</h3><p>&emsp;&emsp;float和double是为了在广泛的数值上提供较为精确结果的场合设计的， **不能提供完全精确的结果**，尤其不适合货币计算</p>
 <p>&emsp;&emsp;如果计算小数，使用bigdecimal，但是使用繁琐、性能较差；若对性能有要求，可以改变单位使用int或者long。</p>
 <h3 id="第49条-基本类型优于装箱基本类型"><a href="#第49条-基本类型优于装箱基本类型" class="headerlink" title="第49条 基本类型优于装箱基本类型"></a>第49条 基本类型优于装箱基本类型</h3><p>&emsp;&emsp;对装箱基本类型运用==操作符几乎总是错误的<br>装箱基本类型导致高开销和不必要的对象创建</p>
 <h3 id="第50条-如果其他类型更合适，避免使用字符串"><a href="#第50条-如果其他类型更合适，避免使用字符串" class="headerlink" title="第50条 如果其他类型更合适，避免使用字符串"></a>第50条 如果其他类型更合适，避免使用字符串</h3><p>&emsp;&emsp;金科玉律，在做工作时能明显感受到字符串操作造成的性能影响</p>
@@ -817,6 +817,9 @@ var jiathis_config={
 
 
 
+<% if (page.mathjax){ %>
+<%- partial('mathjax') %>
+<% } %>
 -->
 <div class="theme-info">
   <div class="powered-by"></div>
@@ -1344,6 +1347,26 @@ var jiathis_config={
   
 
   
+  
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Config({
+        tex2jax: {
+          inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+          processEscapes: true,
+          skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+        }
+      });
+    </script>
+
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for (i=0; i < all.length; i += 1) {
+          all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+      });
+    </script>
+    <script type="text/javascript" src="//cdn.bootcss.com/mathjax/2.7.1/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
   
 
 

@@ -318,6 +318,216 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yajian.github.io/逻辑回归/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="小建儿">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="小建儿的小站">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/逻辑回归/" itemprop="url">逻辑回归</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-12-06T14:15:09+08:00">
+                2018-12-06
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
+                  <a href="/categories/机器学习/" itemprop="url" rel="index">
+                    <span itemprop="name">机器学习</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/逻辑回归/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count disqus-comment-count" data-disqus-identifier="逻辑回归/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">
+                  
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>&emsp;&emsp;机器学习主要解决两类问题：回归和分类，上篇文章中的线性回归模型是回归模型的一种，但并不能用于分类问题，本文将介绍一种可以用于分类问题的回归算法–logistic回归。</p>
+<p>&emsp;&emsp;利用logistic回归进行分类的主要思想是：估算某个实例属于特定类别的概率，如果预估概率超过50%，则属于该类别；反之，属于其他类别，这样形成了一个简单的二元分类器。</p>
+<h1 id="原理"><a href="#原理" class="headerlink" title="原理"></a>原理</h1><h2 id="sigmoid函数"><a href="#sigmoid函数" class="headerlink" title="sigmoid函数"></a>sigmoid函数</h2><p>&emsp;&emsp;我们希望能找到一种根据输入值输出0，1分类的函数，脑海中闪现的第一个函数应该就是单位阶跃函数，即<br>$$<br>\delta(x)=<br>    \begin{cases}<br>        0, &amp; x \leq 0; \\<br>        1, &amp; x&gt;0.<br>    \end{cases}<br>$$<br>但是该函数在$x=0$处不可导，对于公式推导来说有很大问题，所以大牛们找到了sigmoid函数来代替阶跃函数。</p>
+<p>&emsp;&emsp;Sigmoid函数公式如下</p>
+<p>$$<br>    f(x)=\frac{1}{1+e^{-x}}<br>    \tag{1}<br>$$</p>
+<p>其函数图像如下所示</p>
+<div align="center"><br>    <img src="/逻辑回归/sigmoid.png" width="450" height="300" title="sigmoid函数图像"><br></div>
+
+<h2 id="logistic回归模型"><a href="#logistic回归模型" class="headerlink" title="logistic回归模型"></a>logistic回归模型</h2><p>&emsp;&emsp;将公式1推广到多维场景：给每个特征都乘以一个回归系数并相加，即$z=\theta_{0}+\theta_{1}x_{1}+\theta_{2}x_{2}+……+\theta_{n}x_{n}=\theta ^{T}x$（线性回归），然后将总和带入sigmoid函数中得到<br>$$<br>h_{\theta}\left(x \right)=\frac{1}{1+e^{-z}}=\frac{1}{1+e^{-\theta ^{T}x}}<br>\tag{2}<br>$$<br>&emsp;&emsp;所以线性回归的的结果被映射到了sigmoid函数中。在sigmoid函数图像中可以看出，其函数值介于0～1，中间值为0.5，因此$h_{\theta}\left(x \right)$的输出可以看作分类的概率。当$h_{\theta}\left(x \right)&gt;0.5$，说明$x$属于A类；反之，$h_{\theta}\left(x \right)&lt;0.5$，则$x$属于B类。</p>
+<h2 id="参数估计"><a href="#参数估计" class="headerlink" title="参数估计"></a>参数估计</h2><p>&emsp;&emsp;对于给定的数据集$T={(x_1,y_1),(x_2,y_2),…(x_n,y_n)}$，其中$x_i \in R^n$，$y_i \in \{0,1\}$。分类结果为1的概率表示为<br>$$<br>        P(y=1|x;\theta)=h_\theta(x) <br>$$<br>分类结果为0的概率表示为<br>$$<br>        P(y=0|x;\theta)=1-h_\theta(x) <br>$$<br>将其合并则有<br>$$<br>p(y|x;\theta)=h_\theta(x_i) ^{y_i}(1-h_\theta(x))^{1-y_i}<br>$$<br>因为m个样本互相独立，所以其联合分布可以看作各个样本概率之积，则似然函数为<br>$$<br>    L(\theta) = \prod_{i=1}^{n}p(y_i|x_i;\theta)=\prod_{i=1}^{n} [h_\theta(x_i)]^{y_i}[1-h_\theta(x_i)]^{1-y_i}<br>$$<br>取对数似然<br>$$<br>l(\theta) =\sum_{i=1}^{n} y_ilog[h_\theta(x_i)]+(1-y_i)log[1-h_\theta(x)]<br>\tag{3}<br>$$<br>当$l\left(\theta \right)$取最大值时，$\theta$的值为最终的解。求$l\left(\theta \right)$对$\theta$的导数 </p>
+<p>$$<br>\begin{align*}<br>    l^{‘}(\theta)&amp;=\sum_{i=1}^{n} [\frac{y_i}{h_\theta(x_i)}-\frac{1-y_i}{1-h_\theta(x_i)}]*h^{‘}_\theta(x_i)\\<br>    &amp;=\sum_{i=1}^{n} [\frac{y_i}{h_\theta(x_i)}-\frac{1-y_i}{1-h_\theta(x_i)}]*[h_\theta(x_i)]^{‘}_{z}*z^{‘}_\theta\\<br>    &amp;=\sum_{i=1}^{n}[\frac{y_i}{h_\theta(x_i)}-\frac{1-y_i}{1-h_\theta(x_i)}]*h_\theta(x_i)[1-h_\theta(x_i)]*z^{‘}_\theta \\<br>    &amp;=\sum_{i=1}^{n}[y_i-h_\theta(x_i)]*x_i<br>    \end{align*}<br>\tag{4}<br>$$</p>
+<p><font face="宋体" size="2">* 注：sigmoid求导结果<br>$$<br>f’\left(x \right)=f\left(x \right)\left[1-f\left(x \right) \right]<br>$$ </font></p>
+<p>&lt;\font&gt;<br>对公式4进行迭代，可求得参数$\theta$。</p>
+<h2 id="思考"><a href="#思考" class="headerlink" title="思考"></a>思考</h2><h3 id="对偏置项b的处理"><a href="#对偏置项b的处理" class="headerlink" title="对偏置项b的处理"></a>对偏置项b的处理</h3><p>&emsp;&emsp;在大部分资料中，会在输入$x$和权重$\theta$中增加一列常数列作为偏置项，这样做的好处是不需要对其进行单独处理，可随权重$\theta$一起求解，下面来讨论一下单独求解偏置项$b$的步骤。</p>
+<p>&emsp;&emsp;假设输入为$[x_1,x_2,…,x_n]$，权重为$[\theta_1,\theta_2,…,\theta_n]$，偏置项为$[b_1,b_2,…,b_n]$，则公式2变为<br>$$<br>    h_{\theta}\left(x \right)=\frac{1}{1+e^{-z}}=\frac{1}{1+e^{-\theta ^{T}x-b}}<br>$$<br>接下来需让公示3对变量b求导<br>$$<br>\begin{align*}<br>    l^{‘}(b)&amp;=\sum_{i=1}^{n} [\frac{y_i}{h_\theta(x_i)}-\frac{1-y_i}{1-h_\theta(x_i)}]*h^{‘}_\theta(x_i)\\<br>    &amp;=\sum_{i=1}^{n} [\frac{y_i}{h_\theta(x_i)}-\frac{1-y_i}{1-h_\theta(x_i)}]*[h_\theta(x_i)]^{‘}_{z}*z^{‘}_b\\<br>    &amp;=\sum_{i=1}^{n}[\frac{y_i}{h_\theta(x_i)}-\frac{1-y_i}{1-h_\theta(x_i)}]*h_\theta(x_i)[1-h_\theta(x_i)]*z^{‘}_b \\<br>    &amp;=\sum_{i=1}^{n}[y_i-h_\theta(x_i)]*x_i<br>    \end{align*}<br>\tag{5}<br>$$<br>对公式5进行迭代，可求得参数$b$。</p>
+<h1 id="代码实现"><a href="#代码实现" class="headerlink" title="代码实现"></a>代码实现</h1><p>&emsp;&emsp;为了加深对公示的理解，代码没有直接使用tensorflow内置的优化器，手动实现了逻辑回归梯度下降。示例如下：</p>
+<figure class="highlight nix"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="comment"># coding=utf-8</span></span><br><span class="line"><span class="built_in">import</span> tensorflow as tf</span><br><span class="line">from sklearn <span class="built_in">import</span> datasets</span><br><span class="line"><span class="built_in">import</span> numpy as np</span><br><span class="line">from sklearn.preprocessing <span class="built_in">import</span> OneHotEncoder</span><br><span class="line"></span><br><span class="line"><span class="attr">iris</span> = datasets.load_iris()</span><br><span class="line"><span class="attr">data_x</span> = np.array(iris['data'])</span><br><span class="line"><span class="attr">data_y</span> = np.array(iris['target']).reshape(-<span class="number">1</span>, <span class="number">1</span>)</span><br><span class="line">print data_x.shape</span><br><span class="line">print data_y.shape</span><br><span class="line"><span class="attr">enc</span> = OneHotEncoder()</span><br><span class="line">enc.fit(data_y)</span><br><span class="line"><span class="comment"># 多分类问题，对label进行one-hot编码</span></span><br><span class="line"><span class="attr">targets</span> = enc.transform(data_y).toarray()</span><br><span class="line"><span class="comment"># 输入行数不指定，列数为特征个数</span></span><br><span class="line"><span class="attr">X</span> = tf.placeholder(<span class="attr">dtype=tf.float32,</span> <span class="attr">shape=(None,</span> data_x.shape[<span class="number">1</span>]))</span><br><span class="line"><span class="comment"># 输出行数不指定，列数类别个数</span></span><br><span class="line"><span class="attr">y</span> = tf.placeholder(<span class="attr">dtype=tf.float32,</span> <span class="attr">shape=(None,</span> <span class="number">3</span>))</span><br><span class="line"><span class="comment"># 学习率</span></span><br><span class="line"><span class="attr">alpha</span> = <span class="number">0.0001</span></span><br><span class="line"><span class="comment"># 迭代次数</span></span><br><span class="line"><span class="attr">epoch</span> = <span class="number">500</span></span><br><span class="line"><span class="comment"># 权重</span></span><br><span class="line"><span class="attr">theta</span> = tf.Variable(tf.random_uniform([data_x.shape[<span class="number">1</span>], <span class="number">3</span>], -<span class="number">1.0</span>, <span class="number">1.0</span>), <span class="attr">name='theta')</span></span><br><span class="line"><span class="comment"># 偏置</span></span><br><span class="line"><span class="attr">b</span> = tf.Variable(tf.random_uniform([<span class="number">3</span>], -<span class="number">1.0</span>, <span class="number">1.0</span>), <span class="attr">name='b')</span></span><br><span class="line"><span class="comment"># 预测值</span></span><br><span class="line"><span class="attr">predict_y</span> = tf.nn.softmax(tf.matmul(X, theta) + b)</span><br><span class="line"><span class="comment"># 误差</span></span><br><span class="line"><span class="attr">error</span> = tf.cast(y, tf.float32) - predict_y</span><br><span class="line"><span class="comment"># 代价函数，使用交叉熵函数，手动实现</span></span><br><span class="line"><span class="attr">cost</span> = tf.reduce_mean(-tf.reduce_sum(y * tf.log(predict_y), <span class="attr">reduction_indices=1))</span></span><br><span class="line"><span class="comment"># 权重的负梯度</span></span><br><span class="line"><span class="attr">theta_gradient</span> = -tf.matmul(tf.matrix_transpose(X), error, <span class="attr">name='theta_gradient')</span></span><br><span class="line"><span class="comment"># 偏置的负梯度</span></span><br><span class="line"><span class="attr">b_gradient</span> = - tf.reduce_mean(tf.matmul(tf.transpose(X), error), <span class="attr">reduction_indices=0,</span> <span class="attr">name='b_gradient')</span></span><br><span class="line"><span class="comment"># 权重迭代项</span></span><br><span class="line"><span class="attr">training_op1</span> = tf.assign(theta, theta - alpha * theta_gradient)</span><br><span class="line"><span class="comment"># 偏置迭代项</span></span><br><span class="line"><span class="attr">training_op2</span> = tf.assign(b, b - alpha * b_gradient)</span><br><span class="line"><span class="comment"># 全局初始化</span></span><br><span class="line"><span class="attr">init</span> = tf.global_variables_initializer()</span><br><span class="line"><span class="keyword">with</span> tf.Session() as sess:</span><br><span class="line">    init.run()</span><br><span class="line">    for i <span class="keyword">in</span> range(epoch):</span><br><span class="line">        sess.run([training_op1, training_op2, cost], <span class="attr">feed_dict=&#123;X:</span> data_x, y: targets&#125;)</span><br><span class="line">        print sess.run(theta, <span class="attr">feed_dict=&#123;X:</span> data_x, y: targets&#125;)</span><br><span class="line">        print sess.run(b, <span class="attr">feed_dict=&#123;X:</span> data_x, y: targets&#125;)</span><br><span class="line">        print sess.run(cost, <span class="attr">feed_dict=&#123;X:</span> data_x, y: targets&#125;)</span><br></pre></td></tr></table></figure>
+<p>代码详见[逻辑回归代码](<a href="https://github.com/yajian/machine_learning/blob/master/logistic_regression/lr_model.py" target="_blank" rel="noopener">https://github.com/yajian/machine_learning/blob/master/logistic_regression/lr_model.py</a>)</p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+
+
+    
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://yajian.github.io/线性回归/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
@@ -454,74 +664,38 @@
           
             <h1 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h1><p>&emsp;&emsp;说到回归一般都指线性回归，回归的目的是预测数值型的目标值。线性回归模型的优点在于结果易于理解，计算简单，缺点在于对非线性的数据拟合不好。</p>
 <h1 id="原理"><a href="#原理" class="headerlink" title="原理"></a>原理</h1><p>&emsp;&emsp;线性回归就是对输入特征加权求和，在加上偏置项进行预测。公式如下所示：</p>
-<script type="math/tex; mode=display">
-                    \widehat{h}=\theta_{0}+\theta_{1}x_{1}+\theta_{2}x_{2}+...+\theta_{n}x_{n}
-                    \tag{1}</script><p>其中，$\widehat{h}$代表预测值，$n$是特征的个数，${x<em>i}$代表第i个特征值，$\theta</em>{i}$ 代表第i个特征的权重，将上式向量化有</p>
-<script type="math/tex; mode=display">
-                            \widehat{h}=h_{\theta}(X)=X\theta
-                            \tag{2}</script><p>其中$\theta$是模型的参数向量，X是实例的特征向量，$h_{\theta}$是使用模型参数$\theta$做参数的假设函数。</p>
-<font face="宋体" size="2">* 注：这里为什么写成$X\theta$的形式，而不是$\theta X$呢？在实际使用中，实例的特征是行向量，由多个实例构成输入矩阵，而权重是列向量，其具体形式如下
-    $$
-    X\theta=
-     \begin{bmatrix}
-      x_0^1 & x_0^2 & ... &x_0^n \\
-      x_1^1 & x_1^2 & ... &x_1^n \\
-      ...  & ... & ... &... \\
-      x_m^1 & x_m^1 & ... &x_m^1
-      \end{bmatrix} 
-      \begin{bmatrix}
-      \theta_0  \\
-      \theta_1  \\
-      ...   \\
-      \theta_n
-      \end{bmatrix} 
-    $$
-</font>
+<p>$$<br>                    \widehat{h}=\theta_{0}+\theta_{1}x_{1}+\theta_{2}x_{2}+…+\theta_{n}x_{n}<br>                    \tag{1}<br>$$</p>
+<p>其中，$\widehat{h}$代表预测值，$n$是特征的个数，${x_i}$代表第i个特征值，$\theta_{i}$ 代表第i个特征的权重，将上式向量化有</p>
+<p>$$<br>                            \widehat{h}=h_{\theta}(X)=X\theta<br>                            \tag{2}<br>$$</p>
+<p>其中$\theta$是模型的参数向量，X是实例的特征向量，$h_{\theta}$是使用模型参数$\theta$做参数的假设函数。</p>
+<font face="宋体" size="2">* 注：这里为什么写成$X\theta$的形式，而不是$\theta X$呢？在实际使用中，实例的特征是行向量，由多个实例构成输入矩阵，而权重是列向量，其具体形式如下<br>    $$<br>    X\theta=<br>     \begin{bmatrix}<br>      x_0^1 &amp; x_0^2 &amp; … &amp;x_0^n \\<br>      x_1^1 &amp; x_1^2 &amp; … &amp;x_1^n \\<br>      ...  &amp; … &amp; … &amp;… \\<br>      x_m^1 &amp; x_m^1 &amp; … &amp;x_m^1<br>      \end{bmatrix} <br>      \begin{bmatrix}<br>      \theta_0  \\<br>      \theta_1  \\<br>      ...   \\<br>      \theta_n<br>      \end{bmatrix} <br>    $$<br></font>
 
 <p>&emsp;&emsp;为了衡量模型效果，一般使用MSE(均方误差，Mean Square Error)描述线性回归的预测值和真实值之间的偏差。假设输入的样本特征为$x_1,x_2,…,x_n$，对应的样本值为$y_1,y_2,y_3,…,y_n$，则MSE的定义为</p>
-<script type="math/tex; mode=display">
-J(\theta)=\frac{1}{2}(\widehat{y}_i-y_i)^2=\frac{1}{2}\sum^n_{i=1}(h_{\theta}(x_i)-y_i)^2
-\tag{3}</script><p>写成向量形式有</p>
-<script type="math/tex; mode=display">
-J(\theta)=\frac{1}{2}(X\theta-Y)^2
-\tag{4}</script><p>&emsp;&emsp;以上就是线性回归的基本公式和损失函数。</p>
+<p>$$<br>J(\theta)=\frac{1}{2}(\widehat{y}_i-y_i)^2=\frac{1}{2}\sum^n_{i=1}(h_{\theta}(x_i)-y_i)^2<br>\tag{3}<br>$$<br>写成向量形式有<br>$$<br>J(\theta)=\frac{1}{2}(X\theta-Y)^2<br>\tag{4}<br>$$<br>&emsp;&emsp;以上就是线性回归的基本公式和损失函数。</p>
 <h1 id="求解"><a href="#求解" class="headerlink" title="求解"></a>求解</h1><p>&emsp;&emsp;我们的目标是找到合适的一组权重$\theta$让$J(\theta)$最小，这样就说明我们的模型越符合实际效果越好。一般有两种方式进行求解，直接求解和梯度下降。</p>
 <h2 id="解析求解"><a href="#解析求解" class="headerlink" title="解析求解"></a>解析求解</h2><p>&emsp;&emsp;我们已经拿到了损失函数的表达形式，可以从公式$(4)$中直接推到出$\theta$，过程如下。</p>
-<script type="math/tex; mode=display">
-\begin{align*}
-    J(\theta)=\frac{1}{2}(X\theta-Y)^2&=\frac{1}{2}(X\theta-Y)^T(X\theta-Y)\\
-    &=\frac{1}{2}(\theta^TX^T-Y^T)(X\theta-Y)\\
-    &=\frac{1}{2}(\theta^TX^TX\theta-\theta^TX^TY-Y^TX\theta-Y^TY)
-\end{align*}
-\tag{5}</script><p>&emsp;&emsp;接下来对$J(\theta)$求偏导</p>
-<script type="math/tex; mode=display">
-\begin{align*}
-    \frac{\partial^{2}J(\theta)}{\partial\theta^{2}}&=\frac{1}{2}(2*X^TX\theta-2*X^TY)\\
-    &=X^TX\theta-X^TY
-\end{align*}
-\tag{6}</script><font face="宋体" size="2">* 注：这里用到了几个矩阵求导公式
-$$\frac{dAB}{dB}=A^T$$
-$$\frac{dA^TB}{dA}=B$$
-$$\frac{dX^TAX}{dX}=(A+A^T)X$$
-</font>
+<p>$$<br>\begin{align*}<br>    J(\theta)=\frac{1}{2}(X\theta-Y)^2&amp;=\frac{1}{2}(X\theta-Y)^T(X\theta-Y)\\<br>    &amp;=\frac{1}{2}(\theta^TX^T-Y^T)(X\theta-Y)\\<br>    &amp;=\frac{1}{2}(\theta^TX^TX\theta-\theta^TX^TY-Y^TX\theta-Y^TY)<br>\end{align*}<br>\tag{5}<br>$$<br>&emsp;&emsp;接下来对$J(\theta)$求偏导</p>
+<p>$$<br>\begin{align*}<br>    \frac{\partial^{2}J(\theta)}{\partial\theta^{2}}&amp;=\frac{1}{2}(2*X^TX\theta-2*X^TY)\\<br>    &amp;=X^TX\theta-X^TY<br>\end{align*}<br>\tag{6}<br>$$</p>
+<font face="宋体" size="2">* 注：这里用到了几个矩阵求导公式<br>$$\frac{dAB}{dB}=A^T$$<br>$$\frac{dA^TB}{dA}=B$$<br>$$\frac{dX^TAX}{dX}=(A+A^T)X$$<br></font>
 
 <p>&emsp;&emsp;令导数为0，有</p>
-<script type="math/tex; mode=display">\frac{\partial^{2}J(\theta)}{\partial\theta^{2}}=0</script><script type="math/tex; mode=display">X^TX\theta-X^TY=0</script><script type="math/tex; mode=display">X^TX\theta=X^TY</script><script type="math/tex; mode=display">\theta=(X^TX)^{-1}X^TY \tag{7}</script><p>&emsp;&emsp;最终推到出$(7)$，直接求解需要用到实例数据$X$及对应的预测值$Y$，在输入不大的情况下可以快速求得权重矩阵。但$(7)$中含有矩阵求逆运算，其算法复杂度通常在$O(n^2.4)$到$O(n^3)$之间，在高维大数据量的情况下直接求解的计算量很大；而且对于某些损失函数是凸函数的模型($X^TX$不可逆)来说，无法求得损失函数的偏导，该方法失效，只能使用梯度下降算法。</p>
+<p>$$\frac{\partial^{2}J(\theta)}{\partial\theta^{2}}=0$$</p>
+<p>$$X^TX\theta-X^TY=0$$</p>
+<p>$$X^TX\theta=X^TY$$</p>
+<p>$$\theta=(X^TX)^{-1}X^TY \tag{7}$$</p>
+<p>&emsp;&emsp;最终推到出$(7)$，直接求解需要用到实例数据$X$及对应的预测值$Y$，在输入不大的情况下可以快速求得权重矩阵。但$(7)$中含有矩阵求逆运算，其算法复杂度通常在$O(n^2.4)$到$O(n^3)$之间，在高维大数据量的情况下直接求解的计算量很大；而且对于某些损失函数是凸函数的模型($X^TX$不可逆)来说，无法求得损失函数的偏导，该方法失效，只能使用梯度下降算法。</p>
 <h2 id="梯度下降"><a href="#梯度下降" class="headerlink" title="梯度下降"></a>梯度下降</h2><p>&emsp;&emsp;梯度下降是一种通用的优化算法，梯度下降的中心思想就是迭代地调整参数从而使成本函数最小化。</p>
-<font face="宋体" size="2">* 注：梯度下降的形象解释：
-假设你迷失在山上的迷雾中，你能感受到的只有脚下地面的坡度。快速到达山脚的一个策略就是沿着最陡的方向下坡。这就是梯度下降的做法：通过测量参数向量$\theta$相关的误差函数的局部梯度，并不断沿着梯度的方向调整，直到梯度降为0，到达最小值。
-</font>
+<font face="宋体" size="2">* 注：梯度下降的形象解释：<br>假设你迷失在山上的迷雾中，你能感受到的只有脚下地面的坡度。快速到达山脚的一个策略就是沿着最陡的方向下坡。这就是梯度下降的做法：通过测量参数向量$\theta$相关的误差函数的局部梯度，并不断沿着梯度的方向调整，直到梯度降为0，到达最小值。<br></font>
 
 <p>&emsp;&emsp;具体来说，首先使用一个随机的$\theta$值，即随机初始化，然后逐步改进，每次踏出一步，每一步都尝试降低成本函数，直到算法收敛到一个最小值。梯度下降中一个重要的参数是每一步的步长，该参数被称为学习率。如果学习率太低，算法需要经过大量迭代才能收敛，如果太高，有可能越过最小值甚至比上一步迭代的结果还大，导致模型无法收敛。</p>
-<p>&emsp;&emsp;对于线性回归，梯度下降的数学表达形式如下。假设第$i$次迭代的权重为$\theta_i$，学习率为$\eta$，第$i+1$次迭代的权重为</p>
-<script type="math/tex; mode=display">
-    \theta_{i+1}=\theta_i-\eta*\frac{\partial^2J(\theta)}{\partial\theta^2}
-    \tag{8}</script><h1 id="实现"><a href="#实现" class="headerlink" title="实现"></a>实现</h1><p>&emsp;&emsp;下面使用tensorflow实现两种求解方式，以加州房价预测数据为例。</p>
+<p>&emsp;&emsp;对于线性回归，梯度下降的数学表达形式如下。假设第$i$次迭代的权重为$\theta_i$，学习率为$\eta$，第$i+1$次迭代的权重为<br>$$<br>    \theta_{i+1}=\theta_i-\eta*\frac{\partial^2J(\theta)}{\partial\theta^2}<br>    \tag{8}<br>$$</p>
+<h1 id="实现"><a href="#实现" class="headerlink" title="实现"></a>实现</h1><p>&emsp;&emsp;下面使用tensorflow实现两种求解方式，以加州房价预测数据为例。</p>
 <h2 id="tensorflow实现解析求解"><a href="#tensorflow实现解析求解" class="headerlink" title="tensorflow实现解析求解"></a>tensorflow实现解析求解</h2><figure class="highlight makefile"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># coding=utf-8</span></span><br><span class="line">import numpy as np</span><br><span class="line">import tensorflow as tf</span><br><span class="line">from sklearn.datasets import fetch_california_housing</span><br><span class="line"></span><br><span class="line">n_epochs = 10000  <span class="comment"># 把样本集数据学习1000次</span></span><br><span class="line">learning_rate = 0.01  <span class="comment"># 步长 学习率 不能太大 太大容易来回震荡 太小 耗时间，跳不出局部最优解</span></span><br><span class="line"><span class="comment"># 可以写learn_rate动态变化，随着迭代次数越来越大 ，学习率越来越小 learning_rate/n_epoches</span></span><br><span class="line">housing = fetch_california_housing()</span><br><span class="line">m, n = housing.data.shape</span><br><span class="line">housing_data_plus_bias = np.c_[np.ones((m, 1)), housing.data]</span><br><span class="line">housing_data_target = housing.target.reshape(-1, 1)</span><br><span class="line">X = tf.constant(housing_data_plus_bias, tf.float32)</span><br><span class="line">y = tf.constant(housing_data_target, tf.float32)</span><br><span class="line">XT = tf.transpose(X)</span><br><span class="line">theta = tf.matmul(tf.matmul(tf.matrix_inverse(tf.matmul(XT, X)), XT), y)</span><br><span class="line">with tf.Session() as sess:</span><br><span class="line">    theta_value = theta.eval()</span><br><span class="line">    print theta_value</span><br></pre></td></tr></table></figure>
 <h2 id="tensorflow实现梯度下降"><a href="#tensorflow实现梯度下降" class="headerlink" title="tensorflow实现梯度下降"></a>tensorflow实现梯度下降</h2><figure class="highlight makefile"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># coding=utf-8</span></span><br><span class="line">import tensorflow as tf</span><br><span class="line">import numpy as np</span><br><span class="line">from sklearn.datasets import fetch_california_housing</span><br><span class="line">from sklearn.preprocessing import StandardScaler</span><br><span class="line"></span><br><span class="line">n_epochs = 10000  <span class="comment"># 把样本集数据学习1000次</span></span><br><span class="line">learning_rate = 0.01  <span class="comment"># 步长 学习率 不能太大 太大容易来回震荡 太小 耗时间，跳不出局部最优解</span></span><br><span class="line"><span class="comment"># 可以写learn_rate动态变化，随着迭代次数越来越大 ，学习率越来越小 learning_rate/n_epoches</span></span><br><span class="line">housing = fetch_california_housing()</span><br><span class="line">m, n = housing.data.shape</span><br><span class="line">housing_data_plus_bias = np.c_[np.ones((m, 1)), housing.data]</span><br><span class="line"><span class="comment"># 可以使用TensorFlow或者Numpy或者sklearn的StandardScaler去进行归一化</span></span><br><span class="line"><span class="comment"># 归一化可以最快的找到最优解</span></span><br><span class="line"><span class="comment"># 常用的归一化方式：</span></span><br><span class="line"><span class="comment"># 最大最小值归一化 (x-min)/(max-min)</span></span><br><span class="line"><span class="comment"># 方差归一化 x/方差</span></span><br><span class="line"><span class="comment"># 均值归一化 x-均值 结果有正有负 可以使调整时的速度越来越快。</span></span><br><span class="line">scaler = StandardScaler().fit(housing_data_plus_bias)  <span class="comment"># 创建一个归一化对象</span></span><br><span class="line">scaled_housing_data_plus_bias = scaler.transform(housing_data_plus_bias)  <span class="comment"># 真正执行 因为来源于sklearn所以会直接执行，不会延迟。</span></span><br><span class="line">housing_data_target = housing.target.reshape(-1, 1)</span><br><span class="line"></span><br><span class="line">X = tf.placeholder(tf.float32, name='X')</span><br><span class="line">y = tf.placeholder(tf.float32, name='y')</span><br><span class="line"></span><br><span class="line"><span class="comment"># random_uniform函数创建图里一个节点包含随机数值，给定它的形状和取值范围，就像numpy里面rand()函数</span></span><br><span class="line">theta = tf.Variable(tf.random_uniform([n + 1, 1], -1.0, 1.0), name='theta')  <span class="comment">#参数\theta，列向量，按照-1.0到1.0随机给</span></span><br><span class="line">y_pred = tf.matmul(X, theta, name=<span class="string">"predictions"</span>)  <span class="comment"># 相乘 m行一列</span></span><br><span class="line">error = y_pred - y  <span class="comment"># 列向量和列向量相减 是一组数</span></span><br><span class="line">mse = tf.reduce_mean(tf.square(error), name=<span class="string">"mse"</span>)  <span class="comment"># 误差平方加和，公式（3）的手动实现</span></span><br><span class="line">gradients = 2.0 / m * tf.matmul(tf.transpose(X), error)  <span class="comment"># 梯度公式</span></span><br><span class="line">training_op = tf.assign(theta, theta - learning_rate * gradients)  <span class="comment"># 即公式(8)，需对该式进行迭代</span></span><br><span class="line"></span><br><span class="line">init = tf.global_variables_initializer()</span><br><span class="line"></span><br><span class="line">with tf.Session() as sess:</span><br><span class="line">    sess.run(init)  <span class="comment"># 初始化</span></span><br><span class="line"></span><br><span class="line">    for epoch in range(n_epochs):  <span class="comment"># 迭代1000次</span></span><br><span class="line">        if epoch % 100 == 0:</span><br><span class="line">            print(<span class="string">"Epoch"</span>, epoch, <span class="string">"MSE = "</span>,</span><br><span class="line">                  sess.run(mse, feed_dict=&#123;X: scaled_housing_data_plus_bias, y: housing_data_target&#125;))  <span class="comment"># 每运行100次的时候输出</span></span><br><span class="line">        sess.run(training_op, feed_dict=&#123;X: scaled_housing_data_plus_bias, y: housing_data_target&#125;)</span><br><span class="line"></span><br><span class="line">    best_theta = theta.eval()  <span class="comment"># 最后的w参数值</span></span><br><span class="line">    print(best_theta)</span><br></pre></td></tr></table></figure>
-<p>以上代码详见<a href="https://github.com/yajian/machine_learning/tree/master/linear_regression" target="_blank" rel="noopener">线性回归tensorflow实现</a></p>
-<h1 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h1><ol>
-<li><a href="https://www.cnblogs.com/LHWorldBlog/p/8658044.html" target="_blank" rel="noopener">【TensorFlow篇】—Tensorflow框架初始，实现机器学习中多元线性回归</a></li>
+<p>以上代码详见[线性回归tensorflow实现](<a href="https://github.com/yajian/machine_learning/tree/master/linear_regression" target="_blank" rel="noopener">https://github.com/yajian/machine_learning/tree/master/linear_regression</a>)</p>
+<p>#参考</p>
+<ol>
+<li>[【TensorFlow篇】–Tensorflow框架初始，实现机器学习中多元线性回归](<a href="https://www.cnblogs.com/LHWorldBlog/p/8658044.html" target="_blank" rel="noopener">https://www.cnblogs.com/LHWorldBlog/p/8658044.html</a>)</li>
 <li>机器学习实战-基于Scikit-Learn和Tensorflow，机械工业出版社</li>
 <li>机器学习实战，人民邮电出版社</li>
 </ol>
@@ -726,7 +900,7 @@ $$\frac{dX^TAX}{dX}=(A+A^T)X$$
 <h3 id="initCommon"><a href="#initCommon" class="headerlink" title="initCommon"></a>initCommon</h3><figure class="highlight axapta"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">   <span class="keyword">private</span> <span class="keyword">void</span> initCommon(String id, IComponent component, Number parallelism) throws IllegalArgumentException &#123;</span><br><span class="line">       ComponentCommon <span class="keyword">common</span> = <span class="keyword">new</span> ComponentCommon();</span><br><span class="line"><span class="comment">//设置消息流来源和分组方式</span></span><br><span class="line">       <span class="keyword">common</span>.set_inputs(<span class="keyword">new</span> HashMap&lt;GlobalStreamId, Grouping&gt;());</span><br><span class="line"><span class="comment">//设置并行度</span></span><br><span class="line">       <span class="keyword">if</span>(parallelism!=<span class="keyword">null</span>) &#123;</span><br><span class="line">           <span class="keyword">int</span> dop = parallelism.intValue();</span><br><span class="line">           <span class="keyword">if</span>(dop &lt; <span class="number">1</span>) &#123;</span><br><span class="line">               <span class="keyword">throw</span> <span class="keyword">new</span> IllegalArgumentException(<span class="string">"Parallelism must be positive."</span>);</span><br><span class="line">           &#125;</span><br><span class="line">           <span class="keyword">common</span>.set_parallelism_hint(dop);</span><br><span class="line">       &#125;</span><br><span class="line"><span class="comment">//设置组件的配置参数</span></span><br><span class="line">       Map conf = component.getComponentConfiguration();</span><br><span class="line">       <span class="keyword">if</span>(conf!=<span class="keyword">null</span>) <span class="keyword">common</span>.set_json_conf(JSONValue.toJSONString(conf));</span><br><span class="line">       _commons.put(id, <span class="keyword">common</span>);</span><br><span class="line">   &#125;</span><br></pre></td></tr></table></figure>
 <h3 id="setBolt"><a href="#setBolt" class="headerlink" title="setBolt"></a>setBolt</h3><p>&emsp;&emsp;与setSpout类似</p>
 <figure class="highlight applescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">public BoltDeclarer setBolt(String <span class="built_in">id</span>, IRichBolt bolt, Number parallelism_hint) throws IllegalArgumentException &#123;</span><br><span class="line">    validateUnusedId(<span class="built_in">id</span>);</span><br><span class="line">    initCommon(<span class="built_in">id</span>, bolt, parallelism_hint);</span><br><span class="line">    _bolts.<span class="keyword">put</span>(<span class="built_in">id</span>, bolt);</span><br><span class="line"><span class="built_in">    return</span> new BoltGetter(<span class="built_in">id</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p><strong> setSpout和setBolt区别 </strong> </p>
+<p>** setSpout和setBolt区别 ** </p>
 <p>看上去二者完成的事情基本类似，但是返回值有区别</p>
 <p>SpoutGetter的源码</p>
 <figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="keyword">protected</span> <span class="class"><span class="keyword">class</span> <span class="title">SpoutGetter</span> <span class="keyword">extends</span> <span class="title">ConfigGetter&lt;SpoutDeclarer&gt;</span> <span class="title">implements</span> <span class="title">SpoutDeclarer</span> </span>&#123;</span><br><span class="line">    public <span class="type">SpoutGetter</span>(<span class="type">String</span> id) &#123;</span><br><span class="line">        <span class="keyword">super</span>(id);</span><br><span class="line">    &#125;        </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
@@ -735,7 +909,7 @@ $$\frac{dX^TAX}{dX}=(A+A^T)X$$
 <p>可以发现BoltGetter还实现了不同的分组方式，如</p>
 <figure class="highlight haxe"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="keyword">private</span> BoltDeclarer grouping(<span class="keyword">String</span> componentId, <span class="keyword">String</span> streamId, Grouping grouping) &#123;</span><br><span class="line">    _commons.<span class="keyword">get</span>(_boltId).put_to_inputs(<span class="keyword">new</span> <span class="type">GlobalStreamId</span>(componentId, streamId), grouping);</span><br><span class="line">    <span class="keyword">return</span> <span class="built_in">this</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p>分组的本质是在_common中通过对应的boltId找到对应的ComponentCommon对象，对inputs属性进行设置。</p>
-<h3 id="createTopology"><a href="#createTopology" class="headerlink" title="createTopology()"></a>createTopology()</h3><p>&emsp;&emsp;TopologyBuilder中还有一个比较重要的方法—createTopology()，其主要完成最后的封装工作。</p>
+<h3 id="createTopology"><a href="#createTopology" class="headerlink" title="createTopology()"></a>createTopology()</h3><p>&emsp;&emsp;TopologyBuilder中还有一个比较重要的方法–createTopology()，其主要完成最后的封装工作。</p>
 <figure class="highlight haxe"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">   <span class="keyword">public</span> StormTopology createTopology() &#123;</span><br><span class="line"><span class="comment">//bolt集合</span></span><br><span class="line">       Map&lt;<span class="keyword">String</span>, Bolt&gt; boltSpecs = <span class="keyword">new</span> <span class="type">HashMap</span>&lt;&gt;();</span><br><span class="line"><span class="comment">//spout集合</span></span><br><span class="line">       Map&lt;<span class="keyword">String</span>, SpoutSpec&gt; spoutSpecs = <span class="keyword">new</span> <span class="type">HashMap</span>&lt;&gt;();</span><br><span class="line">       maybeAddCheckpointSpout();</span><br><span class="line">       <span class="keyword">for</span>(<span class="keyword">String</span> boltId: <span class="type">_bolts</span>.keySet()) &#123;</span><br><span class="line">    <span class="comment">//通过boltId获取Bolt</span></span><br><span class="line">           IRichBolt bolt = _bolts.<span class="keyword">get</span>(boltId);</span><br><span class="line">           bolt = maybeAddCheckpointTupleForwarder(bolt);</span><br><span class="line">    <span class="comment">//设置对应ComponentCommon对象的streams属性(输出的字段列表是否为直接流)</span></span><br><span class="line">           ComponentCommon common = getComponentCommon(boltId, bolt);</span><br><span class="line">           <span class="keyword">try</span>&#123;</span><br><span class="line">               maybeAddCheckpointInputs(common);</span><br><span class="line">	<span class="comment">//把bolt和common一起放入bolt集合</span></span><br><span class="line">               boltSpecs.put(boltId, <span class="keyword">new</span> <span class="type">Bolt</span>(ComponentObject.serialized_java(Utils.javaSerialize(bolt)), common));</span><br><span class="line">           &#125;<span class="keyword">catch</span>(RuntimeException wrapperCause)&#123;</span><br><span class="line">               <span class="keyword">if</span> (wrapperCause.getCause() != <span class="literal">null</span> &amp;&amp; NotSerializableException.class.equals(wrapperCause.getCause().getClass()))&#123;</span><br><span class="line">                   <span class="keyword">throw</span> <span class="keyword">new</span> <span class="type">IllegalStateException</span>(</span><br><span class="line">                       <span class="string">"Bolt '"</span> + boltId + <span class="string">"' contains a non-serializable field of type "</span> + wrapperCause.getCause().getMessage() + <span class="string">", "</span> +</span><br><span class="line">                       <span class="string">"which was instantiated prior to topology creation. "</span> + wrapperCause.getCause().getMessage() + <span class="string">" "</span> +</span><br><span class="line">                       <span class="string">"should be instantiated within the prepare method of '"</span> + boltId + <span class="string">" at the earliest."</span>, wrapperCause);</span><br><span class="line">               &#125;</span><br><span class="line">               <span class="keyword">throw</span> wrapperCause;</span><br><span class="line">           &#125;</span><br><span class="line">       &#125;</span><br><span class="line"><span class="comment">//对spout的处理和bolt的处理基本一致</span></span><br><span class="line">       <span class="keyword">for</span>(<span class="keyword">String</span> spoutId: <span class="type">_spouts</span>.keySet()) &#123;</span><br><span class="line">           IRichSpout spout = _spouts.<span class="keyword">get</span>(spoutId);</span><br><span class="line">           ComponentCommon common = getComponentCommon(spoutId, spout);</span><br><span class="line">           <span class="keyword">try</span>&#123;</span><br><span class="line">               spoutSpecs.put(spoutId, <span class="keyword">new</span> <span class="type">SpoutSpec</span>(ComponentObject.serialized_java(Utils.javaSerialize(spout)), common));</span><br><span class="line">           &#125;<span class="keyword">catch</span>(RuntimeException wrapperCause)&#123;</span><br><span class="line">               <span class="keyword">if</span> (wrapperCause.getCause() != <span class="literal">null</span> &amp;&amp; NotSerializableException.class.equals(wrapperCause.getCause().getClass()))&#123;</span><br><span class="line">                   <span class="keyword">throw</span> <span class="keyword">new</span> <span class="type">IllegalStateException</span>(</span><br><span class="line">                       <span class="string">"Spout '"</span> + spoutId + <span class="string">"' contains a non-serializable field of type "</span> + wrapperCause.getCause().getMessage() + <span class="string">", "</span> +</span><br><span class="line">                       <span class="string">"which was instantiated prior to topology creation. "</span> + wrapperCause.getCause().getMessage() + <span class="string">" "</span> +</span><br><span class="line">                       <span class="string">"should be instantiated within the prepare method of '"</span> + spoutId + <span class="string">" at the earliest."</span>, wrapperCause);</span><br><span class="line">               &#125;</span><br><span class="line">               <span class="keyword">throw</span> wrapperCause;</span><br><span class="line">           &#125;</span><br><span class="line">       &#125;</span><br><span class="line"></span><br><span class="line">       StormTopology stormTopology = <span class="keyword">new</span> <span class="type">StormTopology</span>(spoutSpecs,</span><br><span class="line">               boltSpecs,</span><br><span class="line">               <span class="keyword">new</span> <span class="type">HashMap</span>&lt;<span class="keyword">String</span>, StateSpoutSpec&gt;());</span><br><span class="line"></span><br><span class="line">       stormTopology.set_worker_hooks(_workerHooks);</span><br><span class="line"></span><br><span class="line">       <span class="keyword">return</span> Utils.addVersions(stormTopology);</span><br></pre></td></tr></table></figure>
 <p>最终我们设置的bolt和spout都被封装到了StormTopology中。</p>
 <h1 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h1><p>&emsp;&emsp;总的来讲TopologyBuilder就是根据分组方式把spout和bolt节点连接起来形成一个拓扑结构。</p>
@@ -939,9 +1113,7 @@ $$\frac{dX^TAX}{dX}=(A+A^T)X$$
 <h2 id="executor-1"><a href="#executor-1" class="headerlink" title="executor"></a>executor</h2><p>&emsp;&emsp;executor是真正的并行度。executor初始数量=spout数量+bolt数量+acker数量，也就是task个数，默认一个executor对应一个task。其中spout、bolt、acker数量运行时是不会变化的，但是executor数量是可以变化的。</p>
 <h2 id="task-1"><a href="#task-1" class="headerlink" title="task"></a>task</h2><p>&emsp;&emsp;task的存在是为了topology扩展的灵活性，与并行度无关。task在实际执行数据处理。如果单纯提高task个数，不增加executor个数，并不一定能提高性能。提高task任务数量，可以为后期进行弹性计算（rebalance）即后期动态调整某一组件的并行度。</p>
 <h1 id="并行度计算"><a href="#并行度计算" class="headerlink" title="并行度计算"></a>并行度计算</h1><p>计算并行度官网有个比较好的例子</p>
-<div align="center">
-<img src="/storm系列2-并行度和资源分配/并行度计算.jpg" width="400" height="300" title="并行度计算">
-</div>
+<div align="center"><br><img src="/storm系列2-并行度和资源分配/并行度计算.jpg" width="400" height="300" title="并行度计算"><br></div>
 
 <p>上图中，有2个worker进程，</p>
 <ul>
@@ -2298,219 +2470,6 @@ $$\frac{dX^TAX}{dX}=(A+A^T)X$$
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yajian.github.io/设计模式-如何防止单例模式被破坏/">
-
-    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="小建儿">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="小建儿的小站">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/设计模式-如何防止单例模式被破坏/" itemprop="url">设计模式-如何防止单例模式被破坏</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-07-26T19:53:17+08:00">
-                2018-07-26
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category">
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
-                  <a href="/categories/设计模式/" itemprop="url" rel="index">
-                    <span itemprop="name">设计模式</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-              <span class="post-comments-count">
-                <span class="post-meta-divider">|</span>
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-comment-o"></i>
-                </span>
-                <a href="/设计模式-如何防止单例模式被破坏/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count disqus-comment-count" data-disqus-identifier="设计模式-如何防止单例模式被破坏/" itemprop="commentCount"></span>
-                </a>
-              </span>
-            
-          
-
-          
-          
-
-          
-
-          
-            <div class="post-wordcount">
-              
-                
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-file-word-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">字数统计&#58;</span>
-                
-                <span title="字数统计">
-                  
-                </span>
-              
-
-              
-                <span class="post-meta-divider">|</span>
-              
-
-              
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-clock-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
-                
-                <span title="阅读时长">
-                  
-                </span>
-              
-            </div>
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h1 id="单例模式是否安全"><a href="#单例模式是否安全" class="headerlink" title="单例模式是否安全"></a>单例模式是否安全</h1><p>&emsp;&emsp;在<a href="https://yajian.github.io/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F-%E5%8D%95%E4%BE%8B%E6%A8%A1%E5%BC%8F/">设计模式-单例模式</a>这篇博客介绍了单例模式的几种实现方式，但是按照上述方式是否能够保证一定是单例呢？答案是否定的，如果不加限制，通过反射和序列化可以破坏单例模式。</p>
-<h1 id="破坏单例模式"><a href="#破坏单例模式" class="headerlink" title="破坏单例模式"></a>破坏单例模式</h1><h2 id="反射"><a href="#反射" class="headerlink" title="反射"></a>反射</h2><p>&emsp;&emsp;单例模式把类的构造方法设置为private访问级别，导致外部类无法新建对象，通过反射我们可以修改访问级别，从外部新建单例类对象。以饿汉模式为例</p>
-<figure class="highlight smali"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">public class StarveSingleton &#123;</span><br><span class="line"></span><br><span class="line">   <span class="keyword"> private</span><span class="keyword"> static</span> StarveSingleton<span class="built_in"> instance </span>=<span class="built_in"> new </span>StarveSingleton();</span><br><span class="line"></span><br><span class="line">   <span class="keyword"> private</span> StarveSingleton()&#123;&#125;</span><br><span class="line"></span><br><span class="line">   <span class="keyword"> public</span><span class="keyword"> static</span> StarveSingleton getInstance() &#123;</span><br><span class="line">       <span class="built_in"> return </span>instance;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">   <span class="keyword"> public</span><span class="keyword"> static</span> void main(String[] args) &#123;</span><br><span class="line">	//输出true</span><br><span class="line">	System.out.println(StarveSingleton.getInstance() == StarveSingleton.getInstance());</span><br><span class="line">        Class clazz = StarveSingleton.class;</span><br><span class="line">        Constructor<span class="keyword"> constructor</span>= clazz.getDeclaredConstructor(null);</span><br><span class="line">       <span class="keyword"> constructor</span>.setAccessible(true);</span><br><span class="line">        StarveSingleton<span class="built_in"> instance </span>= (StarveSingleton)<span class="keyword"> constructor</span>.newInstance(null);</span><br><span class="line">	//输出false</span><br><span class="line">        System.out.println(instance == StarveSingleton.getInstance());</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>&emsp;&emsp;从结果来看，通过反射的方式，单例模式被破坏，我们可以随意产生新的单例类实例。</p>
-<h2 id="序列化"><a href="#序列化" class="headerlink" title="序列化"></a>序列化</h2><p>&emsp;&emsp;如果单例类继承了serializable接口，那么序列化也可以破坏单例模式。依然以饿汉模式为例</p>
-<figure class="highlight smali"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">public class StarveSingleton implements Serializable&#123;</span><br><span class="line"></span><br><span class="line">   <span class="keyword"> private</span><span class="keyword"> static</span> StarveSingleton<span class="built_in"> instance </span>=<span class="built_in"> new </span>StarveSingleton();</span><br><span class="line"></span><br><span class="line">   <span class="keyword"> private</span> StarveSingleton()&#123;&#125;</span><br><span class="line"></span><br><span class="line">   <span class="keyword"> public</span><span class="keyword"> static</span> StarveSingleton getInstance() &#123;</span><br><span class="line">       <span class="built_in"> return </span>instance;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">   <span class="keyword"> public</span><span class="keyword"> static</span> void main(String[] args) throws IOException, ClassNotFoundException &#123;</span><br><span class="line"></span><br><span class="line">        ByteArrayOutputStream outputStream =<span class="built_in"> new </span>ByteArrayOutputStream();</span><br><span class="line">        ObjectOutputStream objectOutputStream =<span class="built_in"> new </span>ObjectOutputStream(outputStream);</span><br><span class="line">        StarveSingleton starveSingleton = StarveSingleton.getInstance();</span><br><span class="line">        objectOutputStream.writeObject(starveSingleton);</span><br><span class="line"></span><br><span class="line">        byte[] bytes = outputStream.toByteArray();</span><br><span class="line"></span><br><span class="line">        ObjectInputStream inputStream =<span class="built_in"> new </span>ObjectInputStream(new ByteArrayInputStream(bytes));</span><br><span class="line">        StarveSingleton<span class="built_in"> instance </span>= (StarveSingleton) inputStream.readObject();</span><br><span class="line">	//输出false</span><br><span class="line">        System.out.println(starveSingleton == instance);</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>&emsp;&emsp;可以看出序列化可以破坏单例模式。</p>
-<h1 id="如何防止单例模式被破坏"><a href="#如何防止单例模式被破坏" class="headerlink" title="如何防止单例模式被破坏"></a>如何防止单例模式被破坏</h1><h2 id="反射-1"><a href="#反射-1" class="headerlink" title="反射"></a>反射</h2><p>&emsp;&emsp;可以在构造函数里配置一个标志位，当构造函数被第二次调用时报错</p>
-<figure class="highlight smali"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">public class StarveSingleton implements Serializable &#123;</span><br><span class="line">	//设置flag</span><br><span class="line">   <span class="keyword"> private</span><span class="keyword"> static</span> boolean flag = false;</span><br><span class="line"></span><br><span class="line">   <span class="keyword"> private</span><span class="keyword"> static</span> StarveSingleton<span class="built_in"> instance </span>=<span class="built_in"> new </span>StarveSingleton();</span><br><span class="line"></span><br><span class="line">   <span class="keyword"> private</span> StarveSingleton() &#123;</span><br><span class="line">        synchronized (StarveSingleton.class) &#123;</span><br><span class="line">		//第一次调用的时候更改该变量的值，第二次再调用会报错</span><br><span class="line">           <span class="built_in"> if </span>(!flag) &#123;</span><br><span class="line">                flag = !flag;</span><br><span class="line">            &#125; else &#123;</span><br><span class="line">               <span class="built_in"> throw </span>new RuntimeException(<span class="string">"单例模式被破坏"</span>);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">   <span class="keyword"> public</span><span class="keyword"> static</span> StarveSingleton getInstance() &#123;</span><br><span class="line">       <span class="built_in"> return </span>instance;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">   <span class="keyword"> public</span><span class="keyword"> static</span> void main(String[] args) throws NoSuchMethodException, IllegalAccessException, InvocationTargetException, InstantiationException &#123;</span><br><span class="line">        </span><br><span class="line">        System.out.println(StarveSingleton.getInstance() == StarveSingleton.getInstance());</span><br><span class="line">        Class&lt;StarveSingleton&gt; clazz = StarveSingleton.class;</span><br><span class="line">        Constructor&lt;StarveSingleton&gt;<span class="keyword"> constructor</span> = clazz.getDeclaredConstructor(null);</span><br><span class="line">       <span class="keyword"> constructor</span>.setAccessible(true);</span><br><span class="line">        StarveSingleton<span class="built_in"> instance </span>=<span class="keyword"> constructor</span>.newInstance();</span><br><span class="line">        System.out.println(instance == StarveSingleton.getInstance());</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>&emsp;&emsp;这样就解决了反射破坏单例的问题。</p>
-<h2 id="序列化-1"><a href="#序列化-1" class="headerlink" title="序列化"></a>序列化</h2><p>&emsp;&emsp;对于序列化来说，需要实现readSolve()方法来保证每次返回的都是一个实例</p>
-<figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">public class StarveSingleton implements Serializable &#123;</span><br><span class="line">    </span><br><span class="line">    private static StarveSingleton<span class="built_in"> instance </span>= new StarveSingleton();</span><br><span class="line"></span><br><span class="line">    private StarveSingleton() &#123;</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    public static StarveSingleton getInstance() &#123;</span><br><span class="line">        return instance;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    public Object readResolve() &#123;</span><br><span class="line">        return instance;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    public static void main(String[] args) throws NoSuchMethodException, IllegalAccessException, InvocationTargetException, InstantiationException &#123;</span><br><span class="line"></span><br><span class="line">	ByteArrayOutputStream outputStream = new ByteArrayOutputStream();</span><br><span class="line">        ObjectOutputStream objectOutputStream = new ObjectOutputStream(outputStream);</span><br><span class="line">        StarveSingleton starveSingleton = StarveSingleton.getInstance();</span><br><span class="line">        objectOutputStream.writeObject(starveSingleton);</span><br><span class="line"></span><br><span class="line">        byte[] bytes = outputStream.toByteArray();</span><br><span class="line"></span><br><span class="line">        ObjectInputStream inputStream = new ObjectInputStream(new ByteArrayInputStream(bytes));</span><br><span class="line">        StarveSingleton<span class="built_in"> instance </span>= (StarveSingleton) inputStream.readObject();</span><br><span class="line">        System.out.println(starveSingleton == instance);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>&emsp;&emsp;readResolve方法是ObjectInputStream类进行反序列化的一个特殊机制，这里后续再展开，总之这里实现该方法可以保证单例不被破坏。</p>
-<h1 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h1><p>&emsp;&emsp;下面是我对这个知识点的心得。如何破坏单例模式，这道题怎么思考呢？单例模式和创建对象相关，我们知道创建对象有4种方式</p>
-<ol>
-<li>直接new</li>
-<li>调用clone方法</li>
-<li>序列化反序列化</li>
-<li>反射</li>
-</ol>
-<p>其中方式1已经被单例模式限制住，方式2我们一般很少实现clone接口，所以可以破坏单例模式的方法就从3，4而来。</p>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-
-
-    
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
@@ -2660,6 +2619,9 @@ $$\frac{dX^TAX}{dX}=(A+A^T)X$$
 
 
 
+<% if (page.mathjax){ %>
+<%- partial('mathjax') %>
+<% } %>
 -->
 <div class="theme-info">
   <div class="powered-by"></div>

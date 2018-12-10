@@ -463,12 +463,12 @@
 <p>&emsp;&emsp;解释：重载方法是根据编译后的类型进行方法查找的，而被覆盖的方法是根据具体类型查找待执行方法的。</p>
 <p>&emsp;&emsp;表现：当有多个重载方法，每个方法参数类型又有公共接口的时候，只会执行传入公共接口的方法；当有多个子类重写父类方法时，会执行具体子类中的方法，而不会执行父类的方法。</p>
 <p>&emsp;&emsp;安全保守的原则：不要编写两个具有相同参数数目的重载方法，如果必须那就给出不同的名字。</p>
-<p><strong>重载的好例子</strong></p>
+<p>**重载的好例子**</p>
 <figure class="highlight cs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">Set&lt;Integer&gt; <span class="keyword">set</span> = <span class="keyword">new</span> TreeSet&lt;&gt;();</span><br><span class="line">      List&lt;Integer&gt; list = <span class="keyword">new</span> ArrayList&lt;&gt;();</span><br><span class="line">      <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">-3</span>; i &lt; <span class="number">3</span>; i++) &#123;</span><br><span class="line">          <span class="keyword">set</span>.<span class="keyword">add</span>(i);</span><br><span class="line">          list.<span class="keyword">add</span>(i);</span><br><span class="line">      &#125;</span><br><span class="line">      <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; <span class="number">3</span>; i++) &#123;</span><br><span class="line">          <span class="keyword">set</span>.<span class="keyword">remove</span>(i);</span><br><span class="line">          list.<span class="keyword">remove</span>(i);</span><br><span class="line">      &#125;</span><br><span class="line">      System.<span class="keyword">out</span>.println(<span class="keyword">set</span>);</span><br><span class="line">      System.<span class="keyword">out</span>.println(list);</span><br></pre></td></tr></table></figure>
 <p>输出：[-3,-2,-1]<br>           [-2,0,2]</p>
 <figure class="highlight lisp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">Set&lt;Integer&gt; set = new TreeSet&lt;&gt;()<span class="comment">;</span></span><br><span class="line">      List&lt;Integer&gt; list = new ArrayList&lt;&gt;()<span class="comment">;</span></span><br><span class="line">      for (<span class="name">int</span> i = <span class="number">-3</span><span class="comment">; i &lt; 3; i++) &#123;</span></span><br><span class="line">          set.add(<span class="name">i</span>)<span class="comment">;</span></span><br><span class="line">          list.add(<span class="name">i</span>)<span class="comment">;</span></span><br><span class="line">      &#125;</span><br><span class="line">      for (<span class="name">int</span> i = <span class="number">0</span><span class="comment">; i &lt; 3; i++) &#123;</span></span><br><span class="line">          set.remove(<span class="name">i</span>)<span class="comment">;</span></span><br><span class="line">          list.remove((<span class="name">Integer</span>)i)<span class="comment">;</span></span><br><span class="line">      &#125;</span><br><span class="line">      System.out.println(<span class="name">set</span>)<span class="comment">;</span></span><br><span class="line">      System.out.println(<span class="name">list</span>)<span class="comment">;</span></span><br></pre></td></tr></table></figure>
 <p>输出：[-3,-2,-1]<br>           [-3,-2,-1]</p>
-<p><strong>java加入泛型和自动装箱后，破坏了List接口</strong></p>
+<p>**java加入泛型和自动装箱后，破坏了List接口**</p>
 <h3 id="第42条-慎用可变长参数"><a href="#第42条-慎用可变长参数" class="headerlink" title="第42条 慎用可变长参数"></a>第42条 慎用可变长参数</h3><p>可变长参数是为prinf函数设计的<br>&emsp;&emsp;可变长参数方法的每次调用都会导致进行一次数组分配和初始化，造成一定性能损耗。<br>&emsp;&emsp;方案：确定对某个方法95%的调用，会有3个或者更少的参数，就声明5个重载方法，每个方法有0到3个普通参数，多余3个参数使用一个可变长参数</p>
 <h3 id="返回零长度的数组或者集合，而不是null"><a href="#返回零长度的数组或者集合，而不是null" class="headerlink" title="返回零长度的数组或者集合，而不是null"></a>返回零长度的数组或者集合，而不是null</h3><p>返回数组时：</p>
 <figure class="highlight qml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">List&lt;<span class="built_in">Object</span>&gt; <span class="built_in">list</span> = <span class="keyword">new</span> ArrayList&lt;&gt;();</span><br><span class="line"><span class="built_in">Object</span>[] a = <span class="keyword">new</span> <span class="built_in">Object</span>[<span class="number">0</span>];</span><br><span class="line"><span class="built_in">Object</span>[] tes = <span class="built_in">list</span>.toArray(a);</span><br><span class="line"><span class="comment">//即使list有值，abstractCollection中的toArray方法也会重新产生一个数组放list中的数据</span></span><br></pre></td></tr></table></figure>
@@ -794,6 +794,9 @@ var jiathis_config={
 
 
 
+<% if (page.mathjax){ %>
+<%- partial('mathjax') %>
+<% } %>
 -->
 <div class="theme-info">
   <div class="powered-by"></div>
@@ -1321,6 +1324,26 @@ var jiathis_config={
   
 
   
+  
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Config({
+        tex2jax: {
+          inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+          processEscapes: true,
+          skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+        }
+      });
+    </script>
+
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for (i=0; i < all.length; i += 1) {
+          all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+      });
+    </script>
+    <script type="text/javascript" src="//cdn.bootcss.com/mathjax/2.7.1/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
   
 
 

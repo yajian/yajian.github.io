@@ -488,8 +488,7 @@
 <p>平均耗时18000ms</p>
 <h4 id="ReflectAsm反射-1"><a href="#ReflectAsm反射-1" class="headerlink" title="ReflectAsm反射"></a>ReflectAsm反射</h4><figure class="highlight arduino"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">MethodAccess methodAccess = MethodAccess.<span class="built_in">get</span>(InvokeClass.class);</span><br><span class="line"><span class="keyword">int</span> index = methodAccess.getIndex(<span class="string">"add"</span>, <span class="keyword">long</span>.class, <span class="keyword">long</span>.class);</span><br><span class="line"><span class="keyword">long</span> start = System.currentTimeMillis();</span><br><span class="line"><span class="built_in">for</span> (<span class="keyword">long</span> i = <span class="number">0</span>; i &lt; Integer.MAX_VALUE; i++) &#123;</span><br><span class="line">    methodAccess.invoke(invokeClass, index, i, i);</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">long</span> <span class="built_in">end</span> = System.currentTimeMillis();</span><br><span class="line">System.out.<span class="built_in">println</span>(<span class="built_in">end</span> - start);</span><br></pre></td></tr></table></figure>
 <p>平均耗时2700ms</p>
-<h2 id="对比及结论"><a href="#对比及结论" class="headerlink" title="对比及结论"></a>对比及结论</h2><div class="table-container">
-<table>
+<h2 id="对比及结论"><a href="#对比及结论" class="headerlink" title="对比及结论"></a>对比及结论</h2><table>
 <thead>
 <tr>
 <th style="text-align:center"></th>
@@ -513,7 +512,6 @@
 </tr>
 </tbody>
 </table>
-</div>
 <p>经过简单测试，可以发现</p>
 <ol>
 <li>反射确实会带来性能损失，ReflectAsm相比Java原生反射机制能提升一定性能</li>
@@ -838,6 +836,9 @@ var jiathis_config={
 
 
 
+<% if (page.mathjax){ %>
+<%- partial('mathjax') %>
+<% } %>
 -->
 <div class="theme-info">
   <div class="powered-by"></div>
@@ -1365,6 +1366,26 @@ var jiathis_config={
   
 
   
+  
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Config({
+        tex2jax: {
+          inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+          processEscapes: true,
+          skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+        }
+      });
+    </script>
+
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for (i=0; i < all.length; i += 1) {
+          all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+      });
+    </script>
+    <script type="text/javascript" src="//cdn.bootcss.com/mathjax/2.7.1/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
   
 
 

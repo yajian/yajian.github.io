@@ -318,6 +318,250 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yajian.github.io/深入理解java虚拟机-2-java内存区域与内存溢出异常/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="小建儿">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="小建儿的小站">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/深入理解java虚拟机-2-java内存区域与内存溢出异常/" itemprop="url">深入理解java虚拟机(2)-java内存区域与内存溢出异常</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-05-06T13:02:18+08:00">
+                2018-05-06
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
+                  <a href="/categories/读书笔记/" itemprop="url" rel="index">
+                    <span itemprop="name">读书笔记</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/深入理解java虚拟机-2-java内存区域与内存溢出异常/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count disqus-comment-count" data-disqus-identifier="深入理解java虚拟机-2-java内存区域与内存溢出异常/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">
+                  
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>##运行时数据区域<br>&emsp;&emsp;运行时数据区域主要包括堆、虚拟机栈、本地方法栈、程序计数器、方法区。</p>
+<p>###程序计数器<br>&emsp;&emsp;程序计数器可以看作是当前线程所执行的字节码的行号指示器。每条线程都有独立的程序计数器。该区域是唯一一个在Java虚拟机规范中没有规定任何OutOfMemeryError情况的区域</p>
+<p>###Java虚拟机栈<br>&emsp;&emsp;栈是线程私有的，生命周期与线程一样。其描述的是Java方法执行的内存模型，每个方法在执行期间会创建一个栈帧(stack frame)，用于存储局部变量表、操作数栈、动态链接、方法出口等信息。</p>
+<p>&emsp;&emsp;局部变量表存放了编译器可知的各种基本数据类型、对象引用、returnAddress类型。其内存空间在编译阶段完成分配，方法运行期间不会改变局部变量表的大小。</p>
+<p>&emsp;&emsp;这个区域规定了两种异常状况。</p>
+<ul>
+<li><p>线程请求的栈深度超过最大虚拟机所允许的深度，会抛出StackOverflowError异常</p>
+</li>
+<li><p>虚拟机栈可以动态扩展，若扩展时无法获得足够的内存，会抛出OutOfMemoryError异常</p>
+</li>
+</ul>
+<p>###本地方法栈<br>&emsp;&emsp;与虚拟机栈作用类似，区别在于虚拟机栈为执行java方法服务，本地方法栈为Native方法服务。</p>
+<p>###Java堆<br>&emsp;&emsp;Java堆(Heap)是Java虚拟机管理内存中最大的一块，被所有线程共享。其唯一作用就是存放对象实例。</p>
+<p>&emsp;&emsp;**绝大多数对象示例及数组要在堆上分配，但是随着JIT编译器的发展和逃逸分析技术逐渐成熟，栈上分配、标量替换优化技术导致一些微妙变化的发生，所有对象都分配在堆上也不那么绝对了**</p>
+<p>&emsp;&emsp;堆是垃圾收集器管理的主要区域，基本都采用分代收集算法。</p>
+<p>&emsp;&emsp;Java堆可以处于物理上不连续的空间中，只要逻辑连续就可以。</p>
+<p>###方法区<br>&emsp;&emsp;方法区与堆一样，是线程共享的，它用于存储已经被虚拟机加载的类信息、常量、静态变量、即时编译后的代码等数据。</p>
+<p>&emsp;&emsp;垃圾收集行为在这个区域比较少见，其主要的内存回收目标是针对常量池的回收和对类型的卸载。</p>
+<p>###运行时常量池<br>&emsp;&emsp;是方法区的一部分，主要用于存放编译期生成的各种字面量和符号引用。</p>
+<p>###直接内存<br>&emsp;&emsp;不是虚拟机运行时数据区的一部分，也不是java虚拟机规范中定义的内存区域。NIO类引入了基于通道（Channel）与缓冲区（Buffer）的I/O方式，它可以使用Native函数直接分配堆外内存，然后通过一个存储在Java堆中的DirectByteBuffer对象作为这块内存的引用进行操作。这样能显著提高性能，因为避免了在Java堆和Native堆中来回复制数据。</p>
+<p>##HotSpot虚拟机对象探秘</p>
+<p>###对象的创建<br>&emsp;&emsp;对象创建过程如下：</p>
+<ol>
+<li>类加载检查：当虚拟机遇到new指令时，首先去检查指令的参数是否能在常量池中定位到一个类的符号引用，并检查这个符号引用代表的类是否已经被加载、解析和初始化过。如果没有，那必须执行相应的类加载过程。</li>
+<li><p>分配内存：对象所需内存的大小在类加载完成后便可完全确定，为对象分配空间的任务等同于把一块确定大小的内存从Java堆中划分出来。划分空间方案：</p>
+<ul>
+<li>指针碰撞：堆内存连续，用过的内存放在一边，空闲的放在另一边，中间放指针作为分界点的指示器，分配内存就是把指针挪动对象大小的距离。Serial、ParNew等带Compact过程的收集器，采用指针碰撞。</li>
+<li><p>空闲列表：对内存不连续，无法使用指针碰撞，虚拟机必须维护一个列表记录哪些内存可用哪些不可用。CMS这种基于Mark-Sweep算法的收集器，采用空闲列表。</p>
+<p>除划分可用空间外，还要考虑线程安全问题。可能出现正在给A分配内存，指针还没来得及修改，对象B又同时使用了原来指针分配内存的情况。解决方案有两种：</p>
+</li>
+<li><p>对内存空间的动作进行同步处理，虚拟机采用CAS加失败重试的方式保证更新操作的原子性</p>
+</li>
+<li>把内存分配的动作按照线程划分在不同的空间之中进行，即每个线程在Java堆中预先分配一小块内存，成为本地线程分配缓冲（Thread Local Allocation Buffer，TLAB）。哪个线程要分配内存，就在哪个线程的TLAB上进行分配，只有TLAB用完并分配新的TLAB时，才需要同步。</li>
+</ul>
+</li>
+<li><p>内存初始化为零值：把分配到的内存空间都初始化为零值（不包括对象头），这步操作保证了对象的实例字段在Java代码中可以不赋初值就直接使用。</p>
+</li>
+<li>对对象进行设置：设置对象头，如对象是哪个类的实例，如何找到类的元数据信息、对象的hashcode、对象gc分代年龄等信息。</li>
+<li>对象初始化：执行new指令后会执行init方法，把对象初始化。</li>
+</ol>
+<p>&emsp;&emsp;经过以上步骤，一个对象就被产生出来。</p>
+<p>###对象内存布局<br>&emsp;&emsp;对象在内存中的布局分为3块区域：对象头（Header）、实例数据（Instance Data）、对齐填充（Padding）。</p>
+<p>####对象头<br>&emsp;&emsp;包含两部分信息</p>
+<ul>
+<li>存储对象自身运行时数据，如HashCode、GC分代年龄、锁状态、线程持有的锁、偏向线程ID、偏向时戳。这部分数据称为“Mark Word”</li>
+<li>类型指针，即对象指向它的类元数据的指针，虚拟机通过这个指针确定类是哪个类的实例，但并不是所有虚拟机都必须在对象数据上保留类型指针。如果对象是一个数组，还需要记录数组长度。</li>
+</ul>
+<p>###对象访问定位<br>&emsp;&emsp;有两种方式：</p>
+<ul>
+<li>句柄访问：Java堆中划分出一部分内存作为句柄池，栈里的reference存储的是对象句柄的地址，句柄中包含了实例数字与类型数据的具体地址信息。好处：reference中存储稳定的句柄地址，对象被移动时只改变句柄中的实例数据指针，而reference中的地址不需要改变。</li>
+<li>直接指针：reference直接存放指针。好处：速度快，节省了一次指针定位的开销。</li>
+</ul>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+
+
+    
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://yajian.github.io/kd树/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
@@ -452,13 +696,12 @@
       
         
           
-            <p>&emsp;&emsp;上一篇博客介绍了knn算法，以及简单的python实现代码，其中使用了线形扫描(linear scan)方式逐一计算输入实例与训练数据间的距离，复杂度较大，本篇博客将介绍knn算法的另一种高效实现方式—kd树。</p>
+            <p>&emsp;&emsp;上一篇博客介绍了knn算法，以及简单的python实现代码，其中使用了线形扫描(linear scan)方式逐一计算输入实例与训练数据间的距离，复杂度较大，本篇博客将介绍knn算法的另一种高效实现方式–kd树。</p>
 <h1 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h1><p>&emsp;&emsp;kd树是一种对k维空间中的实例点进行存储以便对其进行快速检索的树形数据结构。kd树是二叉树，表示对k维空间的一个划分。构造kd树相当于不断地用垂直于坐标轴的超平面将k维空间切分，构成一系列的k维超矩形区域。kd树每个节点对应一个k维超矩形区域。在进行k近邻查找时，遍历kd树，实现减少计算量的目的。</p>
 <h1 id="原理"><a href="#原理" class="headerlink" title="原理"></a>原理</h1><h2 id="构建kd树"><a href="#构建kd树" class="headerlink" title="构建kd树"></a>构建kd树</h2><h3 id="定义节点"><a href="#定义节点" class="headerlink" title="定义节点"></a>定义节点</h3><ul>
 <li>算法描述</li>
 </ul>
 <p>&emsp;&emsp;首先需要定义二叉树节点Node，其中需要包括的信息有</p>
-<div class="table-container">
 <table>
 <thead>
 <tr>
@@ -495,7 +738,6 @@
 </tr>
 </tbody>
 </table>
-</div>
 <ul>
 <li>python实现</li>
 </ul>
@@ -531,53 +773,28 @@
 <li>当回退到根节点，搜索结束，最后的“当前结点“即为x的最近邻。</li>
 </ol>
 <h3 id="python实现-1"><a href="#python实现-1" class="headerlink" title="python实现"></a>python实现</h3><figure class="highlight nix"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line">def find_nearest_neighbor(target,tree):</span><br><span class="line">	<span class="comment">#记录到叶子结点节点前搜索过的节点</span></span><br><span class="line">	<span class="attr">path_deque</span> = path_to_leaf_node(target,tree,deque()) </span><br><span class="line">	<span class="comment">#回溯第一个节点</span></span><br><span class="line">	<span class="attr">kd_node</span> = path_deque.pop()</span><br><span class="line">	<span class="comment">#假设第一个节点为最近邻</span></span><br><span class="line">	<span class="attr">nearest_point</span> = kd_node.point</span><br><span class="line">	<span class="comment">#计算最近邻节点与输入实例间距离</span></span><br><span class="line">	<span class="attr">nearest_dist</span> = distance(target,nearest_point)</span><br><span class="line">	<span class="comment">#最近邻节点的标签</span></span><br><span class="line">	<span class="attr">nearest_label</span> = kd_node.label</span><br><span class="line">	<span class="comment">#回溯</span></span><br><span class="line">	while path_deque:</span><br><span class="line">		<span class="attr">kd_node</span> = path_deque.pop()</span><br><span class="line">		<span class="comment">#计算实例点与最近邻节点父节点的距离</span></span><br><span class="line">		<span class="attr">node_dist</span> = distance(target,kd_node.point)</span><br><span class="line">		<span class="comment">#更新最近邻节点</span></span><br><span class="line">		<span class="keyword">if</span> node_dist &lt; nearest_dist:</span><br><span class="line">			<span class="attr">nearest_point</span> = kd_node.point</span><br><span class="line">			<span class="attr">nearest_dist</span> = node_dist</span><br><span class="line">			<span class="attr">nearest_label</span> = kd_node.label</span><br><span class="line">		<span class="comment">#获取分割维度</span></span><br><span class="line">		<span class="attr">s</span> = kd_node.split</span><br><span class="line">		<span class="comment">#判断是否需要进入最近邻节点的左右子空间进行搜索</span></span><br><span class="line">		<span class="keyword">if</span> abs(target[s] - kd_node.point[s]) &lt; nearest_dist:</span><br><span class="line">			<span class="comment">#进入右子树</span></span><br><span class="line">			<span class="keyword">if</span> target[s] &lt;  kd_node.point[s]:</span><br><span class="line">				<span class="attr">path_deque</span> = path_to_leaf_node(target,kd_node.right,path_deque)</span><br><span class="line">			<span class="comment">#进入左子树</span></span><br><span class="line">			<span class="keyword">else</span>:</span><br><span class="line">				<span class="attr">path_deque</span> = path_to_leaf_node(target,kd_node.left,path_deque)</span><br><span class="line"></span><br><span class="line">	return nearest_point,nearest_label,nearest_dist</span><br></pre></td></tr></table></figure>
-<p> &emsp;&emsp;代码详见<a href="https://github.com/yajian/machine_learning/tree/master/kdtree" target="_blank" rel="noopener">kdtree</a></p>
+<p> &emsp;&emsp;代码详见[kdtree](<a href="https://github.com/yajian/machine_learning/tree/master/kdtree" target="_blank" rel="noopener">https://github.com/yajian/machine_learning/tree/master/kdtree</a>)</p>
 <h1 id="示例"><a href="#示例" class="headerlink" title="示例"></a>示例</h1><p>&emsp;&emsp;以《统计学习方法》中的例题为例，直观地解释kd树的构建和搜索。</p>
 <h2 id="问题描述"><a href="#问题描述" class="headerlink" title="问题描述"></a>问题描述</h2><p>给定一个二维空间的数据集$T=\lbrace(2,3)^T,(5,4)^T,(9,6)^T,(4,7)^T,(8,1)^T,(7,2)^T\rbrace$，其在二维空间中的位置如图所示，求点(2.1,3.1)和(2,4.5)的最近邻。</p>
-<div align="center">
-<img src="/kd树/点位置.png" width="300" height="250" title="数据分布示意">
-</div>
+<div align="center"><br><img src="/kd树/点位置.png" width="300" height="250" title="数据分布示意"><br></div>
 
 <h2 id="构建kd树-1"><a href="#构建kd树-1" class="headerlink" title="构建kd树"></a>构建kd树</h2><p>&emsp;&emsp;首先，计算x、y方向上的方差，其中var(x)=5.805,var(y)=4.472，x方向上的方差更大所以先选取x方向为分割方向。<br>&emsp;&emsp;其次，选择x方向上的中位数，即(4,7)^T，空间划分如下图</p>
-<div align="center">
-<img src="/kd树/x1分割.png" width="300" height="250" title="第一次空间划分">
-</div>
-&emsp;&emsp;以此类推，经过三次划分构建好kd树，如gif所示
-<div align="center">
-<img src="/kd树/空间划分过程.gif" width="300" height="250" title="空间划分过程">
-</div>
-&emsp;&emsp;构建的树形结构如下图所示
-<div align="center">
-<img src="/kd树/kdtree.png" width="150" height="150" title="kdtree">
-</div>
+<div align="center"><br><img src="/kd树/x1分割.png" width="300" height="250" title="第一次空间划分"><br></div><br>&emsp;&emsp;以此类推，经过三次划分构建好kd树，如gif所示<br><div align="center"><br><img src="/kd树/空间划分过程.gif" width="300" height="250" title="空间划分过程"><br></div><br>&emsp;&emsp;构建的树形结构如下图所示<br><div align="center"><br><img src="/kd树/kdtree.png" width="150" height="150" title="kdtree"><br></div>
 
 <h2 id="搜索kd树-1"><a href="#搜索kd树-1" class="headerlink" title="搜索kd树"></a>搜索kd树</h2><h3 id="点-2-1-3-1-的最近邻"><a href="#点-2-1-3-1-的最近邻" class="headerlink" title="点(2.1,3.1)的最近邻"></a>点(2.1,3.1)的最近邻</h3><p>&emsp;&emsp;首先在kd树上搜索距离点(2.1,3.1)最近的叶子结点，结果为(2，3)，距离为0.1414，搜索过程如下所示</p>
-<div align="center">
-<img src="/kd树/搜索过程1.jpeg" width="300" height="250" title="搜索过程1">
-</div>
+<div align="center"><br><img src="/kd树/搜索过程1.jpeg" width="300" height="250" title="搜索过程1"><br></div>
 
 <p>&emsp;&emsp;但是叶子结点不一定是离点(2.1,3.1)最近的结点，所以向上进行回溯。先回溯到父节点(5,4)，计算距离为3.036，不满足最近邻要求。接下来判断是否需要进入父节点的其他子节点空间，以(2.1,3.1)为圆心，0.1414为半径画圆，发现该圆与切分超平面y=4不相交，因此不进入(5,4)右子节点搜索。</p>
 <p>&emsp;&emsp;继续向上回溯到父节点(7,2)，计算距离为5.022，不满足最近邻要求。接下来判断是否需要进入父节点的其他子节点空间，以(2.1,3.1)为圆心，0.1414为半径画圆，如下图所示发现该圆与切分超平面x=7不相交，因此不进入(7,2)右子节点搜索。</p>
-<div align="center">
-<img src="/kd树/子空间判断1.png" width="300" height="250" title="子空间判断1">
-</div>
+<div align="center"><br><img src="/kd树/子空间判断1.png" width="300" height="250" title="子空间判断1"><br></div>
 
 <p>&emsp;&emsp;至此，搜索路径中的结点已经完全回溯完，返回最近邻节点(2，3)，距离为0.1414。</p>
 <h3 id="点-2-4-5-的最近邻"><a href="#点-2-4-5-的最近邻" class="headerlink" title="点(2,4.5)的最近邻"></a>点(2,4.5)的最近邻</h3><p>&emsp;&emsp;同理先搜索叶子结点，过程如下所示</p>
-<div align="center">
-<img src="/kd树/搜索过程2.jpg" width="300" height="250" title="搜索过程2">
-</div>
-&emsp;&emsp;叶子结点为(4,7)，距离为3.202。回溯到父节点(5,4)，计算距离为3.041，最近邻更新为该点。接下来判断是否需要进入父节点的其他子节点空间，以(2,4.5)为圆心，3.041为半径画圆，如下图所示，发现该圆与切分超平面y=4相交，因此进入(5,4)左子节点搜索。
-
-<div align="center">
-<img src="/kd树/子空间判断2.png" width="300" height="250" title="子空间判断2">
-</div>
+<div align="center"><br><img src="/kd树/搜索过程2.jpg" width="300" height="250" title="搜索过程2"><br></div><br>&emsp;&emsp;叶子结点为(4,7)，距离为3.202。回溯到父节点(5,4)，计算距离为3.041，最近邻更新为该点。接下来判断是否需要进入父节点的其他子节点空间，以(2,4.5)为圆心，3.041为半径画圆，如下图所示，发现该圆与切分超平面y=4相交，因此进入(5,4)左子节点搜索。<br><br><div align="center"><br><img src="/kd树/子空间判断2.png" width="300" height="250" title="子空间判断2"><br></div>
 
 <p>&emsp;&emsp;计算与点(2,3)距离为1.5，最近邻更新为当前节点。</p>
 <p>&emsp;&emsp;继续向上回溯到父节点(7,2)，计算距离为5.59，不满足最近邻要求。接下来判断是否需要进入父节点的其他子节点空间，以(2,4.5)为圆心，1.5为半径画圆，发现该圆与切分超平面x=7不相交，因此不进入(7,2)右子节点搜索。</p>
-<div align="center">
-<img src="/kd树/子空间判断3.png" width="300" height="250" title="子空间判断3">
-</div>
+<div align="center"><br><img src="/kd树/子空间判断3.png" width="300" height="250" title="子空间判断3"><br></div>
 
 <p>&emsp;&emsp;至此，搜索路径中的结点已经完全回溯完，返回最近邻节点(2，3)，距离为1.5。</p>
 <h1 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h1><ul>
@@ -585,9 +802,9 @@
 </li>
 <li><p>机器学习实战，Peter Harrington，人民邮电出版社</p>
 </li>
-<li><p><a href="https://huyesce.github.io/K-NN%20with%20Pyhton.html" target="_blank" rel="noopener">K-NN算法及其Python实现</a></p>
+<li><p>[K-NN算法及其Python实现](<a href="https://huyesce.github.io/K-NN%20with%20Pyhton.html" target="_blank" rel="noopener">https://huyesce.github.io/K-NN%20with%20Pyhton.html</a>)</p>
 </li>
-<li><p><a href="https://www.cnblogs.com/eyeszjwang/articles/2429382.html" target="_blank" rel="noopener">k-d tree算法</a></p>
+<li><p>[k-d tree算法](<a href="https://www.cnblogs.com/eyeszjwang/articles/2429382.html" target="_blank" rel="noopener">https://www.cnblogs.com/eyeszjwang/articles/2429382.html</a>)</p>
 </li>
 </ul>
 
@@ -789,22 +1006,21 @@
 <h2 id="数学描述"><a href="#数学描述" class="headerlink" title="数学描述"></a>数学描述</h2><ul>
 <li>输入</li>
 </ul>
-<p>&emsp;&emsp;训练数据集</p>
-<script type="math/tex; mode=display">T = \lbrace (x_{1},y_{1}),(x_{2},y_{2}),...,(x_{N},y_{N}) \rbrace \tag1</script><p>其中，$x<em>{i} \in X \subseteq R^{n}$为实例的特征向量，$ y</em>{i} \in Y =\lbrace c<em>{1},c</em>{2},…,c_{k}\rbrace $为实例类别，$i=1,2,…,N$</p>
+<p>&emsp;&emsp;训练数据集<br>$$T = \lbrace (x_{1},y_{1}),(x_{2},y_{2}),…,(x_{N},y_{N}) \rbrace \tag1$$<br>其中，$x_{i} \in X \subseteq R^{n}$为实例的特征向量，$ y_{i} \in Y =\lbrace c_{1},c_{2},…,c_{k}\rbrace $为实例类别，$i=1,2,…,N$</p>
 <ul>
 <li>输出</li>
 </ul>
 <p>&emsp;&emsp;实例$x$所属的类$y$</p>
 <ol>
 <li>根据给定的距离度量，在训练集$T$中找出与$x$最邻近的$k$个点，涵盖这$k$个点的$x$邻域计作$N_{k}(x)$</li>
-<li>在$N_{k}(x)$中根据分类规则，一般为多数表决，来决定$x$的类别$y$：<script type="math/tex; mode=display">y=arg\mathop{max}\limits_{c_{j}}\sum_{x_{i} \in N_{k}(x)}I(y_{i}=c_{j}) , i=1,2,...,N, j=1,2,...,K \tag2</script>其中，$I$为指示函数，即当$y<em>{i} = c</em>{i}$时$I$为1，否则$I$为0。</li>
+<li>在$N_{k}(x)$中根据分类规则，一般为多数表决，来决定$x$的类别$y$：<br>$$y=arg\mathop{max}\limits_{c_{j}}\sum_{x_{i} \in N_{k}(x)}I(y_{i}=c_{j}) , i=1,2,…,N, j=1,2,…,K \tag2 $$<br>其中，$I$为指示函数，即当$y_{i} = c_{i}$时$I$为1，否则$I$为0。</li>
 </ol>
 <h1 id="关键参数"><a href="#关键参数" class="headerlink" title="关键参数"></a>关键参数</h1><h2 id="距离度量"><a href="#距离度量" class="headerlink" title="距离度量"></a>距离度量</h2><p>&emsp;&emsp;特征空间中两个实例点的距离是两个实例点相似程度的反映，k近邻模型特征空间一般采用$n$维实数向量空间$R^{n}$，使用的距离是欧式距离，除此之外还可以使用其他距离。</p>
-<h3 id="闵可夫斯基距离-MinKowski-distance"><a href="#闵可夫斯基距离-MinKowski-distance" class="headerlink" title="闵可夫斯基距离(MinKowski distance)"></a>闵可夫斯基距离(MinKowski distance)</h3><p>&emsp;&emsp;闵可夫斯基距离也叫$L<em>{p}$距离，假设特征空间$X$是$n$维实数向量空间$R^{n}$，$x</em>{i},x<em>{j} \in X$，$x</em>{i} = (x^{1}<em>{i},x^{2}</em>{i},…,x^{n}<em>{i})^{T}$，$x</em>{j} = (x^{1}<em>{j},x^{2}</em>{j},…,x^{n}<em>{j})^{T}$，则$x_i$，$x_j$的$L</em>{p}$距离的定义为：</p>
-<script type="math/tex; mode=display">L_{p}(x_i,x_j)=(\sum_{l=1}^{n}|x^{(l)}_{i}-x^{(l)}_{j}|^p)^{\frac{1}{p}} \tag3</script><h3 id="欧式距离"><a href="#欧式距离" class="headerlink" title="欧式距离"></a>欧式距离</h3><p> &emsp;&emsp;当闵可夫斯基距离中的参数$p=2$时，称为欧式距离，即</p>
-<script type="math/tex; mode=display">L_{2}(x_i,x_j)=(\sum_{l=1}^{n}(x^{(l)}_{i}-x^{(l)}_{j})^2)^{\frac{1}{2}} \tag4</script><h3 id="曼哈顿距离"><a href="#曼哈顿距离" class="headerlink" title="曼哈顿距离"></a>曼哈顿距离</h3><p> &emsp;&emsp;当闵可夫斯基距离中的参数$p=1$时，称为曼哈顿距离，即</p>
-<script type="math/tex; mode=display">L_{1}(x_i,x_j)=\sum_{l=1}^{n}|x^{(l)}_{i}-x^{(l)}_{j}|\tag5</script><p>当$p=\infty$时，是各个坐标距离的最大值，即</p>
-<script type="math/tex; mode=display">L_{\infty}(x_i,x_j)= \mathop{max}\limits_{l}|x^{(l)}_{i}-x^{(l)}_{j}|\tag6</script><p>&emsp;&emsp;其实闵可夫斯基距离的定义与p-范数概念一致，向量的范数可以理解为向量的长度，或者是两个点之间的距离。</p>
+<h3 id="闵可夫斯基距离-MinKowski-distance"><a href="#闵可夫斯基距离-MinKowski-distance" class="headerlink" title="闵可夫斯基距离(MinKowski distance)"></a>闵可夫斯基距离(MinKowski distance)</h3><p>&emsp;&emsp;闵可夫斯基距离也叫$L_{p}$距离，假设特征空间$X$是$n$维实数向量空间$R^{n}$，$x_{i},x_{j} \in X$，$x_{i} = (x^{1}_{i},x^{2}_{i},…,x^{n}_{i})^{T}$，$x_{j} = (x^{1}_{j},x^{2}_{j},…,x^{n}_{j})^{T}$，则$x_i$，$x_j$的$L_{p}$距离的定义为：<br>$$L_{p}(x_i,x_j)=(\sum_{l=1}^{n}|x^{(l)}_{i}-x^{(l)}_{j}|^p)^{\frac{1}{p}} \tag3$$ </p>
+<h3 id="欧式距离"><a href="#欧式距离" class="headerlink" title="欧式距离"></a>欧式距离</h3><p> &emsp;&emsp;当闵可夫斯基距离中的参数$p=2$时，称为欧式距离，即<br>$$L_{2}(x_i,x_j)=(\sum_{l=1}^{n}(x^{(l)}_{i}-x^{(l)}_{j})^2)^{\frac{1}{2}} \tag4$$ </p>
+<h3 id="曼哈顿距离"><a href="#曼哈顿距离" class="headerlink" title="曼哈顿距离"></a>曼哈顿距离</h3><p> &emsp;&emsp;当闵可夫斯基距离中的参数$p=1$时，称为曼哈顿距离，即<br> $$L_{1}(x_i,x_j)=\sum_{l=1}^{n}|x^{(l)}_{i}-x^{(l)}_{j}|\tag5$$ </p>
+<p>当$p=\infty$时，是各个坐标距离的最大值，即<br>$$L_{\infty}(x_i,x_j)= \mathop{max}\limits_{l}|x^{(l)}_{i}-x^{(l)}_{j}|\tag6$$</p>
+<p>&emsp;&emsp;其实闵可夫斯基距离的定义与p-范数概念一致，向量的范数可以理解为向量的长度，或者是两个点之间的距离。</p>
 <h2 id="k-值的选择"><a href="#k-值的选择" class="headerlink" title="$k$值的选择"></a>$k$值的选择</h2><p>&emsp;&emsp;k值的选择对k近邻的结果产生较大影响。</p>
 <ul>
 <li>$k=1$</li>
@@ -824,15 +1040,12 @@
 <p>&emsp;&emsp;当$k=N$时，即k与类别个数一致，那么无论输入实例是什么，都会把输入实例的类别判断为训练实例中类别最多的的类，这样是不对的。</p>
 <p>&emsp;&emsp;应用中，$k$值一般取一个比较小的值，通过交叉验证的方式选取最优的k值。</p>
 <h2 id="分类决策规则"><a href="#分类决策规则" class="headerlink" title="分类决策规则"></a>分类决策规则</h2><p>&emsp;&emsp;k近邻算法的分类决策规则一般采用多数表决，即由输入实例的k个临近的训练实例中的多数类决定输入实例的类别。</p>
-<h3 id="多数表决规则-majority-voting-rule-的数学描述"><a href="#多数表决规则-majority-voting-rule-的数学描述" class="headerlink" title="多数表决规则(majority voting rule)的数学描述"></a>多数表决规则(majority voting rule)的数学描述</h3><p>&emsp;&emsp;如果分类的损失函数为0-1损失函数，分类函数为</p>
-<script type="math/tex; mode=display">f:{\bf{R}}^n\to\lbrace c_1,c_2,...,c_K\rbrace \tag7</script><p> 那么误分类的概率是</p>
-<script type="math/tex; mode=display">P(Y\not=f(X)) = 1 - P(Y=f(X)) \tag8</script><p> 对给定的实例$x \in X$，其最邻近的$k$个训练实例点构成集合$N_k(x)$，假设输入实例的类别是$c_j$，那么误分类率是：</p>
-<script type="math/tex; mode=display">\frac{1}{k}\sum_{x_i \in N_k(x)}I(y_i \not = c_j)=1-\frac{1}{k}\sum_{x_i \in N_k(x)}I(y_i = c_j) \tag9</script><p> 要让误分类率最小，就让$\sum_{x_i \in N_k(x)}I(y_i = c_j)$最大，即$c_j$取个数最多的类别。</p>
+<h3 id="多数表决规则-majority-voting-rule-的数学描述"><a href="#多数表决规则-majority-voting-rule-的数学描述" class="headerlink" title="多数表决规则(majority voting rule)的数学描述"></a>多数表决规则(majority voting rule)的数学描述</h3><p>&emsp;&emsp;如果分类的损失函数为0-1损失函数，分类函数为<br> $$f:{\bf{R}}^n\to\lbrace c_1,c_2,…,c_K\rbrace \tag7$$<br> 那么误分类的概率是<br> $$P(Y\not=f(X)) = 1 - P(Y=f(X)) \tag8$$<br> 对给定的实例$x \in X$，其最邻近的$k$个训练实例点构成集合$N_k(x)$，假设输入实例的类别是$c_j$，那么误分类率是：<br> $$\frac{1}{k}\sum_{x_i \in N_k(x)}I(y_i \not = c_j)=1-\frac{1}{k}\sum_{x_i \in N_k(x)}I(y_i = c_j) \tag9$$<br> 要让误分类率最小，就让$\sum_{x_i \in N_k(x)}I(y_i = c_j)$最大，即$c_j$取个数最多的类别。</p>
 <h1 id="python代码示例"><a href="#python代码示例" class="headerlink" title="python代码示例"></a>python代码示例</h1><p>&emsp;&emsp;示例为《机器学习实战》手写体的例子</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#encoding:utf8</span></span><br><span class="line"><span class="keyword">import</span> numpy <span class="keyword">as</span> np</span><br><span class="line"><span class="keyword">import</span> glob</span><br><span class="line"><span class="keyword">import</span> os</span><br><span class="line"></span><br><span class="line"><span class="comment">#knn算法主体</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">knn_classifier</span><span class="params">(x_train,y_train,x_test,k)</span>:</span></span><br><span class="line">	<span class="comment">#计算向量拘留</span></span><br><span class="line">	dis = distance(x_train,x_test)</span><br><span class="line">	<span class="comment">#根据距离排序</span></span><br><span class="line">	sort_index = dis.argsort()</span><br><span class="line">	classCount = &#123;&#125;</span><br><span class="line">	<span class="comment">#取前k个邻近的点</span></span><br><span class="line">	<span class="keyword">for</span> i <span class="keyword">in</span> range(k):</span><br><span class="line">		<span class="comment">#获取第i个点的类别</span></span><br><span class="line">		label = y_train[sort_index[i]]</span><br><span class="line">		classCount[label] = classCount.get(label,<span class="number">0</span>) + <span class="number">1</span></span><br><span class="line">	<span class="comment">#进行多数表决投票</span></span><br><span class="line">	classCount = sorted(classCount.items(),<span class="keyword">lambda</span> x,y:cmp(x[<span class="number">1</span>],y[<span class="number">1</span>]),reverse=<span class="keyword">True</span>)</span><br><span class="line">	<span class="keyword">return</span> classCount[<span class="number">0</span>][<span class="number">0</span>]</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">#欧式距离计算函数</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">distance</span><span class="params">(x_train,x_test)</span>:</span></span><br><span class="line">	datasize = x_train.shape[<span class="number">0</span>]</span><br><span class="line">	<span class="comment">#tile可以把一个向量重复叠加为一个矩阵</span></span><br><span class="line">	diff = np.tile(x_test,(datasize,<span class="number">1</span>)) - x_train</span><br><span class="line">	squareDiff = diff ** <span class="number">2</span></span><br><span class="line">	squareSum = squareDiff.sum(axis = <span class="number">1</span>)</span><br><span class="line">	dis = np.sqrt(squareSum)</span><br><span class="line">	<span class="keyword">return</span> dis</span><br><span class="line"></span><br><span class="line"><span class="comment">#把手写体32*32的像素矩阵转化为1*2014的向量</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">img2Vector</span><span class="params">(filename)</span>:</span></span><br><span class="line">	returnVector = np.zeros((<span class="number">1</span>,<span class="number">1024</span>))</span><br><span class="line">	file = open(filename)</span><br><span class="line">	<span class="keyword">for</span> i <span class="keyword">in</span> range(<span class="number">32</span>):</span><br><span class="line">		lineString = file.readline()</span><br><span class="line">		<span class="keyword">for</span> j <span class="keyword">in</span> range(<span class="number">32</span>):</span><br><span class="line">			returnVector[<span class="number">0</span>,<span class="number">32</span> * i + j] = int(lineString[j])</span><br><span class="line">	<span class="keyword">return</span> returnVector</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">load_train_data</span><span class="params">()</span>:</span></span><br><span class="line">	train_data_file_path = glob.glob(<span class="string">'./digits/trainingDigits/*.txt'</span>)</span><br><span class="line">	train_label = []</span><br><span class="line">	filenum = len(train_data_file_path)</span><br><span class="line">	train_data = np.zeros((filenum,<span class="number">1024</span>))</span><br><span class="line">	<span class="keyword">for</span> i <span class="keyword">in</span> range(filenum):</span><br><span class="line">		file_path = train_data_file_path[i]</span><br><span class="line">		label = os.path.basename(file_path).split(<span class="string">'_'</span>)[<span class="number">0</span>]</span><br><span class="line">		train_label.append(label)</span><br><span class="line">		train_data[i:] = img2Vector(file_path)</span><br><span class="line">	<span class="keyword">return</span> train_data,train_label</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">hand_writing_class_test</span><span class="params">()</span>:</span></span><br><span class="line">	train_data,train_label = load_train_data()</span><br><span class="line">	test_data_file_path = glob.glob(<span class="string">'./digits/testDigits/*.txt'</span>)</span><br><span class="line">	error = <span class="number">0.0</span></span><br><span class="line">	count = <span class="number">0</span></span><br><span class="line">	<span class="keyword">for</span> file_path <span class="keyword">in</span> test_data_file_path:</span><br><span class="line">		file = open(file_path)</span><br><span class="line">		test_label = os.path.basename(file.name).split(<span class="string">'_'</span>)[<span class="number">0</span>]</span><br><span class="line">		test_data = img2Vector(file_path)</span><br><span class="line">		predict_label = knn_classifier(train_data,train_label,test_data,<span class="number">3</span>)</span><br><span class="line">		count += <span class="number">1</span></span><br><span class="line">		<span class="keyword">if</span> predict_label!=test_label:</span><br><span class="line">			<span class="keyword">print</span> <span class="string">"predict_label: "</span>,predict_label,<span class="string">", test_label: "</span>,test_label</span><br><span class="line">			error += <span class="number">1</span></span><br><span class="line">	<span class="keyword">print</span> <span class="string">'error rate: '</span>,error/count</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">main</span><span class="params">()</span>:</span></span><br><span class="line">	hand_writing_class_test()</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> __name__==<span class="string">'__main__'</span>:</span><br><span class="line">	main()</span><br></pre></td></tr></table></figure>
 <p>&emsp;&emsp;输出为分类错误的示例类别及最终的分类错误率</p>
 <figure class="highlight groovy"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">predict_label:</span>  <span class="number">1</span> , <span class="string">test_label:</span>  <span class="number">8</span></span><br><span class="line"><span class="string">predict_label:</span>  <span class="number">3</span> , <span class="string">test_label:</span>  <span class="number">8</span></span><br><span class="line"><span class="string">predict_label:</span>  <span class="number">7</span> , <span class="string">test_label:</span>  <span class="number">9</span></span><br><span class="line"><span class="string">predict_label:</span>  <span class="number">9</span> , <span class="string">test_label:</span>  <span class="number">3</span></span><br><span class="line"><span class="string">predict_label:</span>  <span class="number">1</span> , <span class="string">test_label:</span>  <span class="number">8</span></span><br><span class="line"><span class="string">predict_label:</span>  <span class="number">1</span> , <span class="string">test_label:</span>  <span class="number">9</span></span><br><span class="line"><span class="string">predict_label:</span>  <span class="number">1</span> , <span class="string">test_label:</span>  <span class="number">8</span></span><br><span class="line"><span class="string">predict_label:</span>  <span class="number">9</span> , <span class="string">test_label:</span>  <span class="number">3</span></span><br><span class="line"><span class="string">predict_label:</span>  <span class="number">7</span> , <span class="string">test_label:</span>  <span class="number">1</span></span><br><span class="line"><span class="string">predict_label:</span>  <span class="number">6</span> , <span class="string">test_label:</span>  <span class="number">5</span></span><br><span class="line"><span class="string">predict_label:</span>  <span class="number">3</span> , <span class="string">test_label:</span>  <span class="number">5</span></span><br><span class="line"><span class="string">predict_label:</span>  <span class="number">6</span> , <span class="string">test_label:</span>  <span class="number">8</span></span><br><span class="line">error <span class="string">rate:</span>  <span class="number">0.0126849894292</span></span><br><span class="line">[Finished <span class="keyword">in</span> <span class="number">23.7</span>s]</span><br></pre></td></tr></table></figure>
-<p>代码示例详见<a href="https://github.com/yajian/machine_learning/tree/master/knn" target="_blank" rel="noopener">KNN代码示例</a></p>
+<p>代码示例详见[KNN代码示例](<a href="https://github.com/yajian/machine_learning/tree/master/knn" target="_blank" rel="noopener">https://github.com/yajian/machine_learning/tree/master/knn</a>)</p>
 <h1 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h1><p>&emsp;&emsp;简单介绍了knn算法的基本思想和关键参数，并根据书中的例子进行了实践，过程并不复杂。但是，这个代码示例用穷举法一一计算输入实例与训练数据之间的距离，复杂度较高，缺点比较明显。针对这个问题，下篇文章将介绍kd树方法。</p>
 <h1 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h1><ul>
 <li><p>统计学习方法，李航，清华大学出版社</p>
@@ -1034,16 +1247,12 @@
           
             <h1 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h1><p>&emsp;&emsp;p5从车道检测升级为车辆检测，课程目的是检测行驶过程中遇到的车辆，属于目标检测范畴。这篇文章主要介绍如何使用传统计算机视觉方法进行车辆识别，比较基础。当然实现车辆识别的方案还有其他高大的方案，如yolo等，后面我会开另一篇文章介绍基于深度学习的车辆检测方案。</p>
 <h1 id="处理流程"><a href="#处理流程" class="headerlink" title="处理流程"></a>处理流程</h1><p>&emsp;&emsp;本节课程处理流程如下图所示</p>
-<div align="center">
-<img src="/Term-1-p5-vehicle-detection/p5处理流程.png" width="80" height="250" title="处理流程">
-</div>
+<div align="center"><br><img src="/Term-1-p5-vehicle-detection/p5处理流程.png" width="80" height="250" title="处理流程"><br></div>
 
 
 <h1 id="HOG特征提取"><a href="#HOG特征提取" class="headerlink" title="HOG特征提取"></a>HOG特征提取</h1><p>&emsp;&emsp;梯度直方图(Histogram of Oriented Gradient)，简称HOG，它是一种特征描述符。其原理是把图像分成很多个部分，然后计算每个部分的梯度，HOG特征描述符能为特征匹配和目标检测提供非常重要的信息。</p>
 <p>&emsp;&emsp;为了判断是否是车辆，我们需要分别提取车辆的HOG和非车辆物体的HOG。这里我们使用skimage的hog方法进行图像的特征提取，经过特征提取后的效果如下</p>
-<div align="center">
-<img src="/Term-1-p5-vehicle-detection/original_hog_comparasion.png" width="300" height="250" title="HOG特征示意图">
-</div>
+<div align="center"><br><img src="/Term-1-p5-vehicle-detection/original_hog_comparasion.png" width="300" height="250" title="HOG特征示意图"><br></div>
 
 <p>&emsp;&emsp;贴上这部分代码</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> cv2</span><br><span class="line"><span class="keyword">import</span> numpy <span class="keyword">as</span> np</span><br><span class="line"><span class="keyword">from</span> skimage.feature <span class="keyword">import</span> hog</span><br><span class="line"><span class="keyword">import</span> glob</span><br><span class="line"><span class="keyword">import</span> matplotlib.pyplot <span class="keyword">as</span> plt</span><br><span class="line"></span><br><span class="line"><span class="comment">#读取car data</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">load_car_data</span><span class="params">()</span>:</span></span><br><span class="line">	vehicles = glob.glob(<span class="string">'./vehicles/*/*.png'</span>)</span><br><span class="line">	<span class="keyword">return</span> vehicles</span><br><span class="line"><span class="comment">#读取non car data</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">load_non_car_data</span><span class="params">()</span>:</span></span><br><span class="line">	non_vehicles = glob.glob(<span class="string">'./non-vehicles/*/*.png'</span>)</span><br><span class="line">	<span class="keyword">return</span> non_vehicles</span><br><span class="line"></span><br><span class="line"><span class="comment">#提取HOG特征</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">extract_feature</span><span class="params">(img,orient,pix_per_cell,cell_per_block,vis=False,feature_vec = True)</span>:</span></span><br><span class="line">	<span class="keyword">if</span> vis == <span class="keyword">True</span>:</span><br><span class="line">		features,hog_image = hog(img,orientations = orient,pixels_per_cell=(pix_per_cell,pix_per_cell),</span><br><span class="line">			cells_per_block = (cell_per_block,cell_per_block),transform_sqrt=<span class="keyword">False</span>,visualise=vis,feature_vector=feature_vec)</span><br><span class="line">		<span class="keyword">return</span> features,hog_image</span><br><span class="line">	<span class="keyword">else</span> :</span><br><span class="line">		features = hog(img,orientations = orient,pixels_per_cell=(pix_per_cell,pix_per_cell),</span><br><span class="line">			cells_per_block = (cell_per_block,cell_per_block),transform_sqrt=<span class="keyword">False</span>,visualise=vis,feature_vector=feature_vec)</span><br><span class="line">		<span class="keyword">return</span> feature</span><br><span class="line"><span class="comment">#显示对比</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">show_hog</span><span class="params">()</span>:</span></span><br><span class="line">	vehicles = load_car_data()</span><br><span class="line">	non_vehicles = load_non_car_data()</span><br><span class="line">	vehicle_img = plt.imread(vehicles[<span class="number">5</span>])</span><br><span class="line">	non_vehicle_img = plt.imread(non_vehicles[<span class="number">5</span>])</span><br><span class="line">	_,vehicle_hog_image = extract_feature(vehicle_img[:,:,<span class="number">2</span>],<span class="number">9</span>,<span class="number">8</span>,<span class="number">8</span>,vis=<span class="keyword">True</span>,feature_vec=<span class="keyword">True</span>)</span><br><span class="line">	_,non_vehicle_hog_image = extract_feature(non_vehicle_img[:,:,<span class="number">2</span>],<span class="number">9</span>,<span class="number">8</span>,<span class="number">8</span>,vis=<span class="keyword">True</span>,feature_vec=<span class="keyword">True</span>)</span><br><span class="line">	f,((ax1,ax2),(ax3,ax4)) = plt.subplots(<span class="number">2</span>,<span class="number">2</span>,figsize=(<span class="number">7</span>,<span class="number">7</span>))</span><br><span class="line">	ax1.imshow(vehicle_img)</span><br><span class="line">	ax1.set_title(<span class="string">'car'</span>)</span><br><span class="line">	ax2.imshow(vehicle_hog_image)</span><br><span class="line">	ax2.set_title(<span class="string">'car hog feature'</span>)</span><br><span class="line">	ax3.imshow(non_vehicle_img)</span><br><span class="line">	ax3.set_title(<span class="string">'non car'</span>)</span><br><span class="line">	ax4.imshow(non_vehicle_hog_image)</span><br><span class="line">	ax4.set_title(<span class="string">'non car hog feature'</span>)</span><br><span class="line">	plt.show()</span><br></pre></td></tr></table></figure>
@@ -1053,37 +1262,27 @@
 <h2 id="定义滑动窗口"><a href="#定义滑动窗口" class="headerlink" title="定义滑动窗口"></a>定义滑动窗口</h2><p>&emsp;&emsp;首先定义滑动窗口，其中有这样几个概念cell、block、window，step。cell是抽取hog特征时的最小单位，这里定义为16个像素。block由cell组成，这里定义为2*2个cell。window是滑动窗口大小，定义为64个像素。step是步长，即每次滑动的长度，定义为2个cell。</p>
 <figure class="highlight ini"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#x方向上block个数</span></span><br><span class="line"><span class="attr">nxblock</span> = (ch1.shape[<span class="number">1</span>]//pix_per_cell) + <span class="number">1</span></span><br><span class="line"><span class="comment">#y方向上block个数</span></span><br><span class="line"><span class="attr">nyblock</span> = (ch1.shape[<span class="number">0</span>]//pix_per_cell) + <span class="number">1</span></span><br><span class="line"><span class="comment">#定义window大小</span></span><br><span class="line"><span class="attr">window</span> = <span class="number">64</span></span><br><span class="line"><span class="comment">#每个window的cell个数，为了后续计算，剪掉1</span></span><br><span class="line"><span class="attr">nblocks_per_window</span> = (window//pix_per_cell) - <span class="number">1</span></span><br><span class="line"><span class="comment">#步长</span></span><br><span class="line"><span class="attr">cells_per_step</span> = <span class="number">2</span></span><br><span class="line"><span class="comment">#x方向上需要移动的次数</span></span><br><span class="line"><span class="attr">nxstep</span> = (nxblock - nblocks_per_window)//cells_per_step</span><br><span class="line"><span class="comment">#y方向上需要移动的次数</span></span><br><span class="line"><span class="attr">nystep</span> = (nyblock - nblocks_per_window)//cells_per_step</span><br></pre></td></tr></table></figure>
 <p>&emsp;&emsp;滑动窗口滑动过程如下</p>
-<div align="center">
-<img src="/Term-1-p5-vehicle-detection/滑动过程.png" width="500" height="300" title="滑动过程">
-</div>
+<div align="center"><br><img src="/Term-1-p5-vehicle-detection/滑动过程.png" width="500" height="300" title="滑动过程"><br></div>
 
 
 <h2 id="分类"><a href="#分类" class="headerlink" title="分类"></a>分类</h2><p>&emsp;&emsp;抽取窗口内图像特征，并进行分类，若为车辆，保存其窗口坐标。</p>
 <figure class="highlight nix"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#获取特征</span></span><br><span class="line"><span class="attr">hog1</span> = get_hog_feature(ch1,orient,pix_per_cell,cell_per_block, <span class="attr">feature_vec</span> = False)</span><br><span class="line"><span class="keyword">if</span> <span class="attr">hog_channel</span> == 'ALL':</span><br><span class="line">	<span class="attr">hog2</span> = get_hog_feature(ch2,orient,pix_per_cell,cell_per_block, <span class="attr">feature_vec</span> = False)</span><br><span class="line">	<span class="attr">hog3</span> = get_hog_feature(ch3,orient,pix_per_cell,cell_per_block, <span class="attr">feature_vec</span> = False)</span><br><span class="line"><span class="comment">#滑动抽取每个窗口特征</span></span><br><span class="line">for xb <span class="keyword">in</span> range(nxstep):</span><br><span class="line">	for yb <span class="keyword">in</span> range(nystep):</span><br><span class="line">		<span class="attr">ypos</span> = yb * cells_per_step</span><br><span class="line">		<span class="attr">xpos</span> = xb * cells_per_step</span><br><span class="line">		<span class="attr">hog_feat1</span> = hog1[ypos:ypos+nblocks_per_window,xpos:xpos+nblocks_per_window].ravel()</span><br><span class="line">		<span class="keyword">if</span> <span class="attr">hog_channel</span> == 'ALL':</span><br><span class="line">			<span class="attr">hog_feat2</span> = hog2[ypos:ypos+nblocks_per_window,xpos:xpos+nblocks_per_window].ravel()</span><br><span class="line">			<span class="attr">hog_feat3</span> = hog3[ypos:ypos+nblocks_per_window,xpos:xpos+nblocks_per_window].ravel()</span><br><span class="line">			<span class="attr">hog_features</span> = np.hstack((hog_feat1, hog_feat2, hog_feat3))</span><br><span class="line">		<span class="keyword">else</span> : <span class="attr">hog_features</span> = hog_feat1</span><br><span class="line"></span><br><span class="line">		<span class="attr">xleft</span> = xpos * pix_per_cell</span><br><span class="line">		<span class="attr">ytop</span> = ypos * pix_per_cell</span><br><span class="line">		<span class="attr">hog_features</span> = hog_features.reshape(<span class="number">1</span>,-<span class="number">1</span>)</span><br><span class="line">		<span class="attr">test_prediction</span> = svc.predict(hog_features)</span><br><span class="line">		<span class="comment">#若是车辆</span></span><br><span class="line">		<span class="keyword">if</span> <span class="attr">test_prediction</span> == <span class="number">1</span> <span class="literal">or</span> show_all_rectangle:</span><br><span class="line">			<span class="attr">xbox_left</span> = np.int(xleft * scale)</span><br><span class="line">			<span class="attr">ytop</span> = np.int(ytop * scale)</span><br><span class="line">			<span class="attr">win</span> = np.int(window * scale)</span><br><span class="line">			<span class="comment">#保存窗口坐标</span></span><br><span class="line">			rectangles.append(((xbox_left,ytop + ystart),(xbox_left + window,ytop+win+ystart)))</span><br></pre></td></tr></table></figure>
 <p>&emsp;&emsp;检测效果</p>
-<div align="center">
-<img src="/Term-1-p5-vehicle-detection/检测效果.png" width="500" height="300" title="检测效果">
-</div>
+<div align="center"><br><img src="/Term-1-p5-vehicle-detection/检测效果.png" width="500" height="300" title="检测效果"><br></div>
 
 <h1 id="车辆标记"><a href="#车辆标记" class="headerlink" title="车辆标记"></a>车辆标记</h1><p>&emsp;&emsp;有时候同一辆车可能存在于几个窗口中，需要将其合并，这个过程与非最大抑制类似。我们这里使用heatmap的方式合并窗口，即搜索到车辆的窗口内的像素点计数加1，设置一个阈值，最后只取大于阈值范围像素点构成的窗口。</p>
-<div align="center">
-<img src="/Term-1-p5-vehicle-detection/hotmap.png" width="500" height="300" title="hotmap.png">
-</div>
+<div align="center"><br><img src="/Term-1-p5-vehicle-detection/hotmap.png" width="500" height="300" title="hotmap.png"><br></div>
 
 <h1 id="处理视频"><a href="#处理视频" class="headerlink" title="处理视频"></a>处理视频</h1><ul>
 <li><p>原始视频</p>
-<center>
-<video controls="controls" src="Term-1-p5-vehicle-detection/project_video.mp4" width="500" height="250"></video>
-</center>
+<center><br><video controls="controls" src="Term-1-p5-vehicle-detection/project_video.mp4" width="500" height="250"></video><br></center>
 </li>
 <li><p>处理后视频</p>
-<center>
-<video controls="controls" src="Term-1-p5-vehicle-detection/project_video_out.mp4" width="500" height="250"></video>
-</center>
+<center><br><video controls="controls" src="Term-1-p5-vehicle-detection/project_video_out.mp4" width="500" height="250"></video><br></center>
 
 </li>
 </ul>
-<h1 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h1><p>&emsp;&emsp;本节课程主要使用传统计算机视觉方法进行目标检测，其中使用到的技术与常见滑动窗口、图像金字塔和非最大抑制很相似。除了传统计算机视觉方法，还可以使用深度学习进行目标检测，后续再单独开文章进行介绍。这部分代码详见<a href="https://github.com/yajian/self-driving-car/tree/master/p5-vehicle-detection" target="_blank" rel="noopener">p5-vehicle-detection</a></p>
+<h1 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h1><p>&emsp;&emsp;本节课程主要使用传统计算机视觉方法进行目标检测，其中使用到的技术与常见滑动窗口、图像金字塔和非最大抑制很相似。除了传统计算机视觉方法，还可以使用深度学习进行目标检测，后续再单独开文章进行介绍。这部分代码详见[p5-vehicle-detection](<a href="https://github.com/yajian/self-driving-car/tree/master/p5-vehicle-detection" target="_blank" rel="noopener">https://github.com/yajian/self-driving-car/tree/master/p5-vehicle-detection</a>)</p>
 
           
         
@@ -1278,9 +1477,7 @@
           
             <h1 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h1><p>&emsp;&emsp;p4也是车道检测，可以说是p1的升级版。p1只是使用了简单的边缘检测和直线检测进行直线车道信息提取，并未考虑摄像头造成的畸变以及车道不是直线的时候如何进行车道检测，这节课在之前的基础上进行了延伸，过程中会用到更多计算机视觉处理技术。</p>
 <h1 id="处理流程"><a href="#处理流程" class="headerlink" title="处理流程"></a>处理流程</h1><p>&emsp;&emsp;处理流程如下所示：</p>
-<div align="center">
-<img src="/Term-1-p4-advanced-lane-lines/p4处理流程.png" width="70" height="300" title="p4处理流程">
-</div>
+<div align="center"><br><img src="/Term-1-p4-advanced-lane-lines/p4处理流程.png" width="70" height="300" title="p4处理流程"><br></div>
 
 <h1 id="棋盘标定"><a href="#棋盘标定" class="headerlink" title="棋盘标定"></a>棋盘标定</h1><p>&emsp;&emsp;在使用摄像设备进行图像拍摄的时候往往会有畸变误差，这些畸变误差分为两类：</p>
 <ul>
@@ -1292,19 +1489,13 @@
 <p>&emsp;&emsp;消除畸变可以采用棋盘标定来实现，通过检测棋盘的角点，获取校正系数，将其保存，用于后续实际拍摄图像的畸变校正。<br>&emsp;&emsp;代码如下</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#coding:utf-8</span></span><br><span class="line"><span class="keyword">import</span> cv2</span><br><span class="line"><span class="keyword">import</span> numpy <span class="keyword">as</span> np</span><br><span class="line"><span class="keyword">import</span> glob</span><br><span class="line"><span class="keyword">import</span> matplotlib.pyplot <span class="keyword">as</span> plt</span><br><span class="line"><span class="keyword">import</span> pickle</span><br><span class="line"></span><br><span class="line"><span class="comment">#摄像头校正</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">camera_calibration</span><span class="params">()</span>:</span></span><br><span class="line">	<span class="comment">#横向角点数量</span></span><br><span class="line">	nx = <span class="number">9</span></span><br><span class="line">	<span class="comment">#纵向角点数量</span></span><br><span class="line">	ny = <span class="number">6</span></span><br><span class="line">	<span class="comment">#获取角点坐标</span></span><br><span class="line">	objp = np.zeros((nx*ny,<span class="number">3</span>),np.float32)</span><br><span class="line">	<span class="comment">#赋值x,y,默认z=0</span></span><br><span class="line">	objp[:,:<span class="number">2</span>] = np.mgrid[<span class="number">0</span>:nx,<span class="number">0</span>:ny].transpose(<span class="number">2</span>,<span class="number">1</span>,<span class="number">0</span>).reshape(<span class="number">-1</span>,<span class="number">2</span>)</span><br><span class="line"></span><br><span class="line">	objpoints = []</span><br><span class="line">	imgpoints = []</span><br><span class="line"></span><br><span class="line">	images = glob.glob(<span class="string">"./camera_cal/calibration*.jpg"</span>)</span><br><span class="line">	count = <span class="number">0</span> </span><br><span class="line">	plt.figure(figsize=(<span class="number">12</span>,<span class="number">8</span>))</span><br><span class="line">	<span class="keyword">for</span> fname <span class="keyword">in</span> images:</span><br><span class="line">		img = cv2.imread(fname)</span><br><span class="line">		gray = cv2.cvtColor(img,cv2.COLOR_BGR2GRAY)</span><br><span class="line">		<span class="comment">#标记棋盘角点</span></span><br><span class="line">		ret,corners = cv2.findChessboardCorners(gray,(nx,ny),<span class="keyword">None</span>)</span><br><span class="line"></span><br><span class="line">		<span class="keyword">if</span> ret == <span class="keyword">True</span>:</span><br><span class="line">			objpoints.append(objp)</span><br><span class="line">			imgpoints.append(corners)</span><br><span class="line">			<span class="comment">#角点图</span></span><br><span class="line">			img_cor = cv2.drawChessboardCorners(img,(nx,ny),corners,ret)</span><br><span class="line">			<span class="comment">#画图</span></span><br><span class="line">			plt.subplot(<span class="number">4</span>,<span class="number">5</span>,count+<span class="number">1</span>)</span><br><span class="line">			plt.axis(<span class="string">'off'</span>)</span><br><span class="line">			plt.title(fname.split(<span class="string">'/'</span>)[<span class="number">-1</span>])</span><br><span class="line">			plt.imshow(img_cor)</span><br><span class="line">			count += <span class="number">1</span></span><br><span class="line">			write_name = <span class="string">'./corners_found/corners_'</span>+fname.split(<span class="string">'/'</span>)[<span class="number">-1</span>];</span><br><span class="line">			cv2.imwrite(write_name,img)</span><br><span class="line">	plt.show()</span><br><span class="line">	<span class="keyword">return</span> objpoints,imgpoints</span><br><span class="line"></span><br><span class="line"><span class="comment">#保存校正系数等</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">save_parameters</span><span class="params">(objpoints,imgpoints)</span>:</span></span><br><span class="line">	img = cv2.imread(<span class="string">'./camera_cal/calibration1.jpg'</span>)</span><br><span class="line">	img_size = (img.shape[<span class="number">1</span>],img.shape[<span class="number">0</span>])</span><br><span class="line">	ret,mtx,dist,rvecs,tvecs = cv2.calibrateCamera(objpoints,imgpoints,img_size,<span class="keyword">None</span>,<span class="keyword">None</span>)</span><br><span class="line">	dist_pickle = &#123;&#125;</span><br><span class="line">	dist_pickle[<span class="string">'mtx'</span>] = mtx</span><br><span class="line">	dist_pickle[<span class="string">'dist'</span>] = dist</span><br><span class="line">	pickle.dump(dist_pickle,open(<span class="string">'./output_images/camera_mtx_dist.p'</span>,<span class="string">'wb'</span>))</span><br><span class="line">	<span class="keyword">print</span> <span class="string">'parameters saved'</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">main</span><span class="params">()</span>:</span></span><br><span class="line">	objpoints,imgpoints = camera_calibration()</span><br><span class="line">	save_parameters(objpoints,imgpoints)</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> __name__==<span class="string">'__main__'</span>:</span><br><span class="line">	main()</span><br></pre></td></tr></table></figure>
 <p>&emsp;&emsp;角点标记的效果如下</p>
-<div align="center">
-<img src="/Term-1-p4-advanced-lane-lines/角点标记.png" width="500" height="250" title="角点标记">
-</div>
+<div align="center"><br><img src="/Term-1-p4-advanced-lane-lines/角点标记.png" width="500" height="250" title="角点标记"><br></div>
 
 <h1 id="径向畸变校正"><a href="#径向畸变校正" class="headerlink" title="径向畸变校正"></a>径向畸变校正</h1><p>&emsp;&emsp;先展示一下未处理过的照片和畸变校正后的照片效果</p>
-<div align="center">
-<img src="/Term-1-p4-advanced-lane-lines/畸变校正.png" width="300" height="300" title="棋盘校正">
-</div>
+<div align="center"><br><img src="/Term-1-p4-advanced-lane-lines/畸变校正.png" width="300" height="300" title="棋盘校正"><br></div>
 
 <p>&emsp;&emsp;可以看到左图边缘被弯曲的线条，在右图中被修正为平行线条。对于实际道路的图片，效果如下：</p>
-<div align="center">
-<img src="/Term-1-p4-advanced-lane-lines/实际车道校正.png" width="500" height="300" title="车道校正">
-</div>
+<div align="center"><br><img src="/Term-1-p4-advanced-lane-lines/实际车道校正.png" width="500" height="300" title="车道校正"><br></div>
 
 
 <p>&emsp;&emsp;代码示例如下：</p>
@@ -1312,86 +1503,64 @@
 <h1 id="透视畸变校正"><a href="#透视畸变校正" class="headerlink" title="透视畸变校正"></a>透视畸变校正</h1><p>&emsp;&emsp;车载摄像头是固定在车上的，由于拍摄视角问题（摄像头与道路不垂直），拍摄出的照片有透视畸变，即近大远小，和美术的透视原理类似。</p>
 <p>&emsp;&emsp;透视变换可以消除透视畸变，简而言之就是转化为鸟瞰图。其原理如下：取得畸变图像的4个点坐标和目标图像的4个点坐标，通过两组坐标计算出透视变换的变换矩阵，之后对整个图像执行变换，就实现了对图像的校正。</p>
 <p>&emsp;&emsp;畸变图像需要进行透视变换的区域坐标分别为(580,460),(740,460),(280,680),(1050,680)，在图上的区域如下</p>
-<div align="center">
-<img src="/Term-1-p4-advanced-lane-lines/perspective_area.png" width="‘150’" height="300" align="center" alt="透视变换区域">
-</div>
+<div align="center"><br><img src="/Term-1-p4-advanced-lane-lines/perspective_area.png" width="‘150’" height="300" align="center" alt="透视变换区域"><br></div>
 
 <p>透视变换代码如下</p>
 <figure class="highlight nix"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">def perspective_transform(<span class="attr">path</span> = './test_images/test6.jpg'):</span><br><span class="line">	<span class="attr">image</span> = cv2.imread(path)</span><br><span class="line">	<span class="attr">img_h</span> = image.shape[<span class="number">0</span>]</span><br><span class="line">	<span class="attr">img_w</span> = image.shape[<span class="number">1</span>]</span><br><span class="line">	print img_h,img_w</span><br><span class="line">	<span class="comment">#原图像待变换区域顶点坐标</span></span><br><span class="line">	<span class="attr">src</span> = np.float32([left_up,left_down,right_up,right_down])</span><br><span class="line">	<span class="comment">#目标区域顶点坐标</span></span><br><span class="line">	<span class="attr">dst</span> = np.float32([[<span class="number">200</span>,<span class="number">0</span>],[<span class="number">200</span>,<span class="number">680</span>],[<span class="number">1000</span>,<span class="number">0</span>],[<span class="number">1000</span>,<span class="number">680</span>]])</span><br><span class="line">	<span class="comment">#求得变换矩阵</span></span><br><span class="line">	<span class="attr">M</span> = cv2.getPerspectiveTransform(src,dst)</span><br><span class="line">	<span class="comment">#进行透视变换</span></span><br><span class="line">	<span class="attr">warped</span> = cv2.warpPerspective(image,M,(img_w,img_h),<span class="attr">flags=cv2.INTER_NEAREST)</span></span><br><span class="line">	return img_as_ubyte(warped),M</span><br></pre></td></tr></table></figure>
 <p>经过透视变换，图像转换为</p>
-<div align="center">
-<img src="/Term-1-p4-advanced-lane-lines/after_perspective_undistortion.png" width="500" height="300" title="透视变换后效果">
-</div>
+<div align="center"><br><img src="/Term-1-p4-advanced-lane-lines/after_perspective_undistortion.png" width="500" height="300" title="透视变换后效果"><br></div>
 
 
 <h1 id="边缘检测"><a href="#边缘检测" class="headerlink" title="边缘检测"></a>边缘检测</h1><p>&emsp;&emsp;与p1类似若想提取车道信息，需要二值化处理、边缘检测、roi区域提取，但是p4的处理过程会有不同。</p>
 <p>&emsp;&emsp;对于p1，直接读入灰度图像然后进行canny边缘检测，这样做有两个问题。首先是颜色检测，车道线条往往有不同的颜色，对于RGB格式来说，某些颜色在特定通道下检测效果不好，比如黄色车道线在Blue通道下是这样的</p>
-<div align="center">
-<img src="/Term-1-p4-advanced-lane-lines/黄色在blue通道下效果.png" width="500" height="300" title="黄色在blue通道下效果">
-</div>
+<div align="center"><br><img src="/Term-1-p4-advanced-lane-lines/黄色在blue通道下效果.png" width="500" height="300" title="黄色在blue通道下效果"><br></div>
 
 <p>&emsp;&emsp;黄色分量在blue通道下辨识度不是很高。为了更好的进行颜色检测，可以把RGB格式转化为HLS格式，即使用色相(Hue)、饱和度(Saturation)、亮度(Lightness)表示颜色，可以获得更好的效果。</p>
 <p>&emsp;&emsp;第二个问题是canny检测虽然能够获得很好的效果，但是它会把车道外其他部分的边缘提取出来，这些信息对于我们来说并没有用。考虑到车在行驶过程中，车道基本是垂直于车子，所以可以采用sobel算子提取x方向上的梯度，实现垂直方向上车道的检测。</p>
 <p>&emsp;&emsp;代码如下</p>
 <figure class="highlight nix"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line">def edge_detection(image,<span class="attr">sobel_kernel=3,sc_threshold=(110,</span> <span class="number">255</span>), <span class="attr">sx_threshold=(20,</span> <span class="number">100</span>)):</span><br><span class="line"></span><br><span class="line">	<span class="attr">img</span> = np.copy(image)</span><br><span class="line">	<span class="comment">#转换为hsv格式</span></span><br><span class="line">	<span class="attr">hsv</span> = cv2.cvtColor(img,cv2.COLOR_RGB2HLS).astype(np.float)</span><br><span class="line">	<span class="attr">h_channel</span> = hsv[:,:,<span class="number">0</span>]</span><br><span class="line">	<span class="attr">l_channel</span> = hsv[:,:,<span class="number">1</span>]</span><br><span class="line">	<span class="attr">s_channel</span> = hsv[:,:,<span class="number">2</span>]</span><br><span class="line">	<span class="comment">#使用s通道</span></span><br><span class="line">	<span class="attr">channel</span> = s_channel</span><br><span class="line">	<span class="comment">#x方向梯度</span></span><br><span class="line">	<span class="attr">sobel_x</span> = cv2.Sobel(channel,cv2.CV_64F,<span class="number">1</span>,<span class="number">0</span>,<span class="attr">ksize</span> = sobel_kernel)</span><br><span class="line">	<span class="comment">#二值化处理</span></span><br><span class="line">	<span class="attr">scaled_sobel_x</span> = cv2.convertScaleAbs(<span class="number">255</span>*sobel_x/np.max(sobel_x))</span><br><span class="line">	<span class="attr">sx_binary</span> = np.zeros_like(scaled_sobel_x)</span><br><span class="line">	<span class="comment">#进行边缘检测</span></span><br><span class="line">	sx_binary[(scaled_sobel_x &gt;= sx_threshold[<span class="number">0</span>]) &amp; (scaled_sobel_x&lt;=sx_threshold[<span class="number">1</span>])] = <span class="number">1</span></span><br><span class="line">	<span class="attr">s_binary</span> = np.zeros_like(s_channel)</span><br><span class="line">	<span class="comment">#进行颜色检测</span></span><br><span class="line">	s_binary[(channel&gt;=sc_threshold[<span class="number">0</span>]) &amp; (channel&lt;=sc_threshold[<span class="number">1</span>])]=<span class="number">1</span></span><br><span class="line">	<span class="attr">flat_binary</span> = np.zeros_like(sx_binary)</span><br><span class="line">	<span class="comment">#颜色和边缘叠加</span></span><br><span class="line">	flat_binary[(<span class="attr">sx_binary</span> == <span class="number">1</span>) | (<span class="attr">s_binary</span> ==<span class="number">1</span>)] =<span class="number">1</span></span><br><span class="line">	</span><br><span class="line">	return flat_binary</span><br></pre></td></tr></table></figure>
 <p>&emsp;&emsp;检测效果如下：</p>
-<div align="center">
-<img src="/Term-1-p4-advanced-lane-lines/车道检测.png" width="500" height="300" title="车道检测">
-</div>
+<div align="center"><br><img src="/Term-1-p4-advanced-lane-lines/车道检测.png" width="500" height="300" title="车道检测"><br></div>
 
 
 <p>&emsp;&emsp;接下来进行roi区域提取</p>
 <figure class="highlight maxima"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">def roi(img,<span class="built_in">vertices</span>):</span><br><span class="line">	mask = <span class="built_in">np</span>.zeros_like(img)</span><br><span class="line"></span><br><span class="line">	<span class="keyword">if</span> len(img.shape) &gt;<span class="number">2</span>:</span><br><span class="line">		channel_count = <span class="built_in">image</span>.shape[<span class="number">2</span>]</span><br><span class="line">		ignore_mask_color=(<span class="number">255</span>,)*channel_count</span><br><span class="line">	<span class="keyword">else</span>:</span><br><span class="line">		ignore_mask_color = <span class="number">255</span></span><br><span class="line"></span><br><span class="line">	cv2.fillPoly(mask,<span class="built_in">vertices</span>,ignore_mask_color)</span><br><span class="line">	masked_image = cv2.bitwise_and(img,mask)</span><br><span class="line">	<span class="built_in">return</span> masked_image</span><br></pre></td></tr></table></figure>
 <p>&emsp;&emsp;最后得到的车道图像为</p>
-<div align="center">
-<img src="/Term-1-p4-advanced-lane-lines/roi区域.png" width="500" height="300" title="roi区域">
-</div>
+<div align="center"><br><img src="/Term-1-p4-advanced-lane-lines/roi区域.png" width="500" height="300" title="roi区域"><br></div>
 
 
 <h1 id="车道标记"><a href="#车道标记" class="headerlink" title="车道标记"></a>车道标记</h1><p>&emsp;&emsp;上个步骤结束后，我们找到了车道的大致范围，下面需要对这些点进行过滤，然后将其连成车道线。</p>
 <h2 id="确定中线范围"><a href="#确定中线范围" class="headerlink" title="确定中线范围"></a>确定中线范围</h2><p>&emsp;&emsp;首先找到车道的中线作为搜索的起始点，由于车道有一定的弯曲，我们可以使用图片的下半部分画出直方图，查找其最大值位于x轴的位置。</p>
-<div align="center">
-<img src="/Term-1-p4-advanced-lane-lines/直方图.png" width="500" height="300" title="直方图">
-</div>
+<div align="center"><br><img src="/Term-1-p4-advanced-lane-lines/直方图.png" width="500" height="300" title="直方图"><br></div>
 
 <figure class="highlight ini"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#获取直方图，得到车道大致位置</span></span><br><span class="line"><span class="attr">histogram</span> = np.sum(roi_image[int(roi_image.shape[<span class="number">0</span>]/<span class="number">2</span>):,:],axis=<span class="number">0</span>)</span><br><span class="line"><span class="comment">#输出图像</span></span><br><span class="line"><span class="attr">out_image</span> = np.dstack((roi_image,roi_image,roi_image)) * <span class="number">255</span></span><br><span class="line"></span><br><span class="line"><span class="comment">#图像中线x轴的坐标</span></span><br><span class="line"><span class="attr">midpoint</span> = np.int(histogram.shape[<span class="number">0</span>]/<span class="number">2</span>)</span><br><span class="line"><span class="comment">#图像中线左侧车道x轴基准</span></span><br><span class="line"><span class="attr">leftx_base</span> = np.argmax(histogram[:midpoint])</span><br><span class="line"><span class="comment">#图像中线右侧车道x轴基准</span></span><br><span class="line"><span class="attr">rightx_base</span> = np.argmax(histogram[midpoint:]) + midpoint</span><br></pre></td></tr></table></figure>
 <p>大致能确定左车道中心线大概在x=250，右车道中心线大概在x=1000的位置。</p>
 <h2 id="定义搜索框"><a href="#定义搜索框" class="headerlink" title="定义搜索框"></a>定义搜索框</h2><p>&emsp;&emsp;在y轴方向上使用9个搜索框从图片底部向图片上部进行搜索，其宽度为80像素。</p>
 <figure class="highlight ini"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#设置滑动窗口个数</span></span><br><span class="line"><span class="attr">nwindows</span> = <span class="number">9</span></span><br><span class="line"><span class="comment">#窗口高度</span></span><br><span class="line"><span class="attr">window_height</span> = np.int(roi_image.shape[<span class="number">0</span>]/nwindows)</span><br><span class="line"><span class="comment">#所有非零点坐标</span></span><br><span class="line"><span class="attr">nonzero</span> = roi_image.nonzero()</span><br></pre></td></tr></table></figure>
 <h2 id="过滤非零像素点"><a href="#过滤非零像素点" class="headerlink" title="过滤非零像素点"></a>过滤非零像素点</h2><p>&emsp;&emsp;把不符合要求的点过滤掉，只保留窗口范围内的非零像素点，并调节搜索中线位置。整个过程如下</p>
-<div align="center">
-<img src="/Term-1-p4-advanced-lane-lines/直方图搜索过程.png" width="500" height="300" title="搜索过程">
-</div>
+<div align="center"><br><img src="/Term-1-p4-advanced-lane-lines/直方图搜索过程.png" width="500" height="300" title="搜索过程"><br></div>
 
 <figure class="highlight nix"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#左车道搜索起始点</span></span><br><span class="line"><span class="attr">leftx_current</span> = leftx_base</span><br><span class="line"><span class="comment">#右车道搜索起始点</span></span><br><span class="line"><span class="attr">rightx_current</span> = rightx_base</span><br><span class="line"><span class="comment">#窗口长度2*margin，即搜索中线左右80像素范围内的点</span></span><br><span class="line"><span class="attr">margin</span> = <span class="number">80</span></span><br><span class="line"><span class="comment">#窗口内超过50个点才会改变搜索中线</span></span><br><span class="line"><span class="attr">minpix</span> = <span class="number">50</span></span><br><span class="line"><span class="comment">#左车道窗口内像素点坐标</span></span><br><span class="line"><span class="attr">left_lane_indices</span> = []</span><br><span class="line"><span class="comment">#右车道窗口内像素点坐标</span></span><br><span class="line"><span class="attr">right_lane_indices</span> = []</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">for window <span class="keyword">in</span> range(nwindows):</span><br><span class="line">	<span class="comment">#窗口上边线y值</span></span><br><span class="line">	<span class="attr">win_y_low</span> = roi_image.shape[<span class="number">0</span>] - (window + <span class="number">1</span>) * window_height</span><br><span class="line">	<span class="comment">#窗口下边线y值</span></span><br><span class="line">	<span class="attr">win_y_high</span> = roi_image.shape[<span class="number">0</span>] - window * window_height</span><br><span class="line">	<span class="comment">#窗口左下顶点坐标</span></span><br><span class="line">	<span class="attr">win_xleft_low</span> = leftx_current - margin</span><br><span class="line">	<span class="comment">#窗口左上顶点坐标</span></span><br><span class="line">	<span class="attr">win_xleft_high</span> = leftx_current + margin</span><br><span class="line">	<span class="comment">#窗口右下顶点坐标</span></span><br><span class="line">	<span class="attr">win_xright_low</span> = rightx_current - margin</span><br><span class="line">	<span class="comment">#窗口右上顶点坐标</span></span><br><span class="line">	<span class="attr">win_xright_high</span> = rightx_current + margin</span><br><span class="line">	<span class="comment">#画图</span></span><br><span class="line">	cv2.rectangle(out_image,(win_xleft_low,win_y_low),(win_xleft_high,win_y_high),(<span class="number">255</span>,<span class="number">0</span>,<span class="number">0</span>),<span class="number">2</span>)</span><br><span class="line">	cv2.rectangle(out_image,(win_xright_low,win_y_low),(win_xright_high,win_y_high),(<span class="number">255</span>,<span class="number">0</span>,<span class="number">0</span>),<span class="number">2</span>)</span><br><span class="line">	<span class="comment">#挑出左窗口范围内的点</span></span><br><span class="line">	<span class="attr">good_left_indices</span> = ((nonzeroy &gt;= win_y_low) &amp; (nonzeroy &lt; win_y_high) </span><br><span class="line">		&amp; (nonzerox &gt;= win_xleft_low) &amp; (nonzerox &lt; win_xleft_high)).nonzero()[<span class="number">0</span>]</span><br><span class="line">	<span class="comment">#挑出右窗口范围内的点</span></span><br><span class="line">	<span class="attr">good_right_indices</span> = ((nonzeroy &gt;= win_y_low) &amp; (nonzeroy &lt; win_y_high) </span><br><span class="line">		&amp; (nonzerox &gt;= win_xright_low) &amp; (nonzerox &lt; win_xright_high)).nonzero()[<span class="number">0</span>]</span><br><span class="line"></span><br><span class="line">	left_lane_indices.append(good_left_indices)</span><br><span class="line">	right_lane_indices.append(good_right_indices)</span><br><span class="line"></span><br><span class="line">	<span class="keyword">if</span> len(good_left_indices) &gt; minpix:</span><br><span class="line">		<span class="comment">#将左车道搜索中线置为窗口内像素点x坐标的平均值</span></span><br><span class="line">		<span class="attr">leftx_current</span> = np.int(np.mean(nonzerox[good_left_indices]))</span><br><span class="line">	<span class="keyword">if</span> len(good_right_indices) &gt; minpix:</span><br><span class="line">		<span class="comment">#将右车道搜索中线置为窗口内像素点x坐标的平均值</span></span><br><span class="line">		<span class="attr">rightx_current</span> = np.int(np.mean(nonzerox[good_right_indices]))</span><br></pre></td></tr></table></figure>
 <h2 id="车道线拟合"><a href="#车道线拟合" class="headerlink" title="车道线拟合"></a>车道线拟合</h2><p>&emsp;&emsp;拿到了车道像素点后，使用数学方法对其进行二次函数拟合。为了后续处理，还需要计算拟合曲线上的坐标。效果如下</p>
-<div align="center">
-<img src="/Term-1-p4-advanced-lane-lines/拟合车道线.png" width="500" height="300" title="拟合车道线">
-</div>
+<div align="center"><br><img src="/Term-1-p4-advanced-lane-lines/拟合车道线.png" width="500" height="300" title="拟合车道线"><br></div>
 
 <figure class="highlight ini"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#拟合左车道曲线</span></span><br><span class="line"><span class="attr">left_fit</span> = np.polyfit(lefty,leftx,<span class="number">2</span>)</span><br><span class="line"><span class="comment">#拟合右车道曲线</span></span><br><span class="line"><span class="attr">right_fit</span> = np.polyfit(righty,rightx,<span class="number">2</span>)</span><br><span class="line"><span class="comment">#y轴的坐标都是确定的，待确定的是x的坐标</span></span><br><span class="line"><span class="attr">ploty</span> = np.linspace(<span class="number">0</span>,roi_image.shape[<span class="number">0</span>]-<span class="number">1</span>,roi_image.shape[<span class="number">0</span>])</span><br><span class="line"><span class="comment">#根据左车道y的坐标计算x的坐标</span></span><br><span class="line"><span class="attr">left_fitx</span> = left_fit[<span class="number">0</span>] * ploty ** <span class="number">2</span> + left_fit[<span class="number">1</span>] * ploty + left_fit[<span class="number">2</span>]</span><br><span class="line"><span class="comment">#根据右车道y的坐标计算x的坐标</span></span><br><span class="line"><span class="attr">right_fitx</span> = right_fit[<span class="number">0</span>] * ploty ** <span class="number">2</span> + right_fit[<span class="number">1</span>] * ploty + right_fit[<span class="number">2</span>]</span><br></pre></td></tr></table></figure>
 <h2 id="标记车道范围"><a href="#标记车道范围" class="headerlink" title="标记车道范围"></a>标记车道范围</h2><p>&emsp;&emsp;先在鸟瞰图上标记车道范围，然后映射到透视变换前的图像上。</p>
-<div align="center">
-<img src="/Term-1-p4-advanced-lane-lines/标记车道.png" width="500" height="300" title="标记车道">
-</div>
+<div align="center"><br><img src="/Term-1-p4-advanced-lane-lines/标记车道.png" width="500" height="300" title="标记车道"><br></div>
 
 <figure class="highlight makefile"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 复制一份输出图像</span></span><br><span class="line">color_warp = np.zeros_like(out_image).astype(np.uint8)</span><br><span class="line">pts_left = np.array([np.transpose(np.vstack([left_fitx,ploty]))])</span><br><span class="line">pts_right = np.array([np.flipud(np.transpose(np.vstack([right_fitx,ploty])))])</span><br><span class="line">pts = np.hstack((pts_left,pts_right))</span><br><span class="line"><span class="comment">#标记不规则区域</span></span><br><span class="line">cv2.fillPoly(color_warp,np.int_([pts]),(0,255,0))</span><br><span class="line"><span class="comment">#还原到原图像，需要用到透视变换矩阵</span></span><br><span class="line">newwarp = cv2.warpPerspective(color_warp,np.linalg.inv(M),(original.shape[1],original.shape[0]))</span><br><span class="line"><span class="comment">#叠加图像</span></span><br><span class="line">result = cv2.addWeighted(original,1,newwarp,0.3,0)</span><br></pre></td></tr></table></figure>
 <h1 id="处理视频"><a href="#处理视频" class="headerlink" title="处理视频"></a>处理视频</h1><p>&emsp;&emsp;处理完单张图像，处理视频，效果对比如下<br>效果如下</p>
 <ul>
 <li>原始视频</li>
 </ul>
-<div align="center">
- <video controls="controls" src="Term-1-p4-advanced-lane-lines/original.mp4" width="500" height="250"></video>
- </div>
+<div align="center"><br> <video controls="controls" src="Term-1-p4-advanced-lane-lines/original.mp4" width="500" height="250"></video><br> </div>
 
 <ul>
 <li>处理后视频</li>
 </ul>
-<div align="center">
- <video controls="controls" src="Term-1-p4-advanced-lane-lines/output.mp4" width="500" height="250"></video>
- </div>
+<div align="center"><br> <video controls="controls" src="Term-1-p4-advanced-lane-lines/output.mp4" width="500" height="250"></video><br> </div>
 
-<h1 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h1><p>&emsp;&emsp; 这节课难度比前几节课略大，需要用到的图像处理手段有些复杂，需要一定时间消化理解，部分细节性技术后续会单开文章专门介绍，这部分代码参考<a href="https://github.com/yajian/self-driving-car/tree/master/p4-advanced-lane-lines" target="_blank" rel="noopener">Term-1-p4-advanced-lane-lines</a></p>
+<h1 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h1><p>&emsp;&emsp; 这节课难度比前几节课略大，需要用到的图像处理手段有些复杂，需要一定时间消化理解，部分细节性技术后续会单开文章专门介绍，这部分代码参考[Term-1-p4-advanced-lane-lines](<a href="https://github.com/yajian/self-driving-car/tree/master/p4-advanced-lane-lines" target="_blank" rel="noopener">https://github.com/yajian/self-driving-car/tree/master/p4-advanced-lane-lines</a>)</p>
 
           
         
@@ -1623,8 +1792,7 @@
 <p>平均耗时18000ms</p>
 <h4 id="ReflectAsm反射-1"><a href="#ReflectAsm反射-1" class="headerlink" title="ReflectAsm反射"></a>ReflectAsm反射</h4><figure class="highlight arduino"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">MethodAccess methodAccess = MethodAccess.<span class="built_in">get</span>(InvokeClass.class);</span><br><span class="line"><span class="keyword">int</span> index = methodAccess.getIndex(<span class="string">"add"</span>, <span class="keyword">long</span>.class, <span class="keyword">long</span>.class);</span><br><span class="line"><span class="keyword">long</span> start = System.currentTimeMillis();</span><br><span class="line"><span class="built_in">for</span> (<span class="keyword">long</span> i = <span class="number">0</span>; i &lt; Integer.MAX_VALUE; i++) &#123;</span><br><span class="line">    methodAccess.invoke(invokeClass, index, i, i);</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">long</span> <span class="built_in">end</span> = System.currentTimeMillis();</span><br><span class="line">System.out.<span class="built_in">println</span>(<span class="built_in">end</span> - start);</span><br></pre></td></tr></table></figure>
 <p>平均耗时2700ms</p>
-<h2 id="对比及结论"><a href="#对比及结论" class="headerlink" title="对比及结论"></a>对比及结论</h2><div class="table-container">
-<table>
+<h2 id="对比及结论"><a href="#对比及结论" class="headerlink" title="对比及结论"></a>对比及结论</h2><table>
 <thead>
 <tr>
 <th style="text-align:center"></th>
@@ -1648,7 +1816,6 @@
 </tr>
 </tbody>
 </table>
-</div>
 <p>经过简单测试，可以发现</p>
 <ol>
 <li>反射确实会带来性能损失，ReflectAsm相比Java原生反射机制能提升一定性能</li>
@@ -1846,7 +2013,7 @@
       
         
           
-            <h1 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h1><p>&emsp;&emsp;Term-1第二节课是进行交通标志分类，数据集主要来自于<a href="http://benchmark.ini.rub.de/?section=home&amp;subsection=news" target="_blank" rel="noopener">German Traffic Sign</a>，包含了42种交通标志，通过深度学习网络进行分类。</p>
+            <h1 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h1><p>&emsp;&emsp;Term-1第二节课是进行交通标志分类，数据集主要来自于[German Traffic Sign](<a href="http://benchmark.ini.rub.de/?section=home&amp;subsection=news)，包含了42种交通标志，通过深度学习网络进行分类。" target="_blank" rel="noopener">http://benchmark.ini.rub.de/?section=home&amp;subsection=news)，包含了42种交通标志，通过深度学习网络进行分类。</a></p>
 <h1 id="环境准备"><a href="#环境准备" class="headerlink" title="环境准备"></a>环境准备</h1><ul>
 <li>python 2.7</li>
 <li>numpy</li>
@@ -1855,30 +2022,24 @@
 <li>keras</li>
 </ul>
 <h1 id="处理流程"><a href="#处理流程" class="headerlink" title="处理流程"></a>处理流程</h1><p>&emsp;&emsp;处理流程如下图所示</p>
-<div align="center">
-<img src="/Term-1-p2-traffic-sign-classifier/处理流程.png" width="80" height="300" title="处理流程">
-</div>
+<div align="center"><br><img src="/Term-1-p2-traffic-sign-classifier/处理流程.png" width="80" height="300" title="处理流程"><br></div>
 
 <h1 id="数据读取"><a href="#数据读取" class="headerlink" title="数据读取"></a>数据读取</h1><p>&emsp;&emsp;我们拿到的数据集是一系列交通标志图像，每个类别的交通标志放在了同一个文件夹下，并且有一个csv文件用于描述每个交通标志图片的ROI区域和该标志所属类别。下载图像的时候网站提供了一份用于数据处理的python程序（Python code for GTSRB文件夹下），在这里可以用到。<br>&emsp;&emsp;这里按csv描述的图像信息进行ROI部分的提取，并使用pickle保存为.p文件方便后续模型训练使用。代码示例如下：</p>
 <figure class="highlight vim"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br></pre></td><td class="code"><pre><span class="line">import numpy <span class="keyword">as</span> np</span><br><span class="line">import pickle</span><br><span class="line">import os</span><br><span class="line">import cv2</span><br><span class="line">import csv</span><br><span class="line"></span><br><span class="line">//处理训练数据</span><br><span class="line">def process_train_data(path):</span><br><span class="line">	<span class="keyword">file</span> = os.listdir(path)</span><br><span class="line">	classes = <span class="built_in">len</span>(<span class="keyword">file</span>)</span><br><span class="line">	train_data = []</span><br><span class="line">	train_labels = []</span><br><span class="line">	<span class="keyword">for</span> i in <span class="built_in">range</span>(<span class="number">0</span>,classes):</span><br><span class="line">		dir_name = <span class="keyword">file</span>[i]</span><br><span class="line">		<span class="keyword">if</span> dir_name==<span class="string">'.DS_Store'</span>:</span><br><span class="line">			<span class="keyword">continue</span></span><br><span class="line">		full_dir_path = path + dir_name</span><br><span class="line">		csv_file_path = full_dir_path + <span class="string">'/'</span> + <span class="string">'GT-&#123;0&#125;.csv'</span>.format(dir_name)</span><br><span class="line">		with <span class="keyword">open</span>(csv_file_path) <span class="keyword">as</span> <span class="keyword">f</span>:</span><br><span class="line">			csv_reader = csv.reader(<span class="keyword">f</span>,delimiter=<span class="string">';'</span>)</span><br><span class="line">			# pass header</span><br><span class="line">			csv_reader.<span class="keyword">next</span>()</span><br><span class="line">			<span class="keyword">for</span> (filename,width,height,x1,y1,x2,y2,classid) in csv_reader:</span><br><span class="line">				train_labels.<span class="keyword">append</span>(classid)</span><br><span class="line">				image_file_path = full_dir_path+<span class="string">'/'</span>+filename</span><br><span class="line">				resized_image = resize_image(image_file_path,(x1,y1,x2,y2))</span><br><span class="line">				train_data.<span class="keyword">append</span>(resized_image)</span><br><span class="line">			<span class="keyword">f</span>.<span class="keyword">close</span>()</span><br><span class="line">	<span class="keyword">print</span> <span class="string">'train data process done'</span></span><br><span class="line">	<span class="keyword">return</span> train_data,train_labels</span><br><span class="line"></span><br><span class="line">//提取roi区域，并调整大小，统一为<span class="number">32</span>*<span class="number">32</span>像素</span><br><span class="line">def resize_image(path,<span class="built_in">index</span>):</span><br><span class="line">	image = cv2.imread(path)</span><br><span class="line">	image = image[<span class="keyword">int</span>(<span class="built_in">index</span>[<span class="number">0</span>]):<span class="keyword">int</span>(<span class="built_in">index</span>[<span class="number">2</span>]),<span class="keyword">int</span>(<span class="built_in">index</span>[<span class="number">1</span>]):<span class="keyword">int</span>(<span class="built_in">index</span>[<span class="number">3</span>])]</span><br><span class="line">	<span class="keyword">res</span> = cv2.<span class="keyword">resize</span>(image,(<span class="number">32</span>,<span class="number">32</span>),interpolation = cv2.INTER_CUBIC)</span><br><span class="line">	<span class="keyword">return</span> <span class="keyword">res</span> </span><br><span class="line"></span><br><span class="line">//处理测试数据</span><br><span class="line">def process_test_data(path):</span><br><span class="line">	test_data = []</span><br><span class="line">	test_labels = []</span><br><span class="line">	csv_file_path = path + <span class="string">'/'</span> + <span class="string">'GT-final_test.csv'</span></span><br><span class="line">	with <span class="keyword">open</span>(csv_file_path) <span class="keyword">as</span> <span class="keyword">f</span>:</span><br><span class="line">		csv_reader = csv.reader(<span class="keyword">f</span>,delimiter=<span class="string">';'</span>)</span><br><span class="line">		csv_reader.<span class="keyword">next</span>()</span><br><span class="line">		<span class="keyword">for</span> (filename,width,height,x1,y1,x2,y2,classid) in csv_reader:</span><br><span class="line">			test_labels.<span class="keyword">append</span>(classid)</span><br><span class="line">			image_file_path = path+<span class="string">'/'</span>+filename</span><br><span class="line">			resized_image = resize_image(image_file_path,(x1,y1,x2,y2))</span><br><span class="line">			test_data.<span class="keyword">append</span>(resized_image)</span><br><span class="line">	<span class="keyword">print</span> <span class="string">'test data process done'</span></span><br><span class="line">	<span class="keyword">return</span> test_data,test_labels</span><br><span class="line"></span><br><span class="line">def main():</span><br><span class="line">	train_data_path = <span class="string">'../data/GTSRB/Final_Training/Images/'</span></span><br><span class="line">	test_data_path = <span class="string">'../data/GTSRB2/Final_Test/Images'</span></span><br><span class="line">	train_data,train_labels = process_train_data(train_data_path)</span><br><span class="line">	test_data,test_labels = process_test_data(test_data_path)</span><br><span class="line">	with <span class="keyword">open</span>(<span class="string">'./train.p'</span>,<span class="string">'wb'</span>) <span class="keyword">as</span> <span class="keyword">f</span>:</span><br><span class="line">		pickle.dump(&#123;<span class="string">"data"</span>:np.array(train_data),<span class="string">"labels"</span>:np.array(train_labels)&#125;,<span class="keyword">f</span>)</span><br><span class="line">	with <span class="keyword">open</span>(<span class="string">'./test.p'</span>,<span class="string">'wb'</span>) <span class="keyword">as</span> <span class="keyword">f</span>:</span><br><span class="line">		pickle.dump(&#123;<span class="string">"data"</span>:np.array(test_data),<span class="string">"labels"</span>:np.array(test_labels)&#125;,<span class="keyword">f</span>)</span><br><span class="line">		</span><br><span class="line"><span class="keyword">if</span> __name__==<span class="string">"__main__"</span>:</span><br><span class="line">	main()</span><br></pre></td></tr></table></figure>
 <p>&emsp;&emsp;放几张效果图</p>
-<div align="center">
-<img src="/Term-1-p2-traffic-sign-classifier/数据处理示例.jpg" width="300" height="250" title="数据处理效果示例">
-</div>
+<div align="center"><br><img src="/Term-1-p2-traffic-sign-classifier/数据处理示例.jpg" width="300" height="250" title="数据处理效果示例"><br></div>
 
 
 <h1 id="数据处理"><a href="#数据处理" class="headerlink" title="数据处理"></a>数据处理</h1><p>&emsp;&emsp;目前已经得到了训练集和测试集，需要对数据进行shuffle以及对label进行one-hot编码。</p>
 <figure class="highlight ruby"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">shuffle_data</span><span class="params">(X_train,Y_train,X_test,Y_test)</span></span><span class="symbol">:</span></span><br><span class="line">	X_train,Y_train = shuffle(X_train,Y_train,random_state = <span class="number">0</span>)</span><br><span class="line">	X_test,Y_test = shuffle(X_test,Y_test,random_state=<span class="number">0</span>)</span><br><span class="line">	<span class="keyword">return</span> X_train,Y_train,X_test,Y_test</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">encode_label</span><span class="params">(Y_train,Y_test)</span></span><span class="symbol">:</span></span><br><span class="line">	Y_train_encoded = to_categorical(Y_train,num_classes = <span class="number">43</span>)</span><br><span class="line">	Y_test_encode = to_categorical(Y_test,num_classes = <span class="number">43</span>)</span><br><span class="line">	<span class="keyword">return</span> Y_train_encoded,Y_test_encode</span><br></pre></td></tr></table></figure>
-<h1 id="模型构建"><a href="#模型构建" class="headerlink" title="模型构建"></a>模型构建</h1><p>&emsp;&emsp;下面使用keras构建卷积神经网络，keras的使用方法具体参见<a href="https://keras.io/zh/" target="_blank" rel="noopener">Keras中文文档</a>。</p>
+<h1 id="模型构建"><a href="#模型构建" class="headerlink" title="模型构建"></a>模型构建</h1><p>&emsp;&emsp;下面使用keras构建卷积神经网络，keras的使用方法具体参见[Keras中文文档](<a href="https://keras.io/zh/)。" target="_blank" rel="noopener">https://keras.io/zh/)。</a></p>
 <p>&emsp;&emsp;模型构建部分代码示例如下：</p>
 <figure class="highlight gams"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">def build_model():</span><br><span class="line">	<span class="comment">//使用sequential模型</span></span><br><span class="line">	<span class="keyword">model</span> = Sequential()</span><br><span class="line">	<span class="comment">//创建卷积层，输入为32*32*3的图像数据，卷积核大小为3*3</span></span><br><span class="line">	<span class="keyword">model</span>.add(Conv2D(<span class="number">32</span>,(<span class="number">3</span>,<span class="number">3</span>),input_shape = (<span class="number">32</span>,<span class="number">32</span>,<span class="number">3</span>),activation = <span class="string">'relu'</span>))</span><br><span class="line">	<span class="comment">//添加最大池化层</span></span><br><span class="line">	<span class="keyword">model</span>.add(MaxPooling2D(pool_size=(<span class="number">2</span>,<span class="number">2</span>)))</span><br><span class="line">	<span class="comment">//dropout修正过拟合</span></span><br><span class="line">	<span class="keyword">model</span>.add(Dropout(<span class="number">0.5</span>))</span><br><span class="line">	<span class="comment">//将输出展平</span></span><br><span class="line">	<span class="keyword">model</span>.add(Flatten())</span><br><span class="line">	<span class="comment">//普通全连接层</span></span><br><span class="line">	<span class="keyword">model</span>.add(Dense(<span class="number">512</span>,activation=<span class="string">'relu'</span>))</span><br><span class="line">	<span class="keyword">model</span>.add(Dropout(<span class="number">0.2</span>))</span><br><span class="line">	<span class="keyword">model</span>.add(Dense(<span class="number">128</span>,activation=<span class="string">'relu'</span>))</span><br><span class="line">	<span class="keyword">model</span>.add(Dropout(<span class="number">0.2</span>))</span><br><span class="line">	<span class="keyword">model</span>.add(Dense(<span class="number">43</span>,activation=<span class="string">'softmax'</span>))</span><br><span class="line">	<span class="comment">//定义损失函数，优化器、评估标准</span></span><br><span class="line"><span class="keyword">model</span>.compile(loss=<span class="string">'categorical_crossentropy'</span>,optimizer=<span class="string">'adam'</span>,metrics=[<span class="string">'accuracy'</span>])</span><br><span class="line">	return <span class="keyword">model</span></span><br></pre></td></tr></table></figure>
 <h1 id="模型训练"><a href="#模型训练" class="headerlink" title="模型训练"></a>模型训练</h1><p>&emsp;&emsp;模型定义完成后开始进行模型训练</p>
 <figure class="highlight lsl"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//指定训练集、测试机，迭代次数等</span></span><br><span class="line">model.fit(X_train,Y_train,validation_data=(x_dev,y_dev),epochs=<span class="number">40</span>,batch_size=<span class="number">200</span>,verbose =<span class="number">1</span>)</span><br></pre></td></tr></table></figure>
 <h1 id="效果评估"><a href="#效果评估" class="headerlink" title="效果评估"></a>效果评估</h1><p>&emsp;&emsp;经过40轮迭代，模型准确率基本能达到99%左右，为了验证模型效果，特意挑选了10张图像进行比对。<br>&emsp;&emsp;最终结果如下图所示</p>
-<p><div align="center">
-<img src="/Term-1-p2-traffic-sign-classifier/test_data.png" width="600" height="400" title="处理流程">
-</div><br>&emsp;&emsp;其中第6张图类别应该是“Priority road”，其他分类全部正确。</p>
-<h1 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h1><p>&emsp;&emsp;这节课主要是使用深度学习模型进行图像分类，在没有进行深入调优的情况下，在测试集上获得了90%的正确率，如果想进一步提高分类准确率可以采用效果更好的模型进行轮数更多的训练。这部分的代码详见<a href="https://github.com/yajian/self-driving-car/tree/master/p2_traffic_sign_classifier" target="_blank" rel="noopener">Term-1-p2-traffic-sign-classifier</a>。</p>
+<p><div align="center"><br><img src="/Term-1-p2-traffic-sign-classifier/test_data.png" width="600" height="400" title="处理流程"><br></div><br>&emsp;&emsp;其中第6张图类别应该是“Priority road”，其他分类全部正确。</p>
+<h1 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h1><p>&emsp;&emsp;这节课主要是使用深度学习模型进行图像分类，在没有进行深入调优的情况下，在测试集上获得了90%的正确率，如果想进一步提高分类准确率可以采用效果更好的模型进行轮数更多的训练。这部分的代码详见[Term-1-p2-traffic-sign-classifier](<a href="https://github.com/yajian/self-driving-car/tree/master/p2_traffic_sign_classifier)。" target="_blank" rel="noopener">https://github.com/yajian/self-driving-car/tree/master/p2_traffic_sign_classifier)。</a></p>
 
           
         
@@ -2074,49 +2235,35 @@
             <h1 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h1><p>&emsp;&emsp;Udacity是硅谷的一个在线教育网站，主要以介绍AI技术为主，除了基本的课程录像还会有专业老师进行代码review，通过课程会颁发nano degree。其中最为火爆的一门课程就是自动驾驶课程CarNd，这门课程由简入繁分了三个term，第一个term主要是以机器视觉识别道路、交通标志为主，需要掌握基本的深度学习和机器视觉知识；第二个term是介绍传感器以及使用卡尔曼滤波进行定位和速度控制；第三个term主要是路径规划以及系统集成，据说最后会把学员的代码放入真车进行实际测试。Ucacity的课程质量很高，但是有些小贵，出于无奈只好从网上搜集资料，开源的资料包含了前两个term，学完可以对无人驾驶有基本的了解，感兴趣的同学可以试试。</p>
 <h1 id="处理流程"><a href="#处理流程" class="headerlink" title="处理流程"></a>处理流程</h1><p>&emsp;&emsp;无人驾驶车辆的基本功能之一就是检测车道，之前参加过飞思卡尔智能车竞赛的同学对这个项目应该并不陌生，与摄像头组识别赛道的原理类似，可惜当时我在红外组，没有深入了解相关原理。</p>
 <p>&emsp;&emsp;先简单说下利用图像处理技术识别车道的基本流程</p>
-<div align="center">
-     <img src="/Term-1-p1-lane-detection/车道检测流程.png" width="100" height="500" alt="车道检测流程" align="center/">
- </div>
+<div align="center"><br>     <img src="/Term-1-p1-lane-detection/车道检测流程.png" width="100" height="500" alt="车道检测流程" align="center/"><br> </div>
 
 <p>&emsp;&emsp;p1相对来说比较简单，使用opencv的一些操作函数即可实现检测功能。下面详细介绍每个步骤的实现</p>
 <h1 id="读入图像"><a href="#读入图像" class="headerlink" title="读入图像"></a>读入图像</h1><p>&emsp;&emsp;首先读入图像</p>
 <figure class="highlight arduino"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//导入opencv</span></span><br><span class="line"><span class="keyword">import</span> cv2</span><br><span class="line"></span><br><span class="line"><span class="comment">//读取图像</span></span><br><span class="line"><span class="built_in">image</span> = cv2.imread(<span class="string">"./test_images/solidYellowCurve.jpg"</span>)</span><br><span class="line"><span class="comment">//展示图像</span></span><br><span class="line">cv2.imshow(<span class="string">'lane'</span>,<span class="built_in">image</span>)</span><br><span class="line"><span class="comment">//等待键盘按键</span></span><br><span class="line">cv2.waitKey()</span><br><span class="line"><span class="comment">//销毁图片展示窗口</span></span><br><span class="line">cv2.destroyAllWindows()</span><br></pre></td></tr></table></figure>
 <p>效果如下</p>
-<div align="center">
-     <img src="/Term-1-p1-lane-detection/车道原图.png" width="400" height="200" alt="车道原图" align="center">
- </div>
+<div align="center"><br>     <img src="/Term-1-p1-lane-detection/车道原图.png" width="400" height="200" alt="车道原图" align="center"><br> </div>
 
 <h1 id="二值化处理"><a href="#二值化处理" class="headerlink" title="二值化处理"></a>二值化处理</h1><p>&emsp;&emsp;opencv对于彩色图像的存储使用GBR格式，与一般RGB格式顺序不太一样，据说是为了做硬件兼容。二值化处理是把读入的彩色图像转成灰度图，方便后续计算。</p>
 <figure class="highlight arduino"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//彩色图像转化为灰度图</span></span><br><span class="line">gray_image = cv2.cvtColor(<span class="built_in">image</span>,cv2.COLOR_GBR2GRAY)</span><br></pre></td></tr></table></figure>
 <p>效果如下</p>
-<div align="center">
-     <img src="/Term-1-p1-lane-detection/二值化图像.png" width="400" height="200" alt="二值化图像" align="center">
- </div>
+<div align="center"><br>     <img src="/Term-1-p1-lane-detection/二值化图像.png" width="400" height="200" alt="二值化图像" align="center"><br> </div>
 
 <h1 id="高斯模糊"><a href="#高斯模糊" class="headerlink" title="高斯模糊"></a>高斯模糊</h1><p>&emsp;&emsp;高斯模糊是一种图像平滑技术，基本原理是在以中心像素为原点取一定半径内像素点值求加权平均值，权重根据高斯函数求得，结果就是高斯模糊处理后的图片。从数值上看，整体上更加平缓，从图片效果上看变得模糊了。</p>
 <figure class="highlight lsl"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">blured_image = cv2.GaussianBlur(gray_image,(<span class="number">5</span>,<span class="number">5</span>),<span class="number">0</span>) <span class="comment">//第二个参数表示模糊半径，第三个参数代表高斯函数标准差，半径越大标准差越大，图片越模糊</span></span><br></pre></td></tr></table></figure>
-<div align="center">
-     <img src="/Term-1-p1-lane-detection/高斯模糊图像.png" width="400" height="200" alt="高斯模糊图像" align="center">
-</div>
+<div align="center"><br>     <img src="/Term-1-p1-lane-detection/高斯模糊图像.png" width="400" height="200" alt="高斯模糊图像" align="center"><br></div>
 
 <h1 id="Canny边缘检测"><a href="#Canny边缘检测" class="headerlink" title="Canny边缘检测"></a>Canny边缘检测</h1><p>&emsp;&emsp;由于车道具有明显的边缘，所以使用边缘检测可以提取车道信息，opencv提供了canny边缘检测函数可以实现该功能。</p>
 <figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">canny = cv2<span class="selector-class">.cv2</span><span class="selector-class">.Canny</span>(blur,<span class="number">250</span>,<span class="number">300</span>)</span><br></pre></td></tr></table></figure>
 <p>效果如下</p>
-<div align="center">
-     <img src="/Term-1-p1-lane-detection/canny边缘检测.png" width="400" height="200" alt="canny边缘检测" align="center">
-</div>
+<div align="center"><br>     <img src="/Term-1-p1-lane-detection/canny边缘检测.png" width="400" height="200" alt="canny边缘检测" align="center"><br></div>
 
 <h1 id="ROI区域提取"><a href="#ROI区域提取" class="headerlink" title="ROI区域提取"></a>ROI区域提取</h1><p>&emsp;&emsp;在理想情况下（直路且行驶平稳），车道的位置在拍摄的图片中的相对位置不变，我们并不关心除车道以外的其他位置，所以可以通过ROI区域提取获取车道所在区域。针对p1所用到的图片，其ROI区域顶点坐标分别为(0,540),(465,320),(475,320),(960,320)，其所形成的不规则区域如下所示</p>
-<div align="center">
-     <img src="/Term-1-p1-lane-detection/roi区域.png" width="400" height="200" alt="ROI区域" align="center">
- </div>
+<div align="center"><br>     <img src="/Term-1-p1-lane-detection/roi区域.png" width="400" height="200" alt="ROI区域" align="center"><br> </div>
 
 <p>与边缘检测结果进行叠加</p>
 <figure class="highlight lsl"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">roi_range = np.array([[(<span class="number">0</span>,<span class="number">540</span>),(<span class="number">465</span>,<span class="number">320</span>),(<span class="number">475</span>,<span class="number">320</span>),(<span class="number">960</span>,<span class="number">320</span>)]],dtype = np.int32)</span><br><span class="line">mask = np.zeros_like(canny)  <span class="comment">//复制一个和canny图像大小一样的叠加矩阵</span></span><br><span class="line">cv2.fillPoly(mask,roi_range,<span class="number">255</span>) <span class="comment">//设置roi区域的像素值为255，其他区域为0</span></span><br><span class="line">img_masked = cv2.bitwise_and(canny,mask) <span class="comment">//将canny图像和叠加图像求并，ROI区域外的部分都变为0</span></span><br></pre></td></tr></table></figure>
 <p>效果如下</p>
-<div align="center">
-     <img src="/Term-1-p1-lane-detection/ROI区域提取.png" width="400" height="200" alt="ROI区域提取" align="center">
- </div>
+<div align="center"><br>     <img src="/Term-1-p1-lane-detection/ROI区域提取.png" width="400" height="200" alt="ROI区域提取" align="center"><br> </div>
 
 <h1 id="Hough直线检测"><a href="#Hough直线检测" class="headerlink" title="Hough直线检测"></a>Hough直线检测</h1><p>&emsp;&emsp;现在经过处理后的图像基本只包含ROI区域内的车道信息以及其他干扰信息，这两种信息的区别在于车道由多条直线构成，而干扰信息则不具备这样明显的条件，所以直线检测可以提取ROI区域内的车道。<br>&emsp;&emsp;opencv提供了霍夫变换函数HoughLines和HoughLinesP用于直线检测，目前先不去深究其原理，后续我再补充。其函数定义如下：</p>
 <p>HoughLinesP(image, rho, theta, threshold, minLineLength=None, maxLineGap=None) </p>
@@ -2131,9 +2278,7 @@
 </li>
 </ul>
 <p>效果如下</p>
-<div align="center">
-     <img src="/Term-1-p1-lane-detection/直线检测.png" width="400" height="200" alt="直线检测" align="center">
- </div>
+<div align="center"><br>     <img src="/Term-1-p1-lane-detection/直线检测.png" width="400" height="200" alt="直线检测" align="center"><br> </div>
 
 <h1 id="车道标记"><a href="#车道标记" class="headerlink" title="车道标记"></a>车道标记</h1><p>&emsp;&emsp;直线检测完成后，需要对检测后的直线进行过滤，把误差较大的点移除，并且还要将这些点连成直线，进行车道标记。</p>
 <h2 id="车道左右边线检测"><a href="#车道左右边线检测" class="headerlink" title="车道左右边线检测"></a>车道左右边线检测</h2><p>&emsp;&emsp;首先需要区分车道左边线和右边线，我们已经拿到了直线检测后的直线端点，可以利用斜率进行区分。由于opencv默认原点位于图像左上角顶点，所以左边线斜率为负，右边线斜率为正，并计算每段线段的斜率和截距。</p>
@@ -2150,9 +2295,7 @@
 </ul>
 <figure class="highlight lsl"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//imgae为原始图像，line_image为车道标记图像</span></span><br><span class="line">res_image = cv2.addWeighted(image,<span class="number">0.8</span>,line_image,<span class="number">1</span>,<span class="number">0</span>)</span><br></pre></td></tr></table></figure>
 <p>最终结果如下</p>
-<div align="center">
-     <img src="/Term-1-p1-lane-detection/车道标记.png" width="400" height="200" alt="车道标记" align="center">
- </div>
+<div align="center"><br>     <img src="/Term-1-p1-lane-detection/车道标记.png" width="400" height="200" alt="车道标记" align="center"><br> </div>
 
 <h1 id="处理视频"><a href="#处理视频" class="headerlink" title="处理视频"></a>处理视频</h1><p>&emsp;&emsp;处理视频需要使用moviepy的VideoFileClip函数</p>
 <figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-tag">video</span> = VideoFileClip(path) <span class="comment">//待处理图像路径</span></span><br><span class="line">video_after_process = <span class="selector-tag">video</span>.fl_image(process_picture) <span class="comment">//处理每张图片的函数作为参数</span></span><br><span class="line">video_after_process.write_videofile(<span class="string">"./line_detection.mp4"</span>,audio=False) <span class="comment">//生成新视频</span></span><br></pre></td></tr></table></figure>
@@ -2160,18 +2303,14 @@
 <ul>
 <li>原始视频</li>
 </ul>
-<div align="center">
- <video controls="controls" src="Term-1-p1-lane-detection/original.mp4" width="500" height="250"></video>
- </div>
+<div align="center"><br> <video controls="controls" src="Term-1-p1-lane-detection/original.mp4" width="500" height="250"></video><br> </div>
 
 <ul>
 <li>处理后视频</li>
 </ul>
-<div align="center">
- <video controls="controls" src="Term-1-p1-lane-detection/lane_detection.mp4" width="500" height="250"></video>
-</div>
+<div align="center"><br> <video controls="controls" src="Term-1-p1-lane-detection/lane_detection.mp4" width="500" height="250"></video><br></div>
 
-<h2 id="代码参考"><a href="#代码参考" class="headerlink" title="代码参考"></a>代码参考</h2><p>详见<a href="https://github.com/yajian/self-driving-car" target="_blank" rel="noopener">Term-1_lane_detection_demo</a></p>
+<h2 id="代码参考"><a href="#代码参考" class="headerlink" title="代码参考"></a>代码参考</h2><p>详见[Term-1_lane_detection_demo](<a href="https://github.com/yajian/self-driving-car" target="_blank" rel="noopener">https://github.com/yajian/self-driving-car</a>)</p>
 
           
         
@@ -2371,26 +2510,20 @@
 </ul>
 <h2 id="下载antlr插件"><a href="#下载antlr插件" class="headerlink" title="下载antlr插件"></a>下载antlr插件</h2><p>&emsp;&emsp;intellij支持antlr4插件，可以方便地定义语法文件，并生成解析类。安装过程如下:  </p>
 <ol>
-<li>下载<a href="https://plugins.jetbrains.com/plugin/7358-antlr-v4-grammar-plugin" target="_blank" rel="noopener">ANTLR v4 grammar plugin</a>   </li>
+<li>下载[ANTLR v4 grammar plugin](<a href="https://plugins.jetbrains.com/plugin/7358-antlr-v4-grammar-plugin" target="_blank" rel="noopener">https://plugins.jetbrains.com/plugin/7358-antlr-v4-grammar-plugin</a>)   </li>
 <li>进入Intellij IDEA “Preferences”选项，找到“Plugin”标签，点击“Install plugin from disk…”选项进行安装  </li>
 <li>安装结束后重启编辑器，若有如下显示说明安装成功  </li>
 </ol>
-<div align="center">
-     <img src="/ANTLR示例/安装成功.jpg" width="500" height="200" alt="安装成功" align="center">
- </div>
+<div align="center"><br>     <img src="/ANTLR示例/安装成功.jpg" width="500" height="200" alt="安装成功" align="center"><br> </div>
 
 
 <h2 id="定义-g4文件"><a href="#定义-g4文件" class="headerlink" title="定义.g4文件"></a>定义.g4文件</h2><p> &emsp;&emsp;在resources文件夹下新建名为ArrayInit.g4的语法文件  </p>
  <figure class="highlight scss"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment">* 语法文件通常以grammar开头</span></span><br><span class="line"><span class="comment">* grammar后面的语法名必须和文件名一致</span></span><br><span class="line"><span class="comment">*/</span></span><br><span class="line">grammar ArrayInit;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment">* 一条名为init的规则，匹配一堆花括号中的逗号分隔的value</span></span><br><span class="line"><span class="comment">*/</span></span><br><span class="line">init : <span class="string">'&#123;'</span> value (<span class="string">','</span> value)* <span class="string">'&#125;'</span>;</span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment">* 一个value可以是嵌套的花括号结构，也可以是一个简单的整数</span></span><br><span class="line"><span class="comment">*/</span></span><br><span class="line">value : init</span><br><span class="line">    | INT</span><br><span class="line">    ;</span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 语法解析器的规则必须以小写字母开头，词法分析器的规则必须以大写字母开头</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line">INT : [<span class="number">0</span>-<span class="number">9</span>]+ ; <span class="comment">//定义词法符号INIT,表示一个或多个数字</span></span><br><span class="line">WS : [\t\r\n]+ -&gt; skip ; <span class="comment">//定义词法符号WS,表示空白符号</span></span><br></pre></td></tr></table></figure>
 <h2 id="测试语法规则"><a href="#测试语法规则" class="headerlink" title="测试语法规则"></a>测试语法规则</h2><p>&emsp;&emsp;ANTLR v4 grammar plugin提供了ANTLR preview功能，可以时时查看语法规则，并展示结果，如下图所示</p>
-<div align="center">
-     <img src="/ANTLR示例/语法解析测试.jpg" width="600" height="150" alt="安装成功" align="center">
- </div>
+<div align="center"><br>     <img src="/ANTLR示例/语法解析测试.jpg" width="600" height="150" alt="安装成功" align="center"><br> </div>
 
 <h2 id="生成解析类"><a href="#生成解析类" class="headerlink" title="生成解析类"></a>生成解析类</h2><p>&emsp;&emsp;右击.g4文件，点击“ANTLR Configure”进行输出路径设置，点击“Generate ANTLR Recognizer”选项，会在目标路径下看到对应的解析类，如下图所示</p>
-<p><div align="center">
-     <img src="/ANTLR示例/解析类.jpg" width="317" height="144" alt="安装成功" align="center">
- </div><br> &emsp;&emsp;在生成解析类之后，可能因为没有导入包名报错，需要手动在java文件上方加上“package”包名。</p>
+<p><div align="center"><br>     <img src="/ANTLR示例/解析类.jpg" width="317" height="144" alt="安装成功" align="center"><br> </div><br> &emsp;&emsp;在生成解析类之后，可能因为没有导入包名报错，需要手动在java文件上方加上“package”包名。</p>
 <h2 id="编写监听类"><a href="#编写监听类" class="headerlink" title="编写监听类"></a>编写监听类</h2><p> &emsp;&emsp;到现在为止antlr已经完成解析工作，下面要进行转换，需要继承生成的监听类，根据对应的规则进行相应的转换，如把“{“转换成“””，把数字转换成unicode。监听类实现如下</p>
  <figure class="highlight cs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"> <span class="keyword">public</span> <span class="keyword">class</span> <span class="title">ShortToUnicodeString</span> <span class="title">extends</span> <span class="title">ArrayInitBaseListener</span> &#123;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    @Override</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">enterInit</span>(<span class="params">ArrayInitParser.InitContext ctx</span>)</span> &#123;</span><br><span class="line">        System.<span class="keyword">out</span>.print(<span class="string">'"'</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    @Override</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">exitInit</span>(<span class="params">ArrayInitParser.InitContext ctx</span>)</span> &#123;</span><br><span class="line">        System.<span class="keyword">out</span>.print(<span class="string">'"'</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    @Override</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">enterValue</span>(<span class="params">ArrayInitParser.ValueContext ctx</span>)</span> &#123;</span><br><span class="line">        <span class="keyword">int</span> <span class="keyword">value</span> = Integer.valueOf(ctx.INT().getText());</span><br><span class="line">        System.<span class="keyword">out</span>.printf(<span class="string">"\\u%04x"</span>,<span class="keyword">value</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <h2 id="执行代码"><a href="#执行代码" class="headerlink" title="执行代码"></a>执行代码</h2><figure class="highlight haxe"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">static</span> void main(<span class="keyword">String</span>[] args) throws IOException &#123;</span><br><span class="line"></span><br><span class="line">      <span class="keyword">String</span> script = <span class="string">"&#123;1,2,3&#125;"</span>;</span><br><span class="line">      CodePointCharStream charStreams = CharStreams.fromString(script);</span><br><span class="line">      ArrayInitLexer lexer = <span class="keyword">new</span> <span class="type">ArrayInitLexer</span>(charStreams);</span><br><span class="line">      CommonTokenStream tokens = <span class="keyword">new</span> <span class="type">CommonTokenStream</span>(lexer);</span><br><span class="line">      ArrayInitParser parser = <span class="keyword">new</span> <span class="type">ArrayInitParser</span>(tokens);</span><br><span class="line">      ParseTree tree = parser.init();</span><br><span class="line"></span><br><span class="line">      ParseTreeWalker walker = <span class="keyword">new</span> <span class="type">ParseTreeWalker</span>();</span><br><span class="line">      walker.walk(<span class="keyword">new</span> <span class="type">ShortToUnicodeString</span>(),tree);</span><br><span class="line">  &#125;</span><br></pre></td></tr></table></figure>
@@ -2645,218 +2778,6 @@
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yajian.github.io/raspberry初始篇/">
-
-    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="小建儿">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="小建儿的小站">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/raspberry初始篇/" itemprop="url">raspberry初始篇</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-01-07T21:58:05+08:00">
-                2018-01-07
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category">
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
-                  <a href="/categories/raspberry/" itemprop="url" rel="index">
-                    <span itemprop="name">raspberry</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-              <span class="post-comments-count">
-                <span class="post-meta-divider">|</span>
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-comment-o"></i>
-                </span>
-                <a href="/raspberry初始篇/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count disqus-comment-count" data-disqus-identifier="raspberry初始篇/" itemprop="commentCount"></span>
-                </a>
-              </span>
-            
-          
-
-          
-          
-
-          
-
-          
-            <div class="post-wordcount">
-              
-                
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-file-word-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">字数统计&#58;</span>
-                
-                <span title="字数统计">
-                  
-                </span>
-              
-
-              
-                <span class="post-meta-divider">|</span>
-              
-
-              
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-clock-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
-                
-                <span title="阅读时长">
-                  
-                </span>
-              
-            </div>
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p>&emsp;&emsp;之前就在一些论坛上看到过树莓派相关的技术贴，一直没机会玩，碰巧在今年公司圣诞节活动上得到了一块raspberry pi 3 model b开发版，配齐了显示器、摄像头、云台等配件，想先从机器视觉入手做些小项目。配置raspberry的时候踩到了一些坑，下面详细介绍一下从拆箱到能运行opencv获取视频流的过程。</p>
-<h2 id="安装系统"><a href="#安装系统" class="headerlink" title="安装系统"></a>安装系统</h2><p>&emsp;&emsp;raspberry pi 3 model b很小巧，只有巴掌大小，最基本的套餐只有板子，其他的配件都不带。电源部分需要自己配一个安卓充电器和数据线，用之前安卓手机的就可以；存储部分需要准备一张sd卡，一样从原来的安卓手机上拆。接下来就是烧录系统，跟着官网的<a href="https://www.raspberrypi.org/documentation/installation/installing-images/README.md" target="_blank" rel="noopener">document</a>做，首先从<a href="https://www.raspberrypi.org/downloads/raspbian/" target="_blank" rel="noopener">官网</a>下载RASPBIAN STRETCH WITH DESKTOP系统，文件1.6G，建议用utorrent下载。下载好系统后，制作启动盘，我用的是mac，所以下载<a href="https://etcher.io/" target="_blank" rel="noopener">Etcher</a>。Etcher的使用很简单，跟着官方使用方法3步就可以把系统烧到sd卡中，然后上电启动，raspberry就可以正常运行了。</p>
-<h2 id="触屏校正"><a href="#触屏校正" class="headerlink" title="触屏校正"></a>触屏校正</h2><p>&emsp;&emsp;建议买一块带触摸功能的屏幕，没有键盘的时候还能进行简单的点击操作，装个虚拟键盘可以打字。屏幕是淘宝的3.5寸HDMI电阻屏，附上淘宝<a href="https://item.taobao.com/item.htm?spm=a1z09.2.0.0.5345c157cwgnrR&amp;id=553530372753&amp;_u=71p5273o0b4a" target="_blank" rel="noopener">链接</a>，里面可以找到具体的屏幕参数。在没有安装驱动之前，显示的分辨率和触屏功能都是有问题的，首先要安装驱动，链接里也有详细说明，这里贴一下。</p>
-<figure class="highlight gauss"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">sudo rm -rf LCD-<span class="keyword">show</span></span><br><span class="line"></span><br><span class="line">git clone https:<span class="comment">//github.com/goodtft/LCD-show.git</span></span><br><span class="line"></span><br><span class="line">chmod -R <span class="number">755</span> LCD-<span class="keyword">show</span></span><br><span class="line"></span><br><span class="line">cd LCD-<span class="keyword">show</span>/</span><br><span class="line"></span><br><span class="line">sudo ./MPI3508_480_320-<span class="keyword">show</span></span><br></pre></td></tr></table></figure>
-<p>&emsp;&emsp;这步搞完，屏幕的触摸功能依然不好用，左右是颠倒的，点击左边选择的却是右边，需要进行校正。运行xinput_calibrator工具，屏幕四个角会出现十字，按顺序点击，就搞定了触屏校正。具体的参考见<a href="http://shumeipai.nxez.com/2013/10/02/raspberry-pi-to-install-touch-screen.html" target="_blank" rel="noopener">给树莓派装上触摸屏</a>，跟着指示做，亲测有效。<br>&emsp;&emsp;到此，你的树莓派已经可以正常的显示桌面，和正常操作触摸功能了。</p>
-<h2 id="摄像头安装及监控程序安装"><a href="#摄像头安装及监控程序安装" class="headerlink" title="摄像头安装及监控程序安装"></a>摄像头安装及监控程序安装</h2><p>&emsp;&emsp;摄像头也是淘宝的，附上链接<a href="https://item.taobao.com/item.htm?spm=a1z09.2.0.0.402d80bcmbDsbn&amp;id=558993629563&amp;_u=81p5273ofec9" target="_blank" rel="noopener">摄像头</a>，为了之后能跟踪运动物体，建议连云台一起买了。这款摄像头是usb接口的，即插即用，可以使用lsusb查看设备，如果有“Bus 001 Device 004: ID 1908:2310 GEMBIRD”就说明设备已经连接了。</p>
-<p>&emsp;&emsp;接下来就是装一款获取视频流的软件，试试摄像头好不好用，最开始我安装的motion，非常卡！！建议安装另一款软件mjpg-streamer，安装这玩意也是费了九牛二虎之力。说说中间遇到的问题，首先去github复制<a href="https://github.com/jacksonliam/mjpg-streamer" target="_blank" rel="noopener">mjpg-streamer项目</a>，然后make，目前一切正常。然而执行./start.sh就报Init v4L2 failed !! exit fatal错误，开始查了半天说是不支持YUV编码，那改启动脚本，加上-y参数使用YUV编码，改完之后是这样</p>
-<figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-id">#start</span>.sh</span><br><span class="line"></span><br><span class="line">./mjpg_streamer -<span class="selector-tag">i</span> <span class="string">"./input_uvc.so -y"</span> -o <span class="string">"./output_http.so -w ./www</span></span><br></pre></td></tr></table></figure>
-<p>此时应该好了吧？！再执行还他么不行，继续报Init v4L2 failed !! exit fatal i: init_VideoIn failed。又查了半天才知道是v4l2没有加载到linux内核，执行</p>
-<figure class="highlight gcode"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo modprobe bc<span class="name">m2835</span>-v<span class="number">4</span>l<span class="number">2</span></span><br></pre></td></tr></table></figure>
-<p>再次执行启动文件，就ok了。后来又修改了一下/etc/modules-load.d/modules.conf文件，把 bcm2835-v4l2加上去，这样就保险了。</p>
-<p>&emsp;&emsp;程序启动后出现下面的命令说明启动正常，访问ip:8080/stream.html，就可以获取实时图像了，速度很快。</p>
-<figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">MJPG Streamer Version.: 2.0</span><br><span class="line"> i: Using V4L2 device.: /dev/video0</span><br><span class="line"> i: Desired Resolution: 640 x 480</span><br><span class="line"> i: Frames Per Second.: -1</span><br><span class="line"> i: Format<span class="built_in">..</span><span class="built_in">..</span><span class="built_in">..</span><span class="built_in">..</span><span class="built_in">..</span><span class="built_in">..</span>: YUYV</span><br><span class="line"> i: JPEG Quality<span class="built_in">..</span><span class="built_in">..</span><span class="built_in">..</span>: 80</span><br><span class="line"> i: TV-Norm<span class="built_in">..</span><span class="built_in">..</span><span class="built_in">..</span><span class="built_in">..</span><span class="built_in">..</span>.: DEFAULT</span><br><span class="line"> o: www-folder-path<span class="built_in">..</span><span class="built_in">..</span><span class="built_in">..</span>: ./www/</span><br><span class="line"> o: HTTP TCP port<span class="built_in">..</span><span class="built_in">..</span><span class="built_in">..</span><span class="built_in">..</span>: 8080</span><br><span class="line"> o: HTTP Listen Address<span class="built_in">..</span>: (<span class="literal">null</span>)</span><br><span class="line"> o: username:password<span class="built_in">..</span><span class="built_in">..</span>: disabled</span><br><span class="line"> o: commands<span class="built_in">..</span><span class="built_in">..</span><span class="built_in">..</span><span class="built_in">..</span><span class="built_in">..</span><span class="built_in">..</span>.: enabled</span><br></pre></td></tr></table></figure>
-<h2 id="opencv安装"><a href="#opencv安装" class="headerlink" title="opencv安装"></a>opencv安装</h2><p>&emsp;&emsp;接下来安装opencv，还是先去github下载<a href="https://github.com/opencv/opencv" target="_blank" rel="noopener">opencv</a>和<a href="https://github.com/opencv/opencv_contrib" target="_blank" rel="noopener">opencv_contrib</a>，然后新建个build文件夹，执行cmake编译</p>
-<figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">cmake -D <span class="attribute">CMAKE_BUILD_TYPE</span>=RELEASE \</span><br><span class="line">-D <span class="attribute">CMAKE_INSTALL_PREFIX</span>=/usr/local \</span><br><span class="line">-D <span class="attribute">INSTALL_C_EXAMPLES</span>=ON \</span><br><span class="line">-D <span class="attribute">INSTALL_PYTHON_EXAMPLES</span>=ON \</span><br><span class="line">-D <span class="attribute">OPENCV_EXTRA_MODULES_PATH</span>=../../opencv_contrib/modules \</span><br><span class="line">-D <span class="attribute">BUILD_EXAMPLES</span>=ON <span class="built_in">..</span></span><br></pre></td></tr></table></figure>
-<p>完事正式编译opencv，使用make -j4命令，然后执行到80%多就死机了，每次都是执行了个把小时，真是无语。。。后来发现4核一起会死机！直接make毛事没有，最终编译了过去。附上<a href="http://www.trtos.com/web/wp/?p=1340" target="_blank" rel="noopener">参考贴</a>。</p>
-<p>&emsp;&emsp;摄像头和opencv都准备好了，可以用opencv试试获取实时视频流，写个python脚本</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> cv2</span><br><span class="line">clicked = <span class="keyword">False</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">onMouse</span><span class="params">(event,x,y,flags,param)</span>:</span></span><br><span class="line">    <span class="keyword">global</span> clicked</span><br><span class="line">    <span class="keyword">if</span> event == cv2.EVENT_LBUTTONUP:</span><br><span class="line">        clicked = <span class="keyword">True</span></span><br><span class="line">cameraCapture=cv2.VideoCapture(<span class="number">0</span>)</span><br><span class="line">cv2.namedWindow(<span class="string">'My Window'</span>)</span><br><span class="line">cv2.setMouseCallback(<span class="string">'My Window'</span>,onMouse)</span><br><span class="line"><span class="keyword">print</span> <span class="string">'showing camera feed, Click window or press any key to stop'</span></span><br><span class="line">success,frame = cameraCapture.read()</span><br><span class="line"><span class="keyword">while</span> success <span class="keyword">and</span> cv2.waitKey(<span class="number">1</span>)==<span class="number">-1</span> <span class="keyword">and</span> <span class="keyword">not</span> clicked:</span><br><span class="line">    cv2.imshow(<span class="string">'My Window'</span>,frame)</span><br><span class="line">    success,frame = cameraCapture.read()</span><br><span class="line">cv2.destroyWindow(<span class="string">'My Window'</span>)</span><br><span class="line">cameraCapture.release()</span><br></pre></td></tr></table></figure>
-<p>执行之后就可以获取实时视频流了。</p>
-<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>&emsp;&emsp;环境准备是个大坑，每个人遇到的问题都不一样，这时候就知道了google的好处。不过好歹是把基本环境搭建了起来，之后看看用opencv做点小项目玩玩，有新进展将继续更新。</p>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-
-
-    
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
@@ -3006,6 +2927,9 @@
 
 
 
+<% if (page.mathjax){ %>
+<%- partial('mathjax') %>
+<% } %>
 -->
 <div class="theme-info">
   <div class="powered-by"></div>

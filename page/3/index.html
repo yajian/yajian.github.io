@@ -318,6 +318,212 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yajian.github.io/java源码解读-linkedhashmap/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="小建儿">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="小建儿的小站">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/java源码解读-linkedhashmap/" itemprop="url">java源码解读--linkedhashmap</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-06-08T10:16:03+08:00">
+                2018-06-08
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
+                  <a href="/categories/java/" itemprop="url" rel="index">
+                    <span itemprop="name">java</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/java源码解读-linkedhashmap/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count disqus-comment-count" data-disqus-identifier="java源码解读-linkedhashmap/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">
+                  
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h1 id="LinkedHashMap"><a href="#LinkedHashMap" class="headerlink" title="LinkedHashMap"></a>LinkedHashMap</h1><p>HashMap存储元素是无序的，而LinkedHashMap在hashmap的基础上，能够保持元素的有序性，并且能够基于LinkedHashMap实现LRU缓存</p>
+<h2 id="类定义"><a href="#类定义" class="headerlink" title="类定义"></a>类定义</h2><p>继承了HashMap类，实现了Map接口，所以LinkedHashMap大部分功能与HashMap一致，在保持元素顺序上有区别。</p>
+<figure class="highlight actionscript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">LinkedHashMap</span>&lt;<span class="title">K</span>,<span class="title">V</span>&gt;</span></span><br><span class="line"><span class="class">    <span class="keyword">extends</span> <span class="title">HashMap</span>&lt;<span class="title">K</span>,<span class="title">V</span>&gt;</span></span><br><span class="line"><span class="class">    <span class="keyword">implements</span> <span class="title">Map</span>&lt;<span class="title">K</span>,<span class="title">V</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<h2 id="类成员变量"><a href="#类成员变量" class="headerlink" title="类成员变量"></a>类成员变量</h2><figure class="highlight aspectj"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//entry头指针</span></span><br><span class="line">   <span class="keyword">transient</span> LinkedHashMap.Entry&lt;K,V&gt; head;</span><br><span class="line"><span class="comment">//entry尾指针</span></span><br><span class="line">   <span class="keyword">transient</span> LinkedHashMap.Entry&lt;K,V&gt; tail;</span><br><span class="line"><span class="comment">//是否按照访问顺序排序</span></span><br><span class="line">   <span class="keyword">final</span> <span class="keyword">boolean</span> accessOrder;</span><br></pre></td></tr></table></figure>
+<h2 id="构造方法"><a href="#构造方法" class="headerlink" title="构造方法"></a>构造方法</h2><figure class="highlight aspectj"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//初始容量和负载因子，排序标志默认为关闭</span></span><br><span class="line">  <span class="function"><span class="keyword">public</span> <span class="title">LinkedHashMap</span><span class="params">(<span class="keyword">int</span> initialCapacity, <span class="keyword">float</span> loadFactor)</span> </span>&#123;</span><br><span class="line">       <span class="keyword">super</span>(initialCapacity, loadFactor);</span><br><span class="line">       accessOrder = <span class="keyword">false</span>;</span><br><span class="line">   &#125;</span><br><span class="line"><span class="comment">//初始容量，负载因子默认0.75，排序标志默认关闭</span></span><br><span class="line">  <span class="function"><span class="keyword">public</span> <span class="title">LinkedHashMap</span><span class="params">(<span class="keyword">int</span> initialCapacity)</span> </span>&#123;</span><br><span class="line">       <span class="keyword">super</span>(initialCapacity);</span><br><span class="line">       accessOrder = <span class="keyword">false</span>;</span><br><span class="line">   &#125;</span><br><span class="line"><span class="comment">//初始容量默认16，负载因子默认为0.75，排序标志默认关闭</span></span><br><span class="line">   <span class="function"><span class="keyword">public</span> <span class="title">LinkedHashMap</span><span class="params">()</span> </span>&#123;</span><br><span class="line">       <span class="keyword">super</span>();</span><br><span class="line">       accessOrder = <span class="keyword">false</span>;</span><br><span class="line">   &#125;</span><br><span class="line"><span class="comment">//初始化输入map</span></span><br><span class="line">   <span class="function"><span class="keyword">public</span> <span class="title">LinkedHashMap</span><span class="params">(Map&lt;? <span class="keyword">extends</span> K, ? <span class="keyword">extends</span> V&gt; m)</span> </span>&#123;</span><br><span class="line">       <span class="keyword">super</span>();</span><br><span class="line">       accessOrder = <span class="keyword">false</span>;</span><br><span class="line">       putMapEntries(m, <span class="keyword">false</span>);</span><br><span class="line">   &#125;</span><br><span class="line"><span class="comment">//初始容量、负载因子、是否按照访问顺序排序，基于linkedhashmap的lru实现会调用该构造方法</span></span><br><span class="line">   <span class="function"><span class="keyword">public</span> <span class="title">LinkedHashMap</span><span class="params">(<span class="keyword">int</span> initialCapacity,<span class="keyword">float</span> loadFactor,<span class="keyword">boolean</span> accessOrder)</span> </span>&#123;</span><br><span class="line">       <span class="keyword">super</span>(initialCapacity, ladFactor);</span><br><span class="line">       <span class="keyword">this</span>.accessOrder = accessOrder;</span><br><span class="line">   &#125;</span><br></pre></td></tr></table></figure>
+<h2 id="entry定义"><a href="#entry定义" class="headerlink" title="entry定义"></a>entry定义</h2><figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">   static <span class="class"><span class="keyword">class</span> <span class="title">Entry&lt;K</span>,<span class="title">V&gt;</span> <span class="keyword">extends</span> <span class="title">HashMap</span>.<span class="title">Node&lt;K</span>,<span class="title">V&gt;</span> </span>&#123;</span><br><span class="line"><span class="comment">//在hashmap.node的基础上增加了前后指针</span></span><br><span class="line">       <span class="type">Entry</span>&lt;<span class="type">K</span>,<span class="type">V</span>&gt; before, after;</span><br><span class="line">       <span class="type">Entry</span>(int hash, <span class="type">K</span> key, <span class="type">V</span> value, <span class="type">Node</span>&lt;<span class="type">K</span>,<span class="type">V</span>&gt; next) &#123;</span><br><span class="line">           <span class="keyword">super</span>(hash, key, value, next);</span><br><span class="line">       &#125;</span><br><span class="line">   &#125;</span><br></pre></td></tr></table></figure>
+<h2 id="建立链表"><a href="#建立链表" class="headerlink" title="建立链表"></a>建立链表</h2><p>LinkedHashMap添加元素操作复用了HashMap的put()方法，但是重写了以下两个方法</p>
+<figure class="highlight cs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">   <span class="function">Node&lt;K,V&gt; <span class="title">newNode</span>(<span class="params"><span class="keyword">int</span> hash, K key, V <span class="keyword">value</span>, Node&lt;K,V&gt; e</span>)</span> &#123;</span><br><span class="line"><span class="comment">//新建Entry</span></span><br><span class="line">       LinkedHashMap.Entry&lt;K,V&gt; p =</span><br><span class="line">           <span class="keyword">new</span> LinkedHashMap.Entry&lt;K,V&gt;(hash, key, <span class="keyword">value</span>, e);</span><br><span class="line"><span class="comment">//链表操作，新加入的元素放作为tail</span></span><br><span class="line">       linkNodeLast(p);</span><br><span class="line">       <span class="keyword">return</span> p;</span><br><span class="line">   &#125;</span><br><span class="line"></span><br><span class="line">   <span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">linkNodeLast</span>(<span class="params">LinkedHashMap.Entry&lt;K,V&gt; p</span>)</span> &#123;</span><br><span class="line">       LinkedHashMap.Entry&lt;K,V&gt; last = tail;</span><br><span class="line"><span class="comment">//把新节点p作为tail</span></span><br><span class="line">       tail = p;</span><br><span class="line"><span class="comment">//如果原来的tail==null，说明链表中没有元素，将p设置为头节点</span></span><br><span class="line">       <span class="keyword">if</span> (last == <span class="literal">null</span>)</span><br><span class="line">           head = p;</span><br><span class="line">       <span class="keyword">else</span> &#123;</span><br><span class="line"><span class="comment">//如果链表中有元素，则把原来最后一个元素的后项指针指向p，p的前向指针指向last</span></span><br><span class="line">           p.before = last;</span><br><span class="line">           last.after = p;</span><br><span class="line">       &#125;</span><br><span class="line">   &#125;</span><br></pre></td></tr></table></figure>
+<h2 id="删除链表节点"><a href="#删除链表节点" class="headerlink" title="删除链表节点"></a>删除链表节点</h2><figure class="highlight nix"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">   void afterNodeRemoval(Node&lt;K,V&gt; e) &#123; </span><br><span class="line">//待删除节点为p，前驱节点为b，后继节点为a</span><br><span class="line">       LinkedHashMap.Entry&lt;K,V&gt; <span class="attr">p</span> =</span><br><span class="line">           (LinkedHashMap.Entry&lt;K,V&gt;)e, <span class="attr">b</span> = p.before, <span class="attr">a</span> = p.after;</span><br><span class="line">//释放p的前后指针</span><br><span class="line">       p.<span class="attr">before</span> = p.<span class="attr">after</span> = <span class="literal">null</span>;</span><br><span class="line">// 如果p的前驱节点为<span class="literal">null</span>，</span><br><span class="line">       <span class="keyword">if</span> (<span class="attr">b</span> == <span class="literal">null</span>)</span><br><span class="line">           <span class="attr">head</span> = a;</span><br><span class="line">       <span class="keyword">else</span></span><br><span class="line">//链表中有元素，则直接把p的前驱节点的后继节点设置为p的后继节点</span><br><span class="line">           b.<span class="attr">after</span> = a;</span><br><span class="line">       <span class="keyword">if</span> (<span class="attr">a</span> == <span class="literal">null</span>)</span><br><span class="line">//如果后继节点为空，则说明b节点为tail</span><br><span class="line">           <span class="attr">tail</span> = b;</span><br><span class="line">       <span class="keyword">else</span></span><br><span class="line">//后继节点不为空，设置a的前驱节点为b</span><br><span class="line">           a.<span class="attr">before</span> = b;</span><br><span class="line">   &#125;</span><br></pre></td></tr></table></figure>
+<h2 id="插入节点"><a href="#插入节点" class="headerlink" title="插入节点"></a>插入节点</h2><p>此处可能涉及是否移除过期元素的处理</p>
+<figure class="highlight maxima"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">//插入节点后如何维护链表</span><br><span class="line">   void afterNodeInsertion(boolean evict) &#123; </span><br><span class="line">       LinkedHashMap.Entry&lt;K,V&gt; <span class="built_in">first</span>;</span><br><span class="line">//removeEldestEntry用来判断是否加入过期策略，移除最老的元素。evict是从hashmap传过来的参数，一般情况下初始化时为<span class="literal">false</span>，其他情况为<span class="literal">true</span></span><br><span class="line">       <span class="keyword">if</span> (evict &amp;&amp; (<span class="built_in">first</span> = head) != null &amp;&amp; removeEldestEntry(<span class="built_in">first</span>)) &#123;</span><br><span class="line">           K <span class="built_in">key</span> = <span class="built_in">first</span>.<span class="built_in">key</span>;</span><br><span class="line">           removeNode(hash(<span class="built_in">key</span>), <span class="built_in">key</span>, null, <span class="literal">false</span>, <span class="literal">true</span>);</span><br><span class="line">       &#125;</span><br><span class="line">   &#125;</span><br></pre></td></tr></table></figure>
+<h2 id="访问顺序维护"><a href="#访问顺序维护" class="headerlink" title="访问顺序维护"></a>访问顺序维护</h2><figure class="highlight nix"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">   void afterNodeAccess(Node&lt;K,V&gt; e) &#123; </span><br><span class="line">       LinkedHashMap.Entry&lt;K,V&gt; last;</span><br><span class="line">//顺序访问维护标志设置为<span class="literal">true</span>，并且e不是最后一个元素</span><br><span class="line">       <span class="keyword">if</span> (accessOrder &amp;&amp; (<span class="attr">last</span> = tail) != e) &#123;</span><br><span class="line">           LinkedHashMap.Entry&lt;K,V&gt; <span class="attr">p</span> =</span><br><span class="line">               (LinkedHashMap.Entry&lt;K,V&gt;)e, <span class="attr">b</span> = p.before, <span class="attr">a</span> = p.after;</span><br><span class="line">	//p的后继节点设置为<span class="literal">null</span></span><br><span class="line">           p.<span class="attr">after</span> = <span class="literal">null</span>;</span><br><span class="line">	//p的前驱节点为<span class="literal">null</span>，则头节点设置为a</span><br><span class="line">           <span class="keyword">if</span> (<span class="attr">b</span> == <span class="literal">null</span>)</span><br><span class="line">               <span class="attr">head</span> = a;</span><br><span class="line">           <span class="keyword">else</span></span><br><span class="line">	//p的前驱节点的后继节点设置为p的后继节点，即删除p</span><br><span class="line">               b.<span class="attr">after</span> = a;</span><br><span class="line">	//p的后继节点存在，设置a的前驱节点为b</span><br><span class="line">           <span class="keyword">if</span> (a != <span class="literal">null</span>)</span><br><span class="line">               a.<span class="attr">before</span> = b;</span><br><span class="line">           <span class="keyword">else</span></span><br><span class="line">	//否则，尾节点为b</span><br><span class="line">               <span class="attr">last</span> = b;</span><br><span class="line">	//如果尾节点为<span class="literal">null</span>，则头节点设置为p</span><br><span class="line">           <span class="keyword">if</span> (<span class="attr">last</span> == <span class="literal">null</span>)</span><br><span class="line">               <span class="attr">head</span> = p;</span><br><span class="line">           <span class="keyword">else</span> &#123;</span><br><span class="line">	//否则，把p设置为last节点后</span><br><span class="line">               p.<span class="attr">before</span> = last;</span><br><span class="line">               last.<span class="attr">after</span> = p;</span><br><span class="line">           &#125;</span><br><span class="line">	//设置尾节点为p</span><br><span class="line">           <span class="attr">tail</span> = p;</span><br><span class="line">           ++modCount;</span><br><span class="line">       &#125;</span><br><span class="line">   &#125;</span><br></pre></td></tr></table></figure>
+<h2 id="是否移除过期元素"><a href="#是否移除过期元素" class="headerlink" title="是否移除过期元素"></a>是否移除过期元素</h2><figure class="highlight aspectj"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//需要覆盖该方法实现是否移除元素的逻辑</span></span><br><span class="line">   <span class="keyword">protected</span> <span class="function"><span class="keyword">boolean</span> <span class="title">removeEldestEntry</span><span class="params">(Map.Entry&lt;K,V&gt; eldest)</span> </span>&#123;</span><br><span class="line">       <span class="keyword">return</span> <span class="keyword">false</span>;</span><br><span class="line">   &#125;</span><br></pre></td></tr></table></figure>
+<h2 id="基于LinkedHashMap实现LRUMap"><a href="#基于LinkedHashMap实现LRUMap" class="headerlink" title="基于LinkedHashMap实现LRUMap"></a>基于LinkedHashMap实现LRUMap</h2><figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">public <span class="class"><span class="keyword">class</span> <span class="title">LRUMap</span> <span class="keyword">extends</span> <span class="title">LinkedHashMap</span></span>&#123;</span><br><span class="line">		</span><br><span class="line">	<span class="keyword">private</span> int capacity;</span><br><span class="line"></span><br><span class="line">	public <span class="type">LRUMap</span>(int capacity)&#123;</span><br><span class="line">		<span class="keyword">super</span>(<span class="number">16</span>,<span class="number">0.75</span>f,<span class="literal">true</span>);</span><br><span class="line">		<span class="keyword">this</span>.capacity = capacity;				</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	<span class="meta">@Override</span></span><br><span class="line">	public boolean removeEldestEntry(<span class="type">Map</span>.<span class="type">Entry</span>&lt;<span class="type">K</span>,<span class="type">V</span>&gt; eldest)&#123;</span><br><span class="line">		<span class="keyword">return</span> size()&gt;capacity;</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+
+
+    
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://yajian.github.io/java源码解读-vector-stack/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
@@ -1632,7 +1838,7 @@
 <li>空间整合：整体上看是“标记-整理”算法实现的收集器，从局部看是基于“复制”算法实现的。其运行期间不会产生空间碎片。</li>
 <li>可预测停顿：G1除了追求低停顿外，还能建立可预测的停顿时间模型，能够让使用者明确指定在一个长度为M毫秒的时间片段内，消耗在垃圾收集上的时间不得超过N毫秒。</li>
 </ul>
-<p>&emsp;&emsp;使用G1收集器时，Java堆的内存布局与其他收集器有很大差别。它将整个Java堆分为大小相等的独立区域Region。<br><em>emsp;</em>emsp;G1能够预测停顿时间是因为：G1可以有计划地避免在整个Java堆中进行全区域的垃圾收集。它可以跟踪各个Region里面的垃圾堆积的价值大小（回收所获得的空间大小及回收所需时间的经验值），在后台维护一个优先列表，每次根据允许的收集时间，优先回收价值最大的region。这种使用region划分内存空间以及有优先级的区域回收方式，保证了G1收集器可以在有限的时间里获得尽可能高的效率。</p>
+<p>&emsp;&emsp;使用G1收集器时，Java堆的内存布局与其他收集器有很大差别。它将整个Java堆分为大小相等的独立区域Region。<br>*emsp;*emsp;G1能够预测停顿时间是因为：G1可以有计划地避免在整个Java堆中进行全区域的垃圾收集。它可以跟踪各个Region里面的垃圾堆积的价值大小（回收所获得的空间大小及回收所需时间的经验值），在后台维护一个优先列表，每次根据允许的收集时间，优先回收价值最大的region。这种使用region划分内存空间以及有优先级的区域回收方式，保证了G1收集器可以在有限的时间里获得尽可能高的效率。</p>
 <h2 id="内存分配与回收策略"><a href="#内存分配与回收策略" class="headerlink" title="内存分配与回收策略"></a>内存分配与回收策略</h2><h2 id="对象优先在Eden分配"><a href="#对象优先在Eden分配" class="headerlink" title="对象优先在Eden分配"></a>对象优先在Eden分配</h2><p>&emsp;&emsp;对象在新生代Eden区中分配，当Eden区中没有足够空间进行分配时，虚拟机将发起一次Minor GC。</p>
 <h2 id="大对象直接进入老年代"><a href="#大对象直接进入老年代" class="headerlink" title="大对象直接进入老年代"></a>大对象直接进入老年代</h2><p>&emsp;&emsp;大对象是指需要内存连续空间的Java对象，最典型的大对象就是长字符串和数组。</p>
 <h2 id="长期存活的对象直接进入老年代"><a href="#长期存活的对象直接进入老年代" class="headerlink" title="长期存活的对象直接进入老年代"></a>长期存活的对象直接进入老年代</h2><p>&emsp;&emsp;虚拟机给每个对象定义了一个对象年龄计数器，如果对象在Eden出生并且经过第一次Minor GC后仍然存活，并且能被Survivor容纳的话，将被移动到Survivor空间，并且对象年龄设为1。对象在Survivor区中每经过一次Minor GC，年龄就加1岁，当年龄增加之一定程度（默认是15岁），就会被移动到老年代中。</p>
@@ -1862,7 +2068,6 @@
 <li>异常类少，意味着内存印迹（footprint）越小，装载这些类的时间开销越少  </li>
 </ol>
 <p>常用异常</p>
-<div class="table-container">
 <table>
 <thead>
 <tr>
@@ -1897,15 +2102,14 @@
 </tr>
 </tbody>
 </table>
-</div>
 <h3 id="第61条-抛出与抽象相对应的异常"><a href="#第61条-抛出与抽象相对应的异常" class="headerlink" title="第61条 抛出与抽象相对应的异常"></a>第61条 抛出与抽象相对应的异常</h3><p>&emsp;&emsp;底层异常经过传播，当高层方法捕捉异常后会出现异常与任务没有明显联系的情况，解决方案：  </p>
 <ol>
-<li>异常转译<br>&emsp;&emsp; catch底层异常后new一个新的对应的高层异常  </li>
-<li>使用异常链<br>&emsp;&emsp;使用新异常接收cause的构造器构建新异常</li>
+<li>异常转译  <br>&emsp;&emsp; catch底层异常后new一个新的对应的高层异常  </li>
+<li>使用异常链  <br>&emsp;&emsp;使用新异常接收cause的构造器构建新异常</li>
 </ol>
 <h3 id="第62条-每个方法抛出的异常都要有文档"><a href="#第62条-每个方法抛出的异常都要有文档" class="headerlink" title="第62条 每个方法抛出的异常都要有文档"></a>第62条 每个方法抛出的异常都要有文档</h3><p>&emsp;&emsp;如果一个方法抛出多个异常类，不要抛出异常类的超类，如“throws Exception”</p>
 <p>文档自觉吧。。。</p>
-<h3 id="第63条-在细节消息中包含能捕获失败的信息"><a href="#第63条-在细节消息中包含能捕获失败的信息" class="headerlink" title="第63条 在细节消息中包含能捕获失败的信息"></a>第63条 在细节消息中包含能捕获失败的信息</h3><p>&emsp;&emsp;异常的细节信息应该包含“对该异常有贡献”的参数和域的值，例如IndexOutOfBoundsException异常的细节消息应包含下界、上界以及没有落在界内的下标值<br>&emsp;&emsp;在异常构造器中引入造成失败的参数  </p>
+<h3 id="第63条-在细节消息中包含能捕获失败的信息"><a href="#第63条-在细节消息中包含能捕获失败的信息" class="headerlink" title="第63条 在细节消息中包含能捕获失败的信息"></a>第63条 在细节消息中包含能捕获失败的信息</h3><p>&emsp;&emsp;异常的细节信息应该包含“对该异常有贡献”的参数和域的值，例如IndexOutOfBoundsException异常的细节消息应包含下界、上界以及没有落在界内的下标值  <br>&emsp;&emsp;在异常构造器中引入造成失败的参数  </p>
 <h3 id="第64条-努力使失败保持原子性"><a href="#第64条-努力使失败保持原子性" class="headerlink" title="第64条 努力使失败保持原子性"></a>第64条 努力使失败保持原子性</h3><p>&emsp;&emsp;失败的方法调用应该使对象保持在被调用之前的状态</p>
 <p>实现方法：</p>
 <ul>
@@ -2120,7 +2324,7 @@
 <li>平行迭代，如集合a,b，每次迭代顺序取得a,b第n个元素</li>
 </ol>
 <h3 id="第47条-了解使用类库"><a href="#第47条-了解使用类库" class="headerlink" title="第47条 了解使用类库"></a>第47条 了解使用类库</h3><p>&emsp;&emsp;熟悉java.lang, java.utils, java.io</p>
-<h3 id="如果需要精确答案，避免使用float和double"><a href="#如果需要精确答案，避免使用float和double" class="headerlink" title="如果需要精确答案，避免使用float和double"></a>如果需要精确答案，避免使用float和double</h3><p>&emsp;&emsp;float和double是为了在广泛的数值上提供较为精确结果的场合设计的， <strong>不能提供完全精确的结果</strong>，尤其不适合货币计算</p>
+<h3 id="如果需要精确答案，避免使用float和double"><a href="#如果需要精确答案，避免使用float和double" class="headerlink" title="如果需要精确答案，避免使用float和double"></a>如果需要精确答案，避免使用float和double</h3><p>&emsp;&emsp;float和double是为了在广泛的数值上提供较为精确结果的场合设计的， **不能提供完全精确的结果**，尤其不适合货币计算</p>
 <p>&emsp;&emsp;如果计算小数，使用bigdecimal，但是使用繁琐、性能较差；若对性能有要求，可以改变单位使用int或者long。</p>
 <h3 id="第49条-基本类型优于装箱基本类型"><a href="#第49条-基本类型优于装箱基本类型" class="headerlink" title="第49条 基本类型优于装箱基本类型"></a>第49条 基本类型优于装箱基本类型</h3><p>&emsp;&emsp;对装箱基本类型运用==操作符几乎总是错误的<br>装箱基本类型导致高开销和不必要的对象创建</p>
 <h3 id="第50条-如果其他类型更合适，避免使用字符串"><a href="#第50条-如果其他类型更合适，避免使用字符串" class="headerlink" title="第50条 如果其他类型更合适，避免使用字符串"></a>第50条 如果其他类型更合适，避免使用字符串</h3><p>&emsp;&emsp;金科玉律，在做工作时能明显感受到字符串操作造成的性能影响</p>
@@ -2363,261 +2567,18 @@
 <p>&emsp;&emsp;解释：重载方法是根据编译后的类型进行方法查找的，而被覆盖的方法是根据具体类型查找待执行方法的。</p>
 <p>&emsp;&emsp;表现：当有多个重载方法，每个方法参数类型又有公共接口的时候，只会执行传入公共接口的方法；当有多个子类重写父类方法时，会执行具体子类中的方法，而不会执行父类的方法。</p>
 <p>&emsp;&emsp;安全保守的原则：不要编写两个具有相同参数数目的重载方法，如果必须那就给出不同的名字。</p>
-<p><strong>重载的好例子</strong></p>
+<p>**重载的好例子**</p>
 <figure class="highlight cs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">Set&lt;Integer&gt; <span class="keyword">set</span> = <span class="keyword">new</span> TreeSet&lt;&gt;();</span><br><span class="line">      List&lt;Integer&gt; list = <span class="keyword">new</span> ArrayList&lt;&gt;();</span><br><span class="line">      <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">-3</span>; i &lt; <span class="number">3</span>; i++) &#123;</span><br><span class="line">          <span class="keyword">set</span>.<span class="keyword">add</span>(i);</span><br><span class="line">          list.<span class="keyword">add</span>(i);</span><br><span class="line">      &#125;</span><br><span class="line">      <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; <span class="number">3</span>; i++) &#123;</span><br><span class="line">          <span class="keyword">set</span>.<span class="keyword">remove</span>(i);</span><br><span class="line">          list.<span class="keyword">remove</span>(i);</span><br><span class="line">      &#125;</span><br><span class="line">      System.<span class="keyword">out</span>.println(<span class="keyword">set</span>);</span><br><span class="line">      System.<span class="keyword">out</span>.println(list);</span><br></pre></td></tr></table></figure>
 <p>输出：[-3,-2,-1]<br>           [-2,0,2]</p>
 <figure class="highlight lisp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">Set&lt;Integer&gt; set = new TreeSet&lt;&gt;()<span class="comment">;</span></span><br><span class="line">      List&lt;Integer&gt; list = new ArrayList&lt;&gt;()<span class="comment">;</span></span><br><span class="line">      for (<span class="name">int</span> i = <span class="number">-3</span><span class="comment">; i &lt; 3; i++) &#123;</span></span><br><span class="line">          set.add(<span class="name">i</span>)<span class="comment">;</span></span><br><span class="line">          list.add(<span class="name">i</span>)<span class="comment">;</span></span><br><span class="line">      &#125;</span><br><span class="line">      for (<span class="name">int</span> i = <span class="number">0</span><span class="comment">; i &lt; 3; i++) &#123;</span></span><br><span class="line">          set.remove(<span class="name">i</span>)<span class="comment">;</span></span><br><span class="line">          list.remove((<span class="name">Integer</span>)i)<span class="comment">;</span></span><br><span class="line">      &#125;</span><br><span class="line">      System.out.println(<span class="name">set</span>)<span class="comment">;</span></span><br><span class="line">      System.out.println(<span class="name">list</span>)<span class="comment">;</span></span><br></pre></td></tr></table></figure>
 <p>输出：[-3,-2,-1]<br>           [-3,-2,-1]</p>
-<p><strong>java加入泛型和自动装箱后，破坏了List接口</strong></p>
+<p>**java加入泛型和自动装箱后，破坏了List接口**</p>
 <h3 id="第42条-慎用可变长参数"><a href="#第42条-慎用可变长参数" class="headerlink" title="第42条 慎用可变长参数"></a>第42条 慎用可变长参数</h3><p>可变长参数是为prinf函数设计的<br>&emsp;&emsp;可变长参数方法的每次调用都会导致进行一次数组分配和初始化，造成一定性能损耗。<br>&emsp;&emsp;方案：确定对某个方法95%的调用，会有3个或者更少的参数，就声明5个重载方法，每个方法有0到3个普通参数，多余3个参数使用一个可变长参数</p>
 <h3 id="返回零长度的数组或者集合，而不是null"><a href="#返回零长度的数组或者集合，而不是null" class="headerlink" title="返回零长度的数组或者集合，而不是null"></a>返回零长度的数组或者集合，而不是null</h3><p>返回数组时：</p>
 <figure class="highlight qml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">List&lt;<span class="built_in">Object</span>&gt; <span class="built_in">list</span> = <span class="keyword">new</span> ArrayList&lt;&gt;();</span><br><span class="line"><span class="built_in">Object</span>[] a = <span class="keyword">new</span> <span class="built_in">Object</span>[<span class="number">0</span>];</span><br><span class="line"><span class="built_in">Object</span>[] tes = <span class="built_in">list</span>.toArray(a);</span><br><span class="line"><span class="comment">//即使list有值，abstractCollection中的toArray方法也会重新产生一个数组放list中的数据</span></span><br></pre></td></tr></table></figure>
 <p>返回集合时</p>
 <figure class="highlight applescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span>(<span class="built_in">list</span>.isEmpty())</span><br><span class="line"><span class="built_in">	return</span> Collections.emptyList();</span><br></pre></td></tr></table></figure>
 <h3 id="第44条-写文档"><a href="#第44条-写文档" class="headerlink" title="第44条 写文档"></a>第44条 写文档</h3><p>自觉吧。。。。</p>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-
-
-    
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yajian.github.io/深入理解java虚拟机-2-java内存区域与内存溢出异常/">
-
-    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="小建儿">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="小建儿的小站">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/深入理解java虚拟机-2-java内存区域与内存溢出异常/" itemprop="url">深入理解java虚拟机(2)-java内存区域与内存溢出异常</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-05-06T13:02:18+08:00">
-                2018-05-06
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category">
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
-                  <a href="/categories/读书笔记/" itemprop="url" rel="index">
-                    <span itemprop="name">读书笔记</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-              <span class="post-comments-count">
-                <span class="post-meta-divider">|</span>
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-comment-o"></i>
-                </span>
-                <a href="/深入理解java虚拟机-2-java内存区域与内存溢出异常/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count disqus-comment-count" data-disqus-identifier="深入理解java虚拟机-2-java内存区域与内存溢出异常/" itemprop="commentCount"></span>
-                </a>
-              </span>
-            
-          
-
-          
-          
-
-          
-
-          
-            <div class="post-wordcount">
-              
-                
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-file-word-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">字数统计&#58;</span>
-                
-                <span title="字数统计">
-                  
-                </span>
-              
-
-              
-                <span class="post-meta-divider">|</span>
-              
-
-              
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-clock-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
-                
-                <span title="阅读时长">
-                  
-                </span>
-              
-            </div>
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h2 id="运行时数据区域"><a href="#运行时数据区域" class="headerlink" title="运行时数据区域"></a>运行时数据区域</h2><p>&emsp;&emsp;运行时数据区域主要包括堆、虚拟机栈、本地方法栈、程序计数器、方法区。</p>
-<h3 id="程序计数器"><a href="#程序计数器" class="headerlink" title="程序计数器"></a>程序计数器</h3><p>&emsp;&emsp;程序计数器可以看作是当前线程所执行的字节码的行号指示器。每条线程都有独立的程序计数器。该区域是唯一一个在Java虚拟机规范中没有规定任何OutOfMemeryError情况的区域</p>
-<h3 id="Java虚拟机栈"><a href="#Java虚拟机栈" class="headerlink" title="Java虚拟机栈"></a>Java虚拟机栈</h3><p>&emsp;&emsp;栈是线程私有的，生命周期与线程一样。其描述的是Java方法执行的内存模型，每个方法在执行期间会创建一个栈帧(stack frame)，用于存储局部变量表、操作数栈、动态链接、方法出口等信息。</p>
-<p>&emsp;&emsp;局部变量表存放了编译器可知的各种基本数据类型、对象引用、returnAddress类型。其内存空间在编译阶段完成分配，方法运行期间不会改变局部变量表的大小。</p>
-<p>&emsp;&emsp;这个区域规定了两种异常状况。</p>
-<ul>
-<li><p>线程请求的栈深度超过最大虚拟机所允许的深度，会抛出StackOverflowError异常</p>
-</li>
-<li><p>虚拟机栈可以动态扩展，若扩展时无法获得足够的内存，会抛出OutOfMemoryError异常</p>
-</li>
-</ul>
-<h3 id="本地方法栈"><a href="#本地方法栈" class="headerlink" title="本地方法栈"></a>本地方法栈</h3><p>&emsp;&emsp;与虚拟机栈作用类似，区别在于虚拟机栈为执行java方法服务，本地方法栈为Native方法服务。</p>
-<h3 id="Java堆"><a href="#Java堆" class="headerlink" title="Java堆"></a>Java堆</h3><p>&emsp;&emsp;Java堆(Heap)是Java虚拟机管理内存中最大的一块，被所有线程共享。其唯一作用就是存放对象实例。</p>
-<p>&emsp;&emsp;<strong>绝大多数对象示例及数组要在堆上分配，但是随着JIT编译器的发展和逃逸分析技术逐渐成熟，栈上分配、标量替换优化技术导致一些微妙变化的发生，所有对象都分配在堆上也不那么绝对了</strong></p>
-<p>&emsp;&emsp;堆是垃圾收集器管理的主要区域，基本都采用分代收集算法。</p>
-<p>&emsp;&emsp;Java堆可以处于物理上不连续的空间中，只要逻辑连续就可以。</p>
-<h3 id="方法区"><a href="#方法区" class="headerlink" title="方法区"></a>方法区</h3><p>&emsp;&emsp;方法区与堆一样，是线程共享的，它用于存储已经被虚拟机加载的类信息、常量、静态变量、即时编译后的代码等数据。</p>
-<p>&emsp;&emsp;垃圾收集行为在这个区域比较少见，其主要的内存回收目标是针对常量池的回收和对类型的卸载。</p>
-<h3 id="运行时常量池"><a href="#运行时常量池" class="headerlink" title="运行时常量池"></a>运行时常量池</h3><p>&emsp;&emsp;是方法区的一部分，主要用于存放编译期生成的各种字面量和符号引用。</p>
-<h3 id="直接内存"><a href="#直接内存" class="headerlink" title="直接内存"></a>直接内存</h3><p>&emsp;&emsp;不是虚拟机运行时数据区的一部分，也不是java虚拟机规范中定义的内存区域。NIO类引入了基于通道（Channel）与缓冲区（Buffer）的I/O方式，它可以使用Native函数直接分配堆外内存，然后通过一个存储在Java堆中的DirectByteBuffer对象作为这块内存的引用进行操作。这样能显著提高性能，因为避免了在Java堆和Native堆中来回复制数据。</p>
-<h2 id="HotSpot虚拟机对象探秘"><a href="#HotSpot虚拟机对象探秘" class="headerlink" title="HotSpot虚拟机对象探秘"></a>HotSpot虚拟机对象探秘</h2><h3 id="对象的创建"><a href="#对象的创建" class="headerlink" title="对象的创建"></a>对象的创建</h3><p>&emsp;&emsp;对象创建过程如下：</p>
-<ol>
-<li>类加载检查：当虚拟机遇到new指令时，首先去检查指令的参数是否能在常量池中定位到一个类的符号引用，并检查这个符号引用代表的类是否已经被加载、解析和初始化过。如果没有，那必须执行相应的类加载过程。</li>
-<li><p>分配内存：对象所需内存的大小在类加载完成后便可完全确定，为对象分配空间的任务等同于把一块确定大小的内存从Java堆中划分出来。划分空间方案：</p>
-<ul>
-<li>指针碰撞：堆内存连续，用过的内存放在一边，空闲的放在另一边，中间放指针作为分界点的指示器，分配内存就是把指针挪动对象大小的距离。Serial、ParNew等带Compact过程的收集器，采用指针碰撞。</li>
-<li><p>空闲列表：对内存不连续，无法使用指针碰撞，虚拟机必须维护一个列表记录哪些内存可用哪些不可用。CMS这种基于Mark-Sweep算法的收集器，采用空闲列表。</p>
-<p>除划分可用空间外，还要考虑线程安全问题。可能出现正在给A分配内存，指针还没来得及修改，对象B又同时使用了原来指针分配内存的情况。解决方案有两种：</p>
-</li>
-<li><p>对内存空间的动作进行同步处理，虚拟机采用CAS加失败重试的方式保证更新操作的原子性</p>
-</li>
-<li>把内存分配的动作按照线程划分在不同的空间之中进行，即每个线程在Java堆中预先分配一小块内存，成为本地线程分配缓冲（Thread Local Allocation Buffer，TLAB）。哪个线程要分配内存，就在哪个线程的TLAB上进行分配，只有TLAB用完并分配新的TLAB时，才需要同步。</li>
-</ul>
-</li>
-<li><p>内存初始化为零值：把分配到的内存空间都初始化为零值（不包括对象头），这步操作保证了对象的实例字段在Java代码中可以不赋初值就直接使用。</p>
-</li>
-<li>对对象进行设置：设置对象头，如对象是哪个类的实例，如何找到类的元数据信息、对象的hashcode、对象gc分代年龄等信息。</li>
-<li>对象初始化：执行new指令后会执行init方法，把对象初始化。</li>
-</ol>
-<p>&emsp;&emsp;经过以上步骤，一个对象就被产生出来。</p>
-<h3 id="对象内存布局"><a href="#对象内存布局" class="headerlink" title="对象内存布局"></a>对象内存布局</h3><p>&emsp;&emsp;对象在内存中的布局分为3块区域：对象头（Header）、实例数据（Instance Data）、对齐填充（Padding）。</p>
-<h4 id="对象头"><a href="#对象头" class="headerlink" title="对象头"></a>对象头</h4><p>&emsp;&emsp;包含两部分信息</p>
-<ul>
-<li>存储对象自身运行时数据，如HashCode、GC分代年龄、锁状态、线程持有的锁、偏向线程ID、偏向时戳。这部分数据称为“Mark Word”</li>
-<li>类型指针，即对象指向它的类元数据的指针，虚拟机通过这个指针确定类是哪个类的实例，但并不是所有虚拟机都必须在对象数据上保留类型指针。如果对象是一个数组，还需要记录数组长度。</li>
-</ul>
-<h3 id="对象访问定位"><a href="#对象访问定位" class="headerlink" title="对象访问定位"></a>对象访问定位</h3><p>&emsp;&emsp;有两种方式：</p>
-<ul>
-<li>句柄访问：Java堆中划分出一部分内存作为句柄池，栈里的reference存储的是对象句柄的地址，句柄中包含了实例数字与类型数据的具体地址信息。好处：reference中存储稳定的句柄地址，对象被移动时只改变句柄中的实例数据指针，而reference中的地址不需要改变。</li>
-<li>直接指针：reference直接存放指针。好处：速度快，节省了一次指针定位的开销。</li>
-</ul>
 
           
         
@@ -2812,6 +2773,9 @@
 
 
 
+<% if (page.mathjax){ %>
+<%- partial('mathjax') %>
+<% } %>
 -->
 <div class="theme-info">
   <div class="powered-by"></div>

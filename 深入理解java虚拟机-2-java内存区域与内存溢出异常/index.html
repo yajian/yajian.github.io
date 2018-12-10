@@ -113,18 +113,18 @@
 
 
 
-<meta name="description" content="运行时数据区域&amp;emsp;&amp;emsp;运行时数据区域主要包括堆、虚拟机栈、本地方法栈、程序计数器、方法区。 程序计数器&amp;emsp;&amp;emsp;程序计数器可以看作是当前线程所执行的字节码的行号指示器。每条线程都有独立的程序计数器。该区域是唯一一个在Java虚拟机规范中没有规定任何OutOfMemeryError情况的区域 Java虚拟机栈&amp;emsp;&amp;emsp;栈是线程私有的，生命周期与线程一样。其">
+<meta name="description" content="##运行时数据区域&amp;emsp;&amp;emsp;运行时数据区域主要包括堆、虚拟机栈、本地方法栈、程序计数器、方法区。 ###程序计数器&amp;emsp;&amp;emsp;程序计数器可以看作是当前线程所执行的字节码的行号指示器。每条线程都有独立的程序计数器。该区域是唯一一个在Java虚拟机规范中没有规定任何OutOfMemeryError情况的区域 ###Java虚拟机栈&amp;emsp;&amp;emsp;栈是线程私有的，生命周">
 <meta name="keywords" content="深入理解java虚拟机">
 <meta property="og:type" content="article">
 <meta property="og:title" content="深入理解java虚拟机(2)-java内存区域与内存溢出异常">
 <meta property="og:url" content="http://yajian.github.io/深入理解java虚拟机-2-java内存区域与内存溢出异常/index.html">
 <meta property="og:site_name" content="小建儿的小站">
-<meta property="og:description" content="运行时数据区域&amp;emsp;&amp;emsp;运行时数据区域主要包括堆、虚拟机栈、本地方法栈、程序计数器、方法区。 程序计数器&amp;emsp;&amp;emsp;程序计数器可以看作是当前线程所执行的字节码的行号指示器。每条线程都有独立的程序计数器。该区域是唯一一个在Java虚拟机规范中没有规定任何OutOfMemeryError情况的区域 Java虚拟机栈&amp;emsp;&amp;emsp;栈是线程私有的，生命周期与线程一样。其">
+<meta property="og:description" content="##运行时数据区域&amp;emsp;&amp;emsp;运行时数据区域主要包括堆、虚拟机栈、本地方法栈、程序计数器、方法区。 ###程序计数器&amp;emsp;&amp;emsp;程序计数器可以看作是当前线程所执行的字节码的行号指示器。每条线程都有独立的程序计数器。该区域是唯一一个在Java虚拟机规范中没有规定任何OutOfMemeryError情况的区域 ###Java虚拟机栈&amp;emsp;&amp;emsp;栈是线程私有的，生命周">
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:updated_time" content="2018-05-06T05:03:22.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="深入理解java虚拟机(2)-java内存区域与内存溢出异常">
-<meta name="twitter:description" content="运行时数据区域&amp;emsp;&amp;emsp;运行时数据区域主要包括堆、虚拟机栈、本地方法栈、程序计数器、方法区。 程序计数器&amp;emsp;&amp;emsp;程序计数器可以看作是当前线程所执行的字节码的行号指示器。每条线程都有独立的程序计数器。该区域是唯一一个在Java虚拟机规范中没有规定任何OutOfMemeryError情况的区域 Java虚拟机栈&amp;emsp;&amp;emsp;栈是线程私有的，生命周期与线程一样。其">
+<meta name="twitter:description" content="##运行时数据区域&amp;emsp;&amp;emsp;运行时数据区域主要包括堆、虚拟机栈、本地方法栈、程序计数器、方法区。 ###程序计数器&amp;emsp;&amp;emsp;程序计数器可以看作是当前线程所执行的字节码的行号指示器。每条线程都有独立的程序计数器。该区域是唯一一个在Java虚拟机规范中没有规定任何OutOfMemeryError情况的区域 ###Java虚拟机栈&amp;emsp;&amp;emsp;栈是线程私有的，生命周">
 
 
 
@@ -449,9 +449,9 @@
       
 
       
-        <h2 id="运行时数据区域"><a href="#运行时数据区域" class="headerlink" title="运行时数据区域"></a>运行时数据区域</h2><p>&emsp;&emsp;运行时数据区域主要包括堆、虚拟机栈、本地方法栈、程序计数器、方法区。</p>
-<h3 id="程序计数器"><a href="#程序计数器" class="headerlink" title="程序计数器"></a>程序计数器</h3><p>&emsp;&emsp;程序计数器可以看作是当前线程所执行的字节码的行号指示器。每条线程都有独立的程序计数器。该区域是唯一一个在Java虚拟机规范中没有规定任何OutOfMemeryError情况的区域</p>
-<h3 id="Java虚拟机栈"><a href="#Java虚拟机栈" class="headerlink" title="Java虚拟机栈"></a>Java虚拟机栈</h3><p>&emsp;&emsp;栈是线程私有的，生命周期与线程一样。其描述的是Java方法执行的内存模型，每个方法在执行期间会创建一个栈帧(stack frame)，用于存储局部变量表、操作数栈、动态链接、方法出口等信息。</p>
+        <p>##运行时数据区域<br>&emsp;&emsp;运行时数据区域主要包括堆、虚拟机栈、本地方法栈、程序计数器、方法区。</p>
+<p>###程序计数器<br>&emsp;&emsp;程序计数器可以看作是当前线程所执行的字节码的行号指示器。每条线程都有独立的程序计数器。该区域是唯一一个在Java虚拟机规范中没有规定任何OutOfMemeryError情况的区域</p>
+<p>###Java虚拟机栈<br>&emsp;&emsp;栈是线程私有的，生命周期与线程一样。其描述的是Java方法执行的内存模型，每个方法在执行期间会创建一个栈帧(stack frame)，用于存储局部变量表、操作数栈、动态链接、方法出口等信息。</p>
 <p>&emsp;&emsp;局部变量表存放了编译器可知的各种基本数据类型、对象引用、returnAddress类型。其内存空间在编译阶段完成分配，方法运行期间不会改变局部变量表的大小。</p>
 <p>&emsp;&emsp;这个区域规定了两种异常状况。</p>
 <ul>
@@ -460,16 +460,17 @@
 <li><p>虚拟机栈可以动态扩展，若扩展时无法获得足够的内存，会抛出OutOfMemoryError异常</p>
 </li>
 </ul>
-<h3 id="本地方法栈"><a href="#本地方法栈" class="headerlink" title="本地方法栈"></a>本地方法栈</h3><p>&emsp;&emsp;与虚拟机栈作用类似，区别在于虚拟机栈为执行java方法服务，本地方法栈为Native方法服务。</p>
-<h3 id="Java堆"><a href="#Java堆" class="headerlink" title="Java堆"></a>Java堆</h3><p>&emsp;&emsp;Java堆(Heap)是Java虚拟机管理内存中最大的一块，被所有线程共享。其唯一作用就是存放对象实例。</p>
-<p>&emsp;&emsp;<strong>绝大多数对象示例及数组要在堆上分配，但是随着JIT编译器的发展和逃逸分析技术逐渐成熟，栈上分配、标量替换优化技术导致一些微妙变化的发生，所有对象都分配在堆上也不那么绝对了</strong></p>
+<p>###本地方法栈<br>&emsp;&emsp;与虚拟机栈作用类似，区别在于虚拟机栈为执行java方法服务，本地方法栈为Native方法服务。</p>
+<p>###Java堆<br>&emsp;&emsp;Java堆(Heap)是Java虚拟机管理内存中最大的一块，被所有线程共享。其唯一作用就是存放对象实例。</p>
+<p>&emsp;&emsp;**绝大多数对象示例及数组要在堆上分配，但是随着JIT编译器的发展和逃逸分析技术逐渐成熟，栈上分配、标量替换优化技术导致一些微妙变化的发生，所有对象都分配在堆上也不那么绝对了**</p>
 <p>&emsp;&emsp;堆是垃圾收集器管理的主要区域，基本都采用分代收集算法。</p>
 <p>&emsp;&emsp;Java堆可以处于物理上不连续的空间中，只要逻辑连续就可以。</p>
-<h3 id="方法区"><a href="#方法区" class="headerlink" title="方法区"></a>方法区</h3><p>&emsp;&emsp;方法区与堆一样，是线程共享的，它用于存储已经被虚拟机加载的类信息、常量、静态变量、即时编译后的代码等数据。</p>
+<p>###方法区<br>&emsp;&emsp;方法区与堆一样，是线程共享的，它用于存储已经被虚拟机加载的类信息、常量、静态变量、即时编译后的代码等数据。</p>
 <p>&emsp;&emsp;垃圾收集行为在这个区域比较少见，其主要的内存回收目标是针对常量池的回收和对类型的卸载。</p>
-<h3 id="运行时常量池"><a href="#运行时常量池" class="headerlink" title="运行时常量池"></a>运行时常量池</h3><p>&emsp;&emsp;是方法区的一部分，主要用于存放编译期生成的各种字面量和符号引用。</p>
-<h3 id="直接内存"><a href="#直接内存" class="headerlink" title="直接内存"></a>直接内存</h3><p>&emsp;&emsp;不是虚拟机运行时数据区的一部分，也不是java虚拟机规范中定义的内存区域。NIO类引入了基于通道（Channel）与缓冲区（Buffer）的I/O方式，它可以使用Native函数直接分配堆外内存，然后通过一个存储在Java堆中的DirectByteBuffer对象作为这块内存的引用进行操作。这样能显著提高性能，因为避免了在Java堆和Native堆中来回复制数据。</p>
-<h2 id="HotSpot虚拟机对象探秘"><a href="#HotSpot虚拟机对象探秘" class="headerlink" title="HotSpot虚拟机对象探秘"></a>HotSpot虚拟机对象探秘</h2><h3 id="对象的创建"><a href="#对象的创建" class="headerlink" title="对象的创建"></a>对象的创建</h3><p>&emsp;&emsp;对象创建过程如下：</p>
+<p>###运行时常量池<br>&emsp;&emsp;是方法区的一部分，主要用于存放编译期生成的各种字面量和符号引用。</p>
+<p>###直接内存<br>&emsp;&emsp;不是虚拟机运行时数据区的一部分，也不是java虚拟机规范中定义的内存区域。NIO类引入了基于通道（Channel）与缓冲区（Buffer）的I/O方式，它可以使用Native函数直接分配堆外内存，然后通过一个存储在Java堆中的DirectByteBuffer对象作为这块内存的引用进行操作。这样能显著提高性能，因为避免了在Java堆和Native堆中来回复制数据。</p>
+<p>##HotSpot虚拟机对象探秘</p>
+<p>###对象的创建<br>&emsp;&emsp;对象创建过程如下：</p>
 <ol>
 <li>类加载检查：当虚拟机遇到new指令时，首先去检查指令的参数是否能在常量池中定位到一个类的符号引用，并检查这个符号引用代表的类是否已经被加载、解析和初始化过。如果没有，那必须执行相应的类加载过程。</li>
 <li><p>分配内存：对象所需内存的大小在类加载完成后便可完全确定，为对象分配空间的任务等同于把一块确定大小的内存从Java堆中划分出来。划分空间方案：</p>
@@ -489,13 +490,13 @@
 <li>对象初始化：执行new指令后会执行init方法，把对象初始化。</li>
 </ol>
 <p>&emsp;&emsp;经过以上步骤，一个对象就被产生出来。</p>
-<h3 id="对象内存布局"><a href="#对象内存布局" class="headerlink" title="对象内存布局"></a>对象内存布局</h3><p>&emsp;&emsp;对象在内存中的布局分为3块区域：对象头（Header）、实例数据（Instance Data）、对齐填充（Padding）。</p>
-<h4 id="对象头"><a href="#对象头" class="headerlink" title="对象头"></a>对象头</h4><p>&emsp;&emsp;包含两部分信息</p>
+<p>###对象内存布局<br>&emsp;&emsp;对象在内存中的布局分为3块区域：对象头（Header）、实例数据（Instance Data）、对齐填充（Padding）。</p>
+<p>####对象头<br>&emsp;&emsp;包含两部分信息</p>
 <ul>
 <li>存储对象自身运行时数据，如HashCode、GC分代年龄、锁状态、线程持有的锁、偏向线程ID、偏向时戳。这部分数据称为“Mark Word”</li>
 <li>类型指针，即对象指向它的类元数据的指针，虚拟机通过这个指针确定类是哪个类的实例，但并不是所有虚拟机都必须在对象数据上保留类型指针。如果对象是一个数组，还需要记录数组长度。</li>
 </ul>
-<h3 id="对象访问定位"><a href="#对象访问定位" class="headerlink" title="对象访问定位"></a>对象访问定位</h3><p>&emsp;&emsp;有两种方式：</p>
+<p>###对象访问定位<br>&emsp;&emsp;有两种方式：</p>
 <ul>
 <li>句柄访问：Java堆中划分出一部分内存作为句柄池，栈里的reference存储的是对象句柄的地址，句柄中包含了实例数字与类型数据的具体地址信息。好处：reference中存储稳定的句柄地址，对象被移动时只改变句柄中的实例数据指针，而reference中的地址不需要改变。</li>
 <li>直接指针：reference直接存放指针。好处：速度快，节省了一次指针定位的开销。</li>
@@ -679,17 +680,8 @@ var jiathis_config={
       
 
       
-        <ul class="sidebar-nav motion-element">
-          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
-            文章目录
-          </li>
-          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
-            站点概览
-          </li>
-        </ul>
-      
 
-      <section class="site-overview-wrap sidebar-panel">
+      <section class="site-overview-wrap sidebar-panel sidebar-panel-active">
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
             
@@ -761,22 +753,6 @@ var jiathis_config={
       </section>
 
       
-      <!--noindex-->
-        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
-          <div class="post-toc">
-
-            
-              
-            
-
-            
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#运行时数据区域"><span class="nav-number">1.</span> <span class="nav-text">运行时数据区域</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#程序计数器"><span class="nav-number">1.1.</span> <span class="nav-text">程序计数器</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Java虚拟机栈"><span class="nav-number">1.2.</span> <span class="nav-text">Java虚拟机栈</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#本地方法栈"><span class="nav-number">1.3.</span> <span class="nav-text">本地方法栈</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Java堆"><span class="nav-number">1.4.</span> <span class="nav-text">Java堆</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#方法区"><span class="nav-number">1.5.</span> <span class="nav-text">方法区</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#运行时常量池"><span class="nav-number">1.6.</span> <span class="nav-text">运行时常量池</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#直接内存"><span class="nav-number">1.7.</span> <span class="nav-text">直接内存</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#HotSpot虚拟机对象探秘"><span class="nav-number">2.</span> <span class="nav-text">HotSpot虚拟机对象探秘</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#对象的创建"><span class="nav-number">2.1.</span> <span class="nav-text">对象的创建</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#对象内存布局"><span class="nav-number">2.2.</span> <span class="nav-text">对象内存布局</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#对象头"><span class="nav-number">2.2.1.</span> <span class="nav-text">对象头</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#对象访问定位"><span class="nav-number">2.3.</span> <span class="nav-text">对象访问定位</span></a></li></ol></li></ol></div>
-            
-
-          </div>
-        </section>
-      <!--/noindex-->
-      
 
       
 
@@ -819,6 +795,9 @@ var jiathis_config={
 
 
 
+<% if (page.mathjax){ %>
+<%- partial('mathjax') %>
+<% } %>
 -->
 <div class="theme-info">
   <div class="powered-by"></div>
@@ -1346,6 +1325,26 @@ var jiathis_config={
   
 
   
+  
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Config({
+        tex2jax: {
+          inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+          processEscapes: true,
+          skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+        }
+      });
+    </script>
+
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for (i=0; i < all.length; i += 1) {
+          all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+      });
+    </script>
+    <script type="text/javascript" src="//cdn.bootcss.com/mathjax/2.7.1/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
   
 
 

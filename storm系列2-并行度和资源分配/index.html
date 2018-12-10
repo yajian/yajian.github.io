@@ -459,9 +459,7 @@
 <h2 id="executor-1"><a href="#executor-1" class="headerlink" title="executor"></a>executor</h2><p>&emsp;&emsp;executor是真正的并行度。executor初始数量=spout数量+bolt数量+acker数量，也就是task个数，默认一个executor对应一个task。其中spout、bolt、acker数量运行时是不会变化的，但是executor数量是可以变化的。</p>
 <h2 id="task-1"><a href="#task-1" class="headerlink" title="task"></a>task</h2><p>&emsp;&emsp;task的存在是为了topology扩展的灵活性，与并行度无关。task在实际执行数据处理。如果单纯提高task个数，不增加executor个数，并不一定能提高性能。提高task任务数量，可以为后期进行弹性计算（rebalance）即后期动态调整某一组件的并行度。</p>
 <h1 id="并行度计算"><a href="#并行度计算" class="headerlink" title="并行度计算"></a>并行度计算</h1><p>计算并行度官网有个比较好的例子</p>
-<div align="center">
-<img src="/storm系列2-并行度和资源分配/并行度计算.jpg" width="400" height="300" title="并行度计算">
-</div>
+<div align="center"><br><img src="/storm系列2-并行度和资源分配/并行度计算.jpg" width="400" height="300" title="并行度计算"><br></div>
 
 <p>上图中，有2个worker进程，</p>
 <ul>
@@ -789,6 +787,9 @@ var jiathis_config={
 
 
 
+<% if (page.mathjax){ %>
+<%- partial('mathjax') %>
+<% } %>
 -->
 <div class="theme-info">
   <div class="powered-by"></div>
@@ -1316,6 +1317,26 @@ var jiathis_config={
   
 
   
+  
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Config({
+        tex2jax: {
+          inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+          processEscapes: true,
+          skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+        }
+      });
+    </script>
+
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for (i=0; i < all.length; i += 1) {
+          all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+      });
+    </script>
+    <script type="text/javascript" src="//cdn.bootcss.com/mathjax/2.7.1/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
   
 
 

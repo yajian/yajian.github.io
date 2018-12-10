@@ -462,49 +462,35 @@
         <h1 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h1><p>&emsp;&emsp;Udacity是硅谷的一个在线教育网站，主要以介绍AI技术为主，除了基本的课程录像还会有专业老师进行代码review，通过课程会颁发nano degree。其中最为火爆的一门课程就是自动驾驶课程CarNd，这门课程由简入繁分了三个term，第一个term主要是以机器视觉识别道路、交通标志为主，需要掌握基本的深度学习和机器视觉知识；第二个term是介绍传感器以及使用卡尔曼滤波进行定位和速度控制；第三个term主要是路径规划以及系统集成，据说最后会把学员的代码放入真车进行实际测试。Ucacity的课程质量很高，但是有些小贵，出于无奈只好从网上搜集资料，开源的资料包含了前两个term，学完可以对无人驾驶有基本的了解，感兴趣的同学可以试试。</p>
 <h1 id="处理流程"><a href="#处理流程" class="headerlink" title="处理流程"></a>处理流程</h1><p>&emsp;&emsp;无人驾驶车辆的基本功能之一就是检测车道，之前参加过飞思卡尔智能车竞赛的同学对这个项目应该并不陌生，与摄像头组识别赛道的原理类似，可惜当时我在红外组，没有深入了解相关原理。</p>
 <p>&emsp;&emsp;先简单说下利用图像处理技术识别车道的基本流程</p>
-<div align="center">
-     <img src="/Term-1-p1-lane-detection/车道检测流程.png" width="100" height="500" alt="车道检测流程" align="center/">
- </div>
+<div align="center"><br>     <img src="/Term-1-p1-lane-detection/车道检测流程.png" width="100" height="500" alt="车道检测流程" align="center/"><br> </div>
 
 <p>&emsp;&emsp;p1相对来说比较简单，使用opencv的一些操作函数即可实现检测功能。下面详细介绍每个步骤的实现</p>
 <h1 id="读入图像"><a href="#读入图像" class="headerlink" title="读入图像"></a>读入图像</h1><p>&emsp;&emsp;首先读入图像</p>
 <figure class="highlight arduino"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//导入opencv</span></span><br><span class="line"><span class="keyword">import</span> cv2</span><br><span class="line"></span><br><span class="line"><span class="comment">//读取图像</span></span><br><span class="line"><span class="built_in">image</span> = cv2.imread(<span class="string">"./test_images/solidYellowCurve.jpg"</span>)</span><br><span class="line"><span class="comment">//展示图像</span></span><br><span class="line">cv2.imshow(<span class="string">'lane'</span>,<span class="built_in">image</span>)</span><br><span class="line"><span class="comment">//等待键盘按键</span></span><br><span class="line">cv2.waitKey()</span><br><span class="line"><span class="comment">//销毁图片展示窗口</span></span><br><span class="line">cv2.destroyAllWindows()</span><br></pre></td></tr></table></figure>
 <p>效果如下</p>
-<div align="center">
-     <img src="/Term-1-p1-lane-detection/车道原图.png" width="400" height="200" alt="车道原图" align="center">
- </div>
+<div align="center"><br>     <img src="/Term-1-p1-lane-detection/车道原图.png" width="400" height="200" alt="车道原图" align="center"><br> </div>
 
 <h1 id="二值化处理"><a href="#二值化处理" class="headerlink" title="二值化处理"></a>二值化处理</h1><p>&emsp;&emsp;opencv对于彩色图像的存储使用GBR格式，与一般RGB格式顺序不太一样，据说是为了做硬件兼容。二值化处理是把读入的彩色图像转成灰度图，方便后续计算。</p>
 <figure class="highlight arduino"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//彩色图像转化为灰度图</span></span><br><span class="line">gray_image = cv2.cvtColor(<span class="built_in">image</span>,cv2.COLOR_GBR2GRAY)</span><br></pre></td></tr></table></figure>
 <p>效果如下</p>
-<div align="center">
-     <img src="/Term-1-p1-lane-detection/二值化图像.png" width="400" height="200" alt="二值化图像" align="center">
- </div>
+<div align="center"><br>     <img src="/Term-1-p1-lane-detection/二值化图像.png" width="400" height="200" alt="二值化图像" align="center"><br> </div>
 
 <h1 id="高斯模糊"><a href="#高斯模糊" class="headerlink" title="高斯模糊"></a>高斯模糊</h1><p>&emsp;&emsp;高斯模糊是一种图像平滑技术，基本原理是在以中心像素为原点取一定半径内像素点值求加权平均值，权重根据高斯函数求得，结果就是高斯模糊处理后的图片。从数值上看，整体上更加平缓，从图片效果上看变得模糊了。</p>
 <figure class="highlight lsl"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">blured_image = cv2.GaussianBlur(gray_image,(<span class="number">5</span>,<span class="number">5</span>),<span class="number">0</span>) <span class="comment">//第二个参数表示模糊半径，第三个参数代表高斯函数标准差，半径越大标准差越大，图片越模糊</span></span><br></pre></td></tr></table></figure>
-<div align="center">
-     <img src="/Term-1-p1-lane-detection/高斯模糊图像.png" width="400" height="200" alt="高斯模糊图像" align="center">
-</div>
+<div align="center"><br>     <img src="/Term-1-p1-lane-detection/高斯模糊图像.png" width="400" height="200" alt="高斯模糊图像" align="center"><br></div>
 
 <h1 id="Canny边缘检测"><a href="#Canny边缘检测" class="headerlink" title="Canny边缘检测"></a>Canny边缘检测</h1><p>&emsp;&emsp;由于车道具有明显的边缘，所以使用边缘检测可以提取车道信息，opencv提供了canny边缘检测函数可以实现该功能。</p>
 <figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">canny = cv2<span class="selector-class">.cv2</span><span class="selector-class">.Canny</span>(blur,<span class="number">250</span>,<span class="number">300</span>)</span><br></pre></td></tr></table></figure>
 <p>效果如下</p>
-<div align="center">
-     <img src="/Term-1-p1-lane-detection/canny边缘检测.png" width="400" height="200" alt="canny边缘检测" align="center">
-</div>
+<div align="center"><br>     <img src="/Term-1-p1-lane-detection/canny边缘检测.png" width="400" height="200" alt="canny边缘检测" align="center"><br></div>
 
 <h1 id="ROI区域提取"><a href="#ROI区域提取" class="headerlink" title="ROI区域提取"></a>ROI区域提取</h1><p>&emsp;&emsp;在理想情况下（直路且行驶平稳），车道的位置在拍摄的图片中的相对位置不变，我们并不关心除车道以外的其他位置，所以可以通过ROI区域提取获取车道所在区域。针对p1所用到的图片，其ROI区域顶点坐标分别为(0,540),(465,320),(475,320),(960,320)，其所形成的不规则区域如下所示</p>
-<div align="center">
-     <img src="/Term-1-p1-lane-detection/roi区域.png" width="400" height="200" alt="ROI区域" align="center">
- </div>
+<div align="center"><br>     <img src="/Term-1-p1-lane-detection/roi区域.png" width="400" height="200" alt="ROI区域" align="center"><br> </div>
 
 <p>与边缘检测结果进行叠加</p>
 <figure class="highlight lsl"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">roi_range = np.array([[(<span class="number">0</span>,<span class="number">540</span>),(<span class="number">465</span>,<span class="number">320</span>),(<span class="number">475</span>,<span class="number">320</span>),(<span class="number">960</span>,<span class="number">320</span>)]],dtype = np.int32)</span><br><span class="line">mask = np.zeros_like(canny)  <span class="comment">//复制一个和canny图像大小一样的叠加矩阵</span></span><br><span class="line">cv2.fillPoly(mask,roi_range,<span class="number">255</span>) <span class="comment">//设置roi区域的像素值为255，其他区域为0</span></span><br><span class="line">img_masked = cv2.bitwise_and(canny,mask) <span class="comment">//将canny图像和叠加图像求并，ROI区域外的部分都变为0</span></span><br></pre></td></tr></table></figure>
 <p>效果如下</p>
-<div align="center">
-     <img src="/Term-1-p1-lane-detection/ROI区域提取.png" width="400" height="200" alt="ROI区域提取" align="center">
- </div>
+<div align="center"><br>     <img src="/Term-1-p1-lane-detection/ROI区域提取.png" width="400" height="200" alt="ROI区域提取" align="center"><br> </div>
 
 <h1 id="Hough直线检测"><a href="#Hough直线检测" class="headerlink" title="Hough直线检测"></a>Hough直线检测</h1><p>&emsp;&emsp;现在经过处理后的图像基本只包含ROI区域内的车道信息以及其他干扰信息，这两种信息的区别在于车道由多条直线构成，而干扰信息则不具备这样明显的条件，所以直线检测可以提取ROI区域内的车道。<br>&emsp;&emsp;opencv提供了霍夫变换函数HoughLines和HoughLinesP用于直线检测，目前先不去深究其原理，后续我再补充。其函数定义如下：</p>
 <p>HoughLinesP(image, rho, theta, threshold, minLineLength=None, maxLineGap=None) </p>
@@ -519,9 +505,7 @@
 </li>
 </ul>
 <p>效果如下</p>
-<div align="center">
-     <img src="/Term-1-p1-lane-detection/直线检测.png" width="400" height="200" alt="直线检测" align="center">
- </div>
+<div align="center"><br>     <img src="/Term-1-p1-lane-detection/直线检测.png" width="400" height="200" alt="直线检测" align="center"><br> </div>
 
 <h1 id="车道标记"><a href="#车道标记" class="headerlink" title="车道标记"></a>车道标记</h1><p>&emsp;&emsp;直线检测完成后，需要对检测后的直线进行过滤，把误差较大的点移除，并且还要将这些点连成直线，进行车道标记。</p>
 <h2 id="车道左右边线检测"><a href="#车道左右边线检测" class="headerlink" title="车道左右边线检测"></a>车道左右边线检测</h2><p>&emsp;&emsp;首先需要区分车道左边线和右边线，我们已经拿到了直线检测后的直线端点，可以利用斜率进行区分。由于opencv默认原点位于图像左上角顶点，所以左边线斜率为负，右边线斜率为正，并计算每段线段的斜率和截距。</p>
@@ -538,9 +522,7 @@
 </ul>
 <figure class="highlight lsl"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//imgae为原始图像，line_image为车道标记图像</span></span><br><span class="line">res_image = cv2.addWeighted(image,<span class="number">0.8</span>,line_image,<span class="number">1</span>,<span class="number">0</span>)</span><br></pre></td></tr></table></figure>
 <p>最终结果如下</p>
-<div align="center">
-     <img src="/Term-1-p1-lane-detection/车道标记.png" width="400" height="200" alt="车道标记" align="center">
- </div>
+<div align="center"><br>     <img src="/Term-1-p1-lane-detection/车道标记.png" width="400" height="200" alt="车道标记" align="center"><br> </div>
 
 <h1 id="处理视频"><a href="#处理视频" class="headerlink" title="处理视频"></a>处理视频</h1><p>&emsp;&emsp;处理视频需要使用moviepy的VideoFileClip函数</p>
 <figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-tag">video</span> = VideoFileClip(path) <span class="comment">//待处理图像路径</span></span><br><span class="line">video_after_process = <span class="selector-tag">video</span>.fl_image(process_picture) <span class="comment">//处理每张图片的函数作为参数</span></span><br><span class="line">video_after_process.write_videofile(<span class="string">"./line_detection.mp4"</span>,audio=False) <span class="comment">//生成新视频</span></span><br></pre></td></tr></table></figure>
@@ -548,18 +530,14 @@
 <ul>
 <li>原始视频</li>
 </ul>
-<div align="center">
- <video controls="controls" src="Term-1-p1-lane-detection/original.mp4" width="500" height="250"></video>
- </div>
+<div align="center"><br> <video controls="controls" src="Term-1-p1-lane-detection/original.mp4" width="500" height="250"></video><br> </div>
 
 <ul>
 <li>处理后视频</li>
 </ul>
-<div align="center">
- <video controls="controls" src="Term-1-p1-lane-detection/lane_detection.mp4" width="500" height="250"></video>
-</div>
+<div align="center"><br> <video controls="controls" src="Term-1-p1-lane-detection/lane_detection.mp4" width="500" height="250"></video><br></div>
 
-<h2 id="代码参考"><a href="#代码参考" class="headerlink" title="代码参考"></a>代码参考</h2><p>详见<a href="https://github.com/yajian/self-driving-car" target="_blank" rel="noopener">Term-1_lane_detection_demo</a></p>
+<h2 id="代码参考"><a href="#代码参考" class="headerlink" title="代码参考"></a>代码参考</h2><p>详见[Term-1_lane_detection_demo](<a href="https://github.com/yajian/self-driving-car" target="_blank" rel="noopener">https://github.com/yajian/self-driving-car</a>)</p>
 
       
     </div>
@@ -879,6 +857,9 @@ var jiathis_config={
 
 
 
+<% if (page.mathjax){ %>
+<%- partial('mathjax') %>
+<% } %>
 -->
 <div class="theme-info">
   <div class="powered-by"></div>

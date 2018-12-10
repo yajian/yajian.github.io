@@ -113,13 +113,13 @@
 
 
 
-<meta name="description" content="简介&amp;emsp;&amp;emsp;p5从车道检测升级为车辆检测，课程目的是检测行驶过程中遇到的车辆，属于目标检测范畴。这篇文章主要介绍如何使用传统计算机视觉方法进行车辆识别，比较基础。当然实现车辆识别的方案还有其他高大的方案，如yolo等，后面我会开另一篇文章介绍基于深度学习的车辆检测方案。 处理流程&amp;emsp;&amp;emsp;本节课程处理流程如下图所示      HOG特征提取&amp;emsp;&amp;emsp;梯度">
+<meta name="description" content="简介&amp;emsp;&amp;emsp;p5从车道检测升级为车辆检测，课程目的是检测行驶过程中遇到的车辆，属于目标检测范畴。这篇文章主要介绍如何使用传统计算机视觉方法进行车辆识别，比较基础。当然实现车辆识别的方案还有其他高大的方案，如yolo等，后面我会开另一篇文章介绍基于深度学习的车辆检测方案。 处理流程&amp;emsp;&amp;emsp;本节课程处理流程如下图所示    HOG特征提取&amp;emsp;&amp;emsp;梯度直方">
 <meta name="keywords" content="Ucacity CarNd">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Term-1-p5-vehicle-detection">
 <meta property="og:url" content="http://yajian.github.io/Term-1-p5-vehicle-detection/index.html">
 <meta property="og:site_name" content="小建儿的小站">
-<meta property="og:description" content="简介&amp;emsp;&amp;emsp;p5从车道检测升级为车辆检测，课程目的是检测行驶过程中遇到的车辆，属于目标检测范畴。这篇文章主要介绍如何使用传统计算机视觉方法进行车辆识别，比较基础。当然实现车辆识别的方案还有其他高大的方案，如yolo等，后面我会开另一篇文章介绍基于深度学习的车辆检测方案。 处理流程&amp;emsp;&amp;emsp;本节课程处理流程如下图所示      HOG特征提取&amp;emsp;&amp;emsp;梯度">
+<meta property="og:description" content="简介&amp;emsp;&amp;emsp;p5从车道检测升级为车辆检测，课程目的是检测行驶过程中遇到的车辆，属于目标检测范畴。这篇文章主要介绍如何使用传统计算机视觉方法进行车辆识别，比较基础。当然实现车辆识别的方案还有其他高大的方案，如yolo等，后面我会开另一篇文章介绍基于深度学习的车辆检测方案。 处理流程&amp;emsp;&amp;emsp;本节课程处理流程如下图所示    HOG特征提取&amp;emsp;&amp;emsp;梯度直方">
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="http://yajian.github.io/Term-1-p5-vehicle-detection/p5处理流程.png">
 <meta property="og:image" content="http://yajian.github.io/Term-1-p5-vehicle-detection/original_hog_comparasion.png">
@@ -129,7 +129,7 @@
 <meta property="og:updated_time" content="2018-11-17T10:00:54.548Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Term-1-p5-vehicle-detection">
-<meta name="twitter:description" content="简介&amp;emsp;&amp;emsp;p5从车道检测升级为车辆检测，课程目的是检测行驶过程中遇到的车辆，属于目标检测范畴。这篇文章主要介绍如何使用传统计算机视觉方法进行车辆识别，比较基础。当然实现车辆识别的方案还有其他高大的方案，如yolo等，后面我会开另一篇文章介绍基于深度学习的车辆检测方案。 处理流程&amp;emsp;&amp;emsp;本节课程处理流程如下图所示      HOG特征提取&amp;emsp;&amp;emsp;梯度">
+<meta name="twitter:description" content="简介&amp;emsp;&amp;emsp;p5从车道检测升级为车辆检测，课程目的是检测行驶过程中遇到的车辆，属于目标检测范畴。这篇文章主要介绍如何使用传统计算机视觉方法进行车辆识别，比较基础。当然实现车辆识别的方案还有其他高大的方案，如yolo等，后面我会开另一篇文章介绍基于深度学习的车辆检测方案。 处理流程&amp;emsp;&amp;emsp;本节课程处理流程如下图所示    HOG特征提取&amp;emsp;&amp;emsp;梯度直方">
 <meta name="twitter:image" content="http://yajian.github.io/Term-1-p5-vehicle-detection/p5处理流程.png">
 
 
@@ -457,16 +457,12 @@
       
         <h1 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h1><p>&emsp;&emsp;p5从车道检测升级为车辆检测，课程目的是检测行驶过程中遇到的车辆，属于目标检测范畴。这篇文章主要介绍如何使用传统计算机视觉方法进行车辆识别，比较基础。当然实现车辆识别的方案还有其他高大的方案，如yolo等，后面我会开另一篇文章介绍基于深度学习的车辆检测方案。</p>
 <h1 id="处理流程"><a href="#处理流程" class="headerlink" title="处理流程"></a>处理流程</h1><p>&emsp;&emsp;本节课程处理流程如下图所示</p>
-<div align="center">
-<img src="/Term-1-p5-vehicle-detection/p5处理流程.png" width="80" height="250" title="处理流程">
-</div>
+<div align="center"><br><img src="/Term-1-p5-vehicle-detection/p5处理流程.png" width="80" height="250" title="处理流程"><br></div>
 
 
 <h1 id="HOG特征提取"><a href="#HOG特征提取" class="headerlink" title="HOG特征提取"></a>HOG特征提取</h1><p>&emsp;&emsp;梯度直方图(Histogram of Oriented Gradient)，简称HOG，它是一种特征描述符。其原理是把图像分成很多个部分，然后计算每个部分的梯度，HOG特征描述符能为特征匹配和目标检测提供非常重要的信息。</p>
 <p>&emsp;&emsp;为了判断是否是车辆，我们需要分别提取车辆的HOG和非车辆物体的HOG。这里我们使用skimage的hog方法进行图像的特征提取，经过特征提取后的效果如下</p>
-<div align="center">
-<img src="/Term-1-p5-vehicle-detection/original_hog_comparasion.png" width="300" height="250" title="HOG特征示意图">
-</div>
+<div align="center"><br><img src="/Term-1-p5-vehicle-detection/original_hog_comparasion.png" width="300" height="250" title="HOG特征示意图"><br></div>
 
 <p>&emsp;&emsp;贴上这部分代码</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> cv2</span><br><span class="line"><span class="keyword">import</span> numpy <span class="keyword">as</span> np</span><br><span class="line"><span class="keyword">from</span> skimage.feature <span class="keyword">import</span> hog</span><br><span class="line"><span class="keyword">import</span> glob</span><br><span class="line"><span class="keyword">import</span> matplotlib.pyplot <span class="keyword">as</span> plt</span><br><span class="line"></span><br><span class="line"><span class="comment">#读取car data</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">load_car_data</span><span class="params">()</span>:</span></span><br><span class="line">	vehicles = glob.glob(<span class="string">'./vehicles/*/*.png'</span>)</span><br><span class="line">	<span class="keyword">return</span> vehicles</span><br><span class="line"><span class="comment">#读取non car data</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">load_non_car_data</span><span class="params">()</span>:</span></span><br><span class="line">	non_vehicles = glob.glob(<span class="string">'./non-vehicles/*/*.png'</span>)</span><br><span class="line">	<span class="keyword">return</span> non_vehicles</span><br><span class="line"></span><br><span class="line"><span class="comment">#提取HOG特征</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">extract_feature</span><span class="params">(img,orient,pix_per_cell,cell_per_block,vis=False,feature_vec = True)</span>:</span></span><br><span class="line">	<span class="keyword">if</span> vis == <span class="keyword">True</span>:</span><br><span class="line">		features,hog_image = hog(img,orientations = orient,pixels_per_cell=(pix_per_cell,pix_per_cell),</span><br><span class="line">			cells_per_block = (cell_per_block,cell_per_block),transform_sqrt=<span class="keyword">False</span>,visualise=vis,feature_vector=feature_vec)</span><br><span class="line">		<span class="keyword">return</span> features,hog_image</span><br><span class="line">	<span class="keyword">else</span> :</span><br><span class="line">		features = hog(img,orientations = orient,pixels_per_cell=(pix_per_cell,pix_per_cell),</span><br><span class="line">			cells_per_block = (cell_per_block,cell_per_block),transform_sqrt=<span class="keyword">False</span>,visualise=vis,feature_vector=feature_vec)</span><br><span class="line">		<span class="keyword">return</span> feature</span><br><span class="line"><span class="comment">#显示对比</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">show_hog</span><span class="params">()</span>:</span></span><br><span class="line">	vehicles = load_car_data()</span><br><span class="line">	non_vehicles = load_non_car_data()</span><br><span class="line">	vehicle_img = plt.imread(vehicles[<span class="number">5</span>])</span><br><span class="line">	non_vehicle_img = plt.imread(non_vehicles[<span class="number">5</span>])</span><br><span class="line">	_,vehicle_hog_image = extract_feature(vehicle_img[:,:,<span class="number">2</span>],<span class="number">9</span>,<span class="number">8</span>,<span class="number">8</span>,vis=<span class="keyword">True</span>,feature_vec=<span class="keyword">True</span>)</span><br><span class="line">	_,non_vehicle_hog_image = extract_feature(non_vehicle_img[:,:,<span class="number">2</span>],<span class="number">9</span>,<span class="number">8</span>,<span class="number">8</span>,vis=<span class="keyword">True</span>,feature_vec=<span class="keyword">True</span>)</span><br><span class="line">	f,((ax1,ax2),(ax3,ax4)) = plt.subplots(<span class="number">2</span>,<span class="number">2</span>,figsize=(<span class="number">7</span>,<span class="number">7</span>))</span><br><span class="line">	ax1.imshow(vehicle_img)</span><br><span class="line">	ax1.set_title(<span class="string">'car'</span>)</span><br><span class="line">	ax2.imshow(vehicle_hog_image)</span><br><span class="line">	ax2.set_title(<span class="string">'car hog feature'</span>)</span><br><span class="line">	ax3.imshow(non_vehicle_img)</span><br><span class="line">	ax3.set_title(<span class="string">'non car'</span>)</span><br><span class="line">	ax4.imshow(non_vehicle_hog_image)</span><br><span class="line">	ax4.set_title(<span class="string">'non car hog feature'</span>)</span><br><span class="line">	plt.show()</span><br></pre></td></tr></table></figure>
@@ -476,37 +472,27 @@
 <h2 id="定义滑动窗口"><a href="#定义滑动窗口" class="headerlink" title="定义滑动窗口"></a>定义滑动窗口</h2><p>&emsp;&emsp;首先定义滑动窗口，其中有这样几个概念cell、block、window，step。cell是抽取hog特征时的最小单位，这里定义为16个像素。block由cell组成，这里定义为2*2个cell。window是滑动窗口大小，定义为64个像素。step是步长，即每次滑动的长度，定义为2个cell。</p>
 <figure class="highlight ini"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#x方向上block个数</span></span><br><span class="line"><span class="attr">nxblock</span> = (ch1.shape[<span class="number">1</span>]//pix_per_cell) + <span class="number">1</span></span><br><span class="line"><span class="comment">#y方向上block个数</span></span><br><span class="line"><span class="attr">nyblock</span> = (ch1.shape[<span class="number">0</span>]//pix_per_cell) + <span class="number">1</span></span><br><span class="line"><span class="comment">#定义window大小</span></span><br><span class="line"><span class="attr">window</span> = <span class="number">64</span></span><br><span class="line"><span class="comment">#每个window的cell个数，为了后续计算，剪掉1</span></span><br><span class="line"><span class="attr">nblocks_per_window</span> = (window//pix_per_cell) - <span class="number">1</span></span><br><span class="line"><span class="comment">#步长</span></span><br><span class="line"><span class="attr">cells_per_step</span> = <span class="number">2</span></span><br><span class="line"><span class="comment">#x方向上需要移动的次数</span></span><br><span class="line"><span class="attr">nxstep</span> = (nxblock - nblocks_per_window)//cells_per_step</span><br><span class="line"><span class="comment">#y方向上需要移动的次数</span></span><br><span class="line"><span class="attr">nystep</span> = (nyblock - nblocks_per_window)//cells_per_step</span><br></pre></td></tr></table></figure>
 <p>&emsp;&emsp;滑动窗口滑动过程如下</p>
-<div align="center">
-<img src="/Term-1-p5-vehicle-detection/滑动过程.png" width="500" height="300" title="滑动过程">
-</div>
+<div align="center"><br><img src="/Term-1-p5-vehicle-detection/滑动过程.png" width="500" height="300" title="滑动过程"><br></div>
 
 
 <h2 id="分类"><a href="#分类" class="headerlink" title="分类"></a>分类</h2><p>&emsp;&emsp;抽取窗口内图像特征，并进行分类，若为车辆，保存其窗口坐标。</p>
 <figure class="highlight nix"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#获取特征</span></span><br><span class="line"><span class="attr">hog1</span> = get_hog_feature(ch1,orient,pix_per_cell,cell_per_block, <span class="attr">feature_vec</span> = False)</span><br><span class="line"><span class="keyword">if</span> <span class="attr">hog_channel</span> == 'ALL':</span><br><span class="line">	<span class="attr">hog2</span> = get_hog_feature(ch2,orient,pix_per_cell,cell_per_block, <span class="attr">feature_vec</span> = False)</span><br><span class="line">	<span class="attr">hog3</span> = get_hog_feature(ch3,orient,pix_per_cell,cell_per_block, <span class="attr">feature_vec</span> = False)</span><br><span class="line"><span class="comment">#滑动抽取每个窗口特征</span></span><br><span class="line">for xb <span class="keyword">in</span> range(nxstep):</span><br><span class="line">	for yb <span class="keyword">in</span> range(nystep):</span><br><span class="line">		<span class="attr">ypos</span> = yb * cells_per_step</span><br><span class="line">		<span class="attr">xpos</span> = xb * cells_per_step</span><br><span class="line">		<span class="attr">hog_feat1</span> = hog1[ypos:ypos+nblocks_per_window,xpos:xpos+nblocks_per_window].ravel()</span><br><span class="line">		<span class="keyword">if</span> <span class="attr">hog_channel</span> == 'ALL':</span><br><span class="line">			<span class="attr">hog_feat2</span> = hog2[ypos:ypos+nblocks_per_window,xpos:xpos+nblocks_per_window].ravel()</span><br><span class="line">			<span class="attr">hog_feat3</span> = hog3[ypos:ypos+nblocks_per_window,xpos:xpos+nblocks_per_window].ravel()</span><br><span class="line">			<span class="attr">hog_features</span> = np.hstack((hog_feat1, hog_feat2, hog_feat3))</span><br><span class="line">		<span class="keyword">else</span> : <span class="attr">hog_features</span> = hog_feat1</span><br><span class="line"></span><br><span class="line">		<span class="attr">xleft</span> = xpos * pix_per_cell</span><br><span class="line">		<span class="attr">ytop</span> = ypos * pix_per_cell</span><br><span class="line">		<span class="attr">hog_features</span> = hog_features.reshape(<span class="number">1</span>,-<span class="number">1</span>)</span><br><span class="line">		<span class="attr">test_prediction</span> = svc.predict(hog_features)</span><br><span class="line">		<span class="comment">#若是车辆</span></span><br><span class="line">		<span class="keyword">if</span> <span class="attr">test_prediction</span> == <span class="number">1</span> <span class="literal">or</span> show_all_rectangle:</span><br><span class="line">			<span class="attr">xbox_left</span> = np.int(xleft * scale)</span><br><span class="line">			<span class="attr">ytop</span> = np.int(ytop * scale)</span><br><span class="line">			<span class="attr">win</span> = np.int(window * scale)</span><br><span class="line">			<span class="comment">#保存窗口坐标</span></span><br><span class="line">			rectangles.append(((xbox_left,ytop + ystart),(xbox_left + window,ytop+win+ystart)))</span><br></pre></td></tr></table></figure>
 <p>&emsp;&emsp;检测效果</p>
-<div align="center">
-<img src="/Term-1-p5-vehicle-detection/检测效果.png" width="500" height="300" title="检测效果">
-</div>
+<div align="center"><br><img src="/Term-1-p5-vehicle-detection/检测效果.png" width="500" height="300" title="检测效果"><br></div>
 
 <h1 id="车辆标记"><a href="#车辆标记" class="headerlink" title="车辆标记"></a>车辆标记</h1><p>&emsp;&emsp;有时候同一辆车可能存在于几个窗口中，需要将其合并，这个过程与非最大抑制类似。我们这里使用heatmap的方式合并窗口，即搜索到车辆的窗口内的像素点计数加1，设置一个阈值，最后只取大于阈值范围像素点构成的窗口。</p>
-<div align="center">
-<img src="/Term-1-p5-vehicle-detection/hotmap.png" width="500" height="300" title="hotmap.png">
-</div>
+<div align="center"><br><img src="/Term-1-p5-vehicle-detection/hotmap.png" width="500" height="300" title="hotmap.png"><br></div>
 
 <h1 id="处理视频"><a href="#处理视频" class="headerlink" title="处理视频"></a>处理视频</h1><ul>
 <li><p>原始视频</p>
-<center>
-<video controls="controls" src="Term-1-p5-vehicle-detection/project_video.mp4" width="500" height="250"></video>
-</center>
+<center><br><video controls="controls" src="Term-1-p5-vehicle-detection/project_video.mp4" width="500" height="250"></video><br></center>
 </li>
 <li><p>处理后视频</p>
-<center>
-<video controls="controls" src="Term-1-p5-vehicle-detection/project_video_out.mp4" width="500" height="250"></video>
-</center>
+<center><br><video controls="controls" src="Term-1-p5-vehicle-detection/project_video_out.mp4" width="500" height="250"></video><br></center>
 
 </li>
 </ul>
-<h1 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h1><p>&emsp;&emsp;本节课程主要使用传统计算机视觉方法进行目标检测，其中使用到的技术与常见滑动窗口、图像金字塔和非最大抑制很相似。除了传统计算机视觉方法，还可以使用深度学习进行目标检测，后续再单独开文章进行介绍。这部分代码详见<a href="https://github.com/yajian/self-driving-car/tree/master/p5-vehicle-detection" target="_blank" rel="noopener">p5-vehicle-detection</a></p>
+<h1 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h1><p>&emsp;&emsp;本节课程主要使用传统计算机视觉方法进行目标检测，其中使用到的技术与常见滑动窗口、图像金字塔和非最大抑制很相似。除了传统计算机视觉方法，还可以使用深度学习进行目标检测，后续再单独开文章进行介绍。这部分代码详见[p5-vehicle-detection](<a href="https://github.com/yajian/self-driving-car/tree/master/p5-vehicle-detection" target="_blank" rel="noopener">https://github.com/yajian/self-driving-car/tree/master/p5-vehicle-detection</a>)</p>
 
       
     </div>
@@ -826,6 +812,9 @@ var jiathis_config={
 
 
 
+<% if (page.mathjax){ %>
+<%- partial('mathjax') %>
+<% } %>
 -->
 <div class="theme-info">
   <div class="powered-by"></div>

@@ -318,6 +318,219 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yajian.github.io/设计模式-如何防止单例模式被破坏/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="小建儿">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="小建儿的小站">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/设计模式-如何防止单例模式被破坏/" itemprop="url">设计模式-如何防止单例模式被破坏</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-07-26T19:53:17+08:00">
+                2018-07-26
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
+                  <a href="/categories/设计模式/" itemprop="url" rel="index">
+                    <span itemprop="name">设计模式</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/设计模式-如何防止单例模式被破坏/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count disqus-comment-count" data-disqus-identifier="设计模式-如何防止单例模式被破坏/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">
+                  
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h1 id="单例模式是否安全"><a href="#单例模式是否安全" class="headerlink" title="单例模式是否安全"></a>单例模式是否安全</h1><p>&emsp;&emsp;在[设计模式-单例模式](<a href="https://yajian.github.io/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F-%E5%8D%95%E4%BE%8B%E6%A8%A1%E5%BC%8F/)这篇博客介绍了单例模式的几种实现方式，但是按照上述方式是否能够保证一定是单例呢？答案是否定的，如果不加限制，通过反射和序列化可以破坏单例模式。">https://yajian.github.io/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F-%E5%8D%95%E4%BE%8B%E6%A8%A1%E5%BC%8F/)这篇博客介绍了单例模式的几种实现方式，但是按照上述方式是否能够保证一定是单例呢？答案是否定的，如果不加限制，通过反射和序列化可以破坏单例模式。</a></p>
+<h1 id="破坏单例模式"><a href="#破坏单例模式" class="headerlink" title="破坏单例模式"></a>破坏单例模式</h1><h2 id="反射"><a href="#反射" class="headerlink" title="反射"></a>反射</h2><p>&emsp;&emsp;单例模式把类的构造方法设置为private访问级别，导致外部类无法新建对象，通过反射我们可以修改访问级别，从外部新建单例类对象。以饿汉模式为例</p>
+<figure class="highlight smali"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">public class StarveSingleton &#123;</span><br><span class="line"></span><br><span class="line">   <span class="keyword"> private</span><span class="keyword"> static</span> StarveSingleton<span class="built_in"> instance </span>=<span class="built_in"> new </span>StarveSingleton();</span><br><span class="line"></span><br><span class="line">   <span class="keyword"> private</span> StarveSingleton()&#123;&#125;</span><br><span class="line"></span><br><span class="line">   <span class="keyword"> public</span><span class="keyword"> static</span> StarveSingleton getInstance() &#123;</span><br><span class="line">       <span class="built_in"> return </span>instance;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">   <span class="keyword"> public</span><span class="keyword"> static</span> void main(String[] args) &#123;</span><br><span class="line">	//输出true</span><br><span class="line">	System.out.println(StarveSingleton.getInstance() == StarveSingleton.getInstance());</span><br><span class="line">        Class clazz = StarveSingleton.class;</span><br><span class="line">        Constructor<span class="keyword"> constructor</span>= clazz.getDeclaredConstructor(null);</span><br><span class="line">       <span class="keyword"> constructor</span>.setAccessible(true);</span><br><span class="line">        StarveSingleton<span class="built_in"> instance </span>= (StarveSingleton)<span class="keyword"> constructor</span>.newInstance(null);</span><br><span class="line">	//输出false</span><br><span class="line">        System.out.println(instance == StarveSingleton.getInstance());</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>&emsp;&emsp;从结果来看，通过反射的方式，单例模式被破坏，我们可以随意产生新的单例类实例。</p>
+<h2 id="序列化"><a href="#序列化" class="headerlink" title="序列化"></a>序列化</h2><p>&emsp;&emsp;如果单例类继承了serializable接口，那么序列化也可以破坏单例模式。依然以饿汉模式为例</p>
+<figure class="highlight smali"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">public class StarveSingleton implements Serializable&#123;</span><br><span class="line"></span><br><span class="line">   <span class="keyword"> private</span><span class="keyword"> static</span> StarveSingleton<span class="built_in"> instance </span>=<span class="built_in"> new </span>StarveSingleton();</span><br><span class="line"></span><br><span class="line">   <span class="keyword"> private</span> StarveSingleton()&#123;&#125;</span><br><span class="line"></span><br><span class="line">   <span class="keyword"> public</span><span class="keyword"> static</span> StarveSingleton getInstance() &#123;</span><br><span class="line">       <span class="built_in"> return </span>instance;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">   <span class="keyword"> public</span><span class="keyword"> static</span> void main(String[] args) throws IOException, ClassNotFoundException &#123;</span><br><span class="line"></span><br><span class="line">        ByteArrayOutputStream outputStream =<span class="built_in"> new </span>ByteArrayOutputStream();</span><br><span class="line">        ObjectOutputStream objectOutputStream =<span class="built_in"> new </span>ObjectOutputStream(outputStream);</span><br><span class="line">        StarveSingleton starveSingleton = StarveSingleton.getInstance();</span><br><span class="line">        objectOutputStream.writeObject(starveSingleton);</span><br><span class="line"></span><br><span class="line">        byte[] bytes = outputStream.toByteArray();</span><br><span class="line"></span><br><span class="line">        ObjectInputStream inputStream =<span class="built_in"> new </span>ObjectInputStream(new ByteArrayInputStream(bytes));</span><br><span class="line">        StarveSingleton<span class="built_in"> instance </span>= (StarveSingleton) inputStream.readObject();</span><br><span class="line">	//输出false</span><br><span class="line">        System.out.println(starveSingleton == instance);</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>&emsp;&emsp;可以看出序列化可以破坏单例模式。</p>
+<h1 id="如何防止单例模式被破坏"><a href="#如何防止单例模式被破坏" class="headerlink" title="如何防止单例模式被破坏"></a>如何防止单例模式被破坏</h1><h2 id="反射-1"><a href="#反射-1" class="headerlink" title="反射"></a>反射</h2><p>&emsp;&emsp;可以在构造函数里配置一个标志位，当构造函数被第二次调用时报错</p>
+<figure class="highlight smali"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">public class StarveSingleton implements Serializable &#123;</span><br><span class="line">	//设置flag</span><br><span class="line">   <span class="keyword"> private</span><span class="keyword"> static</span> boolean flag = false;</span><br><span class="line"></span><br><span class="line">   <span class="keyword"> private</span><span class="keyword"> static</span> StarveSingleton<span class="built_in"> instance </span>=<span class="built_in"> new </span>StarveSingleton();</span><br><span class="line"></span><br><span class="line">   <span class="keyword"> private</span> StarveSingleton() &#123;</span><br><span class="line">        synchronized (StarveSingleton.class) &#123;</span><br><span class="line">		//第一次调用的时候更改该变量的值，第二次再调用会报错</span><br><span class="line">           <span class="built_in"> if </span>(!flag) &#123;</span><br><span class="line">                flag = !flag;</span><br><span class="line">            &#125; else &#123;</span><br><span class="line">               <span class="built_in"> throw </span>new RuntimeException(<span class="string">"单例模式被破坏"</span>);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">   <span class="keyword"> public</span><span class="keyword"> static</span> StarveSingleton getInstance() &#123;</span><br><span class="line">       <span class="built_in"> return </span>instance;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">   <span class="keyword"> public</span><span class="keyword"> static</span> void main(String[] args) throws NoSuchMethodException, IllegalAccessException, InvocationTargetException, InstantiationException &#123;</span><br><span class="line">        </span><br><span class="line">        System.out.println(StarveSingleton.getInstance() == StarveSingleton.getInstance());</span><br><span class="line">        Class&lt;StarveSingleton&gt; clazz = StarveSingleton.class;</span><br><span class="line">        Constructor&lt;StarveSingleton&gt;<span class="keyword"> constructor</span> = clazz.getDeclaredConstructor(null);</span><br><span class="line">       <span class="keyword"> constructor</span>.setAccessible(true);</span><br><span class="line">        StarveSingleton<span class="built_in"> instance </span>=<span class="keyword"> constructor</span>.newInstance();</span><br><span class="line">        System.out.println(instance == StarveSingleton.getInstance());</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>&emsp;&emsp;这样就解决了反射破坏单例的问题。</p>
+<h2 id="序列化-1"><a href="#序列化-1" class="headerlink" title="序列化"></a>序列化</h2><p>&emsp;&emsp;对于序列化来说，需要实现readSolve()方法来保证每次返回的都是一个实例</p>
+<figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">public class StarveSingleton implements Serializable &#123;</span><br><span class="line">    </span><br><span class="line">    private static StarveSingleton<span class="built_in"> instance </span>= new StarveSingleton();</span><br><span class="line"></span><br><span class="line">    private StarveSingleton() &#123;</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    public static StarveSingleton getInstance() &#123;</span><br><span class="line">        return instance;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    public Object readResolve() &#123;</span><br><span class="line">        return instance;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    public static void main(String[] args) throws NoSuchMethodException, IllegalAccessException, InvocationTargetException, InstantiationException &#123;</span><br><span class="line"></span><br><span class="line">	ByteArrayOutputStream outputStream = new ByteArrayOutputStream();</span><br><span class="line">        ObjectOutputStream objectOutputStream = new ObjectOutputStream(outputStream);</span><br><span class="line">        StarveSingleton starveSingleton = StarveSingleton.getInstance();</span><br><span class="line">        objectOutputStream.writeObject(starveSingleton);</span><br><span class="line"></span><br><span class="line">        byte[] bytes = outputStream.toByteArray();</span><br><span class="line"></span><br><span class="line">        ObjectInputStream inputStream = new ObjectInputStream(new ByteArrayInputStream(bytes));</span><br><span class="line">        StarveSingleton<span class="built_in"> instance </span>= (StarveSingleton) inputStream.readObject();</span><br><span class="line">        System.out.println(starveSingleton == instance);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>&emsp;&emsp;readResolve方法是ObjectInputStream类进行反序列化的一个特殊机制，这里后续再展开，总之这里实现该方法可以保证单例不被破坏。</p>
+<h1 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h1><p>&emsp;&emsp;下面是我对这个知识点的心得。如何破坏单例模式，这道题怎么思考呢？单例模式和创建对象相关，我们知道创建对象有4种方式</p>
+<ol>
+<li>直接new</li>
+<li>调用clone方法</li>
+<li>序列化反序列化</li>
+<li>反射</li>
+</ol>
+<p>其中方式1已经被单例模式限制住，方式2我们一般很少实现clone接口，所以可以破坏单例模式的方法就从3，4而来。</p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+
+
+    
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://yajian.github.io/设计模式-单例模式/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
@@ -681,7 +894,7 @@
 <h2 id="例子"><a href="#例子" class="headerlink" title="例子"></a>例子</h2><figure class="highlight cs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span>(<span class="params">String[] args</span>) throws NoSuchFieldException, IllegalAccessException, InstantiationException</span> &#123;</span><br><span class="line">       Field field = Unsafe.class.getDeclaredField(<span class="string">"theUnsafe"</span>);</span><br><span class="line">       field.setAccessible(<span class="literal">true</span>);</span><br><span class="line">       Unsafe <span class="keyword">unsafe</span> = (Unsafe) field.<span class="keyword">get</span>(<span class="literal">null</span>);</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">       <span class="comment">//通过allocateInstance创建对象</span></span><br><span class="line">       User user = (User) <span class="keyword">unsafe</span>.allocateInstance(User.class);</span><br><span class="line"></span><br><span class="line">       Class userClass = user.getClass();</span><br><span class="line">       Field age = userClass.getDeclaredField(<span class="string">"age"</span>);</span><br><span class="line">       Field name = userClass.getDeclaredField(<span class="string">"name"</span>);</span><br><span class="line">       Field id = userClass.getDeclaredField(<span class="string">"id"</span>);</span><br><span class="line"></span><br><span class="line">       <span class="keyword">unsafe</span>.putInt(user, <span class="keyword">unsafe</span>.objectFieldOffset(age), <span class="number">18</span>);</span><br><span class="line">       <span class="keyword">unsafe</span>.putObject(user, <span class="keyword">unsafe</span>.objectFieldOffset(name), <span class="string">"android TV"</span>);</span><br><span class="line"></span><br><span class="line">       Object staticFieldBase = <span class="keyword">unsafe</span>.staticFieldBase(id);</span><br><span class="line">       System.<span class="keyword">out</span>.println(<span class="string">"staticBase:"</span> + staticFieldBase);</span><br><span class="line"></span><br><span class="line">       <span class="comment">//获取静态变量id的偏移量</span></span><br><span class="line"></span><br><span class="line">       <span class="keyword">long</span> staticOffset = <span class="keyword">unsafe</span>.staticFieldOffset(id);</span><br><span class="line">       System.<span class="keyword">out</span>.println(<span class="string">"设置前的ID:"</span> + <span class="keyword">unsafe</span>.getObject(staticFieldBase, staticOffset));</span><br><span class="line">       <span class="comment">//此处需要使用staticFieldBase返回的结果</span></span><br><span class="line">       <span class="keyword">unsafe</span>.putObject(staticFieldBase, staticOffset, <span class="string">"ssss"</span>);</span><br><span class="line">       <span class="comment">//获取静态变量的值</span></span><br><span class="line">       System.<span class="keyword">out</span>.println(<span class="string">"设置前的ID:"</span> + <span class="keyword">unsafe</span>.getObject(staticFieldBase, staticOffset));</span><br><span class="line">       <span class="comment">//输出USER</span></span><br><span class="line">       System.<span class="keyword">out</span>.println(<span class="string">"输出USER:"</span> + user.toString());</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">       <span class="keyword">long</span> data = <span class="number">1000</span>;</span><br><span class="line">       <span class="keyword">byte</span> size = <span class="number">1</span>;</span><br><span class="line">       <span class="keyword">long</span> memeryAddress = <span class="keyword">unsafe</span>.allocateMemory(size);</span><br><span class="line">       <span class="keyword">unsafe</span>.putAddress(memeryAddress, data);</span><br><span class="line">       <span class="keyword">long</span> addrData = <span class="keyword">unsafe</span>.getAddress(memeryAddress);</span><br><span class="line">       System.<span class="keyword">out</span>.println(<span class="string">"addrData:"</span>+addrData);</span><br><span class="line">   &#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> 输出结果</span></span><br><span class="line"><span class="comment"></span></span><br><span class="line"><span class="comment">staticBase:class self.unsafe.User</span></span><br><span class="line"><span class="comment">设置前的ID:USE_ID</span></span><br><span class="line"><span class="comment">设置前的ID:ssss</span></span><br><span class="line"><span class="comment">输出USER:User&#123;name='android TV', age=18, id=ssss'&#125;</span></span><br><span class="line"><span class="comment">addrData:1000</span></span><br><span class="line"><span class="comment"></span></span><br><span class="line"><span class="comment">*/</span></span><br></pre></td></tr></table></figure>
 <figure class="highlight cs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title">User</span> &#123;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">User</span>(<span class="params"></span>)</span> &#123;</span><br><span class="line">        System.<span class="keyword">out</span>.println(<span class="string">"user 构造方法调用"</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> String name;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">int</span> age;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> String id = <span class="string">"USE_ID"</span>;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">getName</span>(<span class="params"></span>)</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> name;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setName</span>(<span class="params">String name</span>)</span> &#123;</span><br><span class="line">        <span class="keyword">this</span>.name = name;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">getAge</span>(<span class="params"></span>)</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> age;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setAge</span>(<span class="params"><span class="keyword">int</span> age</span>)</span> &#123;</span><br><span class="line">        <span class="keyword">this</span>.age = age;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> String <span class="title">getId</span>(<span class="params"></span>)</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> id;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">setId</span>(<span class="params">String id</span>)</span> &#123;</span><br><span class="line">        User.id = id;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    @Override</span><br><span class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">toString</span>(<span class="params"></span>)</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="string">"User&#123;"</span> +</span><br><span class="line">                <span class="string">"name='"</span> + name + <span class="string">'\''</span> +</span><br><span class="line">                <span class="string">", age="</span> + age +</span><br><span class="line">                <span class="string">", id="</span> + id + <span class="string">'\''</span> +</span><br><span class="line">                <span class="string">'&#125;'</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <h1 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h1><ul>
-<li><a href="https://blog.csdn.net/javazejian/article/details/72772470" target="_blank" rel="noopener">Java并发编程-无锁CAS与Unsafe类及其并发包Atomic</a></li>
+<li>[Java并发编程-无锁CAS与Unsafe类及其并发包Atomic](<a href="https://blog.csdn.net/javazejian/article/details/72772470" target="_blank" rel="noopener">https://blog.csdn.net/javazejian/article/details/72772470</a>)</li>
 </ul>
 
           
@@ -881,7 +1094,7 @@
 <h2 id="实现"><a href="#实现" class="headerlink" title="实现"></a>实现</h2><figure class="highlight cs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title">LatchTest</span> &#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> final CountDownLatch countDownLatch = <span class="keyword">new</span> CountDownLatch(<span class="number">3</span>);</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span>(<span class="params">String[] args</span>) throws InterruptedException</span> &#123;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">new</span> Thread() &#123;</span><br><span class="line">            @Override</span><br><span class="line">            <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">run</span>(<span class="params"></span>)</span> &#123;</span><br><span class="line">                fatherToRes();</span><br><span class="line">                countDownLatch.countDown();</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;.start();</span><br><span class="line">        <span class="keyword">new</span> Thread() &#123;</span><br><span class="line">            @Override</span><br><span class="line">            <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">run</span>(<span class="params"></span>)</span> &#123;</span><br><span class="line">                motherToRes();</span><br><span class="line">                countDownLatch.countDown();</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;.start();</span><br><span class="line">        <span class="keyword">new</span> Thread() &#123;</span><br><span class="line">            @Override</span><br><span class="line">            <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">run</span>(<span class="params"></span>)</span> &#123;</span><br><span class="line">                meToRes();</span><br><span class="line">                countDownLatch.countDown();</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;.start();</span><br><span class="line"></span><br><span class="line">        countDownLatch.<span class="keyword">await</span>();</span><br><span class="line">        togetherToEat();</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 模拟爸爸去饭店</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">fatherToRes</span>(<span class="params"></span>)</span> &#123;</span><br><span class="line">        System.<span class="keyword">out</span>.println(<span class="string">"爸爸步行去饭店需要3小时。"</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 模拟我去饭店</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">motherToRes</span>(<span class="params"></span>)</span> &#123;</span><br><span class="line">        System.<span class="keyword">out</span>.println(<span class="string">"妈妈挤公交去饭店需要2小时。"</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 模拟妈妈去饭店</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">meToRes</span>(<span class="params"></span>)</span> &#123;</span><br><span class="line">        System.<span class="keyword">out</span>.println(<span class="string">"我乘地铁去饭店需要1小时。"</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 模拟一家人到齐了</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">togetherToEat</span>(<span class="params"></span>)</span> &#123;</span><br><span class="line">        System.<span class="keyword">out</span>.println(<span class="string">"一家人到齐了，开始吃饭"</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <h1 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h1><p>&emsp;&emsp;这个小例子给人的印象深刻，一下就理解了如何使用闭锁。先学会用，接下来研究一下源码。</p>
 <h1 id="引用"><a href="#引用" class="headerlink" title="引用"></a>引用</h1><ol>
-<li><a href="https://blog.csdn.net/lmj623565791/article/details/26626391" target="_blank" rel="noopener">Java 并发专题 ：闭锁 CountDownLatch 之一家人一起吃个饭</a></li>
+<li>[Java 并发专题 ：闭锁 CountDownLatch 之一家人一起吃个饭](<a href="https://blog.csdn.net/lmj623565791/article/details/26626391" target="_blank" rel="noopener">https://blog.csdn.net/lmj623565791/article/details/26626391</a>)</li>
 </ol>
 
           
@@ -1076,7 +1289,7 @@
         
           
             <p>&emsp;&emsp;临近系统上线，总是频繁的更新jar包，导致并不知道测试环境正在运行哪个版本的程序，所以需要在程序中打出版本信息，这时候可以借助maven插件实现该功能。</p>
-<h2 id="git-commit-id-plugin"><a href="#git-commit-id-plugin" class="headerlink" title="git-commit-id-plugin"></a>git-commit-id-plugin</h2><p>&emsp;&emsp;git-commit-id-plugin插件，该插件可以获取git分支、版本号、提交时间等信息，该插件的中文文档较少，具体细节可以参考官方github: <a href="https://github.com/ktoso/maven-git-commit-id-plugin" target="_blank" rel="noopener">maven-git-commit-id-plugin</a></p>
+<h2 id="git-commit-id-plugin"><a href="#git-commit-id-plugin" class="headerlink" title="git-commit-id-plugin"></a>git-commit-id-plugin</h2><p>&emsp;&emsp;git-commit-id-plugin插件，该插件可以获取git分支、版本号、提交时间等信息，该插件的中文文档较少，具体细节可以参考官方github: [maven-git-commit-id-plugin](<a href="https://github.com/ktoso/maven-git-commit-id-plugin" target="_blank" rel="noopener">https://github.com/ktoso/maven-git-commit-id-plugin</a>)</p>
 <p>&emsp;&emsp;在我的程序中，配置如下</p>
 <figure class="highlight dts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="params">&lt;plugin&gt;</span></span><br><span class="line">                <span class="params">&lt;groupId&gt;</span>pl.project13.maven<span class="params">&lt;/groupId&gt;</span></span><br><span class="line">                <span class="params">&lt;artifactId&gt;</span>git-commit-id-plugin<span class="params">&lt;/artifactId&gt;</span></span><br><span class="line">                <span class="params">&lt;version&gt;</span><span class="number">2.2</span><span class="number">.4</span><span class="params">&lt;/version&gt;</span></span><br><span class="line">                <span class="params">&lt;executions&gt;</span></span><br><span class="line">                    <span class="params">&lt;execution&gt;</span></span><br><span class="line">                        <span class="params">&lt;id&gt;</span>get-the-git-infos<span class="params">&lt;/id&gt;</span></span><br><span class="line">                        <span class="params">&lt;goals&gt;</span></span><br><span class="line">                            <span class="params">&lt;goal&gt;</span>revision<span class="params">&lt;/goal&gt;</span></span><br><span class="line">                        <span class="params">&lt;/goals&gt;</span></span><br><span class="line">                    <span class="params">&lt;/execution&gt;</span></span><br><span class="line">                <span class="params">&lt;/executions&gt;</span></span><br><span class="line">                <span class="params">&lt;configuration&gt;</span></span><br><span class="line">                    <span class="params">&lt;dotGitDirectory&gt;</span>$&#123;project.basedir&#125;/.git<span class="params">&lt;/dotGitDirectory&gt;</span></span><br><span class="line">                    <span class="params">&lt;prefix&gt;</span>git<span class="params">&lt;/prefix&gt;</span></span><br><span class="line">                    <span class="params">&lt;verbose&gt;</span>false<span class="params">&lt;/verbose&gt;</span></span><br><span class="line">                    <span class="comment">//是否单独生成properties文件</span></span><br><span class="line">                    <span class="params">&lt;generateGitPropertiesFile&gt;</span>true<span class="params">&lt;/generateGitPropertiesFile&gt;</span></span><br><span class="line">                    <span class="comment">//生成文件路径</span></span><br><span class="line">                    <span class="params">&lt;generateGitPropertiesFilename&gt;</span>$&#123;project.build.outputDirectory&#125;/git.properties<span class="params">&lt;/generateGitPropertiesFilename&gt;</span></span><br><span class="line">                    <span class="params">&lt;format&gt;</span>json<span class="params">&lt;/format&gt;</span></span><br><span class="line">                    <span class="params">&lt;gitDescribe&gt;</span></span><br><span class="line">                        <span class="params">&lt;skip&gt;</span>false<span class="params">&lt;/skip&gt;</span></span><br><span class="line">                        <span class="params">&lt;always&gt;</span>false<span class="params">&lt;/always&gt;</span></span><br><span class="line">                        <span class="params">&lt;dirty&gt;</span>-dirty<span class="params">&lt;/dirty&gt;</span></span><br><span class="line">                    <span class="params">&lt;/gitDescribe&gt;</span></span><br><span class="line">                <span class="params">&lt;/configuration&gt;</span></span><br><span class="line">            <span class="params">&lt;/plugin&gt;</span></span><br></pre></td></tr></table></figure>
 <h2 id="templating-maven-plugin"><a href="#templating-maven-plugin" class="headerlink" title="templating-maven-plugin"></a>templating-maven-plugin</h2><p>&emsp;&emsp;已经生成了properties文件，在程序中读取该文件进行输出就可以完成任务，在开发环境中确实如此，但是到了线上环境输出却变成了null，最后也没找到原因。所以我采取了替代方案，产生version.java代码。<br>&emsp;&emsp;templating-maven-plugin插件可以自动编译/src/main/java-templates文件夹下的代码模版，并替换其中的变量，我的模版如下</p>
@@ -2174,212 +2387,6 @@
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yajian.github.io/java源码解读-linkedhashmap/">
-
-    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="小建儿">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="小建儿的小站">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/java源码解读-linkedhashmap/" itemprop="url">java源码解读--linkedhashmap</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-06-08T10:16:03+08:00">
-                2018-06-08
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category">
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
-                  <a href="/categories/java/" itemprop="url" rel="index">
-                    <span itemprop="name">java</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-              <span class="post-comments-count">
-                <span class="post-meta-divider">|</span>
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-comment-o"></i>
-                </span>
-                <a href="/java源码解读-linkedhashmap/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count disqus-comment-count" data-disqus-identifier="java源码解读-linkedhashmap/" itemprop="commentCount"></span>
-                </a>
-              </span>
-            
-          
-
-          
-          
-
-          
-
-          
-            <div class="post-wordcount">
-              
-                
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-file-word-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">字数统计&#58;</span>
-                
-                <span title="字数统计">
-                  
-                </span>
-              
-
-              
-                <span class="post-meta-divider">|</span>
-              
-
-              
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-clock-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
-                
-                <span title="阅读时长">
-                  
-                </span>
-              
-            </div>
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h1 id="LinkedHashMap"><a href="#LinkedHashMap" class="headerlink" title="LinkedHashMap"></a>LinkedHashMap</h1><p>HashMap存储元素是无序的，而LinkedHashMap在hashmap的基础上，能够保持元素的有序性，并且能够基于LinkedHashMap实现LRU缓存</p>
-<h2 id="类定义"><a href="#类定义" class="headerlink" title="类定义"></a>类定义</h2><p>继承了HashMap类，实现了Map接口，所以LinkedHashMap大部分功能与HashMap一致，在保持元素顺序上有区别。</p>
-<figure class="highlight actionscript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">LinkedHashMap</span>&lt;<span class="title">K</span>,<span class="title">V</span>&gt;</span></span><br><span class="line"><span class="class">    <span class="keyword">extends</span> <span class="title">HashMap</span>&lt;<span class="title">K</span>,<span class="title">V</span>&gt;</span></span><br><span class="line"><span class="class">    <span class="keyword">implements</span> <span class="title">Map</span>&lt;<span class="title">K</span>,<span class="title">V</span>&gt;</span></span><br></pre></td></tr></table></figure>
-<h2 id="类成员变量"><a href="#类成员变量" class="headerlink" title="类成员变量"></a>类成员变量</h2><figure class="highlight aspectj"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//entry头指针</span></span><br><span class="line">   <span class="keyword">transient</span> LinkedHashMap.Entry&lt;K,V&gt; head;</span><br><span class="line"><span class="comment">//entry尾指针</span></span><br><span class="line">   <span class="keyword">transient</span> LinkedHashMap.Entry&lt;K,V&gt; tail;</span><br><span class="line"><span class="comment">//是否按照访问顺序排序</span></span><br><span class="line">   <span class="keyword">final</span> <span class="keyword">boolean</span> accessOrder;</span><br></pre></td></tr></table></figure>
-<h2 id="构造方法"><a href="#构造方法" class="headerlink" title="构造方法"></a>构造方法</h2><figure class="highlight aspectj"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//初始容量和负载因子，排序标志默认为关闭</span></span><br><span class="line">  <span class="function"><span class="keyword">public</span> <span class="title">LinkedHashMap</span><span class="params">(<span class="keyword">int</span> initialCapacity, <span class="keyword">float</span> loadFactor)</span> </span>&#123;</span><br><span class="line">       <span class="keyword">super</span>(initialCapacity, loadFactor);</span><br><span class="line">       accessOrder = <span class="keyword">false</span>;</span><br><span class="line">   &#125;</span><br><span class="line"><span class="comment">//初始容量，负载因子默认0.75，排序标志默认关闭</span></span><br><span class="line">  <span class="function"><span class="keyword">public</span> <span class="title">LinkedHashMap</span><span class="params">(<span class="keyword">int</span> initialCapacity)</span> </span>&#123;</span><br><span class="line">       <span class="keyword">super</span>(initialCapacity);</span><br><span class="line">       accessOrder = <span class="keyword">false</span>;</span><br><span class="line">   &#125;</span><br><span class="line"><span class="comment">//初始容量默认16，负载因子默认为0.75，排序标志默认关闭</span></span><br><span class="line">   <span class="function"><span class="keyword">public</span> <span class="title">LinkedHashMap</span><span class="params">()</span> </span>&#123;</span><br><span class="line">       <span class="keyword">super</span>();</span><br><span class="line">       accessOrder = <span class="keyword">false</span>;</span><br><span class="line">   &#125;</span><br><span class="line"><span class="comment">//初始化输入map</span></span><br><span class="line">   <span class="function"><span class="keyword">public</span> <span class="title">LinkedHashMap</span><span class="params">(Map&lt;? <span class="keyword">extends</span> K, ? <span class="keyword">extends</span> V&gt; m)</span> </span>&#123;</span><br><span class="line">       <span class="keyword">super</span>();</span><br><span class="line">       accessOrder = <span class="keyword">false</span>;</span><br><span class="line">       putMapEntries(m, <span class="keyword">false</span>);</span><br><span class="line">   &#125;</span><br><span class="line"><span class="comment">//初始容量、负载因子、是否按照访问顺序排序，基于linkedhashmap的lru实现会调用该构造方法</span></span><br><span class="line">   <span class="function"><span class="keyword">public</span> <span class="title">LinkedHashMap</span><span class="params">(<span class="keyword">int</span> initialCapacity,<span class="keyword">float</span> loadFactor,<span class="keyword">boolean</span> accessOrder)</span> </span>&#123;</span><br><span class="line">       <span class="keyword">super</span>(initialCapacity, ladFactor);</span><br><span class="line">       <span class="keyword">this</span>.accessOrder = accessOrder;</span><br><span class="line">   &#125;</span><br></pre></td></tr></table></figure>
-<h2 id="entry定义"><a href="#entry定义" class="headerlink" title="entry定义"></a>entry定义</h2><figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">   static <span class="class"><span class="keyword">class</span> <span class="title">Entry&lt;K</span>,<span class="title">V&gt;</span> <span class="keyword">extends</span> <span class="title">HashMap</span>.<span class="title">Node&lt;K</span>,<span class="title">V&gt;</span> </span>&#123;</span><br><span class="line"><span class="comment">//在hashmap.node的基础上增加了前后指针</span></span><br><span class="line">       <span class="type">Entry</span>&lt;<span class="type">K</span>,<span class="type">V</span>&gt; before, after;</span><br><span class="line">       <span class="type">Entry</span>(int hash, <span class="type">K</span> key, <span class="type">V</span> value, <span class="type">Node</span>&lt;<span class="type">K</span>,<span class="type">V</span>&gt; next) &#123;</span><br><span class="line">           <span class="keyword">super</span>(hash, key, value, next);</span><br><span class="line">       &#125;</span><br><span class="line">   &#125;</span><br></pre></td></tr></table></figure>
-<h2 id="建立链表"><a href="#建立链表" class="headerlink" title="建立链表"></a>建立链表</h2><p>LinkedHashMap添加元素操作复用了HashMap的put()方法，但是重写了以下两个方法</p>
-<figure class="highlight cs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">   <span class="function">Node&lt;K,V&gt; <span class="title">newNode</span>(<span class="params"><span class="keyword">int</span> hash, K key, V <span class="keyword">value</span>, Node&lt;K,V&gt; e</span>)</span> &#123;</span><br><span class="line"><span class="comment">//新建Entry</span></span><br><span class="line">       LinkedHashMap.Entry&lt;K,V&gt; p =</span><br><span class="line">           <span class="keyword">new</span> LinkedHashMap.Entry&lt;K,V&gt;(hash, key, <span class="keyword">value</span>, e);</span><br><span class="line"><span class="comment">//链表操作，新加入的元素放作为tail</span></span><br><span class="line">       linkNodeLast(p);</span><br><span class="line">       <span class="keyword">return</span> p;</span><br><span class="line">   &#125;</span><br><span class="line"></span><br><span class="line">   <span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">linkNodeLast</span>(<span class="params">LinkedHashMap.Entry&lt;K,V&gt; p</span>)</span> &#123;</span><br><span class="line">       LinkedHashMap.Entry&lt;K,V&gt; last = tail;</span><br><span class="line"><span class="comment">//把新节点p作为tail</span></span><br><span class="line">       tail = p;</span><br><span class="line"><span class="comment">//如果原来的tail==null，说明链表中没有元素，将p设置为头节点</span></span><br><span class="line">       <span class="keyword">if</span> (last == <span class="literal">null</span>)</span><br><span class="line">           head = p;</span><br><span class="line">       <span class="keyword">else</span> &#123;</span><br><span class="line"><span class="comment">//如果链表中有元素，则把原来最后一个元素的后项指针指向p，p的前向指针指向last</span></span><br><span class="line">           p.before = last;</span><br><span class="line">           last.after = p;</span><br><span class="line">       &#125;</span><br><span class="line">   &#125;</span><br></pre></td></tr></table></figure>
-<h2 id="删除链表节点"><a href="#删除链表节点" class="headerlink" title="删除链表节点"></a>删除链表节点</h2><figure class="highlight nix"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">   void afterNodeRemoval(Node&lt;K,V&gt; e) &#123; </span><br><span class="line">//待删除节点为p，前驱节点为b，后继节点为a</span><br><span class="line">       LinkedHashMap.Entry&lt;K,V&gt; <span class="attr">p</span> =</span><br><span class="line">           (LinkedHashMap.Entry&lt;K,V&gt;)e, <span class="attr">b</span> = p.before, <span class="attr">a</span> = p.after;</span><br><span class="line">//释放p的前后指针</span><br><span class="line">       p.<span class="attr">before</span> = p.<span class="attr">after</span> = <span class="literal">null</span>;</span><br><span class="line">// 如果p的前驱节点为<span class="literal">null</span>，</span><br><span class="line">       <span class="keyword">if</span> (<span class="attr">b</span> == <span class="literal">null</span>)</span><br><span class="line">           <span class="attr">head</span> = a;</span><br><span class="line">       <span class="keyword">else</span></span><br><span class="line">//链表中有元素，则直接把p的前驱节点的后继节点设置为p的后继节点</span><br><span class="line">           b.<span class="attr">after</span> = a;</span><br><span class="line">       <span class="keyword">if</span> (<span class="attr">a</span> == <span class="literal">null</span>)</span><br><span class="line">//如果后继节点为空，则说明b节点为tail</span><br><span class="line">           <span class="attr">tail</span> = b;</span><br><span class="line">       <span class="keyword">else</span></span><br><span class="line">//后继节点不为空，设置a的前驱节点为b</span><br><span class="line">           a.<span class="attr">before</span> = b;</span><br><span class="line">   &#125;</span><br></pre></td></tr></table></figure>
-<h2 id="插入节点"><a href="#插入节点" class="headerlink" title="插入节点"></a>插入节点</h2><p>此处可能涉及是否移除过期元素的处理</p>
-<figure class="highlight maxima"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">//插入节点后如何维护链表</span><br><span class="line">   void afterNodeInsertion(boolean evict) &#123; </span><br><span class="line">       LinkedHashMap.Entry&lt;K,V&gt; <span class="built_in">first</span>;</span><br><span class="line">//removeEldestEntry用来判断是否加入过期策略，移除最老的元素。evict是从hashmap传过来的参数，一般情况下初始化时为<span class="literal">false</span>，其他情况为<span class="literal">true</span></span><br><span class="line">       <span class="keyword">if</span> (evict &amp;&amp; (<span class="built_in">first</span> = head) != null &amp;&amp; removeEldestEntry(<span class="built_in">first</span>)) &#123;</span><br><span class="line">           K <span class="built_in">key</span> = <span class="built_in">first</span>.<span class="built_in">key</span>;</span><br><span class="line">           removeNode(hash(<span class="built_in">key</span>), <span class="built_in">key</span>, null, <span class="literal">false</span>, <span class="literal">true</span>);</span><br><span class="line">       &#125;</span><br><span class="line">   &#125;</span><br></pre></td></tr></table></figure>
-<h2 id="访问顺序维护"><a href="#访问顺序维护" class="headerlink" title="访问顺序维护"></a>访问顺序维护</h2><figure class="highlight nix"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">   void afterNodeAccess(Node&lt;K,V&gt; e) &#123; </span><br><span class="line">       LinkedHashMap.Entry&lt;K,V&gt; last;</span><br><span class="line">//顺序访问维护标志设置为<span class="literal">true</span>，并且e不是最后一个元素</span><br><span class="line">       <span class="keyword">if</span> (accessOrder &amp;&amp; (<span class="attr">last</span> = tail) != e) &#123;</span><br><span class="line">           LinkedHashMap.Entry&lt;K,V&gt; <span class="attr">p</span> =</span><br><span class="line">               (LinkedHashMap.Entry&lt;K,V&gt;)e, <span class="attr">b</span> = p.before, <span class="attr">a</span> = p.after;</span><br><span class="line">	//p的后继节点设置为<span class="literal">null</span></span><br><span class="line">           p.<span class="attr">after</span> = <span class="literal">null</span>;</span><br><span class="line">	//p的前驱节点为<span class="literal">null</span>，则头节点设置为a</span><br><span class="line">           <span class="keyword">if</span> (<span class="attr">b</span> == <span class="literal">null</span>)</span><br><span class="line">               <span class="attr">head</span> = a;</span><br><span class="line">           <span class="keyword">else</span></span><br><span class="line">	//p的前驱节点的后继节点设置为p的后继节点，即删除p</span><br><span class="line">               b.<span class="attr">after</span> = a;</span><br><span class="line">	//p的后继节点存在，设置a的前驱节点为b</span><br><span class="line">           <span class="keyword">if</span> (a != <span class="literal">null</span>)</span><br><span class="line">               a.<span class="attr">before</span> = b;</span><br><span class="line">           <span class="keyword">else</span></span><br><span class="line">	//否则，尾节点为b</span><br><span class="line">               <span class="attr">last</span> = b;</span><br><span class="line">	//如果尾节点为<span class="literal">null</span>，则头节点设置为p</span><br><span class="line">           <span class="keyword">if</span> (<span class="attr">last</span> == <span class="literal">null</span>)</span><br><span class="line">               <span class="attr">head</span> = p;</span><br><span class="line">           <span class="keyword">else</span> &#123;</span><br><span class="line">	//否则，把p设置为last节点后</span><br><span class="line">               p.<span class="attr">before</span> = last;</span><br><span class="line">               last.<span class="attr">after</span> = p;</span><br><span class="line">           &#125;</span><br><span class="line">	//设置尾节点为p</span><br><span class="line">           <span class="attr">tail</span> = p;</span><br><span class="line">           ++modCount;</span><br><span class="line">       &#125;</span><br><span class="line">   &#125;</span><br></pre></td></tr></table></figure>
-<h2 id="是否移除过期元素"><a href="#是否移除过期元素" class="headerlink" title="是否移除过期元素"></a>是否移除过期元素</h2><figure class="highlight aspectj"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//需要覆盖该方法实现是否移除元素的逻辑</span></span><br><span class="line">   <span class="keyword">protected</span> <span class="function"><span class="keyword">boolean</span> <span class="title">removeEldestEntry</span><span class="params">(Map.Entry&lt;K,V&gt; eldest)</span> </span>&#123;</span><br><span class="line">       <span class="keyword">return</span> <span class="keyword">false</span>;</span><br><span class="line">   &#125;</span><br></pre></td></tr></table></figure>
-<h2 id="基于LinkedHashMap实现LRUMap"><a href="#基于LinkedHashMap实现LRUMap" class="headerlink" title="基于LinkedHashMap实现LRUMap"></a>基于LinkedHashMap实现LRUMap</h2><figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">public <span class="class"><span class="keyword">class</span> <span class="title">LRUMap</span> <span class="keyword">extends</span> <span class="title">LinkedHashMap</span></span>&#123;</span><br><span class="line">		</span><br><span class="line">	<span class="keyword">private</span> int capacity;</span><br><span class="line"></span><br><span class="line">	public <span class="type">LRUMap</span>(int capacity)&#123;</span><br><span class="line">		<span class="keyword">super</span>(<span class="number">16</span>,<span class="number">0.75</span>f,<span class="literal">true</span>);</span><br><span class="line">		<span class="keyword">this</span>.capacity = capacity;				</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	<span class="meta">@Override</span></span><br><span class="line">	public boolean removeEldestEntry(<span class="type">Map</span>.<span class="type">Entry</span>&lt;<span class="type">K</span>,<span class="type">V</span>&gt; eldest)&#123;</span><br><span class="line">		<span class="keyword">return</span> size()&gt;capacity;</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-
-
-    
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
@@ -2529,6 +2536,9 @@
 
 
 
+<% if (page.mathjax){ %>
+<%- partial('mathjax') %>
+<% } %>
 -->
 <div class="theme-info">
   <div class="powered-by"></div>

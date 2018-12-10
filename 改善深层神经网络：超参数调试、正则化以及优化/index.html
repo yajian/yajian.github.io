@@ -458,38 +458,18 @@
 <ol>
 <li>随机搜索优于网格搜索，在进行网格搜索时，同一个纬度取的值较少，如下图，同样是取25个值，在进行网格搜索时超参数1只使用了5个值，而进行随机搜索时参数1和参数2都使用了25个值。</li>
 </ol>
-<div align="center">
-    <img src="/改善深层神经网络：超参数调试、正则化以及优化/网格搜索和随机搜索.jpg " width="500" height="250" align="center" title="网格搜索和随机搜索">
-</div>
+<div align="center"><br>    <img src="/改善深层神经网络：超参数调试、正则化以及优化/网格搜索和随机搜索.jpg " width="500" height="250" align="center" title="网格搜索和随机搜索"><br></div>
 
-<ol>
+<ol start="2">
 <li>由粗略搜索到精细搜索，即先在大范围内寻找效果好的区域范围，再在该范围内进行精细搜索</li>
 <li>第1条中说的随机搜索并不是在有效范围内均匀随机取值，而是需要选择合适的坐标系。对于隐藏层数来说，可以在规定范围内进行均匀随机取值，如范围时2到4层，取值时选取2、3、4三个值。但是对于学习率α，其范围在0.0001到1之间，如果α有很大可能在0.0001到0.1之间，若随机均匀取值，那么在0.1到1之间将用去90%的资源，这是不合理的。这时候要是取对数坐标，就能在0.0001到0.1之间取得更多的值。</li>
 </ol>
 <p>&emsp;&emsp;为了优化模型效果，通常有两种方式进行训练。第一种是选择一个模型进行训练，观察其代价函数，在其变化的过程中，不断调节超参数，使曲线不上升，这种方法适用于数据量大、时间充足的情况；第二种是同时建立多个模型，观察所有模型的代价函数，选择表现较好的模型，这种方法适用于计算能力较强的情况。</p>
 <h2 id="Batch-Norm归一化处理"><a href="#Batch-Norm归一化处理" class="headerlink" title="Batch Norm归一化处理"></a>Batch Norm归一化处理</h2><p>&emsp;&emsp;在视频中Ng把输入层归一化推广到隐含层归一化，并且从前向传播角度说明了Batch Norm的好处。其实可以从公式推导角度证明Batch Norm为什么可以加快训练速度。<br>&emsp;&emsp;当使用sigmoid函数作为激活函数时，其导数在x=0时取得最大值，当x远离0时其导数基本为0。而对于正态分布而言，有95%的数据在[-2，2]的范围内，这样在进行反向传播时出现梯度消失的数据较少，使得整体上保持较快速度收敛。如果不进行Batch Norm处理，数据就会落在激活函数的饱和区，这样梯度越来越小，甚至出现梯度消失现象。</p>
-<p><div align="center">
-    <img src="/改善深层神经网络：超参数调试、正则化以及优化/标准正态分布.jpg " width="350" height="250" align="center" title="标准正态分布">
-</div><br>&emsp;&emsp;下面说说Batch Norm的处理过程</p>
-<script type="math/tex; mode=display">\mu=\frac{1}{m}\sum_{i}^{}z^{(i)}</script><script type="math/tex; mode=display">\sigma^2=\frac{1}{m}\sum_{i}^{} (z^{(i)}-\mu)^2</script><script type="math/tex; mode=display">z^{(i)}_{norm}=\frac{z^{(i)-\mu}}{\sqrt{\sigma^2+\varepsilon}}</script><script type="math/tex; mode=display">{z^{(i)}_{norm}}^{'} = \gamma z^{(i)}_{norm}+\beta</script><p>最后又加入了$\gamma$、$\beta$参数，同样可以通过梯度下降进行求解。</p>
+<p><div align="center"><br>    <img src="/改善深层神经网络：超参数调试、正则化以及优化/标准正态分布.jpg " width="350" height="250" align="center" title="标准正态分布"><br></div><br>&emsp;&emsp;下面说说Batch Norm的处理过程<br>$$\mu=\frac{1}{m}\sum_{i}^{}z^{(i)}$$<br>$$\sigma^2=\frac{1}{m}\sum_{i}^{} (z^{(i)}-\mu)^2$$<br>$$z^{(i)}_{norm}=\frac{z^{(i)-\mu}}{\sqrt{\sigma^2+\varepsilon}}$$<br>$${z^{(i)}_{norm}}^{‘} = \gamma z^{(i)}_{norm}+\beta$$<br>最后又加入了$\gamma$、$\beta$参数，同样可以通过梯度下降进行求解。</p>
 <h2 id="SoftMax回归"><a href="#SoftMax回归" class="headerlink" title="SoftMax回归"></a>SoftMax回归</h2><p>&emsp;&emsp;当进行二分类时，最后一层的激活函数可以采用sigmoid函数，当涉及多分类时就要用到softmax函数。先给出softmax函数的形式</p>
-<script type="math/tex; mode=display">h_{\theta}(x^{(i)})=
-\begin{bmatrix}
-p(y^{(i)}=1|x^{(i)};\theta)\\
-p(y^{(i)}=2|x^{(i)};\theta)\\
-\vdots\\
-p(y^{(i)}=3|x^{(i)};\theta)\\
-\end{bmatrix}=
-\frac{1}{\sum_{j=1}^{k}e^{\theta^{T}_{j}x^{(i)}}}
-\begin{bmatrix}
-e^{\theta^{T}_{1}x^{(i)}}\\
-e^{\theta^{T}_{2}x^{(i)}}\\
-\vdots\\
-e^{\theta^{T}_{k}x^{(i)}}\\
-\end{bmatrix}</script><p>举个视频的例子就是</p>
-<p><div align="center">
-    <img src="/改善深层神经网络：超参数调试、正则化以及优化/softmax回归例子.jpg " width="400" height="250" align="center" title="softmax回归例子">
-</div><br>&emsp;&emsp;softmax回归做了两件事情，第一步是将模型的每个输出加上了指数映射，将其取值范围定义在正实数，第二步是把经过转换的输出进行归一化，得到概率分布。在网上给出的推导版本中都是直接给出了softmax的指数形式，其实线性回归、logistic回归、softmax回归都是从广义线性模型推导出来的，当y的分布是正态分布时得到的就是线性模型，当y是两点分布时得到的是logistic回归模型，当y是多项式分布时得到的是softmax回归模型。</p>
+<p>$$h_{\theta}(x^{(i)})=<br>\begin{bmatrix}<br>p(y^{(i)}=1|x^{(i)};\theta)\\<br>p(y^{(i)}=2|x^{(i)};\theta)\\<br>\vdots\\<br>p(y^{(i)}=3|x^{(i)};\theta)\\<br>\end{bmatrix}=<br>\frac{1}{\sum_{j=1}^{k}e^{\theta^{T}_{j}x^{(i)}}}<br>\begin{bmatrix}<br>e^{\theta^{T}_{1}x^{(i)}}\\<br>e^{\theta^{T}_{2}x^{(i)}}\\<br>\vdots\\<br>e^{\theta^{T}_{k}x^{(i)}}\\<br>\end{bmatrix}<br>$$<br>举个视频的例子就是</p>
+<p><div align="center"><br>    <img src="/改善深层神经网络：超参数调试、正则化以及优化/softmax回归例子.jpg " width="400" height="250" align="center" title="softmax回归例子"><br></div><br>&emsp;&emsp;softmax回归做了两件事情，第一步是将模型的每个输出加上了指数映射，将其取值范围定义在正实数，第二步是把经过转换的输出进行归一化，得到概率分布。在网上给出的推导版本中都是直接给出了softmax的指数形式，其实线性回归、logistic回归、softmax回归都是从广义线性模型推导出来的，当y的分布是正态分布时得到的就是线性模型，当y是两点分布时得到的是logistic回归模型，当y是多项式分布时得到的是softmax回归模型。</p>
 <h2 id="TensorFlow的使用"><a href="#TensorFlow的使用" class="headerlink" title="TensorFlow的使用"></a>TensorFlow的使用</h2><p>&emsp;&emsp;在进行神经网络搭建事，个人觉得还是keras比较好用，接口抽象的比较友好，不过既然视频提到了TensorFlow，那也研究一下吧，贴上代码</p>
 <figure class="highlight makefile"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#coding=utf-8</span></span><br><span class="line">import tensorflow as tf </span><br><span class="line">import numpy as np</span><br><span class="line"></span><br><span class="line"><span class="comment">#准备数据</span></span><br><span class="line">train_X = np.linspace(-1,1,100)</span><br><span class="line">train_Y = 2 * train_X + np.random.randn(*(train_X.shape))*0.33 + 10</span><br><span class="line"></span><br><span class="line"><span class="comment">#定义模型</span></span><br><span class="line">X = tf.placeholder(<span class="string">"float"</span>)</span><br><span class="line">Y = tf.placeholder(<span class="string">"float"</span>)</span><br><span class="line">w = tf.Variable(0.0,name=<span class="string">"weight"</span>)</span><br><span class="line">b = tf.Variable(0.0,name=<span class="string">"bias"</span>)</span><br><span class="line"><span class="comment">#定义均方误差损失函数</span></span><br><span class="line">loss = tf.square(Y - tf.multiply(X,w) -b)</span><br><span class="line">tran_op = tf.train.GradientDescentOptimizer(0.01).minimize(loss)</span><br><span class="line"></span><br><span class="line"><span class="comment">#模型训练</span></span><br><span class="line">with tf.Session() as sess:</span><br><span class="line">	sess.run(tf.global_variables_initializer())</span><br><span class="line">	epoch =1</span><br><span class="line">	for i in range(10):</span><br><span class="line">		for (x,y) in zip(train_X,train_Y):</span><br><span class="line">			_,w_value,b_value = sess.run([tran_op,w,b],feed_dict=&#123;X:x,Y:y&#125;)</span><br><span class="line">			print <span class="string">"Epoch:&#123;&#125;, w:&#123;&#125;, b:&#123;&#125;"</span>.format(epoch,w_value,b_value)</span><br><span class="line">			epoch+=1</span><br></pre></td></tr></table></figure>
 <p>输出结果</p>
@@ -812,6 +792,9 @@ var jiathis_config={
 
 
 
+<% if (page.mathjax){ %>
+<%- partial('mathjax') %>
+<% } %>
 -->
 <div class="theme-info">
   <div class="powered-by"></div>
