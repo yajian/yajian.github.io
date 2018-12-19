@@ -113,20 +113,20 @@
 
 
 
-<meta name="description" content="&amp;emsp;&amp;emsp;决策树(decision tree)是一种多功能的机器学习算法，它可以实现分类和回归任务，同时也是随机森林的重要组成部分，本篇博客主要讨论用于分类的决策树。 &amp;emsp;&amp;emsp;分类型决策树是一种描述对实例进行分类的树形结构。决策树由结点（node）和有向边（directed edge）组成。结点有两种类型：内部结点（internal node）和叶结点（leaf no">
+<meta name="description" content="&amp;emsp;&amp;emsp;分类与回归树(classification and regression tree, CART)模型是应用比较广泛的决策树学习方法之一，它既可以用于分类也可以用于回归。CART算法使用二元切分递归地处理每个特征，如果特征值大于给定值就走左子树，否则就走右子树。 最小二乘回归树生成算法数学描述&amp;emsp;&amp;emsp;假设$X$和$Y$分别为输入和输出变量，并且$Y$是连续变量">
 <meta name="keywords" content="树模型">
 <meta property="og:type" content="article">
-<meta property="og:title" content="决策树">
-<meta property="og:url" content="http://yajian.github.io/决策树/index.html">
+<meta property="og:title" content="CART-分类与回归树">
+<meta property="og:url" content="http://yajian.github.io/CART-分类与回归树/index.html">
 <meta property="og:site_name" content="小建儿的小站">
-<meta property="og:description" content="&amp;emsp;&amp;emsp;决策树(decision tree)是一种多功能的机器学习算法，它可以实现分类和回归任务，同时也是随机森林的重要组成部分，本篇博客主要讨论用于分类的决策树。 &amp;emsp;&amp;emsp;分类型决策树是一种描述对实例进行分类的树形结构。决策树由结点（node）和有向边（directed edge）组成。结点有两种类型：内部结点（internal node）和叶结点（leaf no">
+<meta property="og:description" content="&amp;emsp;&amp;emsp;分类与回归树(classification and regression tree, CART)模型是应用比较广泛的决策树学习方法之一，它既可以用于分类也可以用于回归。CART算法使用二元切分递归地处理每个特征，如果特征值大于给定值就走左子树，否则就走右子树。 最小二乘回归树生成算法数学描述&amp;emsp;&amp;emsp;假设$X$和$Y$分别为输入和输出变量，并且$Y$是连续变量">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:image" content="http://yajian.github.io/决策树/决策树.png">
-<meta property="og:updated_time" content="2018-12-12T12:23:05.021Z">
+<meta property="og:image" content="http://yajian.github.io/CART-分类与回归树/决策树.png">
+<meta property="og:updated_time" content="2018-12-19T13:43:11.481Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="决策树">
-<meta name="twitter:description" content="&amp;emsp;&amp;emsp;决策树(decision tree)是一种多功能的机器学习算法，它可以实现分类和回归任务，同时也是随机森林的重要组成部分，本篇博客主要讨论用于分类的决策树。 &amp;emsp;&amp;emsp;分类型决策树是一种描述对实例进行分类的树形结构。决策树由结点（node）和有向边（directed edge）组成。结点有两种类型：内部结点（internal node）和叶结点（leaf no">
-<meta name="twitter:image" content="http://yajian.github.io/决策树/决策树.png">
+<meta name="twitter:title" content="CART-分类与回归树">
+<meta name="twitter:description" content="&amp;emsp;&amp;emsp;分类与回归树(classification and regression tree, CART)模型是应用比较广泛的决策树学习方法之一，它既可以用于分类也可以用于回归。CART算法使用二元切分递归地处理每个特征，如果特征值大于给定值就走左子树，否则就走右子树。 最小二乘回归树生成算法数学描述&amp;emsp;&amp;emsp;假设$X$和$Y$分别为输入和输出变量，并且$Y$是连续变量">
+<meta name="twitter:image" content="http://yajian.github.io/CART-分类与回归树/决策树.png">
 
 
 
@@ -156,13 +156,13 @@
 
 
 
-  <link rel="canonical" href="http://yajian.github.io/决策树/">
+  <link rel="canonical" href="http://yajian.github.io/CART-分类与回归树/">
 
 
 
 
 
-  <title>决策树 | 小建儿的小站</title><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+  <title>CART-分类与回归树 | 小建儿的小站</title><!-- hexo-inject:begin --><!-- hexo-inject:end -->
   
 
 
@@ -321,7 +321,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yajian.github.io/决策树/">
+    <link itemprop="mainEntityOfPage" href="http://yajian.github.io/CART-分类与回归树/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
       <meta itemprop="name" content="小建儿">
@@ -338,7 +338,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">决策树</h1>
+          <h1 class="post-title" itemprop="name headline">CART-分类与回归树</h1>
         
 
         <div class="post-meta">
@@ -350,8 +350,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-12-10T21:00:03+08:00">
-                2018-12-10
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-12-13T10:32:10+08:00">
+                2018-12-13
               </time>
             
 
@@ -391,8 +391,8 @@
                 <span class="post-meta-item-icon">
                   <i class="fa fa-comment-o"></i>
                 </span>
-                <a href="/决策树/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count disqus-comment-count" data-disqus-identifier="决策树/" itemprop="commentCount"></span>
+                <a href="/CART-分类与回归树/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count disqus-comment-count" data-disqus-identifier="CART-分类与回归树/" itemprop="commentCount"></span>
                 </a>
               </span>
             
@@ -451,41 +451,247 @@
       
 
       
-        <p>&emsp;&emsp;决策树(decision tree)是一种多功能的机器学习算法，它可以实现分类和回归任务，同时也是随机森林的重要组成部分，本篇博客主要讨论用于分类的决策树。</p>
-<p>&emsp;&emsp;分类型决策树是一种描述对实例进行分类的树形结构。决策树由结点（node）和有向边（directed edge）组成。结点有两种类型：内部结点（internal node）和叶结点（leaf node）。内结点表示一个特征，叶子结点表示一个类别。</p>
-<h1 id="相关数学概念"><a href="#相关数学概念" class="headerlink" title="相关数学概念"></a>相关数学概念</h1><h2 id="信息熵"><a href="#信息熵" class="headerlink" title="信息熵"></a>信息熵</h2><p>&emsp;&emsp;在将实例分配到子结点的过程中需要选择一个度量条件来判断该实例属于哪个子结点，常见的方法是用信息熵作为度量条件。</p>
-<p>&emsp;&emsp;在信息论中，熵（entropy）表示随机变量不确定性的度量，设$X$是一个取有限个值的离散随机变量，其概率分布为<br>$$P(X=x_i)=p_i, i=1,2,…,n$$<br>则随机变量$X$的熵的定义为<br>$$<br>H(X)=-\sum_{i=1}^{n}p_ilog_{2}p_i<br>\tag{1}<br>$$<br>若$p_i=0$，则定义$0log0=0$。熵越大，说明随机变量的不确定性越大。</p>
-<h2 id="条件熵"><a href="#条件熵" class="headerlink" title="条件熵"></a>条件熵</h2><p>&emsp;&emsp;设有随机变量(X,Y)，其联合概率分布为<br>$$P(X=x_i,Y=y_i)=p_{ij}, i=1,2,…,n;j=1,2,…,m$$<br>条件熵H(Y|X)表示在已知随机变量$X$的条件下随机变量$Y$的不确定性。随机变量$X$给定的条件下随机变量$Y$的条件熵H(Y|X)，定义为$X$给定条件下$Y$的条件概率分布的熵对$X$的数学期望。<br>$$P(Y|X)=\sum_{i=1}^{n}p_iH(Y|X=x_i)$$<br>其中$p_i=P(X=x_i)$</p>
-<p>&emsp;&emsp;当熵和条件熵中的概率由数据估计（特别是极大似然估计）得到时，所对应的熵和条件熵分别称为经验熵(empirical entropy)和经验条件熵(empirical conditional entropy).</p>
-<h2 id="信息增益"><a href="#信息增益" class="headerlink" title="信息增益"></a>信息增益</h2><p>&emsp;&emsp;信息增益(information gain)表示得知特征$X$的信息而使得类别$Y$的信息不确定性减少的程度。</p>
-<p>&emsp;&emsp;特征A对训练数据集D的信息增益$g(D,A)$，定义为集合D的经验熵$H(D)$与特征A给定的条件下D的经验条件熵$H(D|A)$之差，即<br>$$g(D,A)=H(D)-H(D|A)$$</p>
-<p>&emsp;&emsp;一般地，熵$H(Y)$与条件熵$H(Y|X)$之差称为互信息，决策树中的信息增益等价于训练数据集中类别和特征的互信息。</p>
-<h2 id="信息增益比"><a href="#信息增益比" class="headerlink" title="信息增益比"></a>信息增益比</h2><p>&emsp;&emsp;特征A对训练数据集D的信息增益比$g_R(D,A)$定义为其信息增益$g(D,A)$与训练数据集$D$的经验熵$H(D)$之比<br>$$g_R(D,A)=\frac{g(D,A)}{H(D)}$$</p>
-<h1 id="原理"><a href="#原理" class="headerlink" title="原理"></a>原理</h1><p>&emsp;&emsp;决策树在建模过程中使用信息增益准则选择特征，给定训练集$D$和特征$A$，经验熵$H(D)$表示对数据集$D$进行分类的不确定性。而经验条件熵$H(D|A)$表示在特征$A$给定的条件下对数据集$D$进行分类的不确定性，它们的差即信息增益，表示由于特征$A$而使得对数据集$D$的分类的不确定性减少的程度。显然，对于数据集$D$而言，信息增益依赖于特征，不同的特征具有不同的信息增益，信息增益大的特征具有更强的分类能力。</p>
-<p>&emsp;&emsp;根据信息增益准则的特征选择方法是：对训练数据集$D$，计算其每个特征的信息增益，并比较它们的大小，选择信息增益大的特征。</p>
-<h2 id="ID3算法"><a href="#ID3算法" class="headerlink" title="ID3算法"></a>ID3算法</h2><p>&emsp;&emsp;设训练数据集为$D$，$|D|$表示其样本容量，即样本个数。设有$K$个类$C_k，k=1,2,…,K$，$|C_k|$为属于$C_k$的样本个数，$\sum_{k=1}^{K}|C_k|=|D|$。设特征$A$有$n$个不同的取值${a_1,a_2,…,a_n}$，根据特征$A$的取值将$D$划分为n个子集$D_1,D_2,…,D_n$，$|D_i|$为$D_i$的样本个数，$\sum_{k=1}^{n}|D_i|=|D|$。记子集$D_i$中属于类$C_k$的样本的集合为$D_{ik}$，记$D_{ik}=D_i \cap C_k$，$|D_{ik}|$为$D_{ik}$的样本个数。</p>
-<p>&emsp;&emsp;ID3算法如下</p>
+        <p>&emsp;&emsp;分类与回归树(classification and regression tree, CART)模型是应用比较广泛的决策树学习方法之一，它既可以用于分类也可以用于回归。CART算法使用二元切分递归地处理每个特征，如果特征值大于给定值就走左子树，否则就走右子树。</p>
+<h1 id="最小二乘回归树生成算法"><a href="#最小二乘回归树生成算法" class="headerlink" title="最小二乘回归树生成算法"></a>最小二乘回归树生成算法</h1><h2 id="数学描述"><a href="#数学描述" class="headerlink" title="数学描述"></a>数学描述</h2><p>&emsp;&emsp;假设$X$和$Y$分别为输入和输出变量，并且$Y$是连续变量，给定训练数据集<br>$$D={(x_1,y_1),(x_2,y_2),…,(x_N,y_N)}$$<br>生成对应的回归树。</p>
+<p>&emsp;&emsp;一个回归树对应着输入空间(即特征空间)的一个划分以及在划分的单元上的输出值。假设已将输入空间划分为$M$个单元$R_1,R_2,…,R_m$，并且在每个单元$R_m$上有一个固定的输出值$C_m$，于是回归树模型可以表示为</p>
+<p>$$f(x) = \sum_{m=1}^{M}c_mI(x \in R_m)$$</p>
+<p>其中函数$I$为指示函数。</p>
+<p>&emsp;&emsp;当输入空间的划分确定时，可以用平方误差$\sum_{x_i \in R_m}(y_i-f(x_i))^2$来表示回归树对于训练数据的预测误差。用平方误差最小的准则求解每个单元上的最优输出值，可以发现单元$R_m$上的最优$\hat c_m$s是$R_m$上所有示例$x_i$对应的输出$y_i$的均值，即<br>$$\hat c_m=avg(y_i|x_i \in R_m)$$</p>
+<p>&emsp;&emsp;上面内容讲述了在输入空间划分确定的情况下，如何衡量决策树的效果以及在效果最好的情况下反推每个区域输出值$c_m$。接下来我们来看如何划分输入空间。</p>
+<p>&emsp;&emsp;首先，CART树是一棵二叉树，所以我们需要选择一个特征$x^{(j)}$和它的取值$s$，作为整个数据集的切分量和切分点，并定义由其切分的两个区域<br>$$R_1(j,s)=\{x|x^{(j)} \leq s\}和R_2(j,s)=\{x|x^{(j)} \gt s\}$$<br>然后寻找最优缺切分变量$j$和最优切分点$s$，即求解</p>
+<p>$$min_{j,s}[min_{c1}\sum_{x_i \in R_1(j,s)}(y_i-c_1)^2+min_{c2}\sum_{x_i \in R_2(j,s)}(y_i-c_2)^2]$$</p>
 <ul>
-<li>输入： 训练数据集$D$，特征集$A$，阈值$\epsilon$</li>
-<li>输出： 决策树$T$</li>
+<li>注：这里是要找到使$R_1$数据的预测误差最小的$c_1$和使$R_2$数据的预测误差最小的$c_2$，之前说过使误差最小的取值就是分别取两个数据集的均值，然后还要保证$R_1$和$R_2$误差和最小。</li>
 </ul>
-<ol>
-<li>若$D$中所有实例属于同一类别$C_k$，则$T$为单结点树，并将类$C_k$作为该结点的类标记，返回$T$；</li>
-<li>若$A=\emptyset$，则$T$为单点树，将$D$中实例数最多的类$C_k$作为该结点的类标记，返回$T$；</li>
-<li><p>否则，如下计算$A$中各特征对$D$的信息增益，选择信息增益最大的特征$A_g$</p>
-<ol>
-<li>计算数据集$D$的经验熵<br>$$H(D)=-\sum_{k=1}^{K}\frac{|C_k|}{|D|}log_2\frac{|C_k|}{|D|}$$ </li>
-<li>计算特征集$A$对数据集$D$的经验条件熵<br>$$H(D|A)=\sum_{i=1}^{n}\frac{|D_i|}{|D|}H(D_i)=\sum_{i=1}^{n}[\frac{|D_i|}{|D|}\sum_{k=1}^{K}\frac{|D_{ik}|}{|D_{i}|}log_2\frac{|D_{ik}|}{|D_{i}|}]$$</li>
-<li>计算信息增益<br>$$g(D,A)=H(D) - H(D|A)$$</li>
-</ol>
+<p>对于固定的输入变量$j$可以找到最优的切分点$s$：</p>
+<p>$$\hat c_1=avg(y_i|x_i \in R_1(j,s)) 和 \hat c_2=avg(y_i|x_i \in R_2(j,s))$$</p>
+<ul>
+<li>注：简单讲，这里的$c_1$和$c_2$是每次按照切分点$s$分割成两波数据的均值，这里不明白的可以看后面的例子。</li>
+</ul>
+<p>&emsp;&emsp;遍历所有输入变量，找到最优的切分变量$j$，构成一对$(j,s)$，并依此将输入空间划分为两个区域。接着对每个区域重复上述划分过程，直到满足条件为止。这样就生成了一棵回归树，这样的回归树通常称为最小二乘回归树。</p>
+<h2 id="示例"><a href="#示例" class="headerlink" title="示例"></a>示例</h2><p>&emsp;&emsp;上述数学描述比较晦涩，举个简单的例子，输入数据见下表</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">x</th>
+<th style="text-align:center">1</th>
+<th style="text-align:center">2</th>
+<th style="text-align:center">3</th>
+<th style="text-align:center">4</th>
+<th style="text-align:center">5</th>
+<th style="text-align:center">6</th>
+<th style="text-align:center">7</th>
+<th style="text-align:center">8</th>
+<th style="text-align:center">9</th>
+<th style="text-align:center">10</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">y</td>
+<td style="text-align:center">5.56</td>
+<td style="text-align:center">5.7</td>
+<td style="text-align:center">5.91</td>
+<td style="text-align:center">6.4</td>
+<td style="text-align:center">6.8</td>
+<td style="text-align:center">7.05</td>
+<td style="text-align:center">8.9</td>
+<td style="text-align:center">8.7</td>
+<td style="text-align:center">9</td>
+<td style="text-align:center">9.05</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li>第一次划分</li>
+</ul>
+<p>&emsp;&emsp;由于只有$x$一个变量，因此最优切分变量为$x$。接下来假设9个切分点为$[1.5,2.5,3.5,4.5,5.5,6.5,7.5,8.5,9.5]$，计算每个切分点的输出值。如$s=1.5$时，$R_1=\{1\},R_2=\{2,3,4,5,6,7,8,9,10\}$，这两个区域的输出值分别为$c_1=5.56,c_2=\frac{1}{9}(5.7+5.91+6.4+6.8+7.05+8.9+8.7+9+9.05)=7.50$，所以有</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">s</th>
+<th style="text-align:center">1.5</th>
+<th style="text-align:center">2.5</th>
+<th style="text-align:center">3.5</th>
+<th style="text-align:center">4.5</th>
+<th style="text-align:center">5.5</th>
+<th style="text-align:center">6.5</th>
+<th style="text-align:center">7.5</th>
+<th style="text-align:center">8.5</th>
+<th style="text-align:center">9.5</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">$c_1$</td>
+<td style="text-align:center">5.56</td>
+<td style="text-align:center">5.63</td>
+<td style="text-align:center">5.72</td>
+<td style="text-align:center">5.89</td>
+<td style="text-align:center">6.07</td>
+<td style="text-align:center">6.24</td>
+<td style="text-align:center">6.62</td>
+<td style="text-align:center">6.88</td>
+<td style="text-align:center">7.11</td>
+</tr>
+<tr>
+<td style="text-align:center">$c_2$</td>
+<td style="text-align:center">7.5</td>
+<td style="text-align:center">7.73</td>
+<td style="text-align:center">7.99</td>
+<td style="text-align:center">8.25</td>
+<td style="text-align:center">8.54</td>
+<td style="text-align:center">8.91</td>
+<td style="text-align:center">8.92</td>
+<td style="text-align:center">9.03</td>
+<td style="text-align:center">9.05</td>
+</tr>
+</tbody>
+</table>
+<p>接下来计算每个切分点的误差，如$s=1.5$时，$loss(s=1.5)=\frac{1}{2}(5.56-5.56)^2+\sum_{i=2}^{10}\frac{1}{2}(y_i-7.5)^2=0+15.72=15.72$，所以有</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">s</th>
+<th style="text-align:center">1.5</th>
+<th style="text-align:center">2.5</th>
+<th style="text-align:center">3.5</th>
+<th style="text-align:center">4.5</th>
+<th style="text-align:center">5.5</th>
+<th style="text-align:center">6.5</th>
+<th style="text-align:center">7.5</th>
+<th style="text-align:center">8.5</th>
+<th style="text-align:center">9.5</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">$loss(s)$</td>
+<td style="text-align:center">15.72</td>
+<td style="text-align:center">12.07</td>
+<td style="text-align:center">8.36</td>
+<td style="text-align:center">5.78</td>
+<td style="text-align:center">3.91</td>
+<td style="text-align:center">1.93</td>
+<td style="text-align:center">8.01</td>
+<td style="text-align:center">11.73</td>
+<td style="text-align:center">15.74</td>
+</tr>
+</tbody>
+</table>
+<p>其中当$s=6.5$时，$loss(s)$最小，因此第一个划分变量是$j=x,s=6.5$。</p>
+<ul>
+<li><p>第二次划分</p>
+<p>  &emsp;&emsp;第一个划分变量将数据集划分成了两部分即$R_1=\{1,2,3,4,5,6\},R_2=\{7,8,9,10\}$，接下来分别在$R_1,R_2$上进行划分。</p>
+<ul>
+<li>&emsp;&emsp;对于$R_1$</li>
+</ul>
 </li>
-<li><p>如果$A_g$小于阈值$\epsilon$，则置$T$为单点树，将$D$中实例数最多的类$C_k$作为该结点的类标记，返回$T$；</p>
-</li>
-<li>否则，对$A_g$的每一个值$a_i$，按照$A_g=a_i$将$D$分割为若干非空子集$D_i$，将$D_i$中实例最大的类作为标记，构建子结点，由结点和子结点构成树$T$，返回$T$</li>
-<li>对第$i$个子结点，以$D_i$为训练集，以$A_i-\{A_g\}$为特征集，递归地调用步骤1-5，得到子树$T_i$，返回$T_i$</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">x</th>
+<th style="text-align:center">1</th>
+<th style="text-align:center">2</th>
+<th style="text-align:center">3</th>
+<th style="text-align:center">4</th>
+<th style="text-align:center">5</th>
+<th style="text-align:center">6</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">y</td>
+<td style="text-align:center">5.56</td>
+<td style="text-align:center">5.7</td>
+<td style="text-align:center">5.91</td>
+<td style="text-align:center">6.4</td>
+<td style="text-align:center">6.8</td>
+<td style="text-align:center">7.05</td>
+</tr>
+</tbody>
+</table>
+<p>&emsp;&emsp;取切分点$[1.5,2.5,3.5,4.5,5.5]$，对应的输出值为</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">s</th>
+<th style="text-align:center">1.5</th>
+<th style="text-align:center">2.5</th>
+<th style="text-align:center">3.5</th>
+<th style="text-align:center">4.5</th>
+<th style="text-align:center">5.5</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">$c_1$</td>
+<td style="text-align:center">5.56</td>
+<td style="text-align:center">5.63</td>
+<td style="text-align:center">5.72</td>
+<td style="text-align:center">5.89</td>
+<td style="text-align:center">6.07</td>
+</tr>
+<tr>
+<td style="text-align:center">$c_2$</td>
+<td style="text-align:center">6.37</td>
+<td style="text-align:center">6.54</td>
+<td style="text-align:center">6.75</td>
+<td style="text-align:center">6.93</td>
+<td style="text-align:center">7.05</td>
+</tr>
+</tbody>
+</table>
+<p>&emsp;&emsp;误差为</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">s</th>
+<th style="text-align:center">1.5</th>
+<th style="text-align:center">2.5</th>
+<th style="text-align:center">3.5</th>
+<th style="text-align:center">4.5</th>
+<th style="text-align:center">5.5</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">$loss(s)$</td>
+<td style="text-align:center">1.3087</td>
+<td style="text-align:center">0.754</td>
+<td style="text-align:center">0.2771</td>
+<td style="text-align:center">0.4368</td>
+<td style="text-align:center">1.0644</td>
+</tr>
+</tbody>
+</table>
+<p>所以$s=3.5$时，$loss(s)$最小</p>
+<p>&emsp;&emsp;假设在生成3个区域后停止划分，那么最终生成的回归树如下：</p>
+<p>$$<br>T=\begin{cases}<br>5.72 \quad x \le 3.5 \\<br>6.75 \quad 3.5 \lt x \leq 6.5 \\<br>8.91 \quad x \lt 6.5\\<br>\end{cases}<br>$$</p>
+<h2 id="实现"><a href="#实现" class="headerlink" title="实现"></a>实现</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="comment"># coding=utf-8</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">from</span> numpy <span class="keyword">import</span> *</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment"># 读取数据</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">loadDataSet</span><span class="params">(path)</span>:</span></span><br><span class="line">    dataMat = []</span><br><span class="line">    fr = open(path, <span class="string">'rb'</span>)</span><br><span class="line">    <span class="keyword">for</span> line <span class="keyword">in</span> fr.readlines():</span><br><span class="line">        currLine = line.strip().split(<span class="string">'\t'</span>)</span><br><span class="line">        fltLine = map(float, currLine)</span><br><span class="line">        dataMat.append(fltLine)</span><br><span class="line">    <span class="keyword">return</span> mat(dataMat)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment"># 以value为分界点切分数据集</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">binSplitDataSet</span><span class="params">(dataSet, feature, value)</span>:</span></span><br><span class="line">    mat0 = dataSet[nonzero(dataSet[:, feature] &gt; value)[<span class="number">0</span>], :]</span><br><span class="line">    mat1 = dataSet[nonzero(dataSet[:, feature] &lt;= value)[<span class="number">0</span>], :]</span><br><span class="line">    <span class="keyword">return</span> mat0, mat1</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment"># 计算叶子结点中数据的均值</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">regLeaf</span><span class="params">(dataSet)</span>:</span></span><br><span class="line">    <span class="keyword">return</span> mean(dataSet[:, <span class="number">-1</span>])</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment"># 计算误差，即数据集的平方误差，这里使用方差乘以总个数计算</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">regErr</span><span class="params">(dataSet)</span>:</span></span><br><span class="line">    <span class="keyword">return</span> var(dataSet[:, <span class="number">-1</span>]) * shape(dataSet)[<span class="number">0</span>]</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment"># 二元切分选择分裂点</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">chooseBestSplit</span><span class="params">(dataSet, leafType=regLeaf, errType=regErr, ops=<span class="params">(<span class="number">1</span>, <span class="number">4</span>)</span>)</span>:</span></span><br><span class="line">    tolS = ops[<span class="number">0</span>]</span><br><span class="line">    tolN = ops[<span class="number">1</span>]</span><br><span class="line">    <span class="keyword">if</span> len(set(dataSet[:, <span class="number">-1</span>].T.tolist()[<span class="number">0</span>])) == <span class="number">1</span>:</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">None</span>, leafType(dataSet)</span><br><span class="line">    m, n = shape(dataSet)</span><br><span class="line">    S = errType(dataSet)</span><br><span class="line">    bestS = inf</span><br><span class="line">    bestIndex = <span class="number">0</span></span><br><span class="line">    bestValue = <span class="number">0</span></span><br><span class="line">    <span class="keyword">for</span> featIndex <span class="keyword">in</span> range(n - <span class="number">1</span>):</span><br><span class="line">        <span class="keyword">for</span> splitVal <span class="keyword">in</span> set(dataSet[:, featIndex].T.tolist()[<span class="number">0</span>]):</span><br><span class="line">            <span class="comment"># 切分数据集</span></span><br><span class="line">            mat0, mat1 = binSplitDataSet(dataSet, featIndex, splitVal)</span><br><span class="line">            <span class="comment"># 判断切分后的数据集的条数是否满足要求</span></span><br><span class="line">            <span class="keyword">if</span> (shape(mat0)[<span class="number">0</span>] &lt; tolN) <span class="keyword">or</span> (shape(mat1)[<span class="number">0</span>] &lt; tolN):</span><br><span class="line">                <span class="keyword">continue</span></span><br><span class="line">            <span class="comment"># 计算两个数据集的误差</span></span><br><span class="line">            newS = errType(mat0) + errType(mat1)</span><br><span class="line">            <span class="comment"># 选取误差最小的切分方式</span></span><br><span class="line">            <span class="keyword">if</span> newS &lt; S:</span><br><span class="line">                bestIndex = featIndex</span><br><span class="line">                bestValue = splitVal</span><br><span class="line">                bestS = newS</span><br><span class="line">    <span class="comment"># 如果误差已经小于要求的误差</span></span><br><span class="line">    <span class="keyword">if</span> S - bestS &lt; tolS:</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">None</span>, leafType(dataSet)</span><br><span class="line">    mat0, mat1 = binSplitDataSet(dataSet, bestIndex, bestValue)</span><br><span class="line">    <span class="comment"># 如果不满足条数要求，不再继续分裂，返回结点的值</span></span><br><span class="line">    <span class="keyword">if</span> (shape(mat0)[<span class="number">0</span>] &lt; tolN) <span class="keyword">or</span> (shape(mat1)[<span class="number">0</span>] &lt; tolN):</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">None</span>, leafType(dataSet)</span><br><span class="line">    <span class="keyword">return</span> bestIndex, bestValue</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">createTree</span><span class="params">(dataSet, leafType=regLeaf, errType=regErr, ops=<span class="params">(<span class="number">1</span>, <span class="number">4</span>)</span>)</span>:</span></span><br><span class="line">    <span class="comment"># 选择最佳分裂点</span></span><br><span class="line">    feat, val = chooseBestSplit(dataSet, leafType, errType, ops)</span><br><span class="line">    <span class="keyword">if</span> feat == <span class="keyword">None</span>:</span><br><span class="line">        <span class="keyword">return</span> val</span><br><span class="line">    retTree = &#123;&#125;</span><br><span class="line">    retTree[<span class="string">'spInd'</span>] = feat</span><br><span class="line">    retTree[<span class="string">'spVal'</span>] = val</span><br><span class="line">    lSet, rSet = binSplitDataSet(dataSet, feat, val)</span><br><span class="line">    <span class="comment"># 左子树</span></span><br><span class="line">    retTree[<span class="string">'left'</span>] = createTree(lSet, leafType, errType, ops)</span><br><span class="line">    <span class="comment"># 柚子树</span></span><br><span class="line">    retTree[<span class="string">'right'</span>] = createTree(rSet, leafType, errType, ops)</span><br><span class="line">    <span class="keyword">return</span> retTree</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">main</span><span class="params">()</span>:</span></span><br><span class="line">    data = loadDataSet(<span class="string">'./data.txt'</span>)</span><br><span class="line">    tree = createTree(data)</span><br><span class="line">    <span class="keyword">print</span> tree</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">'__main__'</span>:</span><br><span class="line">    main()</span><br></pre></td></tr></table></figure>
+<p>代码详见[]()</p>
+<ul>
+<li>注：此处代码参考《机器学习实战》p161-p164，原书代码中存在错误，这里进行了修改。</li>
+</ul>
+<h1 id="分类树生成算法"><a href="#分类树生成算法" class="headerlink" title="分类树生成算法"></a>分类树生成算法</h1><p>&emsp;&emsp;分类树使用基尼指数选择最优特征，同时决定最优二值切分点。</p>
+<h2 id="基尼指数"><a href="#基尼指数" class="headerlink" title="基尼指数"></a>基尼指数</h2><p>&emsp;&emsp;基尼指数的定义如下，假设有$K$个分类，样本点属于第$k$类的概率为$p_k$，则概率分布的基尼指数为<br>$$<br>    Gini(p) = \sum_{k=1}^{K}p_k(1-p_k)=1-\sum_{k=1}^{K}p^2_k<br>$$</p>
+<p>&emsp;&emsp;对于给定的样本集合$D$，其基尼指数为<br>$$<br>    Gini(D)=1-\sum_{i=1}^{K}(\frac{|C_k|}{|D|})^2<br>$$<br>其中，$C_k$是$D$中属于第$k$类的样本子集，$K$是类的个数。</p>
+<p>&emsp;&emsp;如果样本集合$D$根据特征$A$是否取某一可能值$a$呗分割成$D_1$和$D_2$两部分，即<br>$$<br>    D_1 = \{(x,y) \in D|A(x)=a\}\\<br>    D_2 = D-D_1<br>$$<br>则在特征$A$的条件下，集合$D$的基尼指数定义为<br>$$<br>    Gini(D,A)=\frac{|D_1|}{|D|}Gini(D_1)+\frac{|D_2|}{|D|}Gini(D_2)<br>$$<br>基尼指数$Gini(D)$表示集合$D$的不确定性，基尼指数$Gini(D,A)$表示经$A=a$分割后集合$D$的不确定性。基尼指数越大，样本集合的不确定性也就越大，这一点和熵一致。</p>
+<ul>
+<li>注：CART分类树为什么要使用基尼指数作为选择最优特征的标准呢？因为基尼指数不仅拥有与熵类似的性质，而且计算简便，不用使用log函数。</li>
+</ul>
+<h2 id="生成算法"><a href="#生成算法" class="headerlink" title="生成算法"></a>生成算法</h2><p>&emsp;&emsp;输入：训练数据集$D$，停止计算的条件；</p>
+<p>&emsp;&emsp;输出：CART决策树</p>
+<p>&emsp;&emsp;根据训练数据集，从根节点开始，递归地对每个结点进行以下操作，构建二叉决策树</p>
+<ol>
+<li>设结点的训练数据集为$D$，计算现有特征对该数据集的基尼指数。此时对每个特征$A$，对其可能取值的每个值$a$，根据样本点对$A=a$的测试为“是”或”否“将$D$分割成$D_1$和$D_2$两部分，并计算$A=a$的基尼指数。</li>
+<li>在所有可能的特征$A$以及它们所有可能的切分点$a$中，选择基尼指数最小的特征及其对应的切分点作为最优特征和最优切分点。依最优特征与最优切分点，从现结点生成两个子结点，将训练数据依特征分配到两个子结点中。</li>
+<li>对两个子结点递归地调用1、2，直至满足停止条件</li>
+<li>生成CART决策树</li>
 </ol>
-<h2 id="C4-5算法"><a href="#C4-5算法" class="headerlink" title="C4.5算法"></a>C4.5算法</h2><p>&emsp;&emsp;C4.5算法和ID3算法类似，C4.5算法对ID3算法进行了改进，在生成模型的过程中采用信息增益比来选择特征。</p>
-<h1 id="示例"><a href="#示例" class="headerlink" title="示例"></a>示例</h1><p>&emsp;&emsp;以贷款申请数据为例讲解决策树的生成过程，采用ID3算法。</p>
+<p>&emsp;&emsp;算法停止条件是结点中的样本个数小于预定阈值，或者样本集的基尼指数小于预定阈值（样本基本属于同一类），或者没有更多特征。</p>
+<h2 id="示例-1"><a href="#示例-1" class="headerlink" title="示例"></a>示例</h2><p>&emsp;&emsp;数据集合如下:</p>
 <table>
 <thead>
 <tr>
@@ -620,43 +826,106 @@
 </tr>
 </tbody>
 </table>
-<ol>
-<li>计算经验熵$H(D)$<br> $$H(D)=-\frac{6}{15}log_2\frac{6}{15}-\frac{9}{15}log_2\frac{9}{15}=0.971$$</li>
-<li><p>计算各特征对数据集$D$的信息增益</p>
-<ul>
-<li>年龄<br>$$<br>\begin{align*}<br>g(D,A_1)&amp;=H(D) - [\frac{5}{15}H(D_1)+\frac{5}{15}H(D_2)+\frac{5}{15}H(D_3)]\\<br>&amp;= 0.971 - \{\frac{5}{15}[-\frac{2}{5}log_2\frac{2}{5}-\frac{3}{5}log_2\frac{3}{5}]+<br>\frac{5}{15}[-\frac{3}{5}log_2\frac{3}{5}-\frac{2}{5}log_2\frac{2}{5}]+<br>\frac{5}{15}[-\frac{4}{5}log_2\frac{4}{5}-\frac{1}{5}log_2\frac{1}{5}]\}\\<br>&amp;=0.971-0.888\\<br>&amp;=0.083<br>\end{align*}<br>$$</li>
-<li>有工作<br>$$<br>\begin{align*}<br>g(D,A_2)&amp;=H(D) - [\frac{5}{15}H(D_1)+\frac{10}{15}H(D_2)]\\<br>&amp;= 0.971 - \{\frac{5}{15}* 0+<br>\frac{10}{15}[-\frac{6}{10}log_2\frac{6}{10}-\frac{4}{10}log_2\frac{4}{10}]\\<br>&amp;=0.971-???\\<br>&amp;=0.324<br>\end{align*}<br>$$</li>
-<li>有自己的房子<br>$$<br>\begin{align*}<br>g(D,A_3)&amp;=H(D) - [\frac{6}{15}H(D_1)+\frac{9}{15}H(D_2)]\\<br>&amp;= 0.971 - \{\frac{6}{15}* 0+<br>\frac{9}{15}[-\frac{3}{9}log_2\frac{3}{9}-\frac{6}{9}log_2\frac{6}{9}]\\<br>&amp;=0.971-0.551\\<br>&amp;=0.420<br>\end{align*}<br>$$</li>
-<li>信贷情况<br>$$<br>\begin{align*}<br>g(D,A_3)&amp;=H(D) - [\frac{5}{15}H(D_1)+\frac{6}{15}H(D_2)+\frac{4}{15}H(D_2)]\\<br>&amp;= 0.971 - \{\frac{5}{15}[-\frac{1}{5}log_2\frac{1}{5}-\frac{4}{5}log_2\frac{4}{5}] +<br>\frac{6}{15}[-\frac{4}{6}log_2\frac{4}{6}-\frac{2}{6}log_2\frac{2}{6}] +<br>\frac{4}{15} * 0  \}\\<br>&amp;=0.971-0.608\\<br>&amp;=0.363<br>\end{align*}<br>$$<br>&emsp;&emsp;综上，特征$A_3$（有自己的房子）的信息增益值最大，所以选择$A_3$作为根节点的特征。接下来将数据集$D$划分为两个子集$D_1$($A_3$=是)、$D_2$($A_3$=否)，分别进行下一轮的信息增益筛选。</li>
-</ul>
-</li>
-</ol>
-<ol start="3">
-<li>进入子集$D_1$($A_3$=是)，由于该子集中只有一个类别，所以形成叶子结点，结点的标记就是类别。</li>
-<li><p>进入子集$D_2$($A_3$=否)，数据如下</p>
-<ul>
-<li><p>计算经验熵<br>$$H(D_2)=-\frac{6}{9}log_2\frac{6}{9}-\frac{3}{9}log_2\frac{3}{9}=0.918$$</p>
-</li>
-<li><p>年龄特征信息增益<br>$$<br>\begin{align*}<br>g(D_2,A_1)&amp;=H(D) - [\frac{4}{9}H(D_1)+\frac{2}{9}H(D_2)+\frac{3}{9}H(D_3)]\\<br>&amp;= 0.971 - \{\frac{4}{9}[-\frac{3}{4}log_2\frac{3}{4}-\frac{1}{4}log_2\frac{1}{4}]+<br>\frac{2}{9}*0+<br>\frac{3}{9}[-\frac{2}{3}log_2\frac{2}{3}-\frac{1}{3}log_2\frac{1}{3}]\}\\<br>&amp;=0.971-0.667\\<br>&amp;=0.251<br>\end{align*}<br>$$</p>
-</li>
-<li><p>有工作特征信息增益</p>
-</li>
-</ul>
-<p>$$<br> \begin{align*}<br> g(D_2,A_2)&amp;=H(D) - [\frac{6}{9}H(D_1)+\frac{3}{9}H(D_2)]\\<br> &amp;= 0.971 - [\frac{6}{9}*0+\frac{3}{9} * 0]\\<br> &amp;= 0.918-0\\<br> &amp;=0.918<br> \end{align*}<br> $$</p>
-<ul>
-<li><p>信贷情况特征信息增益</p>
-<p>  $$<br>\begin{align*}<br>g(D_2,A_4)&amp;=H(D) - [\frac{4}{9}H(D_1)+\frac{4}{9}H(D_2)+\frac{1}{9}H(D_3)]\\<br>&amp;= 0.971 - \{\frac{4}{9}*0+<br>\frac{4}{9}[-\frac{2}{4}log_2\frac{2}{4}-\frac{2}{4}log_2\frac{2}{4}]+<br>\frac{1}{9}*0\}\\<br>&amp;=0.918-0.444\\<br>&amp;=0.474<br>\end{align*}<br>$$<br>&emsp;&emsp;综上，特征$A_2$（有工作）的信息增益值最大，所以选择$A_2$作为该结点的特征。接下来将数据集$D_2$划分为两个子集$D_{21}$($A_2$=是)、$D_{22}$($A_2$=否)，分别进行下一轮的信息增益筛选。</p>
-</li>
-</ul>
-</li>
-<li><p>进入子集$D_{21}$($A_2$=是)，由于该子集中只有一个类别，所以形成叶子结点，结点的标记就是类别</p>
-</li>
-<li>进入子集$D_{22}$($A_2$=否)，由于该子集中只有一个类别，所以形成叶子结点，结点的标记就是类别</li>
-</ol>
-<p>&emsp;&emsp;最终产生的决策树模型如下图所示</p>
-<div align="center"><br>    <img src="/决策树/决策树.png" alt="决策树模型结构"><br></div>
+<p>&emsp;&emsp;分别以$A_1$、$A_2$、$A_3$、$A_4$表示年龄、有工作、有自己的房子和信贷4个特征。</p>
+<p>&emsp;&emsp;求特征$A_1$的基尼指数，以1，2，3表示年龄的值为青年、中年、老年<br>$$<br>    Gini(D,A_1=1) = \frac{5}{15}[2*\frac{2}{5}*(1-\frac{2}{5})] + \frac{10}{15}[2*\frac{7}{10}*(1-\frac{7}{10})]=0.44\\<br>    Gini(D,A_1=2) = \frac{5}{15}[2*\frac{3}{5}*(1-\frac{3}{5})] + \frac{10}{15}[2*\frac{6}{10}*(1-\frac{6}{10})]=0.48\\<br>    Gini(D,A_1=3) = \frac{5}{15}[2*\frac{4}{5}*(1-\frac{4}{5})] + \frac{10}{15}[2*\frac{5}{10}*(1-\frac{5}{10})]=0.44<br>$$<br>其中$Gini(D,A_1=1)$和$Gini(D,A_1=3)$最小，所以$A_1=1$和$A_1=3$均可做为$A_1$的最优切分点</p>
+<p>&emsp;&emsp;求特征$A_2$的基尼指数，以1，2表示有工作和没有工作<br>$$<br>    Gini(D,A_2=1) = \frac{5}{15}[2*\frac{5}{5}*(1-\frac{5}{5})] + \frac{10}{15}[2*\frac{4}{10}*(1-\frac{4}{10})]=0.32<br>$$<br>$A_2$只有一个切分点即$A_2=1$</p>
+<p>&emsp;&emsp;求特征$A_3$的基尼指数，以1，2表示有房子和没有房子<br>$$<br>    Gini(D,A_3=1) = \frac{6}{15}[2*\frac{6}{6}*(1-\frac{6}{6})] + \frac{9}{15}[2*\frac{3}{9}*(1-\frac{3}{9})]=0.27<br>$$<br>$A_3$只有一个切分点即$A_3=1$</p>
+<p>&emsp;&emsp;求特征$A_4$的基尼指数，以1，2，3表示信贷情况为非常好、好和一般<br>$$<br>    Gini(D,A_4=1) = \frac{4}{15}[2*\frac{4}{4}*(1-\frac{4}{4})] + \frac{11}{15}[2*\frac{6}{11}*(1-\frac{6}{11})]=0.36\\<br>    Gini(D,A_4=2) = \frac{6}{15}[2*\frac{4}{6}*(1-\frac{4}{6})] + \frac{9}{15}[2*\frac{5}{9}*(1-\frac{5}{9})]=0.47\\<br>    Gini(D,A_4=3) = \frac{5}{15}[2*\frac{1}{5}*(1-\frac{1}{5})] + \frac{10}{15}[2*\frac{8}{10}*(1-\frac{8}{10})]=0.32<br>$$</p>
+<p>其中$Gini(D,A_4=3)$最小，所以$A_4=3$为$A_4$的最优切分点</p>
+<p>&emsp;&emsp;在4个特征中，$Gini(D,A_3=1)=0.27$最小，所以选择$A_3$为最优特征，$A_3=1$为其最优切分点。其中$A_3=1$的结点包含数据4、8、9、10、11，$A_3 \neq 1$结点包含数据1，2，3，5，6，7，13，14，15。$A_3=1$结点内数据类别相同，所以形成叶子结点。对$A_3 \neq 1$结点继续重复上述过程。</p>
+<p>&emsp;&emsp;数据如下</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">ID</th>
+<th style="text-align:center">年龄</th>
+<th style="text-align:center">有工作</th>
+<th style="text-align:center">信贷情况</th>
+<th style="text-align:center">类别</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">1</td>
+<td style="text-align:center">青年</td>
+<td style="text-align:center">否</td>
+<td style="text-align:center">一般</td>
+<td style="text-align:center">否</td>
+</tr>
+<tr>
+<td style="text-align:center">2</td>
+<td style="text-align:center">青年</td>
+<td style="text-align:center">否</td>
+<td style="text-align:center">好</td>
+<td style="text-align:center">否</td>
+</tr>
+<tr>
+<td style="text-align:center">3</td>
+<td style="text-align:center">青年</td>
+<td style="text-align:center">是</td>
+<td style="text-align:center">好</td>
+<td style="text-align:center">是</td>
+</tr>
+<tr>
+<td style="text-align:center">5</td>
+<td style="text-align:center">青年</td>
+<td style="text-align:center">否</td>
+<td style="text-align:center">一般</td>
+<td style="text-align:center">否</td>
+</tr>
+<tr>
+<td style="text-align:center">6</td>
+<td style="text-align:center">中年</td>
+<td style="text-align:center">否</td>
+<td style="text-align:center">一般</td>
+<td style="text-align:center">否</td>
+</tr>
+<tr>
+<td style="text-align:center">7</td>
+<td style="text-align:center">中年</td>
+<td style="text-align:center">否</td>
+<td style="text-align:center">好</td>
+<td style="text-align:center">否</td>
+</tr>
+<tr>
+<td style="text-align:center">12</td>
+<td style="text-align:center">老年</td>
+<td style="text-align:center">否</td>
+<td style="text-align:center">好</td>
+<td style="text-align:center">是</td>
+</tr>
+<tr>
+<td style="text-align:center">13</td>
+<td style="text-align:center">老年</td>
+<td style="text-align:center">是</td>
+<td style="text-align:center">好</td>
+<td style="text-align:center">是</td>
+</tr>
+<tr>
+<td style="text-align:center">14</td>
+<td style="text-align:center">老年</td>
+<td style="text-align:center">是</td>
+<td style="text-align:center">非常好</td>
+<td style="text-align:center">是</td>
+</tr>
+<tr>
+<td style="text-align:center">15</td>
+<td style="text-align:center">老年</td>
+<td style="text-align:center">否</td>
+<td style="text-align:center">一般</td>
+<td style="text-align:center">否</td>
+</tr>
+</tbody>
+</table>
+<p>&emsp;&emsp;求特征$A_1$的基尼指数<br>$$<br>    Gini(D,A_1=1) = \frac{4}{10}[2*\frac{1}{4}*(1-\frac{1}{4})] + \frac{6}{10}[2*\frac{3}{6}*(1-\frac{3}{6})]=0.45\\<br>    Gini(D,A_1=2) = \frac{2}{10}[2*\frac{0}{2}*(1-\frac{0}{2})] + \frac{8}{10}[2*\frac{4}{8}*(1-\frac{4}{8})]=0.4\\<br>    Gini(D,A_1=3) = \frac{4}{10}[2*\frac{3}{4}*(1-\frac{3}{4})] + \frac{6}{10}[2*\frac{1}{6}*(1-\frac{1}{6})]=0.32<br>$$<br>其中$Gini(D,A_1=3)$最小，所以$A_1=3$是$A_1$的最优切分点</p>
+<p>&emsp;&emsp;求特征$A_2$的基尼指数<br>$$<br>    Gini(D,A_2=1) = \frac{3}{10}[2*\frac{3}{3}*(1-\frac{3}{3})] + \frac{7}{10}[2*\frac{1}{7}*(1-\frac{1}{7})]=0.17<br>$$<br>$A_2$只有一个切分点即$A_2=1$</p>
+<p>&emsp;&emsp;求特征$A_4$的基尼指数<br>$$<br>    Gini(D,A_4=1) = \frac{1}{10}[2*\frac{1}{1}*(1-\frac{1}{1})] + \frac{9}{10}[2*\frac{3}{9}*(1-\frac{3}{9})]=0.4\\<br>    Gini(D,A_4=2) = \frac{5}{10}[2*\frac{3}{5}*(1-\frac{3}{5})] + \frac{5}{10}[2*\frac{1}{5}*(1-\frac{1}{5})]=0.4\\<br>    Gini(D,A_4=3) = \frac{4}{10}[2*\frac{0}{0}*(1-\frac{0}{0})] + \frac{6}{10}[2*\frac{4}{6}*(1-\frac{4}{6})]=0.27<br>$$</p>
+<p>其中$Gini(D,A_4=3)$最小，所以$A_4=3$为$A_4$的最优切分点</p>
+<p>&emsp;&emsp;在4个特征中，$Gini(D,A_2=1)=0.17$最小，所以选择$A_2$为最优特征，$A_2=1$为其最优切分点。其中$A_2=1$的结点包含数据3、13、14，$A_3 \neq 1$结点包含数据1、2、5、6、7、12、15。$A_2=1$结点内数据类别相同，所以形成叶子结点。对$A_2 \neq 1$结点内数据类别相同，所以形成叶子结点。</p>
+<p>&emsp;&emsp;到此，CART树生成完毕。可以发现与之前按照ID3算法所生成的决策树一样，如下图。</p>
+<div align="center"><br>    <img src="/CART-分类与回归树/决策树.png" alt="决策树模型结构"><br></div>
 
-<h1 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h1><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="comment"># coding=utf-8</span></span><br><span class="line"><span class="keyword">from</span> math <span class="keyword">import</span> log</span><br><span class="line"><span class="keyword">import</span> pygraphviz <span class="keyword">as</span> pgv</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">calcShannonEnt</span><span class="params">(dataSet)</span>:</span></span><br><span class="line">    <span class="comment"># 数据集总条数</span></span><br><span class="line">    numEntries = len(dataSet)</span><br><span class="line">    labelCount = &#123;&#125;</span><br><span class="line">    <span class="comment"># 计算每个类别样本的数量</span></span><br><span class="line">    <span class="keyword">for</span> featVec <span class="keyword">in</span> dataSet:</span><br><span class="line">        currentLabel = featVec[<span class="number">-1</span>]</span><br><span class="line">        labelCount[currentLabel] = labelCount.get(currentLabel, <span class="number">0</span>) + <span class="number">1</span></span><br><span class="line">    shannonEnt = <span class="number">0.0</span></span><br><span class="line">    <span class="keyword">for</span> key <span class="keyword">in</span> labelCount:</span><br><span class="line">        <span class="comment"># 计算每个类别出现的概率</span></span><br><span class="line">        prob = float(labelCount[key]) / numEntries</span><br><span class="line">        <span class="comment"># 计算信息熵</span></span><br><span class="line">        shannonEnt -= prob * log(prob, <span class="number">2</span>)</span><br><span class="line">    <span class="keyword">return</span> shannonEnt</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">splitDataSet</span><span class="params">(dataSet, axis, value)</span>:</span></span><br><span class="line">    retDataSet = []</span><br><span class="line">    <span class="keyword">for</span> featVec <span class="keyword">in</span> dataSet:</span><br><span class="line">        <span class="comment"># 挑选第axis个特征的值为value的数据</span></span><br><span class="line">        <span class="keyword">if</span> featVec[axis] == value:</span><br><span class="line">            reducedFeature = featVec[:axis]</span><br><span class="line">            reducedFeature.append(featVec[axis + <span class="number">1</span>:])</span><br><span class="line">            <span class="comment"># 注意，此处是extend，不是append</span></span><br><span class="line">            retDataSet.extend(reducedFeature)</span><br><span class="line">    <span class="keyword">return</span> retDataSet</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">chooseBestFeatureToSplit</span><span class="params">(dataSet)</span>:</span></span><br><span class="line">    <span class="comment"># 特征数量，由于最后一个是标签，所以减1</span></span><br><span class="line">    numFeatures = len(dataSet[<span class="number">0</span>]) - <span class="number">1</span></span><br><span class="line">    <span class="comment"># 计算经验熵</span></span><br><span class="line">    baseEntropy = calcShannonEnt(dataSet)</span><br><span class="line">    bestInfoGain = <span class="number">0.0</span></span><br><span class="line">    bestFeature = <span class="number">-1</span></span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> range(numFeatures):</span><br><span class="line">        <span class="comment"># 把第i个特征全部挑出</span></span><br><span class="line">        featList = [example[i] <span class="keyword">for</span> example <span class="keyword">in</span> dataSet]</span><br><span class="line">        <span class="comment"># 第i个特征有几个不同的特征值</span></span><br><span class="line">        uniqueVals = set(featList)</span><br><span class="line">        <span class="comment"># 条件经验熵</span></span><br><span class="line">        newEntropy = <span class="number">0.0</span></span><br><span class="line">        <span class="keyword">for</span> value <span class="keyword">in</span> uniqueVals:</span><br><span class="line">            <span class="comment"># 把特征值等于value的数据挑出</span></span><br><span class="line">            subDataSet = splitDataSet(dataSet, i, value)</span><br><span class="line">            <span class="comment"># 计算特征值等于value的数据占总样本的比例</span></span><br><span class="line">            prob = len(subDataSet) / float(len(dataSet))</span><br><span class="line">            <span class="comment"># 计算经验条件熵</span></span><br><span class="line">            newEntropy += prob * calcShannonEnt(subDataSet)</span><br><span class="line">        <span class="comment"># 计算信息增益</span></span><br><span class="line">        infoGain = baseEntropy - newEntropy</span><br><span class="line">        <span class="keyword">if</span> infoGain &gt; bestInfoGain:</span><br><span class="line">            bestInfoGain = infoGain</span><br><span class="line">            bestFeature = i</span><br><span class="line">    <span class="keyword">return</span> bestFeature</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">majorityCnt</span><span class="params">(classList)</span>:</span></span><br><span class="line">    classCount = &#123;&#125;</span><br><span class="line">    <span class="keyword">for</span> vote <span class="keyword">in</span> classList:</span><br><span class="line">        classCount[vote] = classCount.get(vote, <span class="number">0</span>) + <span class="number">1</span></span><br><span class="line">    sortedClassCount = sorted(classCount.iteritems(), key=<span class="keyword">lambda</span> item: item[<span class="number">1</span>], reverse=<span class="keyword">True</span>)</span><br><span class="line">    <span class="keyword">return</span> sortedClassCount[<span class="number">0</span>][<span class="number">0</span>]</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">createTree</span><span class="params">(dataSet, labels)</span>:</span></span><br><span class="line">    classList = [example[<span class="number">-1</span>] <span class="keyword">for</span> example <span class="keyword">in</span> dataSet]</span><br><span class="line">    <span class="keyword">if</span> classList.count(classList[<span class="number">0</span>]) == len(classList):</span><br><span class="line">        <span class="keyword">return</span> classList[<span class="number">0</span>]</span><br><span class="line">    <span class="keyword">if</span> len(dataSet[<span class="number">0</span>]) == <span class="number">1</span>:</span><br><span class="line">        <span class="keyword">return</span> majorityCnt(classList)</span><br><span class="line">    bestFeat = chooseBestFeatureToSplit(dataSet)</span><br><span class="line">    bestFeatLabel = labels[bestFeat]</span><br><span class="line">    myTree = &#123;bestFeatLabel: &#123;&#125;&#125;</span><br><span class="line">    <span class="keyword">del</span> (labels[bestFeat])</span><br><span class="line">    featValues = [example[bestFeat] <span class="keyword">for</span> example <span class="keyword">in</span> dataSet]</span><br><span class="line">    uniqueVals = set(featValues)</span><br><span class="line">    <span class="keyword">for</span> value <span class="keyword">in</span> uniqueVals:</span><br><span class="line">        subLabels = labels[:]</span><br><span class="line">        myTree[bestFeatLabel][value] = createTree(splitDataSet(dataSet, bestFeat, value), subLabels)</span><br><span class="line">    <span class="keyword">return</span> myTree</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">createDataSet</span><span class="params">()</span>:</span></span><br><span class="line">    dataSet = [[<span class="string">'1'</span>, <span class="string">'1'</span>, <span class="string">'yes'</span>],</span><br><span class="line">               [<span class="string">'1'</span>, <span class="string">'1'</span>, <span class="string">'yes'</span>],</span><br><span class="line">               [<span class="string">'1'</span>, <span class="string">'0'</span>, <span class="string">'no'</span>],</span><br><span class="line">               [<span class="string">'0'</span>, <span class="string">'1'</span>, <span class="string">'no'</span>],</span><br><span class="line">               [<span class="string">'0'</span>, <span class="string">'1'</span>, <span class="string">'no'</span>]]</span><br><span class="line">    labels = [<span class="string">'no surfacing'</span>, <span class="string">'flippers'</span>]</span><br><span class="line">    <span class="keyword">return</span> dataSet, labels</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">main</span><span class="params">()</span>:</span></span><br><span class="line">    dataSet, labels = createDataSet()</span><br><span class="line">    tree = createTree(dataSet, labels)</span><br><span class="line">    <span class="keyword">print</span> tree</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">'__main__'</span>:</span><br><span class="line">    main()</span><br></pre></td></tr></table></figure>
+
 <h1 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h1><ol>
 <li>机器学习实战，人民邮电出版社</li>
 <li>统计学习方法，清华大学出版社</li>
@@ -692,12 +961,12 @@
   <script type="text/javascript" src="http://jslibs.wuxubj.cn/sweetalert_mini/jquery-1.7.1.min.js"></script>
   <script src="http://jslibs.wuxubj.cn/sweetalert_mini/sweetalert.min.js"></script>
   <link rel="stylesheet" type="text/css" href="http://jslibs.wuxubj.cn/sweetalert_mini/sweetalert.mini.css">
-  <p><span>本文标题:</span><a href="/决策树/">决策树</a></p>
+  <p><span>本文标题:</span><a href="/CART-分类与回归树/">CART-分类与回归树</a></p>
   <p><span>文章作者:</span><a href="/" title="访问 小建儿 的个人博客">小建儿</a></p>
-  <p><span>发布时间:</span>2018年12月10日 - 21:12</p>
-  <p><span>最后更新:</span>2018年12月12日 - 20:12</p>
-  <p><span>原始链接:</span><a href="/决策树/" title="决策树">http://yajian.github.io/决策树/</a>
-    <span class="copy-path" title="点击复制文章链接"><i class="fa fa-clipboard" data-clipboard-text="http://yajian.github.io/决策树/" aria-label="复制成功！"></i></span>
+  <p><span>发布时间:</span>2018年12月13日 - 10:12</p>
+  <p><span>最后更新:</span>2018年12月19日 - 21:12</p>
+  <p><span>原始链接:</span><a href="/CART-分类与回归树/" title="CART-分类与回归树">http://yajian.github.io/CART-分类与回归树/</a>
+    <span class="copy-path" title="点击复制文章链接"><i class="fa fa-clipboard" data-clipboard-text="http://yajian.github.io/CART-分类与回归树/" aria-label="复制成功！"></i></span>
   </p>
   <p><span>许可协议:</span><i class="fa fa-creative-commons"></i> <a rel="license" href="https://creativecommons.org/licenses/by-nc-nd/4.0/" target="_blank" title="Attribution-NonCommercial-NoDerivatives 4.0 International (CC BY-NC-ND 4.0)">署名-非商业性使用-禁止演绎 4.0 国际</a> 转载请保留原文链接及作者。</p>  
 </div>
@@ -740,8 +1009,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/逻辑回归/" rel="next" title="逻辑回归">
-                <i class="fa fa-chevron-left"></i> 逻辑回归
+              <a href="/决策树/" rel="next" title="决策树">
+                <i class="fa fa-chevron-left"></i> 决策树
               </a>
             
           </div>
@@ -749,10 +1018,6 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/CART-分类与回归树/" rel="prev" title="CART-分类与回归树">
-                CART-分类与回归树 <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -931,7 +1196,7 @@ var jiathis_config={
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#相关数学概念"><span class="nav-number">1.</span> <span class="nav-text">相关数学概念</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#信息熵"><span class="nav-number">1.1.</span> <span class="nav-text">信息熵</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#条件熵"><span class="nav-number">1.2.</span> <span class="nav-text">条件熵</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#信息增益"><span class="nav-number">1.3.</span> <span class="nav-text">信息增益</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#信息增益比"><span class="nav-number">1.4.</span> <span class="nav-text">信息增益比</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#原理"><span class="nav-number">2.</span> <span class="nav-text">原理</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#ID3算法"><span class="nav-number">2.1.</span> <span class="nav-text">ID3算法</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#C4-5算法"><span class="nav-number">2.2.</span> <span class="nav-text">C4.5算法</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#示例"><span class="nav-number">3.</span> <span class="nav-text">示例</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#代码"><span class="nav-number">4.</span> <span class="nav-text">代码</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#参考"><span class="nav-number">5.</span> <span class="nav-text">参考</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#最小二乘回归树生成算法"><span class="nav-number">1.</span> <span class="nav-text">最小二乘回归树生成算法</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#数学描述"><span class="nav-number">1.1.</span> <span class="nav-text">数学描述</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#示例"><span class="nav-number">1.2.</span> <span class="nav-text">示例</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#实现"><span class="nav-number">1.3.</span> <span class="nav-text">实现</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#分类树生成算法"><span class="nav-number">2.</span> <span class="nav-text">分类树生成算法</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#基尼指数"><span class="nav-number">2.1.</span> <span class="nav-text">基尼指数</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#生成算法"><span class="nav-number">2.2.</span> <span class="nav-text">生成算法</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#示例-1"><span class="nav-number">2.3.</span> <span class="nav-text">示例</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#参考"><span class="nav-number">3.</span> <span class="nav-text">参考</span></a></li></ol></div>
             
 
           </div>
@@ -1130,9 +1395,9 @@ var jiathis_config={
     
       <script type="text/javascript">
         var disqus_config = function () {
-          this.page.url = 'http://yajian.github.io/决策树/';
-          this.page.identifier = '决策树/';
-          this.page.title = '决策树';
+          this.page.url = 'http://yajian.github.io/CART-分类与回归树/';
+          this.page.identifier = 'CART-分类与回归树/';
+          this.page.title = 'CART-分类与回归树';
         };
         var d = document, s = d.createElement('script');
         s.src = 'https://.disqus.com/embed.js';
