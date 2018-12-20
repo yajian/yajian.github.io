@@ -517,12 +517,12 @@
 </table>
 <h3 id="第61条-抛出与抽象相对应的异常"><a href="#第61条-抛出与抽象相对应的异常" class="headerlink" title="第61条 抛出与抽象相对应的异常"></a>第61条 抛出与抽象相对应的异常</h3><p>&emsp;&emsp;底层异常经过传播，当高层方法捕捉异常后会出现异常与任务没有明显联系的情况，解决方案：  </p>
 <ol>
-<li>异常转译  <br>&emsp;&emsp; catch底层异常后new一个新的对应的高层异常  </li>
-<li>使用异常链  <br>&emsp;&emsp;使用新异常接收cause的构造器构建新异常</li>
+<li>异常转译<br>&emsp;&emsp; catch底层异常后new一个新的对应的高层异常  </li>
+<li>使用异常链<br>&emsp;&emsp;使用新异常接收cause的构造器构建新异常</li>
 </ol>
 <h3 id="第62条-每个方法抛出的异常都要有文档"><a href="#第62条-每个方法抛出的异常都要有文档" class="headerlink" title="第62条 每个方法抛出的异常都要有文档"></a>第62条 每个方法抛出的异常都要有文档</h3><p>&emsp;&emsp;如果一个方法抛出多个异常类，不要抛出异常类的超类，如“throws Exception”</p>
 <p>文档自觉吧。。。</p>
-<h3 id="第63条-在细节消息中包含能捕获失败的信息"><a href="#第63条-在细节消息中包含能捕获失败的信息" class="headerlink" title="第63条 在细节消息中包含能捕获失败的信息"></a>第63条 在细节消息中包含能捕获失败的信息</h3><p>&emsp;&emsp;异常的细节信息应该包含“对该异常有贡献”的参数和域的值，例如IndexOutOfBoundsException异常的细节消息应包含下界、上界以及没有落在界内的下标值  <br>&emsp;&emsp;在异常构造器中引入造成失败的参数  </p>
+<h3 id="第63条-在细节消息中包含能捕获失败的信息"><a href="#第63条-在细节消息中包含能捕获失败的信息" class="headerlink" title="第63条 在细节消息中包含能捕获失败的信息"></a>第63条 在细节消息中包含能捕获失败的信息</h3><p>&emsp;&emsp;异常的细节信息应该包含“对该异常有贡献”的参数和域的值，例如IndexOutOfBoundsException异常的细节消息应包含下界、上界以及没有落在界内的下标值<br>&emsp;&emsp;在异常构造器中引入造成失败的参数  </p>
 <h3 id="第64条-努力使失败保持原子性"><a href="#第64条-努力使失败保持原子性" class="headerlink" title="第64条 努力使失败保持原子性"></a>第64条 努力使失败保持原子性</h3><p>&emsp;&emsp;失败的方法调用应该使对象保持在被调用之前的状态</p>
 <p>实现方法：</p>
 <ul>
@@ -1401,7 +1401,7 @@ var jiathis_config={
         }
       });
     </script>
-    <script type="text/javascript" src="//cdn.bootcss.com/mathjax/2.7.1/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script type="text/javascript" src="//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
   
 
 

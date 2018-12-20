@@ -450,10 +450,10 @@
 
       
         <p>&emsp;&emsp;上篇博文在两层神经网络的基础上进行了正向传播和反向传播的推导，由于网络层数较少，且只考虑了一个样本的情况，使得推导不具有普适性，本章将进行深层神经网络场景下的正向反向传播推导。</p>
-<h3 id="正向传播"><a href="#正向传播" class="headerlink" title="正向传播"></a>正向传播</h3><p>&emsp;&emsp;假设第$l$层网络有$n$个神经元，第$l-1$层网络有$m$个神经元，$w^{(l)}_{ij}$表示第$l$层第$i$个神经元与第$l-1$层第$j$个神经元的连接权重，$b^{(l)}_{i}$表示第$l$层第i个单元的偏置项，$z^{(l)}_{i}$表示第$l$层第$i$个神经元的输入， $a^{(l)}_{i}$表示第$l$层第$i$个神经元的输入，$f(x)$为激活函数，则有<br>$$z^{(l)}_{i} = \sum^{m}_{j=1}w^{(l)}_{ij}a^{(l-1)}_{j}+b^{(l)}_{i}$$<br>$$a^{(l)}_{i}=f[z^{(l)}_{i}]$$<br>前向传播比较简单，公式推导比较简单，接下来将其向量化。<br>$$W^{(l)}=\begin{pmatrix}<br>w^{(l)}_{11} &amp; w^{(l)}_{12}  &amp;\cdots   &amp;  w^{(l)}_{1m}\\\<br>w^{(l)}_{21} &amp; w^{(l)}_{22}  &amp;\cdots   &amp;  w^{(l)}_{2m}\\\ <br> \vdots &amp; \vdots  &amp;  \ddots &amp;\vdots  \\\ <br>w^{(l)}_{n1} &amp; w^{(l)}_{n2}  &amp;\cdots   &amp;  w^{(l)}_{nm}\\ <br>\end{pmatrix}$$</p>
-<p>$$A^{(l-1)}=\begin{bmatrix}<br>a^{(l-1)}_{1}\\ <br>a^{(l-1)}_{2}\\ <br>\vdots\\ <br>a^{(l-1)}_{m}<br>\end{bmatrix}$$</p>
-<p>$$B^{(l)}=\begin{bmatrix}<br>b^{(l)}_{1}\\ <br>b^{(l)}_{2}\\ <br>\vdots\\ <br>b^{(l)}_{m}<br>\end{bmatrix}$$</p>
-<p>$$Z^{(l)}=\begin{bmatrix}<br>z^{(l)}_{1}\\ <br>z^{(l)}_{2}\\ <br>\vdots\\ <br>z^{(l)}_{m}<br>\end{bmatrix}$$<br>所以有<br>$$Z^{(l)}=W^{(l)}A^{(l-1)}+B^{(l)}$$<br>$$A^{(l)}=f[Z^{(l)}]$$</p>
+<h3 id="正向传播"><a href="#正向传播" class="headerlink" title="正向传播"></a>正向传播</h3><p>&emsp;&emsp;假设第$l$层网络有$n$个神经元，第$l-1$层网络有$m$个神经元，$w^{(l)}_{ij}$表示第$l$层第$i$个神经元与第$l-1$层第$j$个神经元的连接权重，$b^{(l)}_{i}$表示第$l$层第i个单元的偏置项，$z^{(l)}_{i}$表示第$l$层第$i$个神经元的输入， $a^{(l)}_{i}$表示第$l$层第$i$个神经元的输入，$f(x)$为激活函数，则有<br>$$z^{(l)}_{i} = \sum^{m}_{j=1}w^{(l)}_{ij}a^{(l-1)}_{j}+b^{(l)}_{i}$$<br>$$a^{(l)}_{i}=f[z^{(l)}_{i}]$$<br>前向传播比较简单，公式推导比较简单，接下来将其向量化。<br>$$W^{(l)}=\begin{pmatrix}<br>w^{(l)}_{11} &amp; w^{(l)}_{12}  &amp;\cdots   &amp;  w^{(l)}_{1m}\\\<br>w^{(l)}_{21} &amp; w^{(l)}_{22}  &amp;\cdots   &amp;  w^{(l)}_{2m}\\ <br> \vdots &amp; \vdots  &amp;  \ddots &amp;\vdots  \\ <br>w^{(l)}_{n1} &amp; w^{(l)}_{n2}  &amp;\cdots   &amp;  w^{(l)}_{nm}\ <br>\end{pmatrix}$$</p>
+<p>$$A^{(l-1)}=\begin{bmatrix}<br>a^{(l-1)}_{1}\ <br>a^{(l-1)}_{2}\ <br>\vdots\ <br>a^{(l-1)}_{m}<br>\end{bmatrix}$$</p>
+<p>$$B^{(l)}=\begin{bmatrix}<br>b^{(l)}_{1}\ <br>b^{(l)}_{2}\ <br>\vdots\ <br>b^{(l)}_{m}<br>\end{bmatrix}$$</p>
+<p>$$Z^{(l)}=\begin{bmatrix}<br>z^{(l)}_{1}\ <br>z^{(l)}_{2}\ <br>\vdots\ <br>z^{(l)}_{m}<br>\end{bmatrix}$$<br>所以有<br>$$Z^{(l)}=W^{(l)}A^{(l-1)}+B^{(l)}$$<br>$$A^{(l)}=f[Z^{(l)}]$$</p>
 <h3 id="反向传播"><a href="#反向传播" class="headerlink" title="反向传播"></a>反向传播</h3><p>&emsp;&emsp;上篇博文中反向传播使用的均方误差作为损失函数，实际上还可以使用交叉熵等其他公式，所以此处使用$J(W,b)$来代表损失函数，根据链式求导法则有：<br>$$\bigtriangledown_{W^{(l)}} J(W,b)=\frac{\partial{J(W,b)}}{\partial{z^{(l)}}}\frac{\partial{z^{(l)}}}{\partial{W^{(l)}}}=\delta^{(l)}[A^{(l-1)}]^{T}$$<br>$$\bigtriangledown_{b^{(l)}} J(W,b)=\frac{\partial{J(W,b)}}{\partial{z^{(l)}}}\frac{\partial{z^{(l)}}}{\partial{b^{(l)}}}=\delta^{(l)}$$<br>其中$\frac{\partial{J(W,b)}}{\partial{z^{(l)}}}=\delta^{(l)}$，接下来继续求$\delta^{(l-1)}=\frac{\partial{J(W,b)}}{\partial{z^{(l-1)}}}$<br>$$\delta^{(l-1)}=\frac{\partial{J(W,b)}}{\partial{z^{(l-1)}}}=\frac{\partial{J(W,b)}}{\partial{z^{(l)}}}<br>\frac{\partial{z^{(l)}}}{\partial{a^{(l-1)}}}<br>\frac{\partial{a^{(l-1)}}}{\partial{z^{(l-1)}}}<br>=[W^{(l)}]^{T}\delta^{(l)}f’(z^{(l-1)})$$<br>其中$\frac{\partial{J(W,b)}}{\partial{z^{(l)}}}=\delta^{(l)}$，$\frac{\partial{z^{(l)}}}{\partial{a^{(l-1)}}} = W^{(l)}$，$\frac{\partial{a^{(l-1)}}}{\partial{z^{(l-1)}}}=f’(z^{(l-1)})$。所以可以从输出层向输入层逐步计算每一层的$\delta^{(l)}$。</p>
 <h3 id="神经网络工作流程"><a href="#神经网络工作流程" class="headerlink" title="神经网络工作流程"></a>神经网络工作流程</h3><p>&emsp;&emsp;整个神经网络的计算过程如下：  </p>
 <ol>
@@ -1332,7 +1332,7 @@ var jiathis_config={
         }
       });
     </script>
-    <script type="text/javascript" src="//cdn.bootcss.com/mathjax/2.7.1/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script type="text/javascript" src="//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
   
 
 

@@ -113,18 +113,18 @@
 
 
 
-<meta name="description" content="单例模式是否安全&amp;emsp;&amp;emsp;在[设计模式-单例模式](https://yajian.github.io/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F-%E5%8D%95%E4%BE%8B%E6%A8%A1%E5%BC%8F/)这篇博客介绍了单例模式的几种实现方式，但是按照上述方式是否能够保证一定是单例呢？答案是否定的，如果不加限制，通过反射和序列化可以破坏单">
+<meta name="description" content="单例模式是否安全&amp;emsp;&amp;emsp;在设计模式-单例模式这篇博客介绍了单例模式的几种实现方式，但是按照上述方式是否能够保证一定是单例呢？答案是否定的，如果不加限制，通过反射和序列化可以破坏单例模式。 破坏单例模式反射&amp;emsp;&amp;emsp;单例模式把类的构造方法设置为private访问级别，导致外部类无法新建对象，通过反射我们可以修改访问级别，从外部新建单例类对象。以饿汉模式为例 123456">
 <meta name="keywords" content="设计模式">
 <meta property="og:type" content="article">
 <meta property="og:title" content="设计模式-如何防止单例模式被破坏">
 <meta property="og:url" content="http://yajian.github.io/设计模式-如何防止单例模式被破坏/index.html">
 <meta property="og:site_name" content="小建儿的小站">
-<meta property="og:description" content="单例模式是否安全&amp;emsp;&amp;emsp;在[设计模式-单例模式](https://yajian.github.io/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F-%E5%8D%95%E4%BE%8B%E6%A8%A1%E5%BC%8F/)这篇博客介绍了单例模式的几种实现方式，但是按照上述方式是否能够保证一定是单例呢？答案是否定的，如果不加限制，通过反射和序列化可以破坏单">
+<meta property="og:description" content="单例模式是否安全&amp;emsp;&amp;emsp;在设计模式-单例模式这篇博客介绍了单例模式的几种实现方式，但是按照上述方式是否能够保证一定是单例呢？答案是否定的，如果不加限制，通过反射和序列化可以破坏单例模式。 破坏单例模式反射&amp;emsp;&amp;emsp;单例模式把类的构造方法设置为private访问级别，导致外部类无法新建对象，通过反射我们可以修改访问级别，从外部新建单例类对象。以饿汉模式为例 123456">
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:updated_time" content="2018-08-06T02:31:56.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="设计模式-如何防止单例模式被破坏">
-<meta name="twitter:description" content="单例模式是否安全&amp;emsp;&amp;emsp;在[设计模式-单例模式](https://yajian.github.io/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F-%E5%8D%95%E4%BE%8B%E6%A8%A1%E5%BC%8F/)这篇博客介绍了单例模式的几种实现方式，但是按照上述方式是否能够保证一定是单例呢？答案是否定的，如果不加限制，通过反射和序列化可以破坏单">
+<meta name="twitter:description" content="单例模式是否安全&amp;emsp;&amp;emsp;在设计模式-单例模式这篇博客介绍了单例模式的几种实现方式，但是按照上述方式是否能够保证一定是单例呢？答案是否定的，如果不加限制，通过反射和序列化可以破坏单例模式。 破坏单例模式反射&amp;emsp;&amp;emsp;单例模式把类的构造方法设置为private访问级别，导致外部类无法新建对象，通过反射我们可以修改访问级别，从外部新建单例类对象。以饿汉模式为例 123456">
 
 
 
@@ -449,7 +449,7 @@
       
 
       
-        <h1 id="单例模式是否安全"><a href="#单例模式是否安全" class="headerlink" title="单例模式是否安全"></a>单例模式是否安全</h1><p>&emsp;&emsp;在[设计模式-单例模式](<a href="https://yajian.github.io/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F-%E5%8D%95%E4%BE%8B%E6%A8%A1%E5%BC%8F/)这篇博客介绍了单例模式的几种实现方式，但是按照上述方式是否能够保证一定是单例呢？答案是否定的，如果不加限制，通过反射和序列化可以破坏单例模式。">https://yajian.github.io/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F-%E5%8D%95%E4%BE%8B%E6%A8%A1%E5%BC%8F/)这篇博客介绍了单例模式的几种实现方式，但是按照上述方式是否能够保证一定是单例呢？答案是否定的，如果不加限制，通过反射和序列化可以破坏单例模式。</a></p>
+        <h1 id="单例模式是否安全"><a href="#单例模式是否安全" class="headerlink" title="单例模式是否安全"></a>单例模式是否安全</h1><p>&emsp;&emsp;在<a href="https://yajian.github.io/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F-%E5%8D%95%E4%BE%8B%E6%A8%A1%E5%BC%8F/">设计模式-单例模式</a>这篇博客介绍了单例模式的几种实现方式，但是按照上述方式是否能够保证一定是单例呢？答案是否定的，如果不加限制，通过反射和序列化可以破坏单例模式。</p>
 <h1 id="破坏单例模式"><a href="#破坏单例模式" class="headerlink" title="破坏单例模式"></a>破坏单例模式</h1><h2 id="反射"><a href="#反射" class="headerlink" title="反射"></a>反射</h2><p>&emsp;&emsp;单例模式把类的构造方法设置为private访问级别，导致外部类无法新建对象，通过反射我们可以修改访问级别，从外部新建单例类对象。以饿汉模式为例</p>
 <figure class="highlight smali"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">public class StarveSingleton &#123;</span><br><span class="line"></span><br><span class="line">   <span class="keyword"> private</span><span class="keyword"> static</span> StarveSingleton<span class="built_in"> instance </span>=<span class="built_in"> new </span>StarveSingleton();</span><br><span class="line"></span><br><span class="line">   <span class="keyword"> private</span> StarveSingleton()&#123;&#125;</span><br><span class="line"></span><br><span class="line">   <span class="keyword"> public</span><span class="keyword"> static</span> StarveSingleton getInstance() &#123;</span><br><span class="line">       <span class="built_in"> return </span>instance;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">   <span class="keyword"> public</span><span class="keyword"> static</span> void main(String[] args) &#123;</span><br><span class="line">	//输出true</span><br><span class="line">	System.out.println(StarveSingleton.getInstance() == StarveSingleton.getInstance());</span><br><span class="line">        Class clazz = StarveSingleton.class;</span><br><span class="line">        Constructor<span class="keyword"> constructor</span>= clazz.getDeclaredConstructor(null);</span><br><span class="line">       <span class="keyword"> constructor</span>.setAccessible(true);</span><br><span class="line">        StarveSingleton<span class="built_in"> instance </span>= (StarveSingleton)<span class="keyword"> constructor</span>.newInstance(null);</span><br><span class="line">	//输出false</span><br><span class="line">        System.out.println(instance == StarveSingleton.getInstance());</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p>&emsp;&emsp;从结果来看，通过反射的方式，单例模式被破坏，我们可以随意产生新的单例类实例。</p>
@@ -1338,7 +1338,7 @@ var jiathis_config={
         }
       });
     </script>
-    <script type="text/javascript" src="//cdn.bootcss.com/mathjax/2.7.1/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script type="text/javascript" src="//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
   
 
 

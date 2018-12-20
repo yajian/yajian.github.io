@@ -2261,7 +2261,7 @@
 <li>空间整合：整体上看是“标记-整理”算法实现的收集器，从局部看是基于“复制”算法实现的。其运行期间不会产生空间碎片。</li>
 <li>可预测停顿：G1除了追求低停顿外，还能建立可预测的停顿时间模型，能够让使用者明确指定在一个长度为M毫秒的时间片段内，消耗在垃圾收集上的时间不得超过N毫秒。</li>
 </ul>
-<p>&emsp;&emsp;使用G1收集器时，Java堆的内存布局与其他收集器有很大差别。它将整个Java堆分为大小相等的独立区域Region。<br>*emsp;*emsp;G1能够预测停顿时间是因为：G1可以有计划地避免在整个Java堆中进行全区域的垃圾收集。它可以跟踪各个Region里面的垃圾堆积的价值大小（回收所获得的空间大小及回收所需时间的经验值），在后台维护一个优先列表，每次根据允许的收集时间，优先回收价值最大的region。这种使用region划分内存空间以及有优先级的区域回收方式，保证了G1收集器可以在有限的时间里获得尽可能高的效率。</p>
+<p>&emsp;&emsp;使用G1收集器时，Java堆的内存布局与其他收集器有很大差别。它将整个Java堆分为大小相等的独立区域Region。<br><em>emsp;</em>emsp;G1能够预测停顿时间是因为：G1可以有计划地避免在整个Java堆中进行全区域的垃圾收集。它可以跟踪各个Region里面的垃圾堆积的价值大小（回收所获得的空间大小及回收所需时间的经验值），在后台维护一个优先列表，每次根据允许的收集时间，优先回收价值最大的region。这种使用region划分内存空间以及有优先级的区域回收方式，保证了G1收集器可以在有限的时间里获得尽可能高的效率。</p>
 <h2 id="内存分配与回收策略"><a href="#内存分配与回收策略" class="headerlink" title="内存分配与回收策略"></a>内存分配与回收策略</h2><h2 id="对象优先在Eden分配"><a href="#对象优先在Eden分配" class="headerlink" title="对象优先在Eden分配"></a>对象优先在Eden分配</h2><p>&emsp;&emsp;对象在新生代Eden区中分配，当Eden区中没有足够空间进行分配时，虚拟机将发起一次Minor GC。</p>
 <h2 id="大对象直接进入老年代"><a href="#大对象直接进入老年代" class="headerlink" title="大对象直接进入老年代"></a>大对象直接进入老年代</h2><p>&emsp;&emsp;大对象是指需要内存连续空间的Java对象，最典型的大对象就是长字符串和数组。</p>
 <h2 id="长期存活的对象直接进入老年代"><a href="#长期存活的对象直接进入老年代" class="headerlink" title="长期存活的对象直接进入老年代"></a>长期存活的对象直接进入老年代</h2><p>&emsp;&emsp;虚拟机给每个对象定义了一个对象年龄计数器，如果对象在Eden出生并且经过第一次Minor GC后仍然存活，并且能被Survivor容纳的话，将被移动到Survivor空间，并且对象年龄设为1。对象在Survivor区中每经过一次Minor GC，年龄就加1岁，当年龄增加之一定程度（默认是15岁），就会被移动到老年代中。</p>
@@ -2527,12 +2527,12 @@
 </table>
 <h3 id="第61条-抛出与抽象相对应的异常"><a href="#第61条-抛出与抽象相对应的异常" class="headerlink" title="第61条 抛出与抽象相对应的异常"></a>第61条 抛出与抽象相对应的异常</h3><p>&emsp;&emsp;底层异常经过传播，当高层方法捕捉异常后会出现异常与任务没有明显联系的情况，解决方案：  </p>
 <ol>
-<li>异常转译  <br>&emsp;&emsp; catch底层异常后new一个新的对应的高层异常  </li>
-<li>使用异常链  <br>&emsp;&emsp;使用新异常接收cause的构造器构建新异常</li>
+<li>异常转译<br>&emsp;&emsp; catch底层异常后new一个新的对应的高层异常  </li>
+<li>使用异常链<br>&emsp;&emsp;使用新异常接收cause的构造器构建新异常</li>
 </ol>
 <h3 id="第62条-每个方法抛出的异常都要有文档"><a href="#第62条-每个方法抛出的异常都要有文档" class="headerlink" title="第62条 每个方法抛出的异常都要有文档"></a>第62条 每个方法抛出的异常都要有文档</h3><p>&emsp;&emsp;如果一个方法抛出多个异常类，不要抛出异常类的超类，如“throws Exception”</p>
 <p>文档自觉吧。。。</p>
-<h3 id="第63条-在细节消息中包含能捕获失败的信息"><a href="#第63条-在细节消息中包含能捕获失败的信息" class="headerlink" title="第63条 在细节消息中包含能捕获失败的信息"></a>第63条 在细节消息中包含能捕获失败的信息</h3><p>&emsp;&emsp;异常的细节信息应该包含“对该异常有贡献”的参数和域的值，例如IndexOutOfBoundsException异常的细节消息应包含下界、上界以及没有落在界内的下标值  <br>&emsp;&emsp;在异常构造器中引入造成失败的参数  </p>
+<h3 id="第63条-在细节消息中包含能捕获失败的信息"><a href="#第63条-在细节消息中包含能捕获失败的信息" class="headerlink" title="第63条 在细节消息中包含能捕获失败的信息"></a>第63条 在细节消息中包含能捕获失败的信息</h3><p>&emsp;&emsp;异常的细节信息应该包含“对该异常有贡献”的参数和域的值，例如IndexOutOfBoundsException异常的细节消息应包含下界、上界以及没有落在界内的下标值<br>&emsp;&emsp;在异常构造器中引入造成失败的参数  </p>
 <h3 id="第64条-努力使失败保持原子性"><a href="#第64条-努力使失败保持原子性" class="headerlink" title="第64条 努力使失败保持原子性"></a>第64条 努力使失败保持原子性</h3><p>&emsp;&emsp;失败的方法调用应该使对象保持在被调用之前的状态</p>
 <p>实现方法：</p>
 <ul>
@@ -3260,7 +3260,7 @@
         }
       });
     </script>
-    <script type="text/javascript" src="//cdn.bootcss.com/mathjax/2.7.1/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script type="text/javascript" src="//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
   
 
 

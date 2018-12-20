@@ -122,7 +122,7 @@
 <meta property="og:description" content="&amp;emsp;&amp;emsp;决策树(decision tree)是一种多功能的机器学习算法，它可以实现分类和回归任务，同时也是随机森林的重要组成部分，本篇博客主要讨论用于分类的决策树。 &amp;emsp;&amp;emsp;分类型决策树是一种描述对实例进行分类的树形结构。决策树由结点（node）和有向边（directed edge）组成。结点有两种类型：内部结点（internal node）和叶结点（leaf no">
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="http://yajian.github.io/决策树/决策树.png">
-<meta property="og:updated_time" content="2018-12-12T12:23:05.021Z">
+<meta property="og:updated_time" content="2018-12-20T03:41:16.887Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="决策树">
 <meta name="twitter:description" content="&amp;emsp;&amp;emsp;决策树(decision tree)是一种多功能的机器学习算法，它可以实现分类和回归任务，同时也是随机森林的重要组成部分，本篇博客主要讨论用于分类的决策树。 &amp;emsp;&amp;emsp;分类型决策树是一种描述对实例进行分类的树形结构。决策树由结点（node）和有向边（directed edge）组成。结点有两种类型：内部结点（internal node）和叶结点（leaf no">
@@ -482,7 +482,7 @@
 <li><p>如果$A_g$小于阈值$\epsilon$，则置$T$为单点树，将$D$中实例数最多的类$C_k$作为该结点的类标记，返回$T$；</p>
 </li>
 <li>否则，对$A_g$的每一个值$a_i$，按照$A_g=a_i$将$D$分割为若干非空子集$D_i$，将$D_i$中实例最大的类作为标记，构建子结点，由结点和子结点构成树$T$，返回$T$</li>
-<li>对第$i$个子结点，以$D_i$为训练集，以$A_i-\{A_g\}$为特征集，递归地调用步骤1-5，得到子树$T_i$，返回$T_i$</li>
+<li>对第$i$个子结点，以$D_i$为训练集，以$A_i-{A_g}$为特征集，递归地调用步骤1-5，得到子树$T_i$，返回$T_i$</li>
 </ol>
 <h2 id="C4-5算法"><a href="#C4-5算法" class="headerlink" title="C4.5算法"></a>C4.5算法</h2><p>&emsp;&emsp;C4.5算法和ID3算法类似，C4.5算法对ID3算法进行了改进，在生成模型的过程中采用信息增益比来选择特征。</p>
 <h1 id="示例"><a href="#示例" class="headerlink" title="示例"></a>示例</h1><p>&emsp;&emsp;以贷款申请数据为例讲解决策树的生成过程，采用ID3算法。</p>
@@ -624,10 +624,10 @@
 <li>计算经验熵$H(D)$<br> $$H(D)=-\frac{6}{15}log_2\frac{6}{15}-\frac{9}{15}log_2\frac{9}{15}=0.971$$</li>
 <li><p>计算各特征对数据集$D$的信息增益</p>
 <ul>
-<li>年龄<br>$$<br>\begin{align*}<br>g(D,A_1)&amp;=H(D) - [\frac{5}{15}H(D_1)+\frac{5}{15}H(D_2)+\frac{5}{15}H(D_3)]\\<br>&amp;= 0.971 - \{\frac{5}{15}[-\frac{2}{5}log_2\frac{2}{5}-\frac{3}{5}log_2\frac{3}{5}]+<br>\frac{5}{15}[-\frac{3}{5}log_2\frac{3}{5}-\frac{2}{5}log_2\frac{2}{5}]+<br>\frac{5}{15}[-\frac{4}{5}log_2\frac{4}{5}-\frac{1}{5}log_2\frac{1}{5}]\}\\<br>&amp;=0.971-0.888\\<br>&amp;=0.083<br>\end{align*}<br>$$</li>
-<li>有工作<br>$$<br>\begin{align*}<br>g(D,A_2)&amp;=H(D) - [\frac{5}{15}H(D_1)+\frac{10}{15}H(D_2)]\\<br>&amp;= 0.971 - \{\frac{5}{15}* 0+<br>\frac{10}{15}[-\frac{6}{10}log_2\frac{6}{10}-\frac{4}{10}log_2\frac{4}{10}]\\<br>&amp;=0.971-???\\<br>&amp;=0.324<br>\end{align*}<br>$$</li>
-<li>有自己的房子<br>$$<br>\begin{align*}<br>g(D,A_3)&amp;=H(D) - [\frac{6}{15}H(D_1)+\frac{9}{15}H(D_2)]\\<br>&amp;= 0.971 - \{\frac{6}{15}* 0+<br>\frac{9}{15}[-\frac{3}{9}log_2\frac{3}{9}-\frac{6}{9}log_2\frac{6}{9}]\\<br>&amp;=0.971-0.551\\<br>&amp;=0.420<br>\end{align*}<br>$$</li>
-<li>信贷情况<br>$$<br>\begin{align*}<br>g(D,A_3)&amp;=H(D) - [\frac{5}{15}H(D_1)+\frac{6}{15}H(D_2)+\frac{4}{15}H(D_2)]\\<br>&amp;= 0.971 - \{\frac{5}{15}[-\frac{1}{5}log_2\frac{1}{5}-\frac{4}{5}log_2\frac{4}{5}] +<br>\frac{6}{15}[-\frac{4}{6}log_2\frac{4}{6}-\frac{2}{6}log_2\frac{2}{6}] +<br>\frac{4}{15} * 0  \}\\<br>&amp;=0.971-0.608\\<br>&amp;=0.363<br>\end{align*}<br>$$<br>&emsp;&emsp;综上，特征$A_3$（有自己的房子）的信息增益值最大，所以选择$A_3$作为根节点的特征。接下来将数据集$D$划分为两个子集$D_1$($A_3$=是)、$D_2$($A_3$=否)，分别进行下一轮的信息增益筛选。</li>
+<li>年龄<br>$$<br>\begin{split}<br>g(D,A_1)&amp;=H(D) - [\frac{5}{15}H(D_1)+\frac{5}{15}H(D_2)+\frac{5}{15}H(D_3)]\\<br>&amp;= 0.971 - {\frac{5}{15}[-\frac{2}{5}log_2\frac{2}{5}-\frac{3}{5}log_2\frac{3}{5}]+<br>\frac{5}{15}[-\frac{3}{5}log_2\frac{3}{5}-\frac{2}{5}log_2\frac{2}{5}]+<br>\frac{5}{15}[-\frac{4}{5}log_2\frac{4}{5}-\frac{1}{5}log_2\frac{1}{5}]}\\<br>&amp;=0.971-0.888\\<br>&amp;=0.083<br>\end{split}<br>$$</li>
+<li>有工作<br>$$<br>\begin{split}<br>g(D,A_2)&amp;=H(D) - [\frac{5}{15}H(D_1)+\frac{10}{15}H(D_2)]\\<br>&amp;= 0.971 - {\frac{5}{15} \times 0+<br>\frac{10}{15}[-\frac{6}{10}log_2\frac{6}{10}-\frac{4}{10}log_2\frac{4}{10}]}\\<br>&amp;=0.971-0.647\\<br>&amp;=0.324<br>\end{split}<br>$$</li>
+<li>有自己的房子<br>$$<br>\begin{split}<br>g(D,A_3)&amp;=H(D) - [\frac{6}{15}H(D_1)+\frac{9}{15}H(D_2)]\\<br>&amp;= 0.971 - {\frac{6}{15} \times 0+<br>\frac{9}{15}[-\frac{3}{9}log_2\frac{3}{9}-\frac{6}{9}log_2\frac{6}{9}]}\\<br>&amp;=0.971-0.551\\<br>&amp;=0.420<br>\end{split}<br>$$</li>
+<li>信贷情况<br>$$<br>\begin{split}<br>g(D,A_3)&amp;=H(D) - [\frac{5}{15}H(D_1)+\frac{6}{15}H(D_2)+\frac{4}{15}H(D_2)]\\<br>&amp;= 0.971 - {\frac{5}{15}[-\frac{1}{5}log_2\frac{1}{5}-\frac{4}{5}log_2\frac{4}{5}] +<br>\frac{6}{15}[-\frac{4}{6}log_2\frac{4}{6}-\frac{2}{6}log_2\frac{2}{6}] +<br>\frac{4}{15} \times 0  }\\<br>&amp;=0.971-0.608\\<br>&amp;=0.363<br>\end{split}<br>$$<br>&emsp;&emsp;综上，特征$A_3$（有自己的房子）的信息增益值最大，所以选择$A_3$作为根节点的特征。接下来将数据集$D$划分为两个子集$D_1$($A_3$=是)、$D_2$($A_3$=否)，分别进行下一轮的信息增益筛选。</li>
 </ul>
 </li>
 </ol>
@@ -637,15 +637,15 @@
 <ul>
 <li><p>计算经验熵<br>$$H(D_2)=-\frac{6}{9}log_2\frac{6}{9}-\frac{3}{9}log_2\frac{3}{9}=0.918$$</p>
 </li>
-<li><p>年龄特征信息增益<br>$$<br>\begin{align*}<br>g(D_2,A_1)&amp;=H(D) - [\frac{4}{9}H(D_1)+\frac{2}{9}H(D_2)+\frac{3}{9}H(D_3)]\\<br>&amp;= 0.971 - \{\frac{4}{9}[-\frac{3}{4}log_2\frac{3}{4}-\frac{1}{4}log_2\frac{1}{4}]+<br>\frac{2}{9}*0+<br>\frac{3}{9}[-\frac{2}{3}log_2\frac{2}{3}-\frac{1}{3}log_2\frac{1}{3}]\}\\<br>&amp;=0.971-0.667\\<br>&amp;=0.251<br>\end{align*}<br>$$</p>
+<li><p>年龄特征信息增益<br>$$<br>\begin{split}<br>g(D_2,A_1)&amp;=H(D) - [\frac{4}{9}H(D_1)+\frac{2}{9}H(D_2)+\frac{3}{9}H(D_3)]\\<br>&amp;= 0.971 - {\frac{4}{9}[-\frac{3}{4}log_2\frac{3}{4}-\frac{1}{4}log_2\frac{1}{4}]+<br>\frac{2}{9}\times0+<br>\frac{3}{9}[-\frac{2}{3}log_2\frac{2}{3}-\frac{1}{3}log_2\frac{1}{3}]}\\<br>&amp;=0.971-0.667\\<br>&amp;=0.251<br>\end{split}<br>$$</p>
 </li>
 <li><p>有工作特征信息增益</p>
 </li>
 </ul>
-<p>$$<br> \begin{align*}<br> g(D_2,A_2)&amp;=H(D) - [\frac{6}{9}H(D_1)+\frac{3}{9}H(D_2)]\\<br> &amp;= 0.971 - [\frac{6}{9}*0+\frac{3}{9} * 0]\\<br> &amp;= 0.918-0\\<br> &amp;=0.918<br> \end{align*}<br> $$</p>
+<p>$$<br> \begin{split}<br> g(D_2,A_2)&amp;=H(D) - [\frac{6}{9}H(D_1)+\frac{3}{9}H(D_2)]\\<br> &amp;= 0.971 - [\frac{6}{9}\times0+\frac{3}{9} \times 0]\\<br> &amp;= 0.918-0\\<br> &amp;=0.918<br> \end{split}<br> $$</p>
 <ul>
 <li><p>信贷情况特征信息增益</p>
-<p>  $$<br>\begin{align*}<br>g(D_2,A_4)&amp;=H(D) - [\frac{4}{9}H(D_1)+\frac{4}{9}H(D_2)+\frac{1}{9}H(D_3)]\\<br>&amp;= 0.971 - \{\frac{4}{9}*0+<br>\frac{4}{9}[-\frac{2}{4}log_2\frac{2}{4}-\frac{2}{4}log_2\frac{2}{4}]+<br>\frac{1}{9}*0\}\\<br>&amp;=0.918-0.444\\<br>&amp;=0.474<br>\end{align*}<br>$$<br>&emsp;&emsp;综上，特征$A_2$（有工作）的信息增益值最大，所以选择$A_2$作为该结点的特征。接下来将数据集$D_2$划分为两个子集$D_{21}$($A_2$=是)、$D_{22}$($A_2$=否)，分别进行下一轮的信息增益筛选。</p>
+<p>  $$<br>\begin{split}<br>g(D_2,A_4)&amp;=H(D) - [\frac{4}{9}H(D_1)+\frac{4}{9}H(D_2)+\frac{1}{9}H(D_3)]\\<br>&amp;= 0.971 - {\frac{4}{9}\times0+<br>\frac{4}{9}[-\frac{2}{4}log_2\frac{2}{4}-\frac{2}{4}log_2\frac{2}{4}]+<br>\frac{1}{9}\times0}\\<br>&amp;=0.918-0.444\\<br>&amp;=0.474<br>\end{split}<br>$$<br>&emsp;&emsp;综上，特征$A_2$（有工作）的信息增益值最大，所以选择$A_2$作为该结点的特征。接下来将数据集$D_2$划分为两个子集$D_{21}$($A_2$=是)、$D_{22}$($A_2$=否)，分别进行下一轮的信息增益筛选。</p>
 </li>
 </ul>
 </li>
@@ -695,7 +695,7 @@
   <p><span>本文标题:</span><a href="/决策树/">决策树</a></p>
   <p><span>文章作者:</span><a href="/" title="访问 小建儿 的个人博客">小建儿</a></p>
   <p><span>发布时间:</span>2018年12月10日 - 21:12</p>
-  <p><span>最后更新:</span>2018年12月12日 - 20:12</p>
+  <p><span>最后更新:</span>2018年12月20日 - 11:12</p>
   <p><span>原始链接:</span><a href="/决策树/" title="决策树">http://yajian.github.io/决策树/</a>
     <span class="copy-path" title="点击复制文章链接"><i class="fa fa-clipboard" data-clipboard-text="http://yajian.github.io/决策树/" aria-label="复制成功！"></i></span>
   </p>
@@ -1529,7 +1529,7 @@ var jiathis_config={
         }
       });
     </script>
-    <script type="text/javascript" src="//cdn.bootcss.com/mathjax/2.7.1/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script type="text/javascript" src="//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
   
 
 

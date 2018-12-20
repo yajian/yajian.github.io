@@ -478,8 +478,8 @@
 <p>$${\frac{\partial{z^{(3)}}}{\partial{w^{(2)}_{11}}}}=a^{(2)}_{1}$$</p>
 <p>对于${\frac{\partial{E}}{\partial{z^{(3)}}}}$，有</p>
 <p>$${\frac{\partial{E}}{\partial{z^{(3)}}}} = {\frac{\partial{E}}{\partial{a^{(3)}}}}{\frac{\partial{a^{(3)}}}{\partial{z^{(3)}}}}=-(t-a^{(3)})*f’(z^{(3)})$$</p>
-<p>若激活函数为simgoid函数，有<br>$${\frac{\partial{E}}{\partial{z^{(3)}}}} = -(t-a^{(3)})*z^{(3)}*(1-z^{(3)})$$<br>该结果在推导前一层权重$w$时会用到，令$\delta_{3}={\frac{\partial{E}}{\partial{z^{(3)}}}}$，代入$\frac{\partial{E}}{\partial{w^{2}_{11}}}$，有<br>$$\frac{\partial{E}}{\partial{w^{2}_{11}}} = \delta_{3}*a^{(2)}_{1}$$</p>
-<p>&emsp;&emsp;对于第二层，需要求$\frac{\partial{E}}{\partial{w^{(1)}_{11}}}$，有<br>$$\frac{\partial{E}}{\partial{w^{(1)}_{11}}} = \frac{\partial{E}}{\partial{z^{(2)}_{1}}}\frac{\partial{z^{(2)}_{1}}}{\partial{w^{(1)}_{11}}}$$<br>其中<br>$$\frac{\partial{z^{(2)}_{1}}}{\partial{w^{(1)}_{11}}} = x_{1}$$<br>由于第三层只有一个节点，所以有<br>$$\frac{\partial{E}}{\partial{z^{(2)}_{1}}}= \frac{\partial{E}}{\partial{z^{(3)}_{1}}}\frac{\partial{z^{(3)}_{1}}}{\partial{z^{(2)}_{1}}}=\delta_{3}*\frac{\partial{z^{(3)}_{1}}}{\partial{a^{(2)}_{1}}}*\frac{\partial{a^{(2)}_{1}}}{\partial{z^{(2)}_{1}}}=\delta_{3}*w^{(2)}_{11}*z^{(2)}_{1}(1-z^{(2)}_{1})$$<br>令$\delta_{2}=\frac{\partial{E}}{\partial{z^{(2)}_{1}}}$，则有<br>$$\frac{\partial{E}}{\partial{w^{(1)}_{11}}}=\delta_{2}*x_{1}$$<br>其他的权重值与上述推导一致。</p>
+<p>若激活函数为simgoid函数，有<br>$${\frac{\partial{E}}{\partial{z^{(3)}}}} = -(t-a^{(3)})<em>z^{(3)}</em>(1-z^{(3)})$$<br>该结果在推导前一层权重$w$时会用到，令$\delta_{3}={\frac{\partial{E}}{\partial{z^{(3)}}}}$，代入$\frac{\partial{E}}{\partial{w^{2}_{11}}}$，有<br>$$\frac{\partial{E}}{\partial{w^{2}_{11}}} = \delta_{3}*a^{(2)}_{1}$$</p>
+<p>&emsp;&emsp;对于第二层，需要求$\frac{\partial{E}}{\partial{w^{(1)}_{11}}}$，有<br>$$\frac{\partial{E}}{\partial{w^{(1)}_{11}}} = \frac{\partial{E}}{\partial{z^{(2)}_{1}}}\frac{\partial{z^{(2)}_{1}}}{\partial{w^{(1)}_{11}}}$$<br>其中<br>$$\frac{\partial{z^{(2)}_{1}}}{\partial{w^{(1)}_{11}}} = x_{1}$$<br>由于第三层只有一个节点，所以有<br>$$\frac{\partial{E}}{\partial{z^{(2)}_{1}}}= \frac{\partial{E}}{\partial{z^{(3)}_{1}}}\frac{\partial{z^{(3)}_{1}}}{\partial{z^{(2)}_{1}}}=\delta_{3}<em>\frac{\partial{z^{(3)}_{1}}}{\partial{a^{(2)}_{1}}}</em>\frac{\partial{a^{(2)}_{1}}}{\partial{z^{(2)}_{1}}}=\delta_{3}<em>w^{(2)}_{11}</em>z^{(2)}_{1}(1-z^{(2)}_{1})$$<br>令$\delta_{2}=\frac{\partial{E}}{\partial{z^{(2)}_{1}}}$，则有<br>$$\frac{\partial{E}}{\partial{w^{(1)}_{11}}}=\delta_{2}*x_{1}$$<br>其他的权重值与上述推导一致。</p>
 <h2 id="激活函数"><a href="#激活函数" class="headerlink" title="激活函数"></a>激活函数</h2><p>&emsp;&emsp;激活函数的目的在于引入非线性，将输出映射到不同的空间。如果激活函数是线性的，那么多层次的神经网络和单层神经网络是等价的。比较常见的激活函数有simgoid函数、tanh函数、ReLU函数等。</p>
 <h3 id="sigmoid函数"><a href="#sigmoid函数" class="headerlink" title="sigmoid函数"></a>sigmoid函数</h3><p>&emsp;&emsp;sigmoid函数在logistic回归推导中给出了其函数图像及表达式，这里不再赘述。其优点在于能将输出映射在[0，1]区间，单调并连续。其缺点在于输入超过一定区间，函数的导数趋近于0，容易出现问题，并且其输出均值不为0.</p>
 <h3 id="tanh函数"><a href="#tanh函数" class="headerlink" title="tanh函数"></a>tanh函数</h3><p>&emsp;&emsp;tanh函数被定义为$tanh(x)=\frac{1-e^{-2x}}{1+e^{-2x}}$，其函数图像如下所示</p>
@@ -1359,7 +1359,7 @@ var jiathis_config={
         }
       });
     </script>
-    <script type="text/javascript" src="//cdn.bootcss.com/mathjax/2.7.1/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script type="text/javascript" src="//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
   
 
 

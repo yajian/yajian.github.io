@@ -462,7 +462,7 @@
 </ul>
 <p>###本地方法栈<br>&emsp;&emsp;与虚拟机栈作用类似，区别在于虚拟机栈为执行java方法服务，本地方法栈为Native方法服务。</p>
 <p>###Java堆<br>&emsp;&emsp;Java堆(Heap)是Java虚拟机管理内存中最大的一块，被所有线程共享。其唯一作用就是存放对象实例。</p>
-<p>&emsp;&emsp;**绝大多数对象示例及数组要在堆上分配，但是随着JIT编译器的发展和逃逸分析技术逐渐成熟，栈上分配、标量替换优化技术导致一些微妙变化的发生，所有对象都分配在堆上也不那么绝对了**</p>
+<p>&emsp;&emsp;<strong>绝大多数对象示例及数组要在堆上分配，但是随着JIT编译器的发展和逃逸分析技术逐渐成熟，栈上分配、标量替换优化技术导致一些微妙变化的发生，所有对象都分配在堆上也不那么绝对了</strong></p>
 <p>&emsp;&emsp;堆是垃圾收集器管理的主要区域，基本都采用分代收集算法。</p>
 <p>&emsp;&emsp;Java堆可以处于物理上不连续的空间中，只要逻辑连续就可以。</p>
 <p>###方法区<br>&emsp;&emsp;方法区与堆一样，是线程共享的，它用于存储已经被虚拟机加载的类信息、常量、静态变量、即时编译后的代码等数据。</p>
@@ -1344,7 +1344,7 @@ var jiathis_config={
         }
       });
     </script>
-    <script type="text/javascript" src="//cdn.bootcss.com/mathjax/2.7.1/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script type="text/javascript" src="//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
   
 
 
