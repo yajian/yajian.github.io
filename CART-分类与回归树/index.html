@@ -122,7 +122,7 @@
 <meta property="og:description" content="&amp;emsp;&amp;emsp;分类与回归树(classification and regression tree, CART)模型是应用比较广泛的决策树学习方法之一，它既可以用于分类也可以用于回归。CART算法使用二元切分递归地处理每个特征，如果特征值大于给定值就走左子树，否则就走右子树。 最小二乘回归树生成算法数学描述&amp;emsp;&amp;emsp;假设$X$和$Y$分别为输入和输出变量，并且$Y$是连续变量">
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="http://yajian.github.io/CART-分类与回归树/决策树.png">
-<meta property="og:updated_time" content="2018-12-20T03:25:39.845Z">
+<meta property="og:updated_time" content="2018-12-20T05:30:57.892Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="CART-分类与回归树">
 <meta name="twitter:description" content="&amp;emsp;&amp;emsp;分类与回归树(classification and regression tree, CART)模型是应用比较广泛的决策树学习方法之一，它既可以用于分类也可以用于回归。CART算法使用二元切分递归地处理每个特征，如果特征值大于给定值就走左子树，否则就走右子树。 最小二乘回归树生成算法数学描述&amp;emsp;&amp;emsp;假设$X$和$Y$分别为输入和输出变量，并且$Y$是连续变量">
@@ -458,7 +458,7 @@
 <p>其中函数$I$为指示函数。</p>
 <p>&emsp;&emsp;当输入空间的划分确定时，可以用平方误差$\sum_{x_i \in R_m}(y_i-f(x_i))^2$来表示回归树对于训练数据的预测误差。用平方误差最小的准则求解每个单元上的最优输出值，可以发现单元$R_m$上的最优$\hat c_m$s是$R_m$上所有示例$x_i$对应的输出$y_i$的均值，即<br>$$\hat c_m=avg(y_i|x_i \in R_m)$$</p>
 <p>&emsp;&emsp;上面内容讲述了在输入空间划分确定的情况下，如何衡量决策树的效果以及在效果最好的情况下反推每个区域输出值$c_m$。接下来我们来看如何划分输入空间。</p>
-<p>&emsp;&emsp;首先，CART树是一棵二叉树，所以我们需要选择一个特征$x^{(j)}$和它的取值$s$，作为整个数据集的切分量和切分点，并定义由其切分的两个区域<br>$$R_1(j,s)={x|x^{(j)} \leq s}和R_2(j,s)={x|x^{(j)} \gt s}$$<br>然后寻找最优缺切分变量$j$和最优切分点$s$，即求解</p>
+<p>&emsp;&emsp;首先，CART树是一棵二叉树，所以我们需要选择一个特征$x^{(j)}$和它的取值$s$，作为整个数据集的切分量和切分点，并定义由其切分的两个区域<br>$$R_1(j,s)=\lbrace x|x^{(j)} \leq s \rbrace和R_2(j,s)=\lbrace x|x^{(j)} \gt s \rbrace $$<br>然后寻找最优缺切分变量$j$和最优切分点$s$，即求解</p>
 <p>$$min_{j,s}[min_{c1}\sum_{x_i \in R_1(j,s)}(y_i-c_1)^2+min_{c2}\sum_{x_i \in R_2(j,s)}(y_i-c_2)^2]$$</p>
 <ul>
 <li>注：这里是要找到使$R_1$数据的预测误差最小的$c_1$和使$R_2$数据的预测误差最小的$c_2$，之前说过使误差最小的取值就是分别取两个数据集的均值，然后还要保证$R_1$和$R_2$误差和最小。</li>
@@ -965,7 +965,7 @@
   <p><span>本文标题:</span><a href="/CART-分类与回归树/">CART-分类与回归树</a></p>
   <p><span>文章作者:</span><a href="/" title="访问 小建儿 的个人博客">小建儿</a></p>
   <p><span>发布时间:</span>2018年12月13日 - 10:12</p>
-  <p><span>最后更新:</span>2018年12月20日 - 11:12</p>
+  <p><span>最后更新:</span>2018年12月20日 - 13:12</p>
   <p><span>原始链接:</span><a href="/CART-分类与回归树/" title="CART-分类与回归树">http://yajian.github.io/CART-分类与回归树/</a>
     <span class="copy-path" title="点击复制文章链接"><i class="fa fa-clipboard" data-clipboard-text="http://yajian.github.io/CART-分类与回归树/" aria-label="复制成功！"></i></span>
   </p>
