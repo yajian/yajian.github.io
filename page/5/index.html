@@ -318,6 +318,277 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yajian.github.io/Term-1-p1-lane-detection/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="小建儿">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="小建儿的小站">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/Term-1-p1-lane-detection/" itemprop="url">Term-1 p1 lane-detection</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-03-19T10:03:35+08:00">
+                2018-03-19
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
+                  <a href="/categories/无人驾驶/" itemprop="url" rel="index">
+                    <span itemprop="name">无人驾驶</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/Term-1-p1-lane-detection/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count disqus-comment-count" data-disqus-identifier="Term-1-p1-lane-detection/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">
+                  
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h1 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h1><p>&emsp;&emsp;Udacity是硅谷的一个在线教育网站，主要以介绍AI技术为主，除了基本的课程录像还会有专业老师进行代码review，通过课程会颁发nano degree。其中最为火爆的一门课程就是自动驾驶课程CarNd，这门课程由简入繁分了三个term，第一个term主要是以机器视觉识别道路、交通标志为主，需要掌握基本的深度学习和机器视觉知识；第二个term是介绍传感器以及使用卡尔曼滤波进行定位和速度控制；第三个term主要是路径规划以及系统集成，据说最后会把学员的代码放入真车进行实际测试。Ucacity的课程质量很高，但是有些小贵，出于无奈只好从网上搜集资料，开源的资料包含了前两个term，学完可以对无人驾驶有基本的了解，感兴趣的同学可以试试。</p>
+<h1 id="处理流程"><a href="#处理流程" class="headerlink" title="处理流程"></a>处理流程</h1><p>&emsp;&emsp;无人驾驶车辆的基本功能之一就是检测车道，之前参加过飞思卡尔智能车竞赛的同学对这个项目应该并不陌生，与摄像头组识别赛道的原理类似，可惜当时我在红外组，没有深入了解相关原理。</p>
+<p>&emsp;&emsp;先简单说下利用图像处理技术识别车道的基本流程</p>
+<div align="center"><br>     <img src="/Term-1-p1-lane-detection/车道检测流程.png" width="100" height="500" alt="车道检测流程" align="center/"><br> </div>
+
+<p>&emsp;&emsp;p1相对来说比较简单，使用opencv的一些操作函数即可实现检测功能。下面详细介绍每个步骤的实现</p>
+<h1 id="读入图像"><a href="#读入图像" class="headerlink" title="读入图像"></a>读入图像</h1><p>&emsp;&emsp;首先读入图像</p>
+<figure class="highlight arduino"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//导入opencv</span></span><br><span class="line"><span class="keyword">import</span> cv2</span><br><span class="line"></span><br><span class="line"><span class="comment">//读取图像</span></span><br><span class="line"><span class="built_in">image</span> = cv2.imread(<span class="string">"./test_images/solidYellowCurve.jpg"</span>)</span><br><span class="line"><span class="comment">//展示图像</span></span><br><span class="line">cv2.imshow(<span class="string">'lane'</span>,<span class="built_in">image</span>)</span><br><span class="line"><span class="comment">//等待键盘按键</span></span><br><span class="line">cv2.waitKey()</span><br><span class="line"><span class="comment">//销毁图片展示窗口</span></span><br><span class="line">cv2.destroyAllWindows()</span><br></pre></td></tr></table></figure>
+<p>效果如下</p>
+<div align="center"><br>     <img src="/Term-1-p1-lane-detection/车道原图.png" width="400" height="200" alt="车道原图" align="center"><br> </div>
+
+<h1 id="二值化处理"><a href="#二值化处理" class="headerlink" title="二值化处理"></a>二值化处理</h1><p>&emsp;&emsp;opencv对于彩色图像的存储使用GBR格式，与一般RGB格式顺序不太一样，据说是为了做硬件兼容。二值化处理是把读入的彩色图像转成灰度图，方便后续计算。</p>
+<figure class="highlight arduino"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//彩色图像转化为灰度图</span></span><br><span class="line">gray_image = cv2.cvtColor(<span class="built_in">image</span>,cv2.COLOR_GBR2GRAY)</span><br></pre></td></tr></table></figure>
+<p>效果如下</p>
+<div align="center"><br>     <img src="/Term-1-p1-lane-detection/二值化图像.png" width="400" height="200" alt="二值化图像" align="center"><br> </div>
+
+<h1 id="高斯模糊"><a href="#高斯模糊" class="headerlink" title="高斯模糊"></a>高斯模糊</h1><p>&emsp;&emsp;高斯模糊是一种图像平滑技术，基本原理是在以中心像素为原点取一定半径内像素点值求加权平均值，权重根据高斯函数求得，结果就是高斯模糊处理后的图片。从数值上看，整体上更加平缓，从图片效果上看变得模糊了。</p>
+<figure class="highlight lsl"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">blured_image = cv2.GaussianBlur(gray_image,(<span class="number">5</span>,<span class="number">5</span>),<span class="number">0</span>) <span class="comment">//第二个参数表示模糊半径，第三个参数代表高斯函数标准差，半径越大标准差越大，图片越模糊</span></span><br></pre></td></tr></table></figure>
+<div align="center"><br>     <img src="/Term-1-p1-lane-detection/高斯模糊图像.png" width="400" height="200" alt="高斯模糊图像" align="center"><br></div>
+
+<h1 id="Canny边缘检测"><a href="#Canny边缘检测" class="headerlink" title="Canny边缘检测"></a>Canny边缘检测</h1><p>&emsp;&emsp;由于车道具有明显的边缘，所以使用边缘检测可以提取车道信息，opencv提供了canny边缘检测函数可以实现该功能。</p>
+<figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">canny = cv2<span class="selector-class">.cv2</span><span class="selector-class">.Canny</span>(blur,<span class="number">250</span>,<span class="number">300</span>)</span><br></pre></td></tr></table></figure>
+<p>效果如下</p>
+<div align="center"><br>     <img src="/Term-1-p1-lane-detection/canny边缘检测.png" width="400" height="200" alt="canny边缘检测" align="center"><br></div>
+
+<h1 id="ROI区域提取"><a href="#ROI区域提取" class="headerlink" title="ROI区域提取"></a>ROI区域提取</h1><p>&emsp;&emsp;在理想情况下（直路且行驶平稳），车道的位置在拍摄的图片中的相对位置不变，我们并不关心除车道以外的其他位置，所以可以通过ROI区域提取获取车道所在区域。针对p1所用到的图片，其ROI区域顶点坐标分别为(0,540),(465,320),(475,320),(960,320)，其所形成的不规则区域如下所示</p>
+<div align="center"><br>     <img src="/Term-1-p1-lane-detection/roi区域.png" width="400" height="200" alt="ROI区域" align="center"><br> </div>
+
+<p>与边缘检测结果进行叠加</p>
+<figure class="highlight lsl"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">roi_range = np.array([[(<span class="number">0</span>,<span class="number">540</span>),(<span class="number">465</span>,<span class="number">320</span>),(<span class="number">475</span>,<span class="number">320</span>),(<span class="number">960</span>,<span class="number">320</span>)]],dtype = np.int32)</span><br><span class="line">mask = np.zeros_like(canny)  <span class="comment">//复制一个和canny图像大小一样的叠加矩阵</span></span><br><span class="line">cv2.fillPoly(mask,roi_range,<span class="number">255</span>) <span class="comment">//设置roi区域的像素值为255，其他区域为0</span></span><br><span class="line">img_masked = cv2.bitwise_and(canny,mask) <span class="comment">//将canny图像和叠加图像求并，ROI区域外的部分都变为0</span></span><br></pre></td></tr></table></figure>
+<p>效果如下</p>
+<div align="center"><br>     <img src="/Term-1-p1-lane-detection/ROI区域提取.png" width="400" height="200" alt="ROI区域提取" align="center"><br> </div>
+
+<h1 id="Hough直线检测"><a href="#Hough直线检测" class="headerlink" title="Hough直线检测"></a>Hough直线检测</h1><p>&emsp;&emsp;现在经过处理后的图像基本只包含ROI区域内的车道信息以及其他干扰信息，这两种信息的区别在于车道由多条直线构成，而干扰信息则不具备这样明显的条件，所以直线检测可以提取ROI区域内的车道。<br>&emsp;&emsp;opencv提供了霍夫变换函数HoughLines和HoughLinesP用于直线检测，目前先不去深究其原理，后续我再补充。其函数定义如下：</p>
+<p>HoughLinesP(image, rho, theta, threshold, minLineLength=None, maxLineGap=None) </p>
+<ul>
+<li>image：必须是二值图像，推荐使用canny边缘检测的结果图像； </li>
+<li>rho: 线段以像素为单位的距离精度，double类型的，推荐用1.0 </li>
+<li>theta： 线段以弧度为单位的角度精度，推荐用numpy.pi/180 </li>
+<li>threshod: 累加平面的阈值参数，int类型，超过设定阈值才被检测出线段，值越大，基本上意味着检出的线段越长，检出的线段个数越少。根据情况推荐先用100试试</li>
+<li>minLineLength：线段以像素为单位的最小长度，根据应用场景设置 </li>
+<li><p>maxLineGap：同一方向上两条线段判定为一条线段的最大允许间隔（断裂），超过了设定值，则把两条线段当成一条线段，值越大，允许线段上的断裂越大，越有可能检出潜在的直线段</p>
+<figure class="highlight livecodeserver"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">lines</span> = cv2.HoughLinesP(img_mashed,<span class="number">1</span>,np.<span class="literal">pi</span>/<span class="number">180</span>,<span class="number">15</span>,<span class="number">25</span>,<span class="number">20</span>)</span><br><span class="line"><span class="keyword">for</span> <span class="built_in">line</span> <span class="keyword">in</span> <span class="keyword">lines</span>:</span><br><span class="line">	<span class="keyword">for</span> x1,y1,x2,y2 <span class="keyword">in</span> <span class="built_in">line</span>:</span><br><span class="line">		cv2.<span class="built_in">line</span>(img_masked,(x1,y1),(x2,y2),<span class="number">255</span>,<span class="number">12</span>)</span><br><span class="line">cv2.imshow(<span class="string">'img_masked'</span>,img_masked)</span><br><span class="line">cv2.waitKey()</span><br><span class="line">cv2.destroyAllWindows()</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<p>效果如下</p>
+<div align="center"><br>     <img src="/Term-1-p1-lane-detection/直线检测.png" width="400" height="200" alt="直线检测" align="center"><br> </div>
+
+<h1 id="车道标记"><a href="#车道标记" class="headerlink" title="车道标记"></a>车道标记</h1><p>&emsp;&emsp;直线检测完成后，需要对检测后的直线进行过滤，把误差较大的点移除，并且还要将这些点连成直线，进行车道标记。</p>
+<h2 id="车道左右边线检测"><a href="#车道左右边线检测" class="headerlink" title="车道左右边线检测"></a>车道左右边线检测</h2><p>&emsp;&emsp;首先需要区分车道左边线和右边线，我们已经拿到了直线检测后的直线端点，可以利用斜率进行区分。由于opencv默认原点位于图像左上角顶点，所以左边线斜率为负，右边线斜率为正，并计算每段线段的斜率和截距。</p>
+ <figure class="highlight processing"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">positive_slop_intercept = []    <span class="comment">//左边线点构成直线的斜率和截距</span></span><br><span class="line">negative_slop_intercept = []  <span class="comment">//右边线点构成直线的斜率和截距</span></span><br><span class="line"><span class="keyword">for</span> <span class="built_in">line</span> in lines:</span><br><span class="line">	<span class="keyword">for</span> x1,y1,x2,y2 in <span class="built_in">line</span>:</span><br><span class="line">		slop = np.<span class="built_in">float</span>((y2-y1))/np.<span class="built_in">float</span>((x2-x1))  <span class="comment">//计算斜率</span></span><br><span class="line">		<span class="keyword">if</span> slop &gt; <span class="number">0</span>:                 </span><br><span class="line">			positive_slop_intercept.<span class="built_in">append</span>([slop,y1-slop*x1]) <span class="comment">//根据点的坐标和斜率计算截距</span></span><br><span class="line">		elif slop &lt; <span class="number">0</span> :</span><br><span class="line">			negative_slop_intercept.<span class="built_in">append</span>([slop,y1-slop*x1])</span><br></pre></td></tr></table></figure>
+<h2 id="计算左右边线斜率和截距"><a href="#计算左右边线斜率和截距" class="headerlink" title="计算左右边线斜率和截距"></a>计算左右边线斜率和截距</h2><p>&emsp;&emsp;上一步完成了斜率和截距的计算，还要对其进行筛选，把误差较大的线段移除</p>
+<figure class="highlight maxima"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">legal_slop=[]</span><br><span class="line">legal_intercept=[]</span><br><span class="line">slopes=[pair[<span class="number">0</span>] <span class="keyword">for</span> pair <span class="keyword">in</span> slop_intercept]</span><br><span class="line">slop_mean = <span class="built_in">np</span>.<span class="built_in">mean</span>(slopes)                    //斜率的均值</span><br><span class="line">slop_std = <span class="built_in">np</span>.<span class="built_in">std</span>(slopes)                           //斜率的标准差</span><br><span class="line"><span class="keyword">for</span> pair <span class="keyword">in</span> slop_intercept:</span><br><span class="line">	<span class="keyword">if</span> pair[<span class="number">0</span>] - slop_mean &lt; <span class="number">3</span> * slop_std:             //挑选出平均值<span class="number">3</span>个标准差误差范围内的斜率和截距</span><br><span class="line">		legal_slop.<span class="built_in">append</span>(pair[<span class="number">0</span>])</span><br><span class="line">		legal_intercept.<span class="built_in">append</span>(pair[<span class="number">1</span>])</span><br><span class="line"><span class="keyword">if</span> <span class="keyword">not</span> legal_slop:                                 //如果没有合理范围内的斜率，则使用原始斜率，最终的斜率就是均值</span><br><span class="line">	legal_slop = slopes</span><br><span class="line">	legal_intercept = [pair[<span class="number">1</span>] <span class="keyword">for</span> pair <span class="keyword">in</span> slop_intercept]</span><br><span class="line">slop = <span class="built_in">np</span>.<span class="built_in">mean</span>(legal_slop)</span><br><span class="line">intercept = <span class="built_in">np</span>.<span class="built_in">mean</span>(legal_intercept)</span><br></pre></td></tr></table></figure>
+<h2 id="计算车道两端端点"><a href="#计算车道两端端点" class="headerlink" title="计算车道两端端点"></a>计算车道两端端点</h2><p>&emsp;&emsp;计算除了车道的斜率和截距，还需要两个端点才能确定车道的范围。由于我们只关注ROI区域范围内的车道，所以车道左右边线的上顶点的值为ymin=320、下顶点的值为ymax=540，从而求得每条边线的两端顶点。</p>
+<figure class="highlight lisp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">xmin = int((<span class="name">ymin</span> - intercept)/slop)</span><br><span class="line">xmax = int((<span class="name">ymax-intercept</span>)/slop)</span><br></pre></td></tr></table></figure>
+<h2 id="标记车道"><a href="#标记车道" class="headerlink" title="标记车道"></a>标记车道</h2><p>&emsp;&emsp;把标记过车道的图片与原始图片叠加，实现车道的标记。图像叠加通过opencv的addWeight函数实现，该函数定义如下：<br>cv2.addWeighted(src1, alpha, src2, beta, gamma[, dst[, dtype]])  </p>
+<ul>
+<li>alpha : 第一幅图片中元素的权重</li>
+<li>beta : 是第二个的权重</li>
+<li>gamma : 加到最后结果上的值</li>
+</ul>
+<figure class="highlight lsl"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//imgae为原始图像，line_image为车道标记图像</span></span><br><span class="line">res_image = cv2.addWeighted(image,<span class="number">0.8</span>,line_image,<span class="number">1</span>,<span class="number">0</span>)</span><br></pre></td></tr></table></figure>
+<p>最终结果如下</p>
+<div align="center"><br>     <img src="/Term-1-p1-lane-detection/车道标记.png" width="400" height="200" alt="车道标记" align="center"><br> </div>
+
+<h1 id="处理视频"><a href="#处理视频" class="headerlink" title="处理视频"></a>处理视频</h1><p>&emsp;&emsp;处理视频需要使用moviepy的VideoFileClip函数</p>
+<figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-tag">video</span> = VideoFileClip(path) <span class="comment">//待处理图像路径</span></span><br><span class="line">video_after_process = <span class="selector-tag">video</span>.fl_image(process_picture) <span class="comment">//处理每张图片的函数作为参数</span></span><br><span class="line">video_after_process.write_videofile(<span class="string">"./line_detection.mp4"</span>,audio=False) <span class="comment">//生成新视频</span></span><br></pre></td></tr></table></figure>
+<p>效果如下</p>
+<ul>
+<li>原始视频</li>
+</ul>
+<div align="center"><br> <video controls="controls" src="Term-1-p1-lane-detection/original.mp4" width="500" height="250"></video><br> </div>
+
+<ul>
+<li>处理后视频</li>
+</ul>
+<div align="center"><br> <video controls="controls" src="Term-1-p1-lane-detection/lane_detection.mp4" width="500" height="250"></video><br></div>
+
+<h2 id="代码参考"><a href="#代码参考" class="headerlink" title="代码参考"></a>代码参考</h2><p>详见<a href="https://github.com/yajian/self-driving-car" target="_blank" rel="noopener">Term-1_lane_detection_demo</a></p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+
+
+    
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://yajian.github.io/ANTLR示例/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
@@ -2224,214 +2495,11 @@
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yajian.github.io/spark读取jar中文件的路径问题/">
-
-    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="小建儿">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="小建儿的小站">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/spark读取jar中文件的路径问题/" itemprop="url">spark读取jar中文件的路径问题</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-10-28T20:21:15+08:00">
-                2017-10-28
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category">
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
-                  <a href="/categories/spark/" itemprop="url" rel="index">
-                    <span itemprop="name">spark</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-              <span class="post-comments-count">
-                <span class="post-meta-divider">|</span>
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-comment-o"></i>
-                </span>
-                <a href="/spark读取jar中文件的路径问题/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count disqus-comment-count" data-disqus-identifier="spark读取jar中文件的路径问题/" itemprop="commentCount"></span>
-                </a>
-              </span>
-            
-          
-
-          
-          
-
-          
-
-          
-            <div class="post-wordcount">
-              
-                
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-file-word-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">字数统计&#58;</span>
-                
-                <span title="字数统计">
-                  
-                </span>
-              
-
-              
-                <span class="post-meta-divider">|</span>
-              
-
-              
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-clock-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
-                
-                <span title="阅读时长">
-                  
-                </span>
-              
-            </div>
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p>&emsp;&emsp;上周和这周的前两天一直在解决工作中遇到的一个问题，问题的背景是这样的：我们搭建的平台中使用了lucene的IKAnalyzer分词工具，该工具在进行分词时会先读取resource文件夹下的config文件，每次在本地跑ut测试的时候都能顺利通过，但是放到集群上执行的时候会报找不到config文件路径的错误。问题很清楚，但是就是不知道为什么无法找到文件，最后把路径信息打出来发现其中有个“！”，才知道问题的根结在于读取文件的方式。</p>
-<p>&emsp;&emsp;先说说java中获取文件路径的几种方式，工程的目录结构如下</p>
-<div align="center"><br>    <img src="/spark读取jar中文件的路径问题/目录结构.jpg" width="300" height="380" tile="目录结构" align="center"><br></div>
-
-
-<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="keyword">public</span> void testPath() &#123;</span><br><span class="line">       <span class="comment">// 第一种：获取类加载的根路径</span></span><br><span class="line">       URL url1 = <span class="keyword">this</span>.getClass().getResource(<span class="string">"/"</span>);</span><br><span class="line">       System.<span class="keyword">out</span>.println(url1.getPath());</span><br><span class="line">       <span class="comment">//输出：/Users/name/test/target/classes/</span></span><br><span class="line"></span><br><span class="line">       <span class="comment">// 第二种：获取当前类的所在工程路径(不加“/”）     </span></span><br><span class="line">       URL url2 = <span class="keyword">this</span>.getClass().getResource(<span class="string">""</span>);</span><br><span class="line">       System.<span class="keyword">out</span>.println(url2.getPath());</span><br><span class="line">       <span class="comment">//输出：/Users/name/test/target/classes/test/</span></span><br><span class="line"></span><br><span class="line">       <span class="comment">// 第三种：在资源加载的过程中，使用的逐级向上委托的形式加载，不能以“/”开头</span></span><br><span class="line">       URL url3 =<span class="keyword">this</span>.getClass().getClassLoader().getResource(<span class="string">""</span>);</span><br><span class="line">       System.<span class="keyword">out</span>.println(url3.getPath());</span><br><span class="line">       <span class="comment">//输出：file:/Users/name/test/target/classes/</span></span><br><span class="line">       URL url4 =<span class="keyword">this</span>.getClass().getClassLoader().getResource(<span class="string">"/"</span>);</span><br><span class="line">       System.<span class="keyword">out</span>.println(url3.getPath());</span><br><span class="line">       <span class="comment">//输出：null</span></span><br><span class="line"></span><br><span class="line">   &#125;</span><br></pre></td></tr></table></figure>
-<p>&emsp;&emsp;在正常情况下我们可以按照以上方法进行文件的读取，但是当我们把项目打成jar包，使用java -jar运行时，上述方法会在第一个打印方法出报空指针，这说明单独运行jar的时候上述读取文件的方法已经失效，但是我们采用下面的方法仍然可以进行文件的读取。</p>
-<figure class="highlight arduino"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">void</span> testStream() throws IOException &#123;</span><br><span class="line">        InputStream in = <span class="keyword">this</span>.getClass().getResourceAsStream(<span class="string">"/folder/3.txt"</span>);</span><br><span class="line">        <span class="keyword">int</span> temp = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">byte</span>[] bytes = <span class="keyword">new</span> <span class="keyword">byte</span>[<span class="number">1024</span>];</span><br><span class="line">        <span class="keyword">int</span> len = <span class="number">0</span>;</span><br><span class="line">        <span class="built_in">while</span> ((temp = in.<span class="built_in">read</span>()) != <span class="number">-1</span>) &#123;</span><br><span class="line">            bytes[len] = (<span class="keyword">byte</span>) temp;</span><br><span class="line">            len++;</span><br><span class="line">        &#125;</span><br><span class="line">        in.<span class="built_in">close</span>();</span><br><span class="line">        <span class="keyword">String</span> content = <span class="keyword">new</span> <span class="keyword">String</span>(bytes,<span class="number">0</span>,len);</span><br><span class="line">        System.out.<span class="built_in">println</span>(content);</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
-<p>采用getResourceAsStream再运行打出来的jar包就没有问题了。</p>
-<p>&emsp;&emsp;起初一直以为是spark运行jar的问题，后来才发现是java读取资源方式有错误。其实这个问题之前在进行web开发时遇到过，当时使用weblogic服务器，总是读取不到resource文件夹下的配置文件，后来也是采用getResourceAsStream的方法才读出来。然而在tomcat服务器下采用getResource的方式可以正常读取，因为tomcat服务器会解析放入的jar包，而weblogic却不会，运行机制不一样导致读取文件的方式也不一样。</p>
-<p>&emsp;&emsp;解决完问题后想想这次的bug和之前遇到的本质是一个问题，之前遇到问题解决后也没有仔细思考，还以为是weblogic的特例，也就没有把经验积累下来。虽然这次后知后觉耽误了不少时间，但是印象更加深刻了，工作中遇到的坑还是应该记下来多看看，多总结。</p>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-
-
-    
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
   <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/page/4/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/4/">4</a><span class="page-number current">5</span>
+    <a class="extend prev" rel="prev" href="/page/4/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/4/">4</a><span class="page-number current">5</span><a class="page-number" href="/page/6/">6</a><a class="extend next" rel="next" href="/page/6/"><i class="fa fa-angle-right"></i></a>
   </nav>
 
 
@@ -2479,7 +2547,7 @@
               
                 <a href="/archives">
               
-                  <span class="site-state-item-count">50</span>
+                  <span class="site-state-item-count">51</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
