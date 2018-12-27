@@ -90,7 +90,7 @@
 
 
 
-  <meta name="keywords" content="深入理解java虚拟机,">
+  <meta name="keywords" content="生成模型,">
 
 
 
@@ -113,18 +113,18 @@
 
 
 
-<meta name="description" content="垃圾收集器与内存分配策略对象是否死亡&amp;emsp;&amp;emsp;判断对象是否已死亡有两种方法,一种是引用计数法,另一种是可达性分析. 引用计数法&amp;emsp;&amp;emsp;给对象添加一个引用计数器,每当有一个地方引用它时,计数器值就加1;当引用失效时,计数器值就减1.但是这种方法不能解决对象之间循环引用的问题. 可达性分析&amp;emsp;&amp;emsp;通过一系列的称为“GC ROOT”的对象为起始点,从这些结点">
-<meta name="keywords" content="深入理解java虚拟机">
+<meta name="description" content="&amp;emsp;&amp;emsp;朴素贝叶斯(naive bayes)算法是基于贝叶斯定理与特征条件独立假设的分类方法。对于给定的训练数据集，首先基于特征条件独立假设学习输入、输出的联合概率分布，然后基于此模型，对给定的输入$x$，利用贝叶斯定理求出后验概率最大的输出$y$。朴素贝叶斯法实现简单，学习与预测的效率都很高，是一种常用方法。 数学原理&amp;emsp;&amp;emsp;设输入空间$\mathcal X \s">
+<meta name="keywords" content="生成模型">
 <meta property="og:type" content="article">
-<meta property="og:title" content="深入理解java虚拟机(3)-垃圾收集器与内存分配策略">
-<meta property="og:url" content="http://yajian.github.io/深入理解java虚拟机-3-垃圾收集器与内存分配策略/index.html">
+<meta property="og:title" content="朴素贝叶斯算法">
+<meta property="og:url" content="http://yajian.github.io/朴素贝叶斯算法/index.html">
 <meta property="og:site_name" content="小建儿的小站">
-<meta property="og:description" content="垃圾收集器与内存分配策略对象是否死亡&amp;emsp;&amp;emsp;判断对象是否已死亡有两种方法,一种是引用计数法,另一种是可达性分析. 引用计数法&amp;emsp;&amp;emsp;给对象添加一个引用计数器,每当有一个地方引用它时,计数器值就加1;当引用失效时,计数器值就减1.但是这种方法不能解决对象之间循环引用的问题. 可达性分析&amp;emsp;&amp;emsp;通过一系列的称为“GC ROOT”的对象为起始点,从这些结点">
+<meta property="og:description" content="&amp;emsp;&amp;emsp;朴素贝叶斯(naive bayes)算法是基于贝叶斯定理与特征条件独立假设的分类方法。对于给定的训练数据集，首先基于特征条件独立假设学习输入、输出的联合概率分布，然后基于此模型，对给定的输入$x$，利用贝叶斯定理求出后验概率最大的输出$y$。朴素贝叶斯法实现简单，学习与预测的效率都很高，是一种常用方法。 数学原理&amp;emsp;&amp;emsp;设输入空间$\mathcal X \s">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2018-05-28T03:58:18.000Z">
+<meta property="og:updated_time" content="2018-12-27T03:19:39.118Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="深入理解java虚拟机(3)-垃圾收集器与内存分配策略">
-<meta name="twitter:description" content="垃圾收集器与内存分配策略对象是否死亡&amp;emsp;&amp;emsp;判断对象是否已死亡有两种方法,一种是引用计数法,另一种是可达性分析. 引用计数法&amp;emsp;&amp;emsp;给对象添加一个引用计数器,每当有一个地方引用它时,计数器值就加1;当引用失效时,计数器值就减1.但是这种方法不能解决对象之间循环引用的问题. 可达性分析&amp;emsp;&amp;emsp;通过一系列的称为“GC ROOT”的对象为起始点,从这些结点">
+<meta name="twitter:title" content="朴素贝叶斯算法">
+<meta name="twitter:description" content="&amp;emsp;&amp;emsp;朴素贝叶斯(naive bayes)算法是基于贝叶斯定理与特征条件独立假设的分类方法。对于给定的训练数据集，首先基于特征条件独立假设学习输入、输出的联合概率分布，然后基于此模型，对给定的输入$x$，利用贝叶斯定理求出后验概率最大的输出$y$。朴素贝叶斯法实现简单，学习与预测的效率都很高，是一种常用方法。 数学原理&amp;emsp;&amp;emsp;设输入空间$\mathcal X \s">
 
 
 
@@ -154,13 +154,13 @@
 
 
 
-  <link rel="canonical" href="http://yajian.github.io/深入理解java虚拟机-3-垃圾收集器与内存分配策略/">
+  <link rel="canonical" href="http://yajian.github.io/朴素贝叶斯算法/">
 
 
 
 
 
-  <title>深入理解java虚拟机(3)-垃圾收集器与内存分配策略 | 小建儿的小站</title><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+  <title>朴素贝叶斯算法 | 小建儿的小站</title><!-- hexo-inject:begin --><!-- hexo-inject:end -->
   
 
 
@@ -319,7 +319,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yajian.github.io/深入理解java虚拟机-3-垃圾收集器与内存分配策略/">
+    <link itemprop="mainEntityOfPage" href="http://yajian.github.io/朴素贝叶斯算法/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
       <meta itemprop="name" content="小建儿">
@@ -336,7 +336,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">深入理解java虚拟机(3)-垃圾收集器与内存分配策略</h1>
+          <h1 class="post-title" itemprop="name headline">朴素贝叶斯算法</h1>
         
 
         <div class="post-meta">
@@ -348,8 +348,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-05-28T11:56:03+08:00">
-                2018-05-28
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-12-24T10:24:57+08:00">
+                2018-12-24
               </time>
             
 
@@ -371,8 +371,8 @@
               
               
                 <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
-                  <a href="/categories/读书笔记/" itemprop="url" rel="index">
-                    <span itemprop="name">读书笔记</span>
+                  <a href="/categories/机器学习/" itemprop="url" rel="index">
+                    <span itemprop="name">机器学习</span>
                   </a>
                 </span>
 
@@ -389,8 +389,8 @@
                 <span class="post-meta-item-icon">
                   <i class="fa fa-comment-o"></i>
                 </span>
-                <a href="/深入理解java虚拟机-3-垃圾收集器与内存分配策略/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count disqus-comment-count" data-disqus-identifier="深入理解java虚拟机-3-垃圾收集器与内存分配策略/" itemprop="commentCount"></span>
+                <a href="/朴素贝叶斯算法/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count disqus-comment-count" data-disqus-identifier="朴素贝叶斯算法/" itemprop="commentCount"></span>
                 </a>
               </span>
             
@@ -449,84 +449,113 @@
       
 
       
-        <h1 id="垃圾收集器与内存分配策略"><a href="#垃圾收集器与内存分配策略" class="headerlink" title="垃圾收集器与内存分配策略"></a>垃圾收集器与内存分配策略</h1><h2 id="对象是否死亡"><a href="#对象是否死亡" class="headerlink" title="对象是否死亡"></a>对象是否死亡</h2><p>&emsp;&emsp;判断对象是否已死亡有两种方法,一种是引用计数法,另一种是可达性分析.</p>
-<h3 id="引用计数法"><a href="#引用计数法" class="headerlink" title="引用计数法"></a>引用计数法</h3><p>&emsp;&emsp;给对象添加一个引用计数器,每当有一个地方引用它时,计数器值就加1;当引用失效时,计数器值就减1.但是这种方法不能解决对象之间循环引用的问题.</p>
-<h2 id="可达性分析"><a href="#可达性分析" class="headerlink" title="可达性分析"></a>可达性分析</h2><p>&emsp;&emsp;通过一系列的称为“GC ROOT”的对象为起始点,从这些结点开始向下搜索,搜索走过的路径称为引用链,当一个对象到GC Roots没有任何引用链相连时,则证明这个对象是不可用的.</p>
-<p>&emsp;&emsp;Java中,可作为GC Roots的对象包括:</p>
-<ul>
-<li>虚拟机栈(栈帧中的本地变量表)中引用的对象</li>
-<li>方法区中静态属性引用的对象</li>
-<li>方法区中常量引用的对象</li>
-<li>本地方法栈中JNI引用的对象</li>
-</ul>
-<h2 id="引用"><a href="#引用" class="headerlink" title="引用"></a>引用</h2><p>&emsp;&emsp;Java中对引用的定义很传统：如果reference类型的数据中存储的数值代表的是另外一块内存的起始地址，就称这块内存代表着一个引用。但是我们希望描述这样一类对象：当内存空间还足够时，则能保留在内存中，如果内存空间在进行垃圾收集后还是很紧张，则可以抛弃这些对象。</p>
-<p>&emsp;&emsp;引用分为以下几种：</p>
-<ul>
-<li><p>强引用：在程序代码中普遍存在的，类似”Object obj = new Object()“这类的引用，只要强引用还存在，垃圾收集器永远不会回收掉被引用的对象。</p>
-</li>
-<li><p>软引用：描述一些有用但非必须的对象。对与软引用关联着的对象，在系统将要发生内存溢出异常之前，将会把这些对象列进回收范围之中进行二次回收。如果这次回收还没有足够的内存，才抛出内存溢出异常。</p>
-</li>
-<li><p>弱引用：描述非必须对象，但是它的强度比软引用更弱一些，被弱引用关联的对象只能生存到下次垃圾收集发生之前。当垃圾收集器工作时，无论当前内存是否足够，都会回收掉只被弱引用关联的对象。</p>
-</li>
-<li><p>虚引用：最弱的一种引用关系。一个对象是否有虚引用的存在，完全不会对其生存时间构成影响，也无法通过虚引用来取得一个对象示例。为一个对象设置虚引用关联的唯一目的在于这个对象被收集器回收时收到一个系统通知。</p>
-</li>
-</ul>
-<h2 id="生存还是死亡"><a href="#生存还是死亡" class="headerlink" title="生存还是死亡"></a>生存还是死亡</h2><p>&emsp;&emsp;真正宣告一个对象死亡，至少要经历两次标注过程：如果对象在进行可达性分析后没有发现GC Roots相连结的引用链，那么它将会被第一次标记并且进行一次筛选，筛选的条件是次对象是否有必要执行finalize()方法。当对象没有覆盖finalize()方法，或者finalize()方法已经被调用过，虚拟机将这两种情况视为“没有必要执行”。<br>&emsp;&emsp;如果这个对象被判定为有必要执行finalize()方法，那么这个对象将会被放置在一个叫做F-Queue的队列中，并在稍后由一个虚拟机自动建立的、低优先级的Finalizer线程去执行。<br>&emsp;&emsp;GC将对F-Queue中的对象进行第二次小规模标记，如果对象要在finalize方法中成功拯救自己-只要重新与引用链上的任何一个对象关联即可，譬如把自己复制给某个类变量或者对象的成员变量，那么在第二次标记时它将被移除出“即将回收集合”；如果对象这时候还没有逃脱，那基本上就真的会被回收了。</p>
-<h2 id="回收方法区"><a href="#回收方法区" class="headerlink" title="回收方法区"></a>回收方法区</h2><p>&emsp;&emsp;永久代垃圾回收主要回收：废弃常量和无用的类。判断无用的类条件：</p>
-<ul>
-<li>该类的所有实例都已经被回收，也就是Java堆中不存在该类的任何实例</li>
-<li>加载该类的ClassLoader已经被回收</li>
-<li>该类对应的java.lang.Class对象没有任何地方被引用，无法在任何地方通过反射访问该类的方法。</li>
-</ul>
-<h2 id="垃圾收集算法"><a href="#垃圾收集算法" class="headerlink" title="垃圾收集算法"></a>垃圾收集算法</h2><h3 id="标记清除算法"><a href="#标记清除算法" class="headerlink" title="标记清除算法"></a>标记清除算法</h3><p>&emsp;&emsp;最基础的算法，分为两个阶段：标记和清除。首先标记出所有需要回收的对象，在标记完成后统一回收所有被标记的对象。</p>
-<p>&emsp;&emsp;不足之处：一是效率问题，标记和清除两个过程的效率不高；另一个是空间问题，标记清除后产生大量不连续的内存碎片，空间碎片太多可能会导致以后在程序中需要分配较大对象时，无法找到足够的连续内存而不得不提前触发另一次垃圾收集动作。</p>
-<h3 id="复制算法"><a href="#复制算法" class="headerlink" title="复制算法"></a>复制算法</h3><p>&emsp;&emsp;为了解决效率问题而产生，将可用内存分为大小相等的两块，每次只用其中的一块。当这一块内存用完了，就将还存活的对象复制到另外一块，然后把已使用过的内存空间清理一次。但是这种算法的代价是内存缩小为了原来的一半。</p>
-<p>&emsp;&emsp;现在的商业虚拟机都采用这种收集算法来回收新生代，将内存分为一块较大的Eden空间和两块较小的Survivor空间，每次使用Eden和其中一块Survivor。当回收时，将Eden和Survivor中还存活的对象一次性地复制到另外一块Survivor空间上，最后清理掉Eden和刚才用过的Survivor空间。</p>
-<h3 id="标记整理算法"><a href="#标记整理算法" class="headerlink" title="标记整理算法"></a>标记整理算法</h3><p>&emsp;&emsp;复制算法在对象存活率较高时要进行较多的复制操作，效率降低另外，如果不想浪费50%的空间，就要分配额外空间进行分配担保，以应对被使用内存中所有对象都100%存活的极端情况，。所以老年代一般不能直接选用这种算法。</p>
-<p>&emsp;&emsp;标记过程不变，然后让所有存活的对象都向一端移动，然后直接清理掉边界以外的内存。 </p>
-<h3 id="分代收集"><a href="#分代收集" class="headerlink" title="分代收集"></a>分代收集</h3><p>&emsp;&emsp;把Java堆划分为新生代和老年代。新生代使用标记复制算法，老年代使用标记清理或者标记整理算法。</p>
-<h2 id="垃圾收集器"><a href="#垃圾收集器" class="headerlink" title="垃圾收集器"></a>垃圾收集器</h2><h3 id="Serial收集器"><a href="#Serial收集器" class="headerlink" title="Serial收集器"></a>Serial收集器</h3><p>&emsp;&emsp;单线程收集器，只会开一个收集线程去完成垃圾收集工作，而且在进行垃圾收集时，必须暂停其他所有工作线程，直到收集结束。目前是虚拟机运行在Client模式下的默认新生代收集器。优点：简单高效，没有线程交互开销，可以获得最高单线程效率。</p>
-<h3 id="ParNew收集器"><a href="#ParNew收集器" class="headerlink" title="ParNew收集器"></a>ParNew收集器</h3><p>&emsp;&emsp;是Serial收集器的多线程版本，除了使用多条线程进行垃圾收集外，其余与Serial完全一样。</p>
-<p>&emsp;&emsp;是Server模式下的虚拟机中首选的新生代收集器，除了Serial收集器外，目前它只能与CMS收集器配合工作。</p>
-<h3 id="Parallel-Scavenge收集器"><a href="#Parallel-Scavenge收集器" class="headerlink" title="Parallel Scavenge收集器"></a>Parallel Scavenge收集器</h3><p>&emsp;&emsp;Parallel Scavenge收集器是一个新生代收集器，也是使用复制算法的收集器。它的目标是达到一个可控制的吞吐量，所谓吞吐量就是CPU用于执行用户代码的时间与CPU总消耗时间的比值，即吞吐量=运行用户代码时间/（运行用户代码时间+垃圾回收时间）</p>
-<h3 id="Serial-Old收集器"><a href="#Serial-Old收集器" class="headerlink" title="Serial Old收集器"></a>Serial Old收集器</h3><p>&emsp;&emsp;Serial Old是Serial收集器的老年代版本，同样是单线程收集器，使用“标记-整理”算法，主要给Client模式下的虚拟机使用。</p>
-<p>&emsp;&emsp;它有两大用途：</p>
-<ul>
-<li>在JDK 1.5以及之前版本中与Parallel Scavenge收集器搭配使用</li>
-<li>作为CMS收集器的后备使用方案，在并发收集发生Concurrent Mode Failure时使用。</li>
-</ul>
-<h3 id="Parallel-Old收集器"><a href="#Parallel-Old收集器" class="headerlink" title="Parallel Old收集器"></a>Parallel Old收集器</h3><p>&emsp;&emsp;Parallel Old 是Parallel Scavenge收集器的老年代版本，使用多线程和“标记-整理”算法。在注重吞吐量和CPU资源的敏感的场景，可以优先考虑Parallel Scavenge和Parallel Old收集器</p>
-<h3 id="CMS收集器"><a href="#CMS收集器" class="headerlink" title="CMS收集器"></a>CMS收集器</h3><p>&emsp;&emsp;CMS(Concurrent Mark Sweep)收集器是以获取最短回收停顿时间为目标的收集器。服务端一般比较重视响应速度，使用CMS收集器非常符合要求。</p>
-<p>&emsp;&emsp;CMS收集器基于“标记-清除”算法实现，整个过程分为4个步骤：</p>
-<ul>
-<li>初始标记：需要stop the work，仅标记一下GC Roots能直接关联的对象，速度很快；</li>
-<li>并发标记: 需要stop the work，GC Roots tracing过程;</li>
-<li>重新标记：为了修正并发标记期间因用户程序继续运作导致标记产生变动的那部分对象标记录;</li>
-<li>并发清除</li>
-</ul>
-<p>&emsp;&emsp;CMS优点：并发收集、低停顿。</p>
-<p>&emsp;&emsp;缺点：</p>
-<ul>
-<li><p>对CPU资源十分敏感，虽然重新标记和并发清除不需要停止用户线程，但是会占用CPU资源，导致吞吐量降低</p>
-</li>
-<li><p>无法处理浮动垃圾，CMS并发清理阶段用户线程还在运行，伴随程序运行自然还会有新的垃圾不断产生，这部分垃圾出现在标记过程之后，CMS无法在当次收集中处理掉他们，只好留到下一次垃圾收集再清理，这一部分垃圾被称为“浮动垃圾”。</p>
-</li>
-<li><p>采用“标记-清除”算法，会产生大量内存碎片</p>
-</li>
-</ul>
-<h3 id="G1收集器"><a href="#G1收集器" class="headerlink" title="G1收集器"></a>G1收集器</h3><p>&emsp;&emsp;G1(garbage first)是一款面向服务端应用的垃圾收集器</p>
-<ul>
-<li>并发与并行：G1可以使用多个CPU来缩短Stop The World停顿的时间，并且让Java程序不中断执行</li>
-<li>分代收集：可以独立管理整个堆</li>
-<li>空间整合：整体上看是“标记-整理”算法实现的收集器，从局部看是基于“复制”算法实现的。其运行期间不会产生空间碎片。</li>
-<li>可预测停顿：G1除了追求低停顿外，还能建立可预测的停顿时间模型，能够让使用者明确指定在一个长度为M毫秒的时间片段内，消耗在垃圾收集上的时间不得超过N毫秒。</li>
-</ul>
-<p>&emsp;&emsp;使用G1收集器时，Java堆的内存布局与其他收集器有很大差别。它将整个Java堆分为大小相等的独立区域Region。<br><em>emsp;</em>emsp;G1能够预测停顿时间是因为：G1可以有计划地避免在整个Java堆中进行全区域的垃圾收集。它可以跟踪各个Region里面的垃圾堆积的价值大小（回收所获得的空间大小及回收所需时间的经验值），在后台维护一个优先列表，每次根据允许的收集时间，优先回收价值最大的region。这种使用region划分内存空间以及有优先级的区域回收方式，保证了G1收集器可以在有限的时间里获得尽可能高的效率。</p>
-<h2 id="内存分配与回收策略"><a href="#内存分配与回收策略" class="headerlink" title="内存分配与回收策略"></a>内存分配与回收策略</h2><h2 id="对象优先在Eden分配"><a href="#对象优先在Eden分配" class="headerlink" title="对象优先在Eden分配"></a>对象优先在Eden分配</h2><p>&emsp;&emsp;对象在新生代Eden区中分配，当Eden区中没有足够空间进行分配时，虚拟机将发起一次Minor GC。</p>
-<h2 id="大对象直接进入老年代"><a href="#大对象直接进入老年代" class="headerlink" title="大对象直接进入老年代"></a>大对象直接进入老年代</h2><p>&emsp;&emsp;大对象是指需要内存连续空间的Java对象，最典型的大对象就是长字符串和数组。</p>
-<h2 id="长期存活的对象直接进入老年代"><a href="#长期存活的对象直接进入老年代" class="headerlink" title="长期存活的对象直接进入老年代"></a>长期存活的对象直接进入老年代</h2><p>&emsp;&emsp;虚拟机给每个对象定义了一个对象年龄计数器，如果对象在Eden出生并且经过第一次Minor GC后仍然存活，并且能被Survivor容纳的话，将被移动到Survivor空间，并且对象年龄设为1。对象在Survivor区中每经过一次Minor GC，年龄就加1岁，当年龄增加之一定程度（默认是15岁），就会被移动到老年代中。</p>
-<h2 id="动态对象年龄判定"><a href="#动态对象年龄判定" class="headerlink" title="动态对象年龄判定"></a>动态对象年龄判定</h2><p>&emsp;&emsp;为了更好地适应不同程序的内存情况，虚拟机并不是永远地要求对象的年龄必须达到设置的年龄才进入老年代。如果在Survivor空间中相同年龄所有对象大小的总和超过Survivor空间的一半，年龄大于等于该年龄的对象就可以直接进入老年代。</p>
-<h2 id="空间分配担保"><a href="#空间分配担保" class="headerlink" title="空间分配担保"></a>空间分配担保</h2><p>&emsp;&emsp;在发生Minor GC之前，虚拟机会检查老年代最大可用的连续空间是否大于新生代所有对象空间的总和，如果这个条件成立，那么Minor GC可以确保是线程安全的，如果不成立则虚拟机会查看是否允许担保失败，若允许，那么会继续检查老年代最大可用的连续空间是否大于历次晋升到老年代对象的平均大小，如果大于将尝试进行一次Minor GC，如果小于就会进行一次Full GC。</p>
+        <p>&emsp;&emsp;朴素贝叶斯(naive bayes)算法是基于贝叶斯定理与特征条件独立假设的分类方法。对于给定的训练数据集，首先基于特征条件独立假设学习输入、输出的联合概率分布，然后基于此模型，对给定的输入$x$，利用贝叶斯定理求出后验概率最大的输出$y$。朴素贝叶斯法实现简单，学习与预测的效率都很高，是一种常用方法。</p>
+<h1 id="数学原理"><a href="#数学原理" class="headerlink" title="数学原理"></a>数学原理</h1><p>&emsp;&emsp;设输入空间$\mathcal X \subseteq R^n$为$n$维向量的集合，输出空间为类标记集合$\mathcal Y={c_1,c_2,…,c_K}$。输入为特征向量$x \in \mathcal X$，输出为类标记$y \in \mathcal Y$。$X$是定义在输入空间$\mathcal X$上的随机变量，$Y$是定义在输出空间$\mathcal Y$上的随机变量。$P(X,Y)$是$X$和$Y$的联合概率分布。训练数据集<br>$$<br>    T={(x_1,y_1),(x_2,y_2),\ldots,(x_N,y_N)}<br>$$<br>由$P(X,Y)$独立同分布产生。</p>
+<p>&emsp;&emsp;朴素贝叶斯法通过训练数据集学习联合概率分布$P(X,Y)$。具体地，学习以下先验概率分布及条件概率分布。先验概率分布，</p>
+<p>$$P(Y=c_K),\quad k=1,2,\ldots,K$$</p>
+<p>条件概率分布</p>
+<p>$$P(X=x|Y=c_k)=P(X^{(1)}=x^{(1)},…,X^{(n)}=x^{(n)}),\quad k=1,2,\ldots,K$$</p>
+<p>于是学习到联合概率分布$$P(X,Y)$$</p>
+<p>&emsp;&emsp;条件概率分布$P(X=x|Y=c_k)$有指数量级的参数，其估计实际是不可行的。事实上，假设$x^{(j)}$可取值有$S_j$个，$j=1,2,\ldots,n$，$Y$可取值有$K$个，那么参数个数为$K \prod_{j=1}^{n}S_j$。</p>
+<p>&emsp;&emsp;朴素贝叶斯算法对条件概率分布作了条件独立的假设，即用于分类的特征在类别确定的条件下都是条件独立的。<br>$$<br>\begin{split}<br>    P(X=x|Y=c_k) &amp;= P(X^{(1)}=x^{(1)},\ldots,X^{(n)}=x^{(n)}|Y=c_k)\\<br>    &amp;=\prod_{j=1}^{n}P(X^{(j)}=x^{(j)}|Y=c_k)<br>\end{split}<br>\tag{1}<br>$$<br>这一假设使朴素贝叶斯算法变得简单，但是有时会牺牲一定的分类准确率。</p>
+<p>&emsp;&emsp;朴素贝叶斯法分类时，对给定的输入$x$，通过学习到的模型计算后验概率分布$P(Y=c_k|X=x)$，将后验概率最大的类作为$x$的类输出。后验概率计算根据贝叶斯定理进行：</p>
+<p>$$<br>    P(Y=c_k|X=x)=\frac{P(X=x|Y=c_k)P(Y=c_k)}{\sum_k P(X=x|Y=c_k) P(Y=c_k)}<br>    \tag{2}<br>$$<br>把1式代入2式，有</p>
+<p>$$<br>P(Y=c_k|X=x)=\frac{P(Y=c_k)\prod_{j=1}^{n}P(X^{(j)}=x^{(j)}|Y=c_k)}{\sum_k P(Y=c_k)\prod_{j=1}^{n}P(X^{(j)}=x^{(j)}|Y=c_k)}<br>$$</p>
+<p>所以输出为<br>$$<br>y=f(x)=\mathop{\arg\max}_{c_k} \frac{P(Y=c_k)\prod_{j=1}^{n}P(X^{(j)}=x^{(j)}|Y=c_k)}{\sum_k P(Y=c_k)\prod_{j=1}^{n}P(X^{(j)}=x^{(j)}|Y=c_k)}<br>\tag{3}<br>$$</p>
+<p>由于3式中分母对所有$c_k$都相同，所以<br>$$<br>y=f(x)=\mathop{\arg\max}_{c_k} P(Y=c_k)\prod_{j=1}^{n}P(X^{(j)}=x^{(j)}|Y=c_k)<br>\tag{4}<br>$$</p>
+<h1 id="参数估计"><a href="#参数估计" class="headerlink" title="参数估计"></a>参数估计</h1><h2 id="极大似然估计"><a href="#极大似然估计" class="headerlink" title="极大似然估计"></a>极大似然估计</h2><p>&emsp;&emsp;在朴素贝叶斯算法中，学习意味着估计$P(Y=c_k)$和$P(X^{(j)}=x^{(j)}|Y=c_k)$。可以使用极大似然估计法估计相应的概率。先验概率$P(Y=c_k)$的极大似然估计是<br>$$<br>    P(Y=c_k)=\frac{\sum_{i=1}^{N}I(y_i=c_k)}{N},\quad k=1,2,\ldots,K<br>$$</p>
+<p>设第$j$个特征$x^{(j)}$可能取值的集合为$\lbrace a_{j1},a_{},\ldots,a_{jS_j} \rbrace$，条件概率$P(X^{(j)}=a_{jl}|Y=c_k)$的极大似然估计是<br>$$<br>    P(X^{(j)}=a_{jl}|Y=c_k)= \frac{\sum_{i=1}^{N}I(x^{(j)}_{i}=a_{jl},y_i=c_k)}{\sum_{i=1}^{N}I(y_i=c_k)}<br>$$<br>式中，$x_{i}^{(j)}$是第$i$个样本的第$j$个特征；$a_{jl}$是第$j$个特征可能取的第$l$个值；$I$为指示函数。</p>
+<h2 id="贝叶斯估计"><a href="#贝叶斯估计" class="headerlink" title="贝叶斯估计"></a>贝叶斯估计</h2><p>&emsp;&emsp;用极大似然估计可能出现所要估计的值为$0$的情况，这时会影响到后验概率的计算结果，使分类产生偏差。解决这一问题的方法是采用贝叶斯估计，条件概率的贝叶斯估计是<br>$$<br>    P_{\lambda}(X^{(j)}=a_{jl}|Y=c_k)=\frac{\sum_{i=1}^{N}I(x_{i}^{(j)}=a_{jl},y_i=c_k)+\lambda}{\sum_{i=1}^{N}I(y_i=c_k)+S_j\lambda}<br>$$<br>式中$\lambda \geq 0$。等价于在随机变量各个取值的频数上赋予一个正数$\lambda&gt;0$。当$\lambda=0$时就是极大似然估计。常取$\lambda=1$，这时称为拉普拉斯平滑(Laplace smoothing)。显然对于任何$l=1,2,\ldots,S_j,\quad k=1,2,\ldots,K$，有</p>
+<p>$$<br>    P_{\lambda}(X^{(j)}=a_{jl}|Y=c_k)&gt;0\\<br>    \sum_{i=1}^{S_{jl}}P(X^{(j)}=a_{jl}|Y=c_k)=1<br>$$<br>同样，先验概率的贝叶斯估计是<br>$$<br>    P_{\lambda}(Y=c_k)=\frac{\sum_{i=1}^{N}I(y_i=c_k)+\lambda}{N+K\lambda}<br>$$</p>
+<h1 id="示例"><a href="#示例" class="headerlink" title="示例"></a>示例</h1><p>&emsp;&emsp;训练数据如下表，学习一个朴素贝叶斯分类器并确定$x=(2,S)^T$的类标记$y$，表中$X^{(1)}、X^{(2)}$为特征，取值的集合分别为$A_1={1,2,3},A_2={S,M,L}$，$Y$为类标记，$Y \in C=\lbrace 1,-1 \rbrace$</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:center"></th>
+<th style="text-align:center">1</th>
+<th style="text-align:center">2</th>
+<th style="text-align:center">3</th>
+<th style="text-align:center">4</th>
+<th style="text-align:center">5</th>
+<th style="text-align:center">6</th>
+<th style="text-align:center">7</th>
+<th style="text-align:center">8</th>
+<th style="text-align:center">9</th>
+<th style="text-align:center">10</th>
+<th style="text-align:center">11</th>
+<th style="text-align:center">12</th>
+<th style="text-align:center">13</th>
+<th style="text-align:center">14</th>
+<th style="text-align:center">15</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">$X^{(1)}$</td>
+<td style="text-align:center">1</td>
+<td style="text-align:center">1</td>
+<td style="text-align:center">1</td>
+<td style="text-align:center">1</td>
+<td style="text-align:center">1</td>
+<td style="text-align:center">2</td>
+<td style="text-align:center">2</td>
+<td style="text-align:center">2</td>
+<td style="text-align:center">2</td>
+<td style="text-align:center">2</td>
+<td style="text-align:center">3</td>
+<td style="text-align:center">3</td>
+<td style="text-align:center">3</td>
+<td style="text-align:center">3</td>
+<td style="text-align:center">3</td>
+</tr>
+<tr>
+<td style="text-align:center">$X^{(2)}$</td>
+<td style="text-align:center">S</td>
+<td style="text-align:center">M</td>
+<td style="text-align:center">M</td>
+<td style="text-align:center">S</td>
+<td style="text-align:center">S</td>
+<td style="text-align:center">S</td>
+<td style="text-align:center">M</td>
+<td style="text-align:center">M</td>
+<td style="text-align:center">L</td>
+<td style="text-align:center">L</td>
+<td style="text-align:center">L</td>
+<td style="text-align:center">M</td>
+<td style="text-align:center">M</td>
+<td style="text-align:center">L</td>
+<td style="text-align:center">L</td>
+</tr>
+<tr>
+<td style="text-align:center">$Y$</td>
+<td style="text-align:center">-1</td>
+<td style="text-align:center">-1</td>
+<td style="text-align:center">1</td>
+<td style="text-align:center">1</td>
+<td style="text-align:center">-1</td>
+<td style="text-align:center">-1</td>
+<td style="text-align:center">-1</td>
+<td style="text-align:center">1</td>
+<td style="text-align:center">1</td>
+<td style="text-align:center">1</td>
+<td style="text-align:center">1</td>
+<td style="text-align:center">1</td>
+<td style="text-align:center">1</td>
+<td style="text-align:center">1</td>
+<td style="text-align:center">-1</td>
+</tr>
+</tbody>
+</table>
+<p>使用贝叶斯估计进行建模</p>
+<p>$$P(Y=1)=\frac{9+1}{15+2}=\frac{10}{17},P(Y=-1)=\frac{6+1}{15+2}=\frac{7}{17}$$<br>$$<br>P(X^{(1)}=1|Y=1)=\frac{2+1}{9+3}=\frac{3}{12},P(X^{(1)}=2|Y=1)=\frac{3+1}{9+3}=\frac{4}{12},P(X^{(1)}=3|Y=1)=\frac{4+1}{9+3}=\frac{5}{12}<br>$$<br>$$<br>P(X^{(1)}=1|Y=-1)=\frac{3+1}{6+3}=\frac{4}{9},P(X^{(1)}=2|Y=-1)=\frac{2+1}{6+3}=\frac{3}{9},P(X^{(1)}=3|Y=-1)=\frac{1+1}{6+3}=\frac{2}{9}<br>$$<br>$$<br>P(X^{(2)}=S|Y=1)=\frac{1+1}{9+3}=\frac{2}{12},P(X^{(2)}=M|Y=1)=\frac{4+1}{9+3}=\frac{5}{12},P(X^{(2)}=L|Y=1)=\frac{4+1}{9+3}=\frac{5}{12}<br>$$<br>$$<br>P(X^{(2)}=S|Y=-1)=\frac{3+1}{6+3}=\frac{4}{9},P(X^{(2)}=M|Y=-1)=\frac{2+1}{6+3}=\frac{3}{9},P(X^{(2)}=L|Y=-1)=\frac{1+1}{6+3}=\frac{2}{9}<br>$$</p>
+<p>对于给定的$x=(2,S)^T$计算，<br>$$P(Y=1)P(X^{(1)}=2|Y=1)P(X^{(2)}=S|Y=1)=\frac{10}{17} \times\frac{4}{12} \times \frac{2}{12}=0.0327$$<br>$$P(Y=-1)P(X^{(1)}=2|Y=-1)P(X^{(2)}=S|Y=-1)=\frac{7}{17} \times\frac{3}{9} \times \frac{4}{9}=0.0610$$<br>由于$P(Y=-1)P(X^{(1)}=2|Y=-1)P(X^{(2)}=S|Y=-1)$最大，所以$y=-1$</p>
+<h1 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h1><figure class="highlight livecodeserver"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># coding=utf-8</span></span><br><span class="line"><span class="built_in">from</span> numpy import *</span><br><span class="line">import os</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">def createVocabList(dataSet):</span><br><span class="line">    vocabSet = <span class="built_in">set</span>()</span><br><span class="line">    <span class="keyword">for</span> document <span class="keyword">in</span> dataSet:</span><br><span class="line">        vocabSet = vocabSet | <span class="built_in">set</span>(document)</span><br><span class="line">    <span class="literal">return</span> list(vocabSet)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment"># 制作词袋模型</span></span><br><span class="line">def setOfWords2Vec(vocabList, inputSet):</span><br><span class="line">    returnVec = [<span class="number">0</span>] * <span class="built_in">len</span>(vocabList)</span><br><span class="line">    <span class="keyword">for</span> <span class="built_in">word</span> <span class="keyword">in</span> inputSet:</span><br><span class="line">        <span class="keyword">if</span> <span class="built_in">word</span> <span class="keyword">in</span> vocabList:</span><br><span class="line">            returnVec[vocabList.index(<span class="built_in">word</span>)] = <span class="number">1</span></span><br><span class="line">        <span class="keyword">else</span>:</span><br><span class="line">            print <span class="string">'the word &#123;&#125; is not in my Vocabulary!'</span>.<span class="built_in">format</span>(<span class="built_in">word</span>)</span><br><span class="line">    <span class="literal">return</span> returnVec</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">def trainNB0(trainMatrix, trainCategory):</span><br><span class="line">    numTrainDocs = <span class="built_in">len</span>(trainMatrix)</span><br><span class="line">    numWords = <span class="built_in">len</span>(trainMatrix[<span class="number">0</span>])</span><br><span class="line">    <span class="comment"># 包含敏感词的此条出现的概率</span></span><br><span class="line">    pAbusive = <span class="built_in">sum</span>(trainCategory) / float(numTrainDocs)</span><br><span class="line">    <span class="comment"># 构造单词出现次数列表 [1,1,...,1],这里使用了拉普拉斯平滑的思想</span></span><br><span class="line">    p0Num = ones(numWords)</span><br><span class="line">    p1Num = ones(numWords)</span><br><span class="line">    p0Denom = <span class="number">2.0</span></span><br><span class="line">    p1Denom = <span class="number">2.0</span></span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> range(numTrainDocs):</span><br><span class="line">        <span class="comment"># 是否是侮辱性文件</span></span><br><span class="line">        <span class="keyword">if</span> trainCategory[i] == <span class="number">1</span>:</span><br><span class="line">            <span class="comment"># 对侮辱性文件的向量进行加和,[0,1,1,....] + [0,1,1,....]-&gt;[0,2,2,...]</span></span><br><span class="line">            p1Num += trainMatrix[i]</span><br><span class="line">            <span class="comment"># 计算所有侮辱性文件中出现的单词总数</span></span><br><span class="line">            p1Denom += <span class="built_in">sum</span>(trainMatrix[i])</span><br><span class="line">        <span class="keyword">else</span>:</span><br><span class="line">            p0Num += trainMatrix[i]</span><br><span class="line">            p0Denom += <span class="built_in">sum</span>(trainMatrix[i])</span><br><span class="line">    <span class="comment"># 在1类别下，每个单词出现的概率,[1,2,3,5]/90-&gt;[1/90,...]</span></span><br><span class="line">    p1Vect = <span class="built_in">log</span>(p1Num / p1Denom)</span><br><span class="line">    <span class="comment">#  在0类别下，每个单词出现的概率</span></span><br><span class="line">    p0Vect = <span class="built_in">log</span>(p0Num / p0Denom)</span><br><span class="line">    <span class="literal">return</span> p0Vect, p1Vect, pAbusive</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">def classifyNB(vec2Classify, p0Vec, p1Vec, pClass1):</span><br><span class="line">    <span class="comment"># p1Vec是每个词在类别1里出现的概率，vec2Classify表示这个词在该文章中是否出现过，乘起来表示文章中每个词出现的概率</span></span><br><span class="line">    <span class="comment"># 这里进行了log变换，所以写成了加法</span></span><br><span class="line">    p1 = <span class="built_in">sum</span>(vec2Classify * p1Vec) + <span class="built_in">log</span>(pClass1)</span><br><span class="line">    p0 = <span class="built_in">sum</span>(vec2Classify * p0Vec) + <span class="built_in">log</span>(<span class="number">1</span> - pClass1)</span><br><span class="line">    <span class="keyword">if</span> p1 &gt; p0:</span><br><span class="line">        <span class="literal">return</span> <span class="number">1</span></span><br><span class="line">    <span class="keyword">else</span>:</span><br><span class="line">        <span class="literal">return</span> <span class="number">0</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">def testParse(bigString):</span><br><span class="line">    import re</span><br><span class="line">    listOfTokens = re.<span class="built_in">split</span>(<span class="string">'r\W*'</span>, bigString)</span><br><span class="line">    <span class="literal">return</span> [tok.<span class="built_in">lower</span>() <span class="keyword">for</span> tok <span class="keyword">in</span> listOfTokens <span class="keyword">if</span> <span class="built_in">len</span>(tok) &gt; <span class="number">2</span>]</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">def spamTest():</span><br><span class="line">    docList = []</span><br><span class="line">    classList = []</span><br><span class="line">    fullText = []</span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> range(<span class="number">1</span>, <span class="number">26</span>):</span><br><span class="line">        <span class="comment"># 读取非垃圾邮件文本</span></span><br><span class="line">        wordList = testParse(<span class="built_in">open</span>(os.getcwd() + <span class="string">'/email/spam/&#123;&#125;.txt'</span>.<span class="built_in">format</span>(i)).<span class="built_in">read</span>())</span><br><span class="line">        docList.append(wordList)</span><br><span class="line">        fullText.append(wordList)</span><br><span class="line">        classList.append(<span class="number">1</span>)</span><br><span class="line">        <span class="comment"># 读取垃圾邮件文本</span></span><br><span class="line">        wordList = testParse(<span class="built_in">open</span>(os.getcwd() + <span class="string">'/email/ham/&#123;&#125;.txt'</span>.<span class="built_in">format</span>(i)).<span class="built_in">read</span>())</span><br><span class="line">        docList.append(wordList)</span><br><span class="line">        fullText.append(wordList)</span><br><span class="line">        classList.append(<span class="number">0</span>)</span><br><span class="line">    <span class="comment"># 建立词集</span></span><br><span class="line">    vocabList = createVocabList(docList)</span><br><span class="line">    <span class="comment"># 训练集语料的下标</span></span><br><span class="line">    trainingSet = range(<span class="number">50</span>)</span><br><span class="line">    testSet = []</span><br><span class="line">    <span class="comment"># 选10个语料作为测试集</span></span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> range(<span class="number">10</span>):</span><br><span class="line">        randIndex = int(<span class="built_in">random</span>.uniform(<span class="number">0</span>, <span class="built_in">len</span>(trainingSet)))</span><br><span class="line">        testSet.append(trainingSet[randIndex])</span><br><span class="line">        <span class="comment"># 删除后训练集变成40个</span></span><br><span class="line">        del (trainingSet[randIndex])</span><br><span class="line">    trainMat = []</span><br><span class="line">    trainClasses = []</span><br><span class="line">    <span class="keyword">for</span> docIndex <span class="keyword">in</span> trainingSet:</span><br><span class="line">        trainMat.append(setOfWords2Vec(vocabList, docList[docIndex]))</span><br><span class="line">        trainClasses.append(classList[docIndex])</span><br><span class="line">    <span class="comment"># 计算各种概率</span></span><br><span class="line">    p0V, p1V, pSpam = trainNB0(array(trainMat), array(trainClasses))</span><br><span class="line">    errorCount = <span class="number">0</span></span><br><span class="line">    <span class="comment"># 进行测试</span></span><br><span class="line">    <span class="keyword">for</span> docIndex <span class="keyword">in</span> testSet:</span><br><span class="line">        <span class="comment"># 构建词向量</span></span><br><span class="line">        wordVector = setOfWords2Vec(vocabList, docList[docIndex])</span><br><span class="line">        <span class="comment"># 进行分类</span></span><br><span class="line">        <span class="keyword">if</span> classifyNB(array(wordVector), p0V, p1V, pSpam) != classList[docIndex]:</span><br><span class="line">            errorCount += <span class="number">1</span></span><br><span class="line">    print <span class="string">'the error rate is &#123;&#125;'</span>.<span class="built_in">format</span>(float(errorCount) / <span class="built_in">len</span>(testSet))</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">def main():</span><br><span class="line">    spamTest()</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">'__main__'</span>:</span><br><span class="line">    main()</span><br></pre></td></tr></table></figure>
+<p>代码详见<a href="https://github.com/yajian/machine_learning/blob/master/bayes/naive_bayes.py" target="_blank" rel="noopener">朴素贝叶斯代码实现</a> </p>
+<h1 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h1><ol>
+<li>机器学习实战，人民邮电出版社</li>
+<li>统计学习方法，清华大学出版社</li>
+<li><a href="https://github.com/apachecn/AiLearning" target="_blank" rel="noopener">AI Learning</a></li>
+</ol>
 
       
     </div>
@@ -558,12 +587,12 @@
   <script type="text/javascript" src="http://jslibs.wuxubj.cn/sweetalert_mini/jquery-1.7.1.min.js"></script>
   <script src="http://jslibs.wuxubj.cn/sweetalert_mini/sweetalert.min.js"></script>
   <link rel="stylesheet" type="text/css" href="http://jslibs.wuxubj.cn/sweetalert_mini/sweetalert.mini.css">
-  <p><span>本文标题:</span><a href="/深入理解java虚拟机-3-垃圾收集器与内存分配策略/">深入理解java虚拟机(3)-垃圾收集器与内存分配策略</a></p>
+  <p><span>本文标题:</span><a href="/朴素贝叶斯算法/">朴素贝叶斯算法</a></p>
   <p><span>文章作者:</span><a href="/" title="访问 小建儿 的个人博客">小建儿</a></p>
-  <p><span>发布时间:</span>2018年05月28日 - 11:05</p>
-  <p><span>最后更新:</span>2018年05月28日 - 11:05</p>
-  <p><span>原始链接:</span><a href="/深入理解java虚拟机-3-垃圾收集器与内存分配策略/" title="深入理解java虚拟机(3)-垃圾收集器与内存分配策略">http://yajian.github.io/深入理解java虚拟机-3-垃圾收集器与内存分配策略/</a>
-    <span class="copy-path" title="点击复制文章链接"><i class="fa fa-clipboard" data-clipboard-text="http://yajian.github.io/深入理解java虚拟机-3-垃圾收集器与内存分配策略/" aria-label="复制成功！"></i></span>
+  <p><span>发布时间:</span>2018年12月24日 - 10:12</p>
+  <p><span>最后更新:</span>2018年12月27日 - 11:12</p>
+  <p><span>原始链接:</span><a href="/朴素贝叶斯算法/" title="朴素贝叶斯算法">http://yajian.github.io/朴素贝叶斯算法/</a>
+    <span class="copy-path" title="点击复制文章链接"><i class="fa fa-clipboard" data-clipboard-text="http://yajian.github.io/朴素贝叶斯算法/" aria-label="复制成功！"></i></span>
   </p>
   <p><span>许可协议:</span><i class="fa fa-creative-commons"></i> <a rel="license" href="https://creativecommons.org/licenses/by-nc-nd/4.0/" target="_blank" title="Attribution-NonCommercial-NoDerivatives 4.0 International (CC BY-NC-ND 4.0)">署名-非商业性使用-禁止演绎 4.0 国际</a> 转载请保留原文链接及作者。</p>  
 </div>
@@ -593,7 +622,7 @@
       
         <div class="post-tags">
           
-            <a href="/tags/深入理解java虚拟机/" rel="tag"><i class="fa fa-tag"></i> 深入理解java虚拟机</a>
+            <a href="/tags/生成模型/" rel="tag"><i class="fa fa-tag"></i> 生成模型</a>
           
         </div>
       
@@ -606,8 +635,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/effective-java-9-异常/" rel="next" title="effective java(9)-异常">
-                <i class="fa fa-chevron-left"></i> effective java(9)-异常
+              <a href="/从决策树到xgboost/" rel="next" title="从决策树到xgboost">
+                <i class="fa fa-chevron-left"></i> 从决策树到xgboost
               </a>
             
           </div>
@@ -615,10 +644,6 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/java源码解读-arrayList/" rel="prev" title="java源码解读--arrayList">
-                java源码解读--arrayList <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -797,7 +822,7 @@ var jiathis_config={
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#垃圾收集器与内存分配策略"><span class="nav-number">1.</span> <span class="nav-text">垃圾收集器与内存分配策略</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#对象是否死亡"><span class="nav-number">1.1.</span> <span class="nav-text">对象是否死亡</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#引用计数法"><span class="nav-number">1.1.1.</span> <span class="nav-text">引用计数法</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#可达性分析"><span class="nav-number">1.2.</span> <span class="nav-text">可达性分析</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#引用"><span class="nav-number">1.3.</span> <span class="nav-text">引用</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#生存还是死亡"><span class="nav-number">1.4.</span> <span class="nav-text">生存还是死亡</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#回收方法区"><span class="nav-number">1.5.</span> <span class="nav-text">回收方法区</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#垃圾收集算法"><span class="nav-number">1.6.</span> <span class="nav-text">垃圾收集算法</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#标记清除算法"><span class="nav-number">1.6.1.</span> <span class="nav-text">标记清除算法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#复制算法"><span class="nav-number">1.6.2.</span> <span class="nav-text">复制算法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#标记整理算法"><span class="nav-number">1.6.3.</span> <span class="nav-text">标记整理算法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#分代收集"><span class="nav-number">1.6.4.</span> <span class="nav-text">分代收集</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#垃圾收集器"><span class="nav-number">1.7.</span> <span class="nav-text">垃圾收集器</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Serial收集器"><span class="nav-number">1.7.1.</span> <span class="nav-text">Serial收集器</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#ParNew收集器"><span class="nav-number">1.7.2.</span> <span class="nav-text">ParNew收集器</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Parallel-Scavenge收集器"><span class="nav-number">1.7.3.</span> <span class="nav-text">Parallel Scavenge收集器</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Serial-Old收集器"><span class="nav-number">1.7.4.</span> <span class="nav-text">Serial Old收集器</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Parallel-Old收集器"><span class="nav-number">1.7.5.</span> <span class="nav-text">Parallel Old收集器</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#CMS收集器"><span class="nav-number">1.7.6.</span> <span class="nav-text">CMS收集器</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#G1收集器"><span class="nav-number">1.7.7.</span> <span class="nav-text">G1收集器</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#内存分配与回收策略"><span class="nav-number">1.8.</span> <span class="nav-text">内存分配与回收策略</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#对象优先在Eden分配"><span class="nav-number">1.9.</span> <span class="nav-text">对象优先在Eden分配</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#大对象直接进入老年代"><span class="nav-number">1.10.</span> <span class="nav-text">大对象直接进入老年代</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#长期存活的对象直接进入老年代"><span class="nav-number">1.11.</span> <span class="nav-text">长期存活的对象直接进入老年代</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#动态对象年龄判定"><span class="nav-number">1.12.</span> <span class="nav-text">动态对象年龄判定</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#空间分配担保"><span class="nav-number">1.13.</span> <span class="nav-text">空间分配担保</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#数学原理"><span class="nav-number">1.</span> <span class="nav-text">数学原理</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#参数估计"><span class="nav-number">2.</span> <span class="nav-text">参数估计</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#极大似然估计"><span class="nav-number">2.1.</span> <span class="nav-text">极大似然估计</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#贝叶斯估计"><span class="nav-number">2.2.</span> <span class="nav-text">贝叶斯估计</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#示例"><span class="nav-number">3.</span> <span class="nav-text">示例</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#代码"><span class="nav-number">4.</span> <span class="nav-text">代码</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#参考"><span class="nav-number">5.</span> <span class="nav-text">参考</span></a></li></ol></div>
             
 
           </div>
@@ -996,9 +1021,9 @@ var jiathis_config={
     
       <script type="text/javascript">
         var disqus_config = function () {
-          this.page.url = 'http://yajian.github.io/深入理解java虚拟机-3-垃圾收集器与内存分配策略/';
-          this.page.identifier = '深入理解java虚拟机-3-垃圾收集器与内存分配策略/';
-          this.page.title = '深入理解java虚拟机(3)-垃圾收集器与内存分配策略';
+          this.page.url = 'http://yajian.github.io/朴素贝叶斯算法/';
+          this.page.identifier = '朴素贝叶斯算法/';
+          this.page.title = '朴素贝叶斯算法';
         };
         var d = document, s = d.createElement('script');
         s.src = 'https://.disqus.com/embed.js';

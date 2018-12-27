@@ -318,6 +318,305 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yajian.github.io/朴素贝叶斯算法/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="小建儿">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="小建儿的小站">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/朴素贝叶斯算法/" itemprop="url">朴素贝叶斯算法</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-12-24T10:24:57+08:00">
+                2018-12-24
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
+                  <a href="/categories/机器学习/" itemprop="url" rel="index">
+                    <span itemprop="name">机器学习</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/朴素贝叶斯算法/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count disqus-comment-count" data-disqus-identifier="朴素贝叶斯算法/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">
+                  
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>&emsp;&emsp;朴素贝叶斯(naive bayes)算法是基于贝叶斯定理与特征条件独立假设的分类方法。对于给定的训练数据集，首先基于特征条件独立假设学习输入、输出的联合概率分布，然后基于此模型，对给定的输入$x$，利用贝叶斯定理求出后验概率最大的输出$y$。朴素贝叶斯法实现简单，学习与预测的效率都很高，是一种常用方法。</p>
+<h1 id="数学原理"><a href="#数学原理" class="headerlink" title="数学原理"></a>数学原理</h1><p>&emsp;&emsp;设输入空间$\mathcal X \subseteq R^n$为$n$维向量的集合，输出空间为类标记集合$\mathcal Y={c_1,c_2,…,c_K}$。输入为特征向量$x \in \mathcal X$，输出为类标记$y \in \mathcal Y$。$X$是定义在输入空间$\mathcal X$上的随机变量，$Y$是定义在输出空间$\mathcal Y$上的随机变量。$P(X,Y)$是$X$和$Y$的联合概率分布。训练数据集<br>$$<br>    T={(x_1,y_1),(x_2,y_2),\ldots,(x_N,y_N)}<br>$$<br>由$P(X,Y)$独立同分布产生。</p>
+<p>&emsp;&emsp;朴素贝叶斯法通过训练数据集学习联合概率分布$P(X,Y)$。具体地，学习以下先验概率分布及条件概率分布。先验概率分布，</p>
+<p>$$P(Y=c_K),\quad k=1,2,\ldots,K$$</p>
+<p>条件概率分布</p>
+<p>$$P(X=x|Y=c_k)=P(X^{(1)}=x^{(1)},…,X^{(n)}=x^{(n)}),\quad k=1,2,\ldots,K$$</p>
+<p>于是学习到联合概率分布$$P(X,Y)$$</p>
+<p>&emsp;&emsp;条件概率分布$P(X=x|Y=c_k)$有指数量级的参数，其估计实际是不可行的。事实上，假设$x^{(j)}$可取值有$S_j$个，$j=1,2,\ldots,n$，$Y$可取值有$K$个，那么参数个数为$K \prod_{j=1}^{n}S_j$。</p>
+<p>&emsp;&emsp;朴素贝叶斯算法对条件概率分布作了条件独立的假设，即用于分类的特征在类别确定的条件下都是条件独立的。<br>$$<br>\begin{split}<br>    P(X=x|Y=c_k) &amp;= P(X^{(1)}=x^{(1)},\ldots,X^{(n)}=x^{(n)}|Y=c_k)\\<br>    &amp;=\prod_{j=1}^{n}P(X^{(j)}=x^{(j)}|Y=c_k)<br>\end{split}<br>\tag{1}<br>$$<br>这一假设使朴素贝叶斯算法变得简单，但是有时会牺牲一定的分类准确率。</p>
+<p>&emsp;&emsp;朴素贝叶斯法分类时，对给定的输入$x$，通过学习到的模型计算后验概率分布$P(Y=c_k|X=x)$，将后验概率最大的类作为$x$的类输出。后验概率计算根据贝叶斯定理进行：</p>
+<p>$$<br>    P(Y=c_k|X=x)=\frac{P(X=x|Y=c_k)P(Y=c_k)}{\sum_k P(X=x|Y=c_k) P(Y=c_k)}<br>    \tag{2}<br>$$<br>把1式代入2式，有</p>
+<p>$$<br>P(Y=c_k|X=x)=\frac{P(Y=c_k)\prod_{j=1}^{n}P(X^{(j)}=x^{(j)}|Y=c_k)}{\sum_k P(Y=c_k)\prod_{j=1}^{n}P(X^{(j)}=x^{(j)}|Y=c_k)}<br>$$</p>
+<p>所以输出为<br>$$<br>y=f(x)=\mathop{\arg\max}_{c_k} \frac{P(Y=c_k)\prod_{j=1}^{n}P(X^{(j)}=x^{(j)}|Y=c_k)}{\sum_k P(Y=c_k)\prod_{j=1}^{n}P(X^{(j)}=x^{(j)}|Y=c_k)}<br>\tag{3}<br>$$</p>
+<p>由于3式中分母对所有$c_k$都相同，所以<br>$$<br>y=f(x)=\mathop{\arg\max}_{c_k} P(Y=c_k)\prod_{j=1}^{n}P(X^{(j)}=x^{(j)}|Y=c_k)<br>\tag{4}<br>$$</p>
+<h1 id="参数估计"><a href="#参数估计" class="headerlink" title="参数估计"></a>参数估计</h1><h2 id="极大似然估计"><a href="#极大似然估计" class="headerlink" title="极大似然估计"></a>极大似然估计</h2><p>&emsp;&emsp;在朴素贝叶斯算法中，学习意味着估计$P(Y=c_k)$和$P(X^{(j)}=x^{(j)}|Y=c_k)$。可以使用极大似然估计法估计相应的概率。先验概率$P(Y=c_k)$的极大似然估计是<br>$$<br>    P(Y=c_k)=\frac{\sum_{i=1}^{N}I(y_i=c_k)}{N},\quad k=1,2,\ldots,K<br>$$</p>
+<p>设第$j$个特征$x^{(j)}$可能取值的集合为$\lbrace a_{j1},a_{},\ldots,a_{jS_j} \rbrace$，条件概率$P(X^{(j)}=a_{jl}|Y=c_k)$的极大似然估计是<br>$$<br>    P(X^{(j)}=a_{jl}|Y=c_k)= \frac{\sum_{i=1}^{N}I(x^{(j)}_{i}=a_{jl},y_i=c_k)}{\sum_{i=1}^{N}I(y_i=c_k)}<br>$$<br>式中，$x_{i}^{(j)}$是第$i$个样本的第$j$个特征；$a_{jl}$是第$j$个特征可能取的第$l$个值；$I$为指示函数。</p>
+<h2 id="贝叶斯估计"><a href="#贝叶斯估计" class="headerlink" title="贝叶斯估计"></a>贝叶斯估计</h2><p>&emsp;&emsp;用极大似然估计可能出现所要估计的值为$0$的情况，这时会影响到后验概率的计算结果，使分类产生偏差。解决这一问题的方法是采用贝叶斯估计，条件概率的贝叶斯估计是<br>$$<br>    P_{\lambda}(X^{(j)}=a_{jl}|Y=c_k)=\frac{\sum_{i=1}^{N}I(x_{i}^{(j)}=a_{jl},y_i=c_k)+\lambda}{\sum_{i=1}^{N}I(y_i=c_k)+S_j\lambda}<br>$$<br>式中$\lambda \geq 0$。等价于在随机变量各个取值的频数上赋予一个正数$\lambda&gt;0$。当$\lambda=0$时就是极大似然估计。常取$\lambda=1$，这时称为拉普拉斯平滑(Laplace smoothing)。显然对于任何$l=1,2,\ldots,S_j,\quad k=1,2,\ldots,K$，有</p>
+<p>$$<br>    P_{\lambda}(X^{(j)}=a_{jl}|Y=c_k)&gt;0\\<br>    \sum_{i=1}^{S_{jl}}P(X^{(j)}=a_{jl}|Y=c_k)=1<br>$$<br>同样，先验概率的贝叶斯估计是<br>$$<br>    P_{\lambda}(Y=c_k)=\frac{\sum_{i=1}^{N}I(y_i=c_k)+\lambda}{N+K\lambda}<br>$$</p>
+<h1 id="示例"><a href="#示例" class="headerlink" title="示例"></a>示例</h1><p>&emsp;&emsp;训练数据如下表，学习一个朴素贝叶斯分类器并确定$x=(2,S)^T$的类标记$y$，表中$X^{(1)}、X^{(2)}$为特征，取值的集合分别为$A_1={1,2,3},A_2={S,M,L}$，$Y$为类标记，$Y \in C=\lbrace 1,-1 \rbrace$</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:center"></th>
+<th style="text-align:center">1</th>
+<th style="text-align:center">2</th>
+<th style="text-align:center">3</th>
+<th style="text-align:center">4</th>
+<th style="text-align:center">5</th>
+<th style="text-align:center">6</th>
+<th style="text-align:center">7</th>
+<th style="text-align:center">8</th>
+<th style="text-align:center">9</th>
+<th style="text-align:center">10</th>
+<th style="text-align:center">11</th>
+<th style="text-align:center">12</th>
+<th style="text-align:center">13</th>
+<th style="text-align:center">14</th>
+<th style="text-align:center">15</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">$X^{(1)}$</td>
+<td style="text-align:center">1</td>
+<td style="text-align:center">1</td>
+<td style="text-align:center">1</td>
+<td style="text-align:center">1</td>
+<td style="text-align:center">1</td>
+<td style="text-align:center">2</td>
+<td style="text-align:center">2</td>
+<td style="text-align:center">2</td>
+<td style="text-align:center">2</td>
+<td style="text-align:center">2</td>
+<td style="text-align:center">3</td>
+<td style="text-align:center">3</td>
+<td style="text-align:center">3</td>
+<td style="text-align:center">3</td>
+<td style="text-align:center">3</td>
+</tr>
+<tr>
+<td style="text-align:center">$X^{(2)}$</td>
+<td style="text-align:center">S</td>
+<td style="text-align:center">M</td>
+<td style="text-align:center">M</td>
+<td style="text-align:center">S</td>
+<td style="text-align:center">S</td>
+<td style="text-align:center">S</td>
+<td style="text-align:center">M</td>
+<td style="text-align:center">M</td>
+<td style="text-align:center">L</td>
+<td style="text-align:center">L</td>
+<td style="text-align:center">L</td>
+<td style="text-align:center">M</td>
+<td style="text-align:center">M</td>
+<td style="text-align:center">L</td>
+<td style="text-align:center">L</td>
+</tr>
+<tr>
+<td style="text-align:center">$Y$</td>
+<td style="text-align:center">-1</td>
+<td style="text-align:center">-1</td>
+<td style="text-align:center">1</td>
+<td style="text-align:center">1</td>
+<td style="text-align:center">-1</td>
+<td style="text-align:center">-1</td>
+<td style="text-align:center">-1</td>
+<td style="text-align:center">1</td>
+<td style="text-align:center">1</td>
+<td style="text-align:center">1</td>
+<td style="text-align:center">1</td>
+<td style="text-align:center">1</td>
+<td style="text-align:center">1</td>
+<td style="text-align:center">1</td>
+<td style="text-align:center">-1</td>
+</tr>
+</tbody>
+</table>
+<p>使用贝叶斯估计进行建模</p>
+<p>$$P(Y=1)=\frac{9+1}{15+2}=\frac{10}{17},P(Y=-1)=\frac{6+1}{15+2}=\frac{7}{17}$$<br>$$<br>P(X^{(1)}=1|Y=1)=\frac{2+1}{9+3}=\frac{3}{12},P(X^{(1)}=2|Y=1)=\frac{3+1}{9+3}=\frac{4}{12},P(X^{(1)}=3|Y=1)=\frac{4+1}{9+3}=\frac{5}{12}<br>$$<br>$$<br>P(X^{(1)}=1|Y=-1)=\frac{3+1}{6+3}=\frac{4}{9},P(X^{(1)}=2|Y=-1)=\frac{2+1}{6+3}=\frac{3}{9},P(X^{(1)}=3|Y=-1)=\frac{1+1}{6+3}=\frac{2}{9}<br>$$<br>$$<br>P(X^{(2)}=S|Y=1)=\frac{1+1}{9+3}=\frac{2}{12},P(X^{(2)}=M|Y=1)=\frac{4+1}{9+3}=\frac{5}{12},P(X^{(2)}=L|Y=1)=\frac{4+1}{9+3}=\frac{5}{12}<br>$$<br>$$<br>P(X^{(2)}=S|Y=-1)=\frac{3+1}{6+3}=\frac{4}{9},P(X^{(2)}=M|Y=-1)=\frac{2+1}{6+3}=\frac{3}{9},P(X^{(2)}=L|Y=-1)=\frac{1+1}{6+3}=\frac{2}{9}<br>$$</p>
+<p>对于给定的$x=(2,S)^T$计算，<br>$$P(Y=1)P(X^{(1)}=2|Y=1)P(X^{(2)}=S|Y=1)=\frac{10}{17} \times\frac{4}{12} \times \frac{2}{12}=0.0327$$<br>$$P(Y=-1)P(X^{(1)}=2|Y=-1)P(X^{(2)}=S|Y=-1)=\frac{7}{17} \times\frac{3}{9} \times \frac{4}{9}=0.0610$$<br>由于$P(Y=-1)P(X^{(1)}=2|Y=-1)P(X^{(2)}=S|Y=-1)$最大，所以$y=-1$</p>
+<h1 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h1><figure class="highlight livecodeserver"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># coding=utf-8</span></span><br><span class="line"><span class="built_in">from</span> numpy import *</span><br><span class="line">import os</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">def createVocabList(dataSet):</span><br><span class="line">    vocabSet = <span class="built_in">set</span>()</span><br><span class="line">    <span class="keyword">for</span> document <span class="keyword">in</span> dataSet:</span><br><span class="line">        vocabSet = vocabSet | <span class="built_in">set</span>(document)</span><br><span class="line">    <span class="literal">return</span> list(vocabSet)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment"># 制作词袋模型</span></span><br><span class="line">def setOfWords2Vec(vocabList, inputSet):</span><br><span class="line">    returnVec = [<span class="number">0</span>] * <span class="built_in">len</span>(vocabList)</span><br><span class="line">    <span class="keyword">for</span> <span class="built_in">word</span> <span class="keyword">in</span> inputSet:</span><br><span class="line">        <span class="keyword">if</span> <span class="built_in">word</span> <span class="keyword">in</span> vocabList:</span><br><span class="line">            returnVec[vocabList.index(<span class="built_in">word</span>)] = <span class="number">1</span></span><br><span class="line">        <span class="keyword">else</span>:</span><br><span class="line">            print <span class="string">'the word &#123;&#125; is not in my Vocabulary!'</span>.<span class="built_in">format</span>(<span class="built_in">word</span>)</span><br><span class="line">    <span class="literal">return</span> returnVec</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">def trainNB0(trainMatrix, trainCategory):</span><br><span class="line">    numTrainDocs = <span class="built_in">len</span>(trainMatrix)</span><br><span class="line">    numWords = <span class="built_in">len</span>(trainMatrix[<span class="number">0</span>])</span><br><span class="line">    <span class="comment"># 包含敏感词的此条出现的概率</span></span><br><span class="line">    pAbusive = <span class="built_in">sum</span>(trainCategory) / float(numTrainDocs)</span><br><span class="line">    <span class="comment"># 构造单词出现次数列表 [1,1,...,1],这里使用了拉普拉斯平滑的思想</span></span><br><span class="line">    p0Num = ones(numWords)</span><br><span class="line">    p1Num = ones(numWords)</span><br><span class="line">    p0Denom = <span class="number">2.0</span></span><br><span class="line">    p1Denom = <span class="number">2.0</span></span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> range(numTrainDocs):</span><br><span class="line">        <span class="comment"># 是否是侮辱性文件</span></span><br><span class="line">        <span class="keyword">if</span> trainCategory[i] == <span class="number">1</span>:</span><br><span class="line">            <span class="comment"># 对侮辱性文件的向量进行加和,[0,1,1,....] + [0,1,1,....]-&gt;[0,2,2,...]</span></span><br><span class="line">            p1Num += trainMatrix[i]</span><br><span class="line">            <span class="comment"># 计算所有侮辱性文件中出现的单词总数</span></span><br><span class="line">            p1Denom += <span class="built_in">sum</span>(trainMatrix[i])</span><br><span class="line">        <span class="keyword">else</span>:</span><br><span class="line">            p0Num += trainMatrix[i]</span><br><span class="line">            p0Denom += <span class="built_in">sum</span>(trainMatrix[i])</span><br><span class="line">    <span class="comment"># 在1类别下，每个单词出现的概率,[1,2,3,5]/90-&gt;[1/90,...]</span></span><br><span class="line">    p1Vect = <span class="built_in">log</span>(p1Num / p1Denom)</span><br><span class="line">    <span class="comment">#  在0类别下，每个单词出现的概率</span></span><br><span class="line">    p0Vect = <span class="built_in">log</span>(p0Num / p0Denom)</span><br><span class="line">    <span class="literal">return</span> p0Vect, p1Vect, pAbusive</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">def classifyNB(vec2Classify, p0Vec, p1Vec, pClass1):</span><br><span class="line">    <span class="comment"># p1Vec是每个词在类别1里出现的概率，vec2Classify表示这个词在该文章中是否出现过，乘起来表示文章中每个词出现的概率</span></span><br><span class="line">    <span class="comment"># 这里进行了log变换，所以写成了加法</span></span><br><span class="line">    p1 = <span class="built_in">sum</span>(vec2Classify * p1Vec) + <span class="built_in">log</span>(pClass1)</span><br><span class="line">    p0 = <span class="built_in">sum</span>(vec2Classify * p0Vec) + <span class="built_in">log</span>(<span class="number">1</span> - pClass1)</span><br><span class="line">    <span class="keyword">if</span> p1 &gt; p0:</span><br><span class="line">        <span class="literal">return</span> <span class="number">1</span></span><br><span class="line">    <span class="keyword">else</span>:</span><br><span class="line">        <span class="literal">return</span> <span class="number">0</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">def testParse(bigString):</span><br><span class="line">    import re</span><br><span class="line">    listOfTokens = re.<span class="built_in">split</span>(<span class="string">'r\W*'</span>, bigString)</span><br><span class="line">    <span class="literal">return</span> [tok.<span class="built_in">lower</span>() <span class="keyword">for</span> tok <span class="keyword">in</span> listOfTokens <span class="keyword">if</span> <span class="built_in">len</span>(tok) &gt; <span class="number">2</span>]</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">def spamTest():</span><br><span class="line">    docList = []</span><br><span class="line">    classList = []</span><br><span class="line">    fullText = []</span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> range(<span class="number">1</span>, <span class="number">26</span>):</span><br><span class="line">        <span class="comment"># 读取非垃圾邮件文本</span></span><br><span class="line">        wordList = testParse(<span class="built_in">open</span>(os.getcwd() + <span class="string">'/email/spam/&#123;&#125;.txt'</span>.<span class="built_in">format</span>(i)).<span class="built_in">read</span>())</span><br><span class="line">        docList.append(wordList)</span><br><span class="line">        fullText.append(wordList)</span><br><span class="line">        classList.append(<span class="number">1</span>)</span><br><span class="line">        <span class="comment"># 读取垃圾邮件文本</span></span><br><span class="line">        wordList = testParse(<span class="built_in">open</span>(os.getcwd() + <span class="string">'/email/ham/&#123;&#125;.txt'</span>.<span class="built_in">format</span>(i)).<span class="built_in">read</span>())</span><br><span class="line">        docList.append(wordList)</span><br><span class="line">        fullText.append(wordList)</span><br><span class="line">        classList.append(<span class="number">0</span>)</span><br><span class="line">    <span class="comment"># 建立词集</span></span><br><span class="line">    vocabList = createVocabList(docList)</span><br><span class="line">    <span class="comment"># 训练集语料的下标</span></span><br><span class="line">    trainingSet = range(<span class="number">50</span>)</span><br><span class="line">    testSet = []</span><br><span class="line">    <span class="comment"># 选10个语料作为测试集</span></span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> range(<span class="number">10</span>):</span><br><span class="line">        randIndex = int(<span class="built_in">random</span>.uniform(<span class="number">0</span>, <span class="built_in">len</span>(trainingSet)))</span><br><span class="line">        testSet.append(trainingSet[randIndex])</span><br><span class="line">        <span class="comment"># 删除后训练集变成40个</span></span><br><span class="line">        del (trainingSet[randIndex])</span><br><span class="line">    trainMat = []</span><br><span class="line">    trainClasses = []</span><br><span class="line">    <span class="keyword">for</span> docIndex <span class="keyword">in</span> trainingSet:</span><br><span class="line">        trainMat.append(setOfWords2Vec(vocabList, docList[docIndex]))</span><br><span class="line">        trainClasses.append(classList[docIndex])</span><br><span class="line">    <span class="comment"># 计算各种概率</span></span><br><span class="line">    p0V, p1V, pSpam = trainNB0(array(trainMat), array(trainClasses))</span><br><span class="line">    errorCount = <span class="number">0</span></span><br><span class="line">    <span class="comment"># 进行测试</span></span><br><span class="line">    <span class="keyword">for</span> docIndex <span class="keyword">in</span> testSet:</span><br><span class="line">        <span class="comment"># 构建词向量</span></span><br><span class="line">        wordVector = setOfWords2Vec(vocabList, docList[docIndex])</span><br><span class="line">        <span class="comment"># 进行分类</span></span><br><span class="line">        <span class="keyword">if</span> classifyNB(array(wordVector), p0V, p1V, pSpam) != classList[docIndex]:</span><br><span class="line">            errorCount += <span class="number">1</span></span><br><span class="line">    print <span class="string">'the error rate is &#123;&#125;'</span>.<span class="built_in">format</span>(float(errorCount) / <span class="built_in">len</span>(testSet))</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">def main():</span><br><span class="line">    spamTest()</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">'__main__'</span>:</span><br><span class="line">    main()</span><br></pre></td></tr></table></figure>
+<p>代码详见<a href="https://github.com/yajian/machine_learning/blob/master/bayes/naive_bayes.py" target="_blank" rel="noopener">朴素贝叶斯代码实现</a> </p>
+<h1 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h1><ol>
+<li>机器学习实战，人民邮电出版社</li>
+<li>统计学习方法，清华大学出版社</li>
+<li><a href="https://github.com/apachecn/AiLearning" target="_blank" rel="noopener">AI Learning</a></li>
+</ol>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+
+
+    
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://yajian.github.io/从决策树到xgboost/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
@@ -465,9 +764,9 @@
 <li>注：傅立叶变换可以看成一种加法模型</li>
 </ul>
 <h3 id="前向分布算法"><a href="#前向分布算法" class="headerlink" title="前向分布算法"></a>前向分布算法</h3><p>&emsp;&emsp;在给定训练数据和损失函数$L(y,f(x))$的情况下，学习加法模型$f(x)$成为经验风险极小化问题：</p>
-<p>$$min_{\beta_m,\gamma_m}\sum_{i=1}^{N}L[y_i,\sum_{m=1}^{M}\beta_mb(x_i;\gamma_m)]$$</p>
+<p>$$\mathop{min}_{\beta_m,\gamma_m}\sum_{i=1}^{N}L[y_i,\sum_{m=1}^{M}\beta_mb(x_i;\gamma_m)]$$</p>
 <p>使用前向分布算法解决这一优化问题的思路是：因为学习的是加法模型，如何能够从前向后，每一步只学习一个基函数及其系数，逐步逼近优化目标函数，就可以简化优化的复杂度。具体地，只需优化如下损失函数：</p>
-<p>$$min_{\beta,\gamma}\sum_{i=1}^{N}L(y_i,\beta b(x_i;\gamma))$$</p>
+<p>$$\mathop{min}_{\beta,\gamma}\sum_{i=1}^{N}L(y_i,\beta b(x_i;\gamma))$$</p>
 <h2 id="提升树模型"><a href="#提升树模型" class="headerlink" title="提升树模型"></a>提升树模型</h2><p>&emsp;&emsp;以决策树为基函数的提升方法称为提升树。提升树模型可以表示为决策树的加法模型</p>
 <p>$$f_M(x)=\sum_{m=1}^{M}T(x,\Theta_m)$$</p>
 <p>其中$T(x,\Theta_m)$表示决策树，$\Theta_m$表示决策树的参数， $M$表示决策树的个数。对于分类问题决策树采用二叉分类树，对于回归问题决策树采用二叉回归树。</p>
@@ -703,7 +1002,7 @@ $$T(x,\Theta) = \sum_{j=1}^{J}c_jI(x \in R_j)$$
 <ul>
 <li>注： 泰勒二阶展开式$f(x+\Delta x)=f(x) + \frac{\partial f(x)}{\partial x} \cdot \Delta x +  \frac{\partial^2 f(x)}{\partial^2 x} \cdot \Delta^2 x$</li>
 </ul>
-<p>此处定义样本$i$的一阶和二阶导数为<br>$$<br>    g_i=\frac{\partial{L(y_i,f_{m-1}(x_i))}}{\partial{L(f_{m-1}(x_i))}} \\<br>    h_i=\frac{\partial^2{L(y_i,f_{m-1}(x_i))}}{\partial{L(f_{m-1}(x_i))^2}}<br>$$<br>所以5.1式可以表示为<br>$$<br>    L(\Theta_m) \approx \sum_{i=1}^{N}[L(y_i,f_{m-1}(x_i)) + g_i \cdot T(x;\Theta_m) +  \frac{1}{2} \cdot h_i \cdot T^2(x;\Theta_m)]+ \Omega(T(x;\Theta_m)) + C<br>\tag{5.3}<br>$$<br>其中$\sum_{i=1}^{N}L(y_i,f_{m-1}(x_i))$是定值可以和$C$项合并，有<br>$$<br>L(\Theta_m) \approx \sum_{i=1}^{N}[g_i \cdot T(x;\Theta_m) + \frac{1}{2} \cdot h_i \cdot T^2(x;\Theta_m)]+ \Omega(T(x;\Theta_m)) + C<br>\tag{5.4}<br>$$<br>&emsp;&emsp;决策树的正则项一般考虑的是叶子结点的个数和叶子权值，比较常见的正则项如下<br>$$<br>    \Omega(T(x;\Theta_m)) = \gamma \cdot T_t+\lambda \cdot \frac{1}{2}\sum_{j=1}^{T}w^2_j<br>$$<br>5.4式变为<br>$$<br>L(\Theta_m) \approx \sum_{i=1}^{N}[g_i \cdot T(x;\Theta_m) + \frac{1}{2} \cdot h_i \cdot T^2(x;\Theta_m)]+ \gamma \cdot T_t+\lambda \cdot \frac{1}{2}\sum_{j=1}^{T}w^2_j + C<br>\tag{5.5}<br>$$<br>&emsp;&emsp;为了进一步整合3式，对$T(x;\Theta_m)$的表达形式进行修改，$T(x;\Theta_m)$重新定义为<br>$$<br>    T(x;\Theta_m)=w_{q(x)}<br>$$<br>其中$w$是叶子结点的权重值，$q$函数表示输入$x$和叶子结点的对应关系。所以5.5式变为<br>$$<br>L(\Theta_m) \approx \sum_{i=1}^{N}[g_i \cdot w_{q(x_i)} + \frac{1}{2} \cdot h_i \cdot w^2_{q(x_i)}]+ \gamma \cdot T_t+\lambda \cdot \frac{1}{2}\sum_{j=1}^{T}w^2_{q(x_i)} + C<br>\tag{5.6}<br>$$<br>对5.6式做进一步推导，$\sum_{i=1}^{N}[g_i \cdot w_{j}(x_i)]$表示第$m$棵树的输出的乘积，这是从样本角度来看的；从树的角度来看，每个样本一定且唯一被分到其中的一个叶子结点，一个叶子结点可以分到多个样本，可以将每个叶子结点的样本梯度相加，再乘以叶子结点的权值，最后对所有叶子结点求和，所以有<br>$$<br>    \sum_{i=1}^{N}g_i \cdot w_{q(x_i)}=\sum_{j=1}^{T}(\sum_{i \in I_j}g_i)w_{mj} \\<br>    \sum_{i=1}^{N}h_i \cdot w^2_{q(x_i)}=\sum_{j=1}^{T}(\sum_{i \in I_j}h_i)w^2_{mj}<br>$$</p>
+<p>此处定义样本$i$的一阶和二阶导数为<br>$$<br>    g_i=\frac{\partial{L(y_i,f_{m-1}(x_i))}}{\partial{L(f_{m-1}(x_i))}} \\<br>    h_i=\frac{\partial^2{L(y_i,f_{m-1}(x_i))}}{\partial{L(f_{m-1}(x_i))^2}}<br>$$<br>所以5.1式可以表示为<br>$$<br>    L(\Theta_m) \approx \sum_{i=1}^{N}[L(y_i,f_{m-1}(x_i)) + g_i \cdot T(x;\Theta_m) +  \frac{1}{2} \cdot h_i \cdot T^2(x;\Theta_m)]+ \Omega(T(x;\Theta_m)) + C<br>\tag{5.3}<br>$$<br>其中$\sum_{i=1}^{N}L(y_i,f_{m-1}(x_i))$是定值可以和$C$项合并，有<br>$$<br>L(\Theta_m) \approx \sum_{i=1}^{N}[g_i \cdot T(x;\Theta_m) + \frac{1}{2} \cdot h_i \cdot T^2(x;\Theta_m)]+ \Omega(T(x;\Theta_m)) + C<br>\tag{5.4}<br>$$<br>&emsp;&emsp;决策树的正则项一般考虑的是叶子结点的个数和叶子权值，比较常见的正则项如下<br>$$<br>    \Omega(T(x;\Theta_m)) = \gamma \cdot T_t+\lambda \cdot \frac{1}{2}\sum_{j=1}^{T}w^2_j<br>$$<br>5.4式变为<br>$$<br>L(\Theta_m) \approx \sum_{i=1}^{N}[g_i \cdot T(x;\Theta_m) + \frac{1}{2} \cdot h_i \cdot T^2(x;\Theta_m)]+ \gamma \cdot T_t+\lambda \cdot \frac{1}{2}\sum_{j=1}^{T}w^2_j + C<br>\tag{5.5}<br>$$<br>&emsp;&emsp;为了进一步整合3式，对$T(x;\Theta_m)$的表达形式进行修改，$T(x;\Theta_m)$重新定义为<br>$$<br>    T(x;\Theta_m)=w_{q(x)}<br>$$<br>其中$w$是叶子结点的权重值，$q$函数表示输入$x$和叶子结点的对应关系。所以5.5式变为<br>$$<br>L(\Theta_m) \approx \sum_{i=1}^{N}[g_i \cdot w_{q(x_i)} + \frac{1}{2} \cdot h_i \cdot w^2_{q(x_i)}]+ \gamma \cdot T_t+\lambda \cdot \frac{1}{2}\sum_{j=1}^{T}w^2_{q(x_i)} + C<br>\tag{5.6}<br>$$<br>对5.6式做进一步推导，$\sum_{i=1}^{N}[g_i \cdot w_{j}(x_i)]$表示第$m$棵树的输出的乘积，这是从样本角度来看的；从树的角度来看，每个样本一定且唯一被分到其中的一个叶子结点，一个叶子结点可以分到多个样本，可以将每个叶子结点的样本梯度相加，再乘以叶子结点的权值，最后对所有叶子结点求和，所以有<br>$$<br>    \sum_{i=1}^{N}g_i \cdot w_{q(x_i)}=\sum_{j=1}^{T}(\sum_{i \in I_j}g_i)w_{j} \\<br>    \sum_{i=1}^{N}h_i \cdot w^2_{q(x_i)}=\sum_{j=1}^{T}(\sum_{i \in I_j}h_i)w^2_{j}<br>$$</p>
 <p>把位于同一叶子上的一阶偏导和记做$G$，同一叶子上的二阶偏导和记为$H$，所以最终1式变为<br>$$<br>\begin{split}<br>L(\Theta_m) &amp;\approx \sum_{j=1}^{T}[(\sum_{i \in I_j}g_i)w_{j}+ \frac{1}{2} \cdot (\sum_{i \in I_j}h_i)w^2_{j}]+ \gamma \cdot T_t+\lambda*\frac{1}{2}\sum_{j=1}^{T}w^2_{j} + C \\<br> &amp;\approx \sum_{j=1}^{T}[G_i \cdot w_{j}+ \frac{1}{2} \cdot (\lambda+ H_i )w^2_{j}]+ \gamma \cdot T_t + C<br>\end{split}<br>\tag{5.7}<br>$$<br>5.7式对$w_mj$求偏导令其为0，有<br>$$<br>\begin{split}<br>\frac{\partial L(\Theta_m)}{\partial w_{mj}}=0 =&gt;\\<br>G_j+(H_j+\lambda)=0 =&gt;\\<br>w_{j}=-\frac{G_j}{H_j+\lambda}<br>\end{split}<br>$$<br>然后带回公式7有<br>$$<br>L(\Theta_m) \approx -\frac{1}{2}\sum_{j=1}^{T}\frac{G^2_j}{H_j+\lambda} + \gamma  \cdot  T_t<br>\tag{5.8}<br>$$<br>公式5.8就是最终的损失函数。</p>
 <p>&emsp;&emsp;该损失函数怎么使用呢？其实它可以指导建树，建树的时候最关键的一步就是选择一个分裂的准则，也就如何评价分裂的质量。比如在上面GBDT的介绍里，选择MSE来评价分裂的质量。在xgboost里分裂准则直接与损失函数挂钩，具体来说是通过损失函数计算增益$Gain$<br>$$<br>    Gain=\frac{1}{2}[\frac{G^2_L}{H_L+\lambda}+\frac{G^2_R}{H_R+\lambda}-\frac{(G_L+G_R)^2}{(H_L+H_R)+\lambda}] - \gamma<br>$$<br>其中$ \frac{(G_L+G_R)^2}{(H_L+H_R)+\lambda}$表示对于一个结点，如果不分裂的话此时的损失。如果在这个节点进行分裂，则分裂后的左右子结点的损失分别为$\frac{G^2_L}{H_L+\lambda}$，$\frac{G^2_R}{H_R+\lambda}$，找到一种分裂使$Gain$最大。</p>
 <h2 id="示例"><a href="#示例" class="headerlink" title="示例"></a>示例</h2><p>&emsp;&emsp;数据集如下，15条样本数据，2个特征：</p>
@@ -3618,234 +3917,6 @@ $$T(x,\Theta) = \sum_{j=1}^{J}c_jI(x \in R_j)$$
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yajian.github.io/storm系列1-storm集群搭建/">
-
-    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="小建儿">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="小建儿的小站">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/storm系列1-storm集群搭建/" itemprop="url">storm系列1:storm集群搭建</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-08-16T17:17:14+08:00">
-                2018-08-16
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category">
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
-                  <a href="/categories/storm/" itemprop="url" rel="index">
-                    <span itemprop="name">storm</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-              <span class="post-comments-count">
-                <span class="post-meta-divider">|</span>
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-comment-o"></i>
-                </span>
-                <a href="/storm系列1-storm集群搭建/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count disqus-comment-count" data-disqus-identifier="storm系列1-storm集群搭建/" itemprop="commentCount"></span>
-                </a>
-              </span>
-            
-          
-
-          
-          
-
-          
-
-          
-            <div class="post-wordcount">
-              
-                
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-file-word-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">字数统计&#58;</span>
-                
-                <span title="字数统计">
-                  
-                </span>
-              
-
-              
-                <span class="post-meta-divider">|</span>
-              
-
-              
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-clock-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
-                
-                <span title="阅读时长">
-                  
-                </span>
-              
-            </div>
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p>&emsp;&emsp;最近在研究流式特征处理，所以搭建了storm集群环境，把过程发出来，以备后续查看。</p>
-<h1 id="安装包准备"><a href="#安装包准备" class="headerlink" title="安装包准备"></a>安装包准备</h1><ul>
-<li><p>jdk: oracle官网下载的jdk1.8.0_181版本</p>
-</li>
-<li><p>zookeeper: zookeeper下载的zookeeper-3.4.12版本</p>
-</li>
-<li><p>storm： storm下载的apache-storm-1.2.2版本</p>
-</li>
-</ul>
-<h1 id="配置环境变量"><a href="#配置环境变量" class="headerlink" title="配置环境变量"></a>配置环境变量</h1><figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="attribute">PATH</span>=<span class="variable">$PATH</span>:$HOME/.local/bin:$HOME/bin</span><br><span class="line"><span class="attribute">JAVA_HOME</span>=/home/user/jdk1.8.0_181</span><br><span class="line"><span class="attribute">JRE_HOME</span>=<span class="variable">$JAVA_HOME</span>/jre</span><br><span class="line"><span class="attribute">STORM_HOME</span>=/home/user/apache-storm-1.2.2</span><br><span class="line"><span class="attribute">CLASSPATH</span>=.:$JAVA_HOME/lib/dt.jar:$JAVA_HOME/lib/tools.jar</span><br><span class="line"><span class="attribute">ZOOKEEPER_HOME</span>=/home/user/zookeeper-3.4.12</span><br><span class="line"><span class="attribute">PATH</span>=<span class="variable">$PATH</span>:$JAVA_HOME/bin:$STORM_HOME/bin:$ZOOKEEPER_HOME/bin</span><br><span class="line"><span class="builtin-name">export</span> PATH</span><br><span class="line"><span class="builtin-name">export</span> JAVA_HOME</span><br><span class="line"><span class="builtin-name">export</span> JRE_HOME</span><br><span class="line"><span class="builtin-name">export</span> CLASSPATH</span><br><span class="line"><span class="builtin-name">export</span> ZOOKEEPER_HOME</span><br><span class="line"><span class="builtin-name">export</span> STORM_HOME</span><br></pre></td></tr></table></figure>
-<h1 id="配置zookeeper"><a href="#配置zookeeper" class="headerlink" title="配置zookeeper"></a>配置zookeeper</h1><h2 id="修改配置文件"><a href="#修改配置文件" class="headerlink" title="修改配置文件"></a>修改配置文件</h2><p>&emsp;&emsp;zookeeper需要修改ZOOKEEPER_HOME/conf/zoo.cfg文件，加入下列信息</p>
-<figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="attribute">tickTime</span>=2000</span><br><span class="line"><span class="attribute">dataDir</span>=/var/zookeeper/</span><br><span class="line"><span class="attribute">clientPort</span>=2181</span><br><span class="line"><span class="attribute">initLimit</span>=5</span><br><span class="line"><span class="attribute">syncLimit</span>=2</span><br><span class="line">server.<span class="attribute">1</span>=m7-pce-hdp01:2888:3888 </span><br><span class="line">server.<span class="attribute">2</span>=m7-pce-hdp02:2888:3888 </span><br><span class="line">server.<span class="attribute">3</span>=m7-pce-hdp03:2888:3888</span><br></pre></td></tr></table></figure>
-<p>其中dataDir是zookeeper的数据文件目录；server.id=host:port:port，其中id是每个节点的编号，这个编号需要在dataDir目录下创建myid文件中写入，m7-pce-hdp01~m7-pce-hdp03是hostname，第一个port用于连接leader的端口，第二个port用于连接leader的选举端口。</p>
-<h2 id="启动zookeeper"><a href="#启动zookeeper" class="headerlink" title="启动zookeeper"></a>启动zookeeper</h2><p>执行ZOOKEEPER_HOME/bin/zkServer.sh启动zookeeper，并执行zkServer.sh status，查看是否启动成功</p>
-<h1 id="配置storm"><a href="#配置storm" class="headerlink" title="配置storm"></a>配置storm</h1><p>&emsp;&emsp;storm配置文件在STORM_HOME/conf/storm.yaml，需要配置一下几个信息</p>
-<h2 id="配置zookeeper列表"><a href="#配置zookeeper列表" class="headerlink" title="配置zookeeper列表"></a>配置zookeeper列表</h2><figure class="highlight haml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">storm.zookeeper.servers:</span><br><span class="line">    -<span class="ruby"> <span class="string">"m7-pce-hdp01"</span></span></span><br><span class="line"><span class="ruby">    - <span class="string">"m7-pce-hdp02"</span></span></span><br><span class="line"><span class="ruby">    - <span class="string">"m7-pce-hdp03"</span></span></span><br></pre></td></tr></table></figure>
-<h2 id="配置nimbus"><a href="#配置nimbus" class="headerlink" title="配置nimbus"></a>配置nimbus</h2><figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">nimbus<span class="selector-class">.seeds</span>: [<span class="string">"m7-pce-hdp01"</span>]</span><br></pre></td></tr></table></figure>
-<h2 id="配置storm本地dir"><a href="#配置storm本地dir" class="headerlink" title="配置storm本地dir"></a>配置storm本地dir</h2><figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">storm<span class="selector-class">.local</span><span class="selector-class">.dir</span>: <span class="string">"/home/user/apache-storm-1.2.2/workdir"</span></span><br></pre></td></tr></table></figure>
-<h2 id="配置supervisor-slots-ports"><a href="#配置supervisor-slots-ports" class="headerlink" title="配置supervisor.slots.ports"></a>配置supervisor.slots.ports</h2><p> supervisor.slots.ports是指每个机器可以启动多少个worker，一个端口号代表一个worker</p>
-<figure class="highlight haml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">supervisor.slots.ports:</span><br><span class="line">     -<span class="ruby"> <span class="number">6700</span></span></span><br><span class="line"><span class="ruby">     - <span class="number">6701</span></span></span><br><span class="line"><span class="ruby">     - <span class="number">6702</span></span></span><br><span class="line"><span class="ruby">     - <span class="number">6703</span></span></span><br></pre></td></tr></table></figure>
-<h1 id="启动Storm集群"><a href="#启动Storm集群" class="headerlink" title="启动Storm集群"></a>启动Storm集群</h1><h2 id="启动nimbus集群"><a href="#启动nimbus集群" class="headerlink" title="启动nimbus集群"></a>启动nimbus集群</h2><figure class="highlight 1c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">nohup storm nimbus <span class="meta">&amp;</span></span><br></pre></td></tr></table></figure>
-<p>&emsp;&emsp;用jps查看后台线程会发现多了nimbus（先显示config value，配置正确后变成nimbus）</p>
-<h2 id="启动supervisor"><a href="#启动supervisor" class="headerlink" title="启动supervisor"></a>启动supervisor</h2><figure class="highlight 1c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">nohup storm supervisor <span class="meta">&amp;</span></span><br></pre></td></tr></table></figure>
-<p>&emsp;&emsp;用jps查看后台线程出现Supervisor</p>
-<h2 id="启动监控ui"><a href="#启动监控ui" class="headerlink" title="启动监控ui"></a>启动监控ui</h2><figure class="highlight 1c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">nohup storm ui <span class="meta">&amp;</span></span><br></pre></td></tr></table></figure>
-<p>&emsp;&emsp;用jps查看后台线程出现core</p>
-<p>在浏览器中输入“<a href="http://m7-pce-hdp01:8080/index.html”即可看到" target="_blank" rel="noopener">http://m7-pce-hdp01:8080/index.html”即可看到</a></p>
-<h1 id="提交任务"><a href="#提交任务" class="headerlink" title="提交任务"></a>提交任务</h1><p>&emsp;&emsp;集群配置完，我们开始向集群提交任务。</p>
-<h2 id="配置本地storm"><a href="#配置本地storm" class="headerlink" title="配置本地storm"></a>配置本地storm</h2><p>&emsp;&emsp;需要在storm.yaml文件中配置nimbus</p>
-<figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">nimbus<span class="selector-class">.host</span>: <span class="string">"m7-pce-hdp01"</span></span><br></pre></td></tr></table></figure>
-<h2 id="准备程序"><a href="#准备程序" class="headerlink" title="准备程序"></a>准备程序</h2><p>&emsp;&emsp;在STORM_HOME/examples下有很多示例代码，我们选用storm-starter进行测试。这里需要用maven进行打包，执行mvn package就行。然后我们就能在target文件夹下找到storm-starter-1.2.2.jar，一会就提交它。</p>
-<h2 id="提交任务-1"><a href="#提交任务-1" class="headerlink" title="提交任务"></a>提交任务</h2><figure class="highlight lsl"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">storm jar storm-starter<span class="number">-1.2</span><span class="number">.2</span>.jar storm/starter/StatefulTopology wordcountexample</span><br></pre></td></tr></table></figure>
-<p>然后输入storm list</p>
-<figure class="highlight asciidoc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">2703 [main] INFO  o.a.s.u.NimbusClient - Found leader nimbus : m7-pce-hdp01:6627</span><br><span class="line">Topology<span class="emphasis">_name        Status     Num_</span>tasks  Num<span class="emphasis">_workers  Uptime_</span>secs</span><br><span class="line">-------------------------------------------------------------------</span><br><span class="line">wordcountexample     ACTIVE     7          1            183702</span><br></pre></td></tr></table></figure>
-<p>也可以进入ui页面进行查看运行状态。storm任务运行完也不会停止，需要手动kill。</p>
-<h1 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h1><p>&emsp;&emsp;以上就是storm集群的搭建过程，很简单，基本上没遇到什么问题。</p>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-
-
-    
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
@@ -3898,7 +3969,7 @@ $$T(x,\Theta) = \sum_{j=1}^{J}c_jI(x \in R_j)$$
               
                 <a href="/archives">
               
-                  <span class="site-state-item-count">51</span>
+                  <span class="site-state-item-count">52</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -3920,7 +3991,7 @@ $$T(x,\Theta) = \sum_{j=1}^{J}c_jI(x \in R_j)$$
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">16</span>
+                  <span class="site-state-item-count">17</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>

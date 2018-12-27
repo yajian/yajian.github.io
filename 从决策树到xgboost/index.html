@@ -123,7 +123,7 @@
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="http://yajian.github.io/从决策树到xgboost/tree_0.png">
 <meta property="og:image" content="http://yajian.github.io/从决策树到xgboost/tree_1.png">
-<meta property="og:updated_time" content="2018-12-21T05:44:37.872Z">
+<meta property="og:updated_time" content="2018-12-24T13:31:00.750Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="从决策树到xgboost">
 <meta name="twitter:description" content="简介&amp;emsp;&amp;emsp;xgboost(Extreme Gradient Boosting)是一款常用的机器学习框架，其诞生于2014年12月，因具有良好的学习效果以及高效的训练速度得到广泛关注。仅在2015年，在Kaggle竞赛中获胜的29个算法中，有17个使用了XGBoost库，而作为对比，近年大热的深度神经网络方法，这一数据则是11个。在KDDCup 2015竞赛中，排名前十的队伍全部使">
@@ -465,9 +465,9 @@
 <li>注：傅立叶变换可以看成一种加法模型</li>
 </ul>
 <h3 id="前向分布算法"><a href="#前向分布算法" class="headerlink" title="前向分布算法"></a>前向分布算法</h3><p>&emsp;&emsp;在给定训练数据和损失函数$L(y,f(x))$的情况下，学习加法模型$f(x)$成为经验风险极小化问题：</p>
-<p>$$min_{\beta_m,\gamma_m}\sum_{i=1}^{N}L[y_i,\sum_{m=1}^{M}\beta_mb(x_i;\gamma_m)]$$</p>
+<p>$$\mathop{min}_{\beta_m,\gamma_m}\sum_{i=1}^{N}L[y_i,\sum_{m=1}^{M}\beta_mb(x_i;\gamma_m)]$$</p>
 <p>使用前向分布算法解决这一优化问题的思路是：因为学习的是加法模型，如何能够从前向后，每一步只学习一个基函数及其系数，逐步逼近优化目标函数，就可以简化优化的复杂度。具体地，只需优化如下损失函数：</p>
-<p>$$min_{\beta,\gamma}\sum_{i=1}^{N}L(y_i,\beta b(x_i;\gamma))$$</p>
+<p>$$\mathop{min}_{\beta,\gamma}\sum_{i=1}^{N}L(y_i,\beta b(x_i;\gamma))$$</p>
 <h2 id="提升树模型"><a href="#提升树模型" class="headerlink" title="提升树模型"></a>提升树模型</h2><p>&emsp;&emsp;以决策树为基函数的提升方法称为提升树。提升树模型可以表示为决策树的加法模型</p>
 <p>$$f_M(x)=\sum_{m=1}^{M}T(x,\Theta_m)$$</p>
 <p>其中$T(x,\Theta_m)$表示决策树，$\Theta_m$表示决策树的参数， $M$表示决策树的个数。对于分类问题决策树采用二叉分类树，对于回归问题决策树采用二叉回归树。</p>
@@ -703,7 +703,7 @@ $$T(x,\Theta) = \sum_{j=1}^{J}c_jI(x \in R_j)$$
 <ul>
 <li>注： 泰勒二阶展开式$f(x+\Delta x)=f(x) + \frac{\partial f(x)}{\partial x} \cdot \Delta x +  \frac{\partial^2 f(x)}{\partial^2 x} \cdot \Delta^2 x$</li>
 </ul>
-<p>此处定义样本$i$的一阶和二阶导数为<br>$$<br>    g_i=\frac{\partial{L(y_i,f_{m-1}(x_i))}}{\partial{L(f_{m-1}(x_i))}} \\<br>    h_i=\frac{\partial^2{L(y_i,f_{m-1}(x_i))}}{\partial{L(f_{m-1}(x_i))^2}}<br>$$<br>所以5.1式可以表示为<br>$$<br>    L(\Theta_m) \approx \sum_{i=1}^{N}[L(y_i,f_{m-1}(x_i)) + g_i \cdot T(x;\Theta_m) +  \frac{1}{2} \cdot h_i \cdot T^2(x;\Theta_m)]+ \Omega(T(x;\Theta_m)) + C<br>\tag{5.3}<br>$$<br>其中$\sum_{i=1}^{N}L(y_i,f_{m-1}(x_i))$是定值可以和$C$项合并，有<br>$$<br>L(\Theta_m) \approx \sum_{i=1}^{N}[g_i \cdot T(x;\Theta_m) + \frac{1}{2} \cdot h_i \cdot T^2(x;\Theta_m)]+ \Omega(T(x;\Theta_m)) + C<br>\tag{5.4}<br>$$<br>&emsp;&emsp;决策树的正则项一般考虑的是叶子结点的个数和叶子权值，比较常见的正则项如下<br>$$<br>    \Omega(T(x;\Theta_m)) = \gamma \cdot T_t+\lambda \cdot \frac{1}{2}\sum_{j=1}^{T}w^2_j<br>$$<br>5.4式变为<br>$$<br>L(\Theta_m) \approx \sum_{i=1}^{N}[g_i \cdot T(x;\Theta_m) + \frac{1}{2} \cdot h_i \cdot T^2(x;\Theta_m)]+ \gamma \cdot T_t+\lambda \cdot \frac{1}{2}\sum_{j=1}^{T}w^2_j + C<br>\tag{5.5}<br>$$<br>&emsp;&emsp;为了进一步整合3式，对$T(x;\Theta_m)$的表达形式进行修改，$T(x;\Theta_m)$重新定义为<br>$$<br>    T(x;\Theta_m)=w_{q(x)}<br>$$<br>其中$w$是叶子结点的权重值，$q$函数表示输入$x$和叶子结点的对应关系。所以5.5式变为<br>$$<br>L(\Theta_m) \approx \sum_{i=1}^{N}[g_i \cdot w_{q(x_i)} + \frac{1}{2} \cdot h_i \cdot w^2_{q(x_i)}]+ \gamma \cdot T_t+\lambda \cdot \frac{1}{2}\sum_{j=1}^{T}w^2_{q(x_i)} + C<br>\tag{5.6}<br>$$<br>对5.6式做进一步推导，$\sum_{i=1}^{N}[g_i \cdot w_{j}(x_i)]$表示第$m$棵树的输出的乘积，这是从样本角度来看的；从树的角度来看，每个样本一定且唯一被分到其中的一个叶子结点，一个叶子结点可以分到多个样本，可以将每个叶子结点的样本梯度相加，再乘以叶子结点的权值，最后对所有叶子结点求和，所以有<br>$$<br>    \sum_{i=1}^{N}g_i \cdot w_{q(x_i)}=\sum_{j=1}^{T}(\sum_{i \in I_j}g_i)w_{mj} \\<br>    \sum_{i=1}^{N}h_i \cdot w^2_{q(x_i)}=\sum_{j=1}^{T}(\sum_{i \in I_j}h_i)w^2_{mj}<br>$$</p>
+<p>此处定义样本$i$的一阶和二阶导数为<br>$$<br>    g_i=\frac{\partial{L(y_i,f_{m-1}(x_i))}}{\partial{L(f_{m-1}(x_i))}} \\<br>    h_i=\frac{\partial^2{L(y_i,f_{m-1}(x_i))}}{\partial{L(f_{m-1}(x_i))^2}}<br>$$<br>所以5.1式可以表示为<br>$$<br>    L(\Theta_m) \approx \sum_{i=1}^{N}[L(y_i,f_{m-1}(x_i)) + g_i \cdot T(x;\Theta_m) +  \frac{1}{2} \cdot h_i \cdot T^2(x;\Theta_m)]+ \Omega(T(x;\Theta_m)) + C<br>\tag{5.3}<br>$$<br>其中$\sum_{i=1}^{N}L(y_i,f_{m-1}(x_i))$是定值可以和$C$项合并，有<br>$$<br>L(\Theta_m) \approx \sum_{i=1}^{N}[g_i \cdot T(x;\Theta_m) + \frac{1}{2} \cdot h_i \cdot T^2(x;\Theta_m)]+ \Omega(T(x;\Theta_m)) + C<br>\tag{5.4}<br>$$<br>&emsp;&emsp;决策树的正则项一般考虑的是叶子结点的个数和叶子权值，比较常见的正则项如下<br>$$<br>    \Omega(T(x;\Theta_m)) = \gamma \cdot T_t+\lambda \cdot \frac{1}{2}\sum_{j=1}^{T}w^2_j<br>$$<br>5.4式变为<br>$$<br>L(\Theta_m) \approx \sum_{i=1}^{N}[g_i \cdot T(x;\Theta_m) + \frac{1}{2} \cdot h_i \cdot T^2(x;\Theta_m)]+ \gamma \cdot T_t+\lambda \cdot \frac{1}{2}\sum_{j=1}^{T}w^2_j + C<br>\tag{5.5}<br>$$<br>&emsp;&emsp;为了进一步整合3式，对$T(x;\Theta_m)$的表达形式进行修改，$T(x;\Theta_m)$重新定义为<br>$$<br>    T(x;\Theta_m)=w_{q(x)}<br>$$<br>其中$w$是叶子结点的权重值，$q$函数表示输入$x$和叶子结点的对应关系。所以5.5式变为<br>$$<br>L(\Theta_m) \approx \sum_{i=1}^{N}[g_i \cdot w_{q(x_i)} + \frac{1}{2} \cdot h_i \cdot w^2_{q(x_i)}]+ \gamma \cdot T_t+\lambda \cdot \frac{1}{2}\sum_{j=1}^{T}w^2_{q(x_i)} + C<br>\tag{5.6}<br>$$<br>对5.6式做进一步推导，$\sum_{i=1}^{N}[g_i \cdot w_{j}(x_i)]$表示第$m$棵树的输出的乘积，这是从样本角度来看的；从树的角度来看，每个样本一定且唯一被分到其中的一个叶子结点，一个叶子结点可以分到多个样本，可以将每个叶子结点的样本梯度相加，再乘以叶子结点的权值，最后对所有叶子结点求和，所以有<br>$$<br>    \sum_{i=1}^{N}g_i \cdot w_{q(x_i)}=\sum_{j=1}^{T}(\sum_{i \in I_j}g_i)w_{j} \\<br>    \sum_{i=1}^{N}h_i \cdot w^2_{q(x_i)}=\sum_{j=1}^{T}(\sum_{i \in I_j}h_i)w^2_{j}<br>$$</p>
 <p>把位于同一叶子上的一阶偏导和记做$G$，同一叶子上的二阶偏导和记为$H$，所以最终1式变为<br>$$<br>\begin{split}<br>L(\Theta_m) &amp;\approx \sum_{j=1}^{T}[(\sum_{i \in I_j}g_i)w_{j}+ \frac{1}{2} \cdot (\sum_{i \in I_j}h_i)w^2_{j}]+ \gamma \cdot T_t+\lambda*\frac{1}{2}\sum_{j=1}^{T}w^2_{j} + C \\<br> &amp;\approx \sum_{j=1}^{T}[G_i \cdot w_{j}+ \frac{1}{2} \cdot (\lambda+ H_i )w^2_{j}]+ \gamma \cdot T_t + C<br>\end{split}<br>\tag{5.7}<br>$$<br>5.7式对$w_mj$求偏导令其为0，有<br>$$<br>\begin{split}<br>\frac{\partial L(\Theta_m)}{\partial w_{mj}}=0 =&gt;\\<br>G_j+(H_j+\lambda)=0 =&gt;\\<br>w_{j}=-\frac{G_j}{H_j+\lambda}<br>\end{split}<br>$$<br>然后带回公式7有<br>$$<br>L(\Theta_m) \approx -\frac{1}{2}\sum_{j=1}^{T}\frac{G^2_j}{H_j+\lambda} + \gamma  \cdot  T_t<br>\tag{5.8}<br>$$<br>公式5.8就是最终的损失函数。</p>
 <p>&emsp;&emsp;该损失函数怎么使用呢？其实它可以指导建树，建树的时候最关键的一步就是选择一个分裂的准则，也就如何评价分裂的质量。比如在上面GBDT的介绍里，选择MSE来评价分裂的质量。在xgboost里分裂准则直接与损失函数挂钩，具体来说是通过损失函数计算增益$Gain$<br>$$<br>    Gain=\frac{1}{2}[\frac{G^2_L}{H_L+\lambda}+\frac{G^2_R}{H_R+\lambda}-\frac{(G_L+G_R)^2}{(H_L+H_R)+\lambda}] - \gamma<br>$$<br>其中$ \frac{(G_L+G_R)^2}{(H_L+H_R)+\lambda}$表示对于一个结点，如果不分裂的话此时的损失。如果在这个节点进行分裂，则分裂后的左右子结点的损失分别为$\frac{G^2_L}{H_L+\lambda}$，$\frac{G^2_R}{H_R+\lambda}$，找到一种分裂使$Gain$最大。</p>
 <h2 id="示例"><a href="#示例" class="headerlink" title="示例"></a>示例</h2><p>&emsp;&emsp;数据集如下，15条样本数据，2个特征：</p>
@@ -1254,7 +1254,7 @@ $$T(x,\Theta) = \sum_{j=1}^{J}c_jI(x \in R_j)$$
   <p><span>本文标题:</span><a href="/从决策树到xgboost/">从决策树到xgboost</a></p>
   <p><span>文章作者:</span><a href="/" title="访问 小建儿 的个人博客">小建儿</a></p>
   <p><span>发布时间:</span>2018年12月20日 - 19:12</p>
-  <p><span>最后更新:</span>2018年12月21日 - 13:12</p>
+  <p><span>最后更新:</span>2018年12月24日 - 21:12</p>
   <p><span>原始链接:</span><a href="/从决策树到xgboost/" title="从决策树到xgboost">http://yajian.github.io/从决策树到xgboost/</a>
     <span class="copy-path" title="点击复制文章链接"><i class="fa fa-clipboard" data-clipboard-text="http://yajian.github.io/从决策树到xgboost/" aria-label="复制成功！"></i></span>
   </p>
@@ -1308,6 +1308,10 @@ $$T(x,\Theta) = \sum_{j=1}^{J}c_jI(x \in R_j)$$
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
+            
+              <a href="/朴素贝叶斯算法/" rel="prev" title="朴素贝叶斯算法">
+                朴素贝叶斯算法 <i class="fa fa-chevron-right"></i>
+              </a>
             
           </div>
         </div>
@@ -1422,7 +1426,7 @@ var jiathis_config={
               
                 <a href="/archives">
               
-                  <span class="site-state-item-count">51</span>
+                  <span class="site-state-item-count">52</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -1444,7 +1448,7 @@ var jiathis_config={
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">16</span>
+                  <span class="site-state-item-count">17</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>
