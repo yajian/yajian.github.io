@@ -1,4 +1,1426 @@
-<!DOCTYPE html><html class="theme-next pisces use-motion" lang="zh-Hans"><head><meta name="generator" content="Hexo 3.8.0"><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1"><script src="//cdn.bootcss.com/pace/1.0.2/pace.min.js"></script><link href="//cdn.bootcss.com/pace/1.0.2/themes/pink/pace-theme-flash.css" rel="stylesheet"><style>.pace .pace-progress{background:#1E92FB;height:3px}.pace .pace-progress-inner{box-shadow:0 0 10px #1E92FB,0 0 5px #1E92FB}.pace .pace-activity{border-top-color:#1E92FB;border-left-color:#1E92FB}</style><meta name="theme-color" content="#222"><script src="/lib/pace/pace.min.js?v=1.0.2"></script><link href="/lib/pace/pace-theme-minimal.min.css?v=1.0.2" rel="stylesheet"><meta http-equiv="Cache-Control" content="no-transform"><meta http-equiv="Cache-Control" content="no-siteapp"><meta name="google-site-verification" content="iuqAv5dkTjkC-tYrbkff9KGsw2tnVjzlEHIubXlnmaI"><meta name="baidu-site-verification" content="FKXU75MFl1"><link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css"><link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css"><link href="/css/main.css?v=5.1.3" rel="stylesheet" type="text/css"><link rel="icon" type="image/png" sizes="32x32" href="/images/iris_32*32.ico?v=5.1.3"><link rel="icon" type="image/png" sizes="16x16" href="/images/iris_16*16.ico?v=5.1.3"><meta name="keywords" content="knn,"><link rel="alternate" href="/atom.xml" title="小建儿的小站" type="application/atom+xml"><script>!function(e,t,o,c,i,a,n){e.DaoVoiceObject=i,e[i]=e[i]||function(){(e[i].q=e[i].q||[]).push(arguments)},e[i].l=1*new Date,a=t.createElement(o),n=t.getElementsByTagName(o)[0],a.async=1,a.src=c,a.charset="utf-8",n.parentNode.insertBefore(a,n)}(window,document,"script",("https:"==document.location.protocol?"https:":"http:")+"//widget.daovoice.io/widget/0f81ff2f.js","daovoice"),daovoice("init",{app_id:"84485d15"}),daovoice("update")</script><meta name="description" content="&amp;emsp;&amp;emsp;上一篇博客介绍了knn算法，以及简单的python实现代码，其中使用了线形扫描(linear scan)方式逐一计算输入实例与训练数据间的距离，复杂度较大，本篇博客将介绍knn算法的另一种高效实现方式–kd树。 简介&amp;emsp;&amp;emsp;kd树是一种对k维空间中的实例点进行存储以便对其进行快速检索的树形数据结构。kd树是二叉树，表示对k维空间的一个划分。构造kd树相当于不"><meta name="keywords" content="knn"><meta property="og:type" content="article"><meta property="og:title" content="kd树"><meta property="og:url" content="http://yajian.github.io/kd树/index.html"><meta property="og:site_name" content="小建儿的小站"><meta property="og:description" content="&amp;emsp;&amp;emsp;上一篇博客介绍了knn算法，以及简单的python实现代码，其中使用了线形扫描(linear scan)方式逐一计算输入实例与训练数据间的距离，复杂度较大，本篇博客将介绍knn算法的另一种高效实现方式–kd树。 简介&amp;emsp;&amp;emsp;kd树是一种对k维空间中的实例点进行存储以便对其进行快速检索的树形数据结构。kd树是二叉树，表示对k维空间的一个划分。构造kd树相当于不"><meta property="og:locale" content="zh-Hans"><meta property="og:image" content="http://yajian.github.io/kd树/点位置.png"><meta property="og:image" content="http://yajian.github.io/kd树/x1分割.png"><meta property="og:image" content="http://yajian.github.io/kd树/空间划分过程.gif"><meta property="og:image" content="http://yajian.github.io/kd树/kdtree.png"><meta property="og:image" content="http://yajian.github.io/kd树/搜索过程1.jpeg"><meta property="og:image" content="http://yajian.github.io/kd树/子空间判断1.png"><meta property="og:image" content="http://yajian.github.io/kd树/搜索过程2.jpg"><meta property="og:image" content="http://yajian.github.io/kd树/子空间判断2.png"><meta property="og:image" content="http://yajian.github.io/kd树/子空间判断3.png"><meta property="og:updated_time" content="2018-11-17T09:30:57.330Z"><meta name="twitter:card" content="summary"><meta name="twitter:title" content="kd树"><meta name="twitter:description" content="&amp;emsp;&amp;emsp;上一篇博客介绍了knn算法，以及简单的python实现代码，其中使用了线形扫描(linear scan)方式逐一计算输入实例与训练数据间的距离，复杂度较大，本篇博客将介绍knn算法的另一种高效实现方式–kd树。 简介&amp;emsp;&amp;emsp;kd树是一种对k维空间中的实例点进行存储以便对其进行快速检索的树形数据结构。kd树是二叉树，表示对k维空间的一个划分。构造kd树相当于不"><meta name="twitter:image" content="http://yajian.github.io/kd树/点位置.png"><script type="text/javascript" id="hexo.configurations">var NexT=window.NexT||{},CONFIG={root:"/",scheme:"Pisces",version:"5.1.3",sidebar:{position:"left",display:"post",offset:12,b2t:!1,scrollpercent:!1,onmobile:!1},fancybox:!0,tabs:!0,motion:{enable:!0,async:!1,transition:{post_block:"fadeIn",post_header:"slideDownIn",post_body:"slideDownIn",coll_header:"slideLeftIn",sidebar:"slideUpIn"}},duoshuo:{userId:"0",author:"博主"},algolia:{applicationID:"",apiKey:"",indexName:"",hits:{per_page:10},labels:{input_placeholder:"Search for Posts",hits_empty:"We didn't find any results for the search: ${query}",hits_stats:"${hits} results found in ${time} ms"}}}</script><link rel="canonical" href="http://yajian.github.io/kd树/"><title>kd树 | 小建儿的小站</title></head><body itemscope="" itemtype="http://schema.org/WebPage" lang="zh-Hans"><div class="container sidebar-position-left page-post-detail"><div class="headband"></div><header id="header" class="header" itemscope="" itemtype="http://schema.org/WPHeader"><div class="header-inner"><div class="site-brand-wrapper"><div class="site-meta"><div class="custom-logo-site-title"><a href="/" class="brand" rel="start"><span class="logo-line-before"><i></i></span> <span class="site-title">小建儿的小站</span><span class="logo-line-after"><i></i></span></a></div><p class="site-subtitle"></p></div><div class="site-nav-toggle"> <button><span class="btn-bar"></span><span class="btn-bar"></span><span class="btn-bar"></span></button></div></div><nav class="site-nav"><ul id="menu" class="menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="menu-item-icon fa fa-fw fa-home"></i><br> 首页</a></li><li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="menu-item-icon fa fa-fw fa-user"></i><br> 关于</a></li><li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="menu-item-icon fa fa-fw fa-tag"></i><br> 标签</a></li><li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="menu-item-icon fa fa-fw fa-th"></i><br> 分类</a></li><li class="menu-item menu-item-search"><a href="javascript:;" class="popup-trigger"><i class="menu-item-icon fa fa-search fa-fw"></i><br> 搜索</a></li></ul><div class="site-search"><div class="popup search-popup local-search-popup"><div class="local-search-header clearfix"><span class="search-icon"><i class="fa fa-search"></i></span><span class="popup-btn-close"><i class="fa fa-times-circle"></i></span><div class="local-search-input-wrapper"> <input autocomplete="off" placeholder="搜索..." spellcheck="false" type="text" id="local-search-input"></div></div><div id="local-search-result"></div></div></div></nav></div></header><main id="main" class="main"><div class="main-inner"><div class="content-wrap"><div id="content" class="content"><div id="posts" class="posts-expand"><article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article"><div class="post-block"><link itemprop="mainEntityOfPage" href="http://yajian.github.io/kd树/"><span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person"><meta itemprop="name" content="小建儿"><meta itemprop="description" content=""><meta itemprop="image" content="/images/avatar.jpg"></span><span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization"><meta itemprop="name" content="小建儿的小站"></span><header class="post-header"><h1 class="post-title" itemprop="name headline">kd树</h1><div class="post-meta"><span class="post-time"><span class="post-meta-item-icon"><i class="fa fa-calendar-o"></i></span> <span class="post-meta-item-text">发表于</span> <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-04-16T10:52:37+08:00">2018-04-16</time></span> <span class="post-category"><span class="post-meta-divider">|</span><span class="post-meta-item-icon"><i class="fa fa-folder-o"></i></span> <span class="post-meta-item-text">分类于</span> <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing"><a href="/categories/机器学习/" itemprop="url" rel="index"><span itemprop="name">机器学习</span></a></span></span> <span class="post-comments-count"><span class="post-meta-divider">|</span><span class="post-meta-item-icon"><i class="fa fa-comment-o"></i></span><a href="/kd树/#comments" itemprop="discussionUrl"><span class="post-comments-count disqus-comment-count" data-disqus-identifier="kd树/" itemprop="commentCount"></span></a></span><div class="post-wordcount"><span class="post-meta-item-icon"><i class="fa fa-file-word-o"></i></span> <span class="post-meta-item-text">字数统计&#58;</span><span title="字数统计"></span> <span class="post-meta-divider">|</span><span class="post-meta-item-icon"><i class="fa fa-clock-o"></i></span> <span class="post-meta-item-text">阅读时长 &asymp;</span><span title="阅读时长"></span></div></div></header><div class="post-body" itemprop="articleBody"><p>&emsp;&emsp;上一篇博客介绍了knn算法，以及简单的python实现代码，其中使用了线形扫描(linear scan)方式逐一计算输入实例与训练数据间的距离，复杂度较大，本篇博客将介绍knn算法的另一种高效实现方式–kd树。</p><h1 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h1><p>&emsp;&emsp;kd树是一种对k维空间中的实例点进行存储以便对其进行快速检索的树形数据结构。kd树是二叉树，表示对k维空间的一个划分。构造kd树相当于不断地用垂直于坐标轴的超平面将k维空间切分，构成一系列的k维超矩形区域。kd树每个节点对应一个k维超矩形区域。在进行k近邻查找时，遍历kd树，实现减少计算量的目的。</p><h1 id="原理"><a href="#原理" class="headerlink" title="原理"></a>原理</h1><h2 id="构建kd树"><a href="#构建kd树" class="headerlink" title="构建kd树"></a>构建kd树</h2><h3 id="定义节点"><a href="#定义节点" class="headerlink" title="定义节点"></a>定义节点</h3><ul><li>算法描述</li></ul><p>&emsp;&emsp;首先需要定义二叉树节点Node，其中需要包括的信息有</p><table><thead><tr><th style="text-align:center">域名</th><th style="text-align:center">数据类型</th><th style="text-align:center">描述</th></tr></thead><tbody><tr><td style="text-align:center">point</td><td style="text-align:center">数据矢量</td><td style="text-align:center">数据集中的一个数据点，是一个k维矢量</td></tr><tr><td style="text-align:center">split</td><td style="text-align:center">正整数</td><td style="text-align:center">分割维度</td></tr><tr><td style="text-align:center">left</td><td style="text-align:center">kd树</td><td style="text-align:center">左子树</td></tr><tr><td style="text-align:center">right</td><td style="text-align:center">kd树</td><td style="text-align:center">右子树</td></tr><tr><td style="text-align:center">label</td><td style="text-align:center">字母或数字</td><td style="text-align:center">标签值</td></tr></tbody></table><ul><li>python实现</li></ul><figure class="highlight ruby"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#encoding:utf8</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Node</span>(<span class="title">object</span>):</span></span><br><span class="line">	<span class="function"><span class="keyword">def</span> <span class="title">__init__</span><span class="params">(<span class="keyword">self</span>,point,left,right,split,label)</span></span><span class="symbol">:</span></span><br><span class="line">		<span class="comment">#左子树</span></span><br><span class="line">		<span class="keyword">self</span>.left = left</span><br><span class="line">		<span class="comment">#右子树</span></span><br><span class="line">		<span class="keyword">self</span>.right = right</span><br><span class="line">		<span class="comment">#数据节点</span></span><br><span class="line">		<span class="keyword">self</span>.point = point</span><br><span class="line">		<span class="comment">#分割维度</span></span><br><span class="line">		<span class="keyword">self</span>.split = split</span><br><span class="line">		<span class="comment">#标签</span></span><br><span class="line">		<span class="keyword">self</span>.label = label</span><br></pre></td></tr></table></figure><h3 id="构建平衡kd树"><a href="#构建平衡kd树" class="headerlink" title="构建平衡kd树"></a>构建平衡kd树</h3><h4 id="算法描述"><a href="#算法描述" class="headerlink" title="算法描述"></a>算法描述</h4><ul><li><p>输入：K维空间数据集$T=\lbrace x_1,x_2,…,x_n\rbrace$，其中$x_i = (x_i^{(1)},x_i^{(2)},…,x_i^{(k)})^T$，$i=1,2,…,N$</p></li><li><p>输出：kd树</p></li><li><p>过程：</p></li></ul><ol><li>构造根节点，根据点对应于包含T的k维空间的超矩形区域</li><li>选择方差最大的维度$m$为分割维度，以T中所有实例的$x^m$坐标中位数N为切分点，将根节点的超矩形区域分割为深度为1的两个左右子节点。左子节点对应坐标$x^m$小于N的子区域，右子节点对应于坐标$x^m$大于N的子区域。将切分点保存在根节点。</li><li>在左右子区域上分别重复执行步骤2，直到两个子区域没有实例存在时停止，完成kd树的构建</li></ol><h4 id="python实现"><a href="#python实现" class="headerlink" title="python实现"></a>python实现</h4><figure class="highlight nix"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#encoding:utf8</span></span><br><span class="line"><span class="built_in">import</span> numpy as np</span><br><span class="line">from node <span class="built_in">import</span> Node</span><br><span class="line"></span><br><span class="line">def constructKDTree(dataset,datalabel):</span><br><span class="line">	<span class="attr">length</span> = len(dataset)</span><br><span class="line">	<span class="keyword">if</span> <span class="attr">length</span> == <span class="number">0</span>:</span><br><span class="line">		return</span><br><span class="line">	<span class="attr">median</span> = length/<span class="number">2</span></span><br><span class="line">	<span class="comment">#计算维度个数</span></span><br><span class="line">	<span class="attr">dimension</span> = len(dataset[<span class="number">0</span>])</span><br><span class="line">	<span class="comment">#求每个维度的方差，axis=0是按列运算的意思，axis=1是按行运算</span></span><br><span class="line">	<span class="attr">vars</span> = np.var(dataset,<span class="attr">axis=0)</span></span><br><span class="line">	<span class="comment">#求方差最大的维度索引，即分割维度</span></span><br><span class="line">	<span class="attr">index</span> = np.argmax(vars)</span><br><span class="line">	<span class="comment">#按照方差最大的维度进行排序</span></span><br><span class="line">	<span class="attr">sorted_index</span> = dataset[:,index].argsort()</span><br><span class="line">	<span class="attr">sorted_data</span> = dataset[sorted_index]</span><br><span class="line">	<span class="attr">sorted_label</span> = datalabel[sorted_index]</span><br><span class="line">	<span class="comment">#左子树是小于中位数的部分</span></span><br><span class="line">	<span class="attr">left_data</span> = sorted_data[:median]</span><br><span class="line">	<span class="attr">left_label</span> = datalabel[:median]</span><br><span class="line">	<span class="comment">#父节点是中位数</span></span><br><span class="line">	<span class="attr">median_data</span> = sorted_data[median]</span><br><span class="line">	<span class="attr">median_label</span> = datalabel[median]</span><br><span class="line">	<span class="comment">#右子树是大于中位数的部分</span></span><br><span class="line">	<span class="attr">right_data</span> = sorted_data[median+<span class="number">1</span>:]</span><br><span class="line">	<span class="attr">right_label</span> = datalabel[median+<span class="number">1</span>:]</span><br><span class="line">	<span class="comment">#递归建立kd树</span></span><br><span class="line">	return Node(median_data,constructKDTree(left_data,left_label),constructKDTree(right_data,right_label),index,median_label)</span><br></pre></td></tr></table></figure><h2 id="搜索kd树"><a href="#搜索kd树" class="headerlink" title="搜索kd树"></a>搜索kd树</h2><p>&emsp;&emsp;kd树相当于给训练数据建立了索引，所以利用kd树可以快速搜索到距离输入实例最近的训练数据点。</p><h3 id="算法描述-1"><a href="#算法描述-1" class="headerlink" title="算法描述"></a>算法描述</h3><ul><li>输入：构造好的kd树，输入实例x</li><li>输出：x的最近邻</li><li>过程：</li></ul><ol><li>在kd树中搜索包含输入实例x的叶子结点：从根节点向下递归访问kd树，若输入实例当前维度的坐标小于切分点坐标，则移动到左子树；否则，则移动到右子树。直到子节点为叶子结点为止。</li><li>以叶子结点为“当前最近结点”</li><li>递归回溯，在每个节点上进行下列操作：<ul><li>如果该节点保存的实例点比当前最近距离目标更近，则以该实例点为“当前最近结点”</li><li>检查其子节点对应的区域是否有更近的点，即检查子节点对应的区域是否与以目标点为中心、以”当前最近距离”为半径形成的超球体相交。如果相交，则在对应的区域内可能存在距目标点更近的点，则移动到该结点，递归地进行搜索。若不相交，则向上回退。</li></ul></li><li>当回退到根节点，搜索结束，最后的“当前结点“即为x的最近邻。</li></ol><h3 id="python实现-1"><a href="#python实现-1" class="headerlink" title="python实现"></a>python实现</h3><figure class="highlight nix"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line">def find_nearest_neighbor(target,tree):</span><br><span class="line">	<span class="comment">#记录到叶子结点节点前搜索过的节点</span></span><br><span class="line">	<span class="attr">path_deque</span> = path_to_leaf_node(target,tree,deque()) </span><br><span class="line">	<span class="comment">#回溯第一个节点</span></span><br><span class="line">	<span class="attr">kd_node</span> = path_deque.pop()</span><br><span class="line">	<span class="comment">#假设第一个节点为最近邻</span></span><br><span class="line">	<span class="attr">nearest_point</span> = kd_node.point</span><br><span class="line">	<span class="comment">#计算最近邻节点与输入实例间距离</span></span><br><span class="line">	<span class="attr">nearest_dist</span> = distance(target,nearest_point)</span><br><span class="line">	<span class="comment">#最近邻节点的标签</span></span><br><span class="line">	<span class="attr">nearest_label</span> = kd_node.label</span><br><span class="line">	<span class="comment">#回溯</span></span><br><span class="line">	while path_deque:</span><br><span class="line">		<span class="attr">kd_node</span> = path_deque.pop()</span><br><span class="line">		<span class="comment">#计算实例点与最近邻节点父节点的距离</span></span><br><span class="line">		<span class="attr">node_dist</span> = distance(target,kd_node.point)</span><br><span class="line">		<span class="comment">#更新最近邻节点</span></span><br><span class="line">		<span class="keyword">if</span> node_dist &lt; nearest_dist:</span><br><span class="line">			<span class="attr">nearest_point</span> = kd_node.point</span><br><span class="line">			<span class="attr">nearest_dist</span> = node_dist</span><br><span class="line">			<span class="attr">nearest_label</span> = kd_node.label</span><br><span class="line">		<span class="comment">#获取分割维度</span></span><br><span class="line">		<span class="attr">s</span> = kd_node.split</span><br><span class="line">		<span class="comment">#判断是否需要进入最近邻节点的左右子空间进行搜索</span></span><br><span class="line">		<span class="keyword">if</span> abs(target[s] - kd_node.point[s]) &lt; nearest_dist:</span><br><span class="line">			<span class="comment">#进入右子树</span></span><br><span class="line">			<span class="keyword">if</span> target[s] &lt;  kd_node.point[s]:</span><br><span class="line">				<span class="attr">path_deque</span> = path_to_leaf_node(target,kd_node.right,path_deque)</span><br><span class="line">			<span class="comment">#进入左子树</span></span><br><span class="line">			<span class="keyword">else</span>:</span><br><span class="line">				<span class="attr">path_deque</span> = path_to_leaf_node(target,kd_node.left,path_deque)</span><br><span class="line"></span><br><span class="line">	return nearest_point,nearest_label,nearest_dist</span><br></pre></td></tr></table></figure><p> &emsp;&emsp;代码详见<a href="https://github.com/yajian/machine_learning/tree/master/kdtree" target="_blank" rel="noopener">kdtree</a></p><h1 id="示例"><a href="#示例" class="headerlink" title="示例"></a>示例</h1><p>&emsp;&emsp;以《统计学习方法》中的例题为例，直观地解释kd树的构建和搜索。</p><h2 id="问题描述"><a href="#问题描述" class="headerlink" title="问题描述"></a>问题描述</h2><p>给定一个二维空间的数据集$T=\lbrace(2,3)^T,(5,4)^T,(9,6)^T,(4,7)^T,(8,1)^T,(7,2)^T\rbrace$，其在二维空间中的位置如图所示，求点(2.1,3.1)和(2,4.5)的最近邻。</p><div align="center"><br><img src="/kd树/点位置.png" width="300" height="250" title="数据分布示意"><br></div><h2 id="构建kd树-1"><a href="#构建kd树-1" class="headerlink" title="构建kd树"></a>构建kd树</h2><p>&emsp;&emsp;首先，计算x、y方向上的方差，其中var(x)=5.805,var(y)=4.472，x方向上的方差更大所以先选取x方向为分割方向。<br>&emsp;&emsp;其次，选择x方向上的中位数，即(4,7)^T，空间划分如下图</p><div align="center"><br><img src="/kd树/x1分割.png" width="300" height="250" title="第一次空间划分"><br></div><br>&emsp;&emsp;以此类推，经过三次划分构建好kd树，如gif所示<br><div align="center"><br><img src="/kd树/空间划分过程.gif" width="300" height="250" title="空间划分过程"><br></div><br>&emsp;&emsp;构建的树形结构如下图所示<br><div align="center"><br><img src="/kd树/kdtree.png" width="150" height="150" title="kdtree"><br></div><h2 id="搜索kd树-1"><a href="#搜索kd树-1" class="headerlink" title="搜索kd树"></a>搜索kd树</h2><h3 id="点-2-1-3-1-的最近邻"><a href="#点-2-1-3-1-的最近邻" class="headerlink" title="点(2.1,3.1)的最近邻"></a>点(2.1,3.1)的最近邻</h3><p>&emsp;&emsp;首先在kd树上搜索距离点(2.1,3.1)最近的叶子结点，结果为(2，3)，距离为0.1414，搜索过程如下所示</p><div align="center"><br><img src="/kd树/搜索过程1.jpeg" width="300" height="250" title="搜索过程1"><br></div><p>&emsp;&emsp;但是叶子结点不一定是离点(2.1,3.1)最近的结点，所以向上进行回溯。先回溯到父节点(5,4)，计算距离为3.036，不满足最近邻要求。接下来判断是否需要进入父节点的其他子节点空间，以(2.1,3.1)为圆心，0.1414为半径画圆，发现该圆与切分超平面y=4不相交，因此不进入(5,4)右子节点搜索。</p><p>&emsp;&emsp;继续向上回溯到父节点(7,2)，计算距离为5.022，不满足最近邻要求。接下来判断是否需要进入父节点的其他子节点空间，以(2.1,3.1)为圆心，0.1414为半径画圆，如下图所示发现该圆与切分超平面x=7不相交，因此不进入(7,2)右子节点搜索。</p><div align="center"><br><img src="/kd树/子空间判断1.png" width="300" height="250" title="子空间判断1"><br></div><p>&emsp;&emsp;至此，搜索路径中的结点已经完全回溯完，返回最近邻节点(2，3)，距离为0.1414。</p><h3 id="点-2-4-5-的最近邻"><a href="#点-2-4-5-的最近邻" class="headerlink" title="点(2,4.5)的最近邻"></a>点(2,4.5)的最近邻</h3><p>&emsp;&emsp;同理先搜索叶子结点，过程如下所示</p><div align="center"><br><img src="/kd树/搜索过程2.jpg" width="300" height="250" title="搜索过程2"><br></div><br>&emsp;&emsp;叶子结点为(4,7)，距离为3.202。回溯到父节点(5,4)，计算距离为3.041，最近邻更新为该点。接下来判断是否需要进入父节点的其他子节点空间，以(2,4.5)为圆心，3.041为半径画圆，如下图所示，发现该圆与切分超平面y=4相交，因此进入(5,4)左子节点搜索。<br><br><div align="center"><br><img src="/kd树/子空间判断2.png" width="300" height="250" title="子空间判断2"><br></div><p>&emsp;&emsp;计算与点(2,3)距离为1.5，最近邻更新为当前节点。</p><p>&emsp;&emsp;继续向上回溯到父节点(7,2)，计算距离为5.59，不满足最近邻要求。接下来判断是否需要进入父节点的其他子节点空间，以(2,4.5)为圆心，1.5为半径画圆，发现该圆与切分超平面x=7不相交，因此不进入(7,2)右子节点搜索。</p><div align="center"><br><img src="/kd树/子空间判断3.png" width="300" height="250" title="子空间判断3"><br></div><p>&emsp;&emsp;至此，搜索路径中的结点已经完全回溯完，返回最近邻节点(2，3)，距离为1.5。</p><h1 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h1><ul><li><p>统计学习方法，李航，清华大学出版社</p></li><li><p>机器学习实战，Peter Harrington，人民邮电出版社</p></li><li><p><a href="https://huyesce.github.io/K-NN%20with%20Pyhton.html" target="_blank" rel="noopener">K-NN算法及其Python实现</a></p></li><li><p><a href="https://www.cnblogs.com/eyeszjwang/articles/2429382.html" target="_blank" rel="noopener">k-d tree算法</a></p></li></ul></div><div><div><div style="text-align:center;color:#ccc;font-size:14px">-------------本文结束<i class="fa fa-paw"></i>感谢您的阅读-------------</div></div></div><div><div class="my_post_copyright"><script src="//cdn.bootcss.com/clipboard.js/1.5.10/clipboard.min.js"></script><script type="text/javascript" src="http://jslibs.wuxubj.cn/sweetalert_mini/jquery-1.7.1.min.js"></script><script src="http://jslibs.wuxubj.cn/sweetalert_mini/sweetalert.min.js"></script><link rel="stylesheet" type="text/css" href="http://jslibs.wuxubj.cn/sweetalert_mini/sweetalert.mini.css"><p><span>本文标题:</span><a href="/kd树/">kd树</a></p><p><span>文章作者:</span><a href="/" title="访问 小建儿 的个人博客">小建儿</a></p><p><span>发布时间:</span>2018年04月16日 - 10:04</p><p><span>最后更新:</span>2018年11月17日 - 17:11</p><p><span>原始链接:</span><a href="/kd树/" title="kd树">http://yajian.github.io/kd树/</a><span class="copy-path" title="点击复制文章链接"><i class="fa fa-clipboard" data-clipboard-text="http://yajian.github.io/kd树/" aria-label="复制成功！"></i></span></p><p><span>许可协议:</span><i class="fa fa-creative-commons"></i> <a rel="license" href="https://creativecommons.org/licenses/by-nc-nd/4.0/" target="_blank" title="Attribution-NonCommercial-NoDerivatives 4.0 International (CC BY-NC-ND 4.0)">署名-非商业性使用-禁止演绎 4.0 国际</a> 转载请保留原文链接及作者。</p></div><script>var clipboard=new Clipboard(".fa-clipboard");clipboard.on("success",$(function(){$(".fa-clipboard").click(function(){swal({title:"",text:"复制成功",html:!1,timer:500,showConfirmButton:!1})})}))</script></div><footer class="post-footer"><div class="post-tags"><a href="/tags/knn/" rel="tag"><i class="fa fa-tag"></i> knn</a></div><div class="post-nav"><div class="post-nav-next post-nav-item"><a href="/KNN算法/" rel="next" title="KNN算法"><i class="fa fa-chevron-left"></i> KNN算法</a></div><span class="post-nav-divider"></span><div class="post-nav-prev post-nav-item"> <a href="/深入理解java虚拟机-2-java内存区域与内存溢出异常/" rel="prev" title="深入理解java虚拟机(2)-java内存区域与内存溢出异常">深入理解java虚拟机(2)-java内存区域与内存溢出异常<i class="fa fa-chevron-right"></i></a></div></div></footer></div></article><div class="post-spread"><div class="jiathis_style"> <span class="jiathis_txt">分享到：</span> <a class="jiathis_button_fav">收藏夹</a> <a class="jiathis_button_copy">复制网址</a> <a class="jiathis_button_email">邮件</a> <a class="jiathis_button_weixin">微信</a> <a class="jiathis_button_qzone">QQ空间</a> <a class="jiathis_button_tqq">腾讯微博</a> <a class="jiathis_button_douban">豆瓣</a> <a class="jiathis_button_share">一键分享</a> <a href="http://www.jiathis.com/share?uid=2140465" class="jiathis jiathis_txt jiathis_separator jtico jtico_jiathis" target="_blank">更多</a><a class="jiathis_counter_style"></a></div><script type="text/javascript">var jiathis_config={data_track_clickback:!0,summary:"",shortUrl:!1,hideMore:!1}</script><script type="text/javascript" src="http://v3.jiathis.com/code/jia.js?uid=" charset="utf-8"></script></div></div></div><div class="comments" id="comments"><div id="disqus_thread"><noscript> Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript></div></div></div><div class="sidebar-toggle"><div class="sidebar-toggle-line-wrap"><span class="sidebar-toggle-line sidebar-toggle-line-first"></span><span class="sidebar-toggle-line sidebar-toggle-line-middle"></span><span class="sidebar-toggle-line sidebar-toggle-line-last"></span></div></div><aside id="sidebar" class="sidebar"><div class="sidebar-inner"><ul class="sidebar-nav motion-element"><li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap"> 文章目录</li><li class="sidebar-nav-overview" data-target="site-overview-wrap"> 站点概览</li></ul><section class="site-overview-wrap sidebar-panel"><div class="site-overview"><div class="site-author motion-element" itemprop="author" itemscope="" itemtype="http://schema.org/Person"> <img class="site-author-image" itemprop="image" src="/images/avatar.jpg" alt="小建儿"><p class="site-author-name" itemprop="name">小建儿</p><p class="site-description motion-element" itemprop="description">码农小白成长记</p></div><nav class="site-state motion-element"><div class="site-state-item site-state-posts"> <a href="/archives"><span class="site-state-item-count">53</span> <span class="site-state-item-name">日志</span></a></div><div class="site-state-item site-state-categories"> <a href="/categories/index.html"><span class="site-state-item-count">8</span> <span class="site-state-item-name">分类</span></a></div><div class="site-state-item site-state-tags"> <a href="/tags/index.html"><span class="site-state-item-count">17</span> <span class="site-state-item-name">标签</span></a></div></nav><div class="feed-link motion-element"><a href="/atom.xml" rel="alternate"><i class="fa fa-rss"></i> RSS</a></div><div class="links-of-author motion-element"></div></div></section><section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active"><div class="post-toc"><div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#简介"><span class="nav-number">1.</span> <span class="nav-text">简介</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#原理"><span class="nav-number">2.</span> <span class="nav-text">原理</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#构建kd树"><span class="nav-number">2.1.</span> <span class="nav-text">构建kd树</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#定义节点"><span class="nav-number">2.1.1.</span> <span class="nav-text">定义节点</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#构建平衡kd树"><span class="nav-number">2.1.2.</span> <span class="nav-text">构建平衡kd树</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#算法描述"><span class="nav-number">2.1.2.1.</span> <span class="nav-text">算法描述</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#python实现"><span class="nav-number">2.1.2.2.</span> <span class="nav-text">python实现</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#搜索kd树"><span class="nav-number">2.2.</span> <span class="nav-text">搜索kd树</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#算法描述-1"><span class="nav-number">2.2.1.</span> <span class="nav-text">算法描述</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#python实现-1"><span class="nav-number">2.2.2.</span> <span class="nav-text">python实现</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#示例"><span class="nav-number">3.</span> <span class="nav-text">示例</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#问题描述"><span class="nav-number">3.1.</span> <span class="nav-text">问题描述</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#构建kd树-1"><span class="nav-number">3.2.</span> <span class="nav-text">构建kd树</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#搜索kd树-1"><span class="nav-number">3.3.</span> <span class="nav-text">搜索kd树</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#点-2-1-3-1-的最近邻"><span class="nav-number">3.3.1.</span> <span class="nav-text">点(2.1,3.1)的最近邻</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#点-2-4-5-的最近邻"><span class="nav-number">3.3.2.</span> <span class="nav-text">点(2,4.5)的最近邻</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#参考"><span class="nav-number">4.</span> <span class="nav-text">参考</span></a></li></ol></div></div></section></div></aside></div></main><footer id="footer" class="footer"><div class="footer-inner"><script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script><div class="copyright">&copy; <span itemprop="copyrightYear">2019</span><span class="with-love"><i class="fa fa-user"></i></span> <span class="author" itemprop="copyrightHolder">小建儿</span></div><div class="powered-by"><i class="fa fa-user-md"></i> <span id="busuanzi_container_site_uv">本站访客数:<span id="busuanzi_value_site_uv"></span> |</span></div><div class="theme-info"><div class="powered-by"></div> <span class="post-count">| 博客全站共字</span></div></div></footer><div class="back-to-top"><i class="fa fa-arrow-up"></i></div></div><script type="text/javascript">"[object Function]"!==Object.prototype.toString.call(window.Promise)&&(window.Promise=null)</script><script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script><script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script><script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script><script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script><script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script><script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script><script type="text/javascript" src="/lib/canvas-nest/canvas-nest.min.js"></script><div class="comments" id="comments"><div id="uyan_frame"></div></div><script type="text/javascript" src="/js/src/utils.js?v=5.1.3"></script><script type="text/javascript" src="/js/src/motion.js?v=5.1.3"></script><script type="text/javascript" src="/js/src/affix.js?v=5.1.3"></script><script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.3"></script><script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.3"></script><script type="text/javascript" src="/js/src/post-details.js?v=5.1.3"></script><script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.3"></script><script id="dsq-count-scr" src="https://.disqus.com/count.js" async></script><script type="text/javascript">var disqus_config=function(){this.page.url="http://yajian.github.io/kd树/",this.page.identifier="kd树/",this.page.title="kd树"},d=document,s=d.createElement("script");s.src="https://.disqus.com/embed.js",s.setAttribute("data-timestamp",""+ +new Date),(d.head||d.body).appendChild(s)</script><script type="text/javascript" src="http://v2.uyan.cc/code/uyan.js?uid=2147157"></script><script type="text/javascript">function proceedsearch(){$("body").append('<div class="search-popup-overlay local-search-pop-overlay"></div>').css("overflow","hidden"),$(".search-popup-overlay").click(onPopupClose),$(".popup").toggle();var t=$("#local-search-input");t.attr("autocapitalize","none"),t.attr("autocorrect","off"),t.focus()}var isfetched=!1,isXml=!0,search_path="search.xml";0===search_path.length?search_path="search.xml":/json$/i.test(search_path)&&(isXml=!1);var path="/"+search_path,onPopupClose=function(t){$(".popup").hide(),$("#local-search-input").val(""),$(".search-result-list").remove(),$("#no-result").remove(),$(".local-search-pop-overlay").remove(),$("body").css("overflow","")},searchFunc=function(t,e,o){"use strict";$("body").append('<div class="search-popup-overlay local-search-pop-overlay"><div id="search-loading-icon"><i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i></div></div>').css("overflow","hidden"),$("#search-loading-icon").css("margin","20% auto 0 auto").css("text-align","center"),$.ajax({url:t,dataType:isXml?"xml":"json",async:!0,success:function(t){isfetched=!0,$(".popup").detach().appendTo(".header-inner");var n=isXml?$("entry",t).map(function(){return{title:$("title",this).text(),content:$("content",this).text(),url:$("url",this).text()}}).get():t,r=document.getElementById(e),s=document.getElementById(o),a=function(){var t=r.value.trim().toLowerCase(),e=t.split(/[\s\-]+/);e.length>1&&e.push(t);var o=[];if(t.length>0&&n.forEach(function(n){function r(e,o,n,r){for(var s=r[r.length-1],a=s.position,i=s.word,l=[],h=0;a+i.length<=n&&0!=r.length;){i===t&&h++,l.push({position:a,length:i.length});var p=a+i.length;for(r.pop();0!=r.length&&(s=r[r.length-1],a=s.position,i=s.word,p>a);)r.pop()}return c+=h,{hits:l,start:o,end:n,searchTextCount:h}}function s(t,e){var o="",n=e.start;return e.hits.forEach(function(e){o+=t.substring(n,e.position);var r=e.position+e.length;o+='<b class="search-keyword">'+t.substring(e.position,r)+"</b>",n=r}),o+=t.substring(n,e.end)}var a=!1,i=0,c=0,l=n.title.trim(),h=l.toLowerCase(),p=n.content.trim().replace(/<[^>]+>/g,""),u=p.toLowerCase(),f=decodeURIComponent(n.url),d=[],g=[];if(""!=l&&(e.forEach(function(t){function e(t,e,o){var n=t.length;if(0===n)return[];var r=0,s=[],a=[];for(o||(e=e.toLowerCase(),t=t.toLowerCase());(s=e.indexOf(t,r))>-1;)a.push({position:s,word:t}),r=s+n;return a}d=d.concat(e(t,h,!1)),g=g.concat(e(t,u,!1))}),(d.length>0||g.length>0)&&(a=!0,i=d.length+g.length)),a){[d,g].forEach(function(t){t.sort(function(t,e){return e.position!==t.position?e.position-t.position:t.word.length-e.word.length})});var v=[];0!=d.length&&v.push(r(l,0,l.length,d));for(var $=[];0!=g.length;){var C=g[g.length-1],m=C.position,x=C.word,w=m-20,y=m+80;0>w&&(w=0),y<m+x.length&&(y=m+x.length),y>p.length&&(y=p.length),$.push(r(p,w,y,g))}$.sort(function(t,e){return t.searchTextCount!==e.searchTextCount?e.searchTextCount-t.searchTextCount:t.hits.length!==e.hits.length?e.hits.length-t.hits.length:t.start-e.start});var T=parseInt("1");T>=0&&($=$.slice(0,T));var b="";b+=0!=v.length?"<li><a href='"+f+"' class='search-result-title'>"+s(l,v[0])+"</a>":"<li><a href='"+f+"' class='search-result-title'>"+l+"</a>",$.forEach(function(t){b+="<a href='"+f+'\'><p class="search-result">'+s(p,t)+"...</p></a>"}),b+="</li>",o.push({item:b,searchTextCount:c,hitCount:i,id:o.length})}}),1===e.length&&""===e[0])s.innerHTML='<div id="no-result"><i class="fa fa-search fa-5x" /></div>';else if(0===o.length)s.innerHTML='<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>';else{o.sort(function(t,e){return t.searchTextCount!==e.searchTextCount?e.searchTextCount-t.searchTextCount:t.hitCount!==e.hitCount?e.hitCount-t.hitCount:e.id-t.id});var a='<ul class="search-result-list">';o.forEach(function(t){a+=t.item}),a+="</ul>",s.innerHTML=a}};r.addEventListener("input",a),$(".local-search-pop-overlay").remove(),$("body").css("overflow",""),proceedsearch()}})};$(".popup-trigger").click(function(t){t.stopPropagation(),isfetched===!1?searchFunc(path,"local-search-input","local-search-result"):proceedsearch()}),$(".popup-btn-close").click(onPopupClose),$(".popup").click(function(t){t.stopPropagation()}),$(document).on("keyup",function(t){var e=27===t.which&&$(".search-popup").is(":visible");e&&onPopupClose()})</script><script type="text/x-mathjax-config">
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-Hans">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<script src="//cdn.bootcss.com/pace/1.0.2/pace.min.js"></script>
+<link href="//cdn.bootcss.com/pace/1.0.2/themes/pink/pace-theme-flash.css" rel="stylesheet">
+<style>
+    .pace .pace-progress {
+        background: #1E92FB; /*进度条颜色*/
+        height: 3px;
+    }
+    .pace .pace-progress-inner {
+         box-shadow: 0 0 10px #1E92FB, 0 0 5px     #1E92FB; /*阴影颜色*/
+    }
+    .pace .pace-activity {
+        border-top-color: #1E92FB;    /*上边框颜色*/
+        border-left-color: #1E92FB;    /*左边框颜色*/
+    }
+</style>
+<meta name="theme-color" content="#222">
+
+
+
+  
+  
+    
+    
+  <script src="/lib/pace/pace.min.js?v=1.0.2"></script>
+  <link href="/lib/pace/pace-theme-minimal.min.css?v=1.0.2" rel="stylesheet">
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+  <meta name="google-site-verification" content="iuqAv5dkTjkC-tYrbkff9KGsw2tnVjzlEHIubXlnmaI">
+
+
+
+
+
+
+
+
+  <meta name="baidu-site-verification" content="FKXU75MFl1">
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.3" rel="stylesheet" type="text/css">
+
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/iris_32*32.ico?v=5.1.3">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/iris_16*16.ico?v=5.1.3">
+
+
+
+
+
+
+  <meta name="keywords" content="knn,">
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="小建儿的小站" type="application/atom+xml">
+
+
+
+
+
+
+  <script>
+  (function(i,s,o,g,r,a,m){i["DaoVoiceObject"]=r;i[r]=i[r]||function(){(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;a.charset="utf-8";m.parentNode.insertBefore(a,m)})(window,document,"script",('https:' == document.location.protocol ? 'https:' : 'http:') + "//widget.daovoice.io/widget/0f81ff2f.js","daovoice")
+  daovoice('init', {
+      app_id: "84485d15"
+    });
+  daovoice('update');
+  </script>
+
+
+
+<meta name="description" content="&amp;emsp;&amp;emsp;上一篇博客介绍了knn算法，以及简单的python实现代码，其中使用了线形扫描(linear scan)方式逐一计算输入实例与训练数据间的距离，复杂度较大，本篇博客将介绍knn算法的另一种高效实现方式–kd树。 简介&amp;emsp;&amp;emsp;kd树是一种对k维空间中的实例点进行存储以便对其进行快速检索的树形数据结构。kd树是二叉树，表示对k维空间的一个划分。构造kd树相当于不">
+<meta name="keywords" content="knn">
+<meta property="og:type" content="article">
+<meta property="og:title" content="kd树">
+<meta property="og:url" content="http://yajian.github.io/kd树/index.html">
+<meta property="og:site_name" content="小建儿的小站">
+<meta property="og:description" content="&amp;emsp;&amp;emsp;上一篇博客介绍了knn算法，以及简单的python实现代码，其中使用了线形扫描(linear scan)方式逐一计算输入实例与训练数据间的距离，复杂度较大，本篇博客将介绍knn算法的另一种高效实现方式–kd树。 简介&amp;emsp;&amp;emsp;kd树是一种对k维空间中的实例点进行存储以便对其进行快速检索的树形数据结构。kd树是二叉树，表示对k维空间的一个划分。构造kd树相当于不">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="http://yajian.github.io/kd树/点位置.png">
+<meta property="og:image" content="http://yajian.github.io/kd树/x1分割.png">
+<meta property="og:image" content="http://yajian.github.io/kd树/空间划分过程.gif">
+<meta property="og:image" content="http://yajian.github.io/kd树/kdtree.png">
+<meta property="og:image" content="http://yajian.github.io/kd树/搜索过程1.jpeg">
+<meta property="og:image" content="http://yajian.github.io/kd树/子空间判断1.png">
+<meta property="og:image" content="http://yajian.github.io/kd树/搜索过程2.jpg">
+<meta property="og:image" content="http://yajian.github.io/kd树/子空间判断2.png">
+<meta property="og:image" content="http://yajian.github.io/kd树/子空间判断3.png">
+<meta property="og:updated_time" content="2018-11-17T09:30:57.330Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="kd树">
+<meta name="twitter:description" content="&amp;emsp;&amp;emsp;上一篇博客介绍了knn算法，以及简单的python实现代码，其中使用了线形扫描(linear scan)方式逐一计算输入实例与训练数据间的距离，复杂度较大，本篇博客将介绍knn算法的另一种高效实现方式–kd树。 简介&amp;emsp;&amp;emsp;kd树是一种对k维空间中的实例点进行存储以便对其进行快速检索的树形数据结构。kd树是二叉树，表示对k维空间的一个划分。构造kd树相当于不">
+<meta name="twitter:image" content="http://yajian.github.io/kd树/点位置.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    version: '5.1.3',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yajian.github.io/kd树/">
+
+
+
+
+
+  <title>kd树 | 小建儿的小站</title><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope="" itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope="" itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">小建儿的小站</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br>
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tag"></i> <br>
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br>
+            
+            分类
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br>
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off" placeholder="搜索..." spellcheck="false" type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yajian.github.io/kd树/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="小建儿">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="小建儿的小站">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">kd树</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-04-16T10:52:37+08:00">
+                2018-04-16
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
+                  <a href="/categories/机器学习/" itemprop="url" rel="index">
+                    <span itemprop="name">机器学习</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/kd树/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count disqus-comment-count" data-disqus-identifier="kd树/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">
+                  
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>&emsp;&emsp;上一篇博客介绍了knn算法，以及简单的python实现代码，其中使用了线形扫描(linear scan)方式逐一计算输入实例与训练数据间的距离，复杂度较大，本篇博客将介绍knn算法的另一种高效实现方式–kd树。</p>
+<h1 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h1><p>&emsp;&emsp;kd树是一种对k维空间中的实例点进行存储以便对其进行快速检索的树形数据结构。kd树是二叉树，表示对k维空间的一个划分。构造kd树相当于不断地用垂直于坐标轴的超平面将k维空间切分，构成一系列的k维超矩形区域。kd树每个节点对应一个k维超矩形区域。在进行k近邻查找时，遍历kd树，实现减少计算量的目的。</p>
+<h1 id="原理"><a href="#原理" class="headerlink" title="原理"></a>原理</h1><h2 id="构建kd树"><a href="#构建kd树" class="headerlink" title="构建kd树"></a>构建kd树</h2><h3 id="定义节点"><a href="#定义节点" class="headerlink" title="定义节点"></a>定义节点</h3><ul>
+<li>算法描述</li>
+</ul>
+<p>&emsp;&emsp;首先需要定义二叉树节点Node，其中需要包括的信息有</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">域名</th>
+<th style="text-align:center">数据类型</th>
+<th style="text-align:center">描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">point</td>
+<td style="text-align:center">数据矢量</td>
+<td style="text-align:center">数据集中的一个数据点，是一个k维矢量</td>
+</tr>
+<tr>
+<td style="text-align:center">split</td>
+<td style="text-align:center">正整数</td>
+<td style="text-align:center">分割维度</td>
+</tr>
+<tr>
+<td style="text-align:center">left</td>
+<td style="text-align:center">kd树</td>
+<td style="text-align:center">左子树</td>
+</tr>
+<tr>
+<td style="text-align:center">right</td>
+<td style="text-align:center">kd树</td>
+<td style="text-align:center">右子树</td>
+</tr>
+<tr>
+<td style="text-align:center">label</td>
+<td style="text-align:center">字母或数字</td>
+<td style="text-align:center">标签值</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li>python实现</li>
+</ul>
+<figure class="highlight ruby"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#encoding:utf8</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Node</span>(<span class="title">object</span>):</span></span><br><span class="line">	<span class="function"><span class="keyword">def</span> <span class="title">__init__</span><span class="params">(<span class="keyword">self</span>,point,left,right,split,label)</span></span><span class="symbol">:</span></span><br><span class="line">		<span class="comment">#左子树</span></span><br><span class="line">		<span class="keyword">self</span>.left = left</span><br><span class="line">		<span class="comment">#右子树</span></span><br><span class="line">		<span class="keyword">self</span>.right = right</span><br><span class="line">		<span class="comment">#数据节点</span></span><br><span class="line">		<span class="keyword">self</span>.point = point</span><br><span class="line">		<span class="comment">#分割维度</span></span><br><span class="line">		<span class="keyword">self</span>.split = split</span><br><span class="line">		<span class="comment">#标签</span></span><br><span class="line">		<span class="keyword">self</span>.label = label</span><br></pre></td></tr></table></figure>
+<h3 id="构建平衡kd树"><a href="#构建平衡kd树" class="headerlink" title="构建平衡kd树"></a>构建平衡kd树</h3><h4 id="算法描述"><a href="#算法描述" class="headerlink" title="算法描述"></a>算法描述</h4><ul>
+<li><p>输入：K维空间数据集$T=\lbrace x_1,x_2,…,x_n\rbrace$，其中$x_i = (x_i^{(1)},x_i^{(2)},…,x_i^{(k)})^T$，$i=1,2,…,N$</p>
+</li>
+<li><p>输出：kd树</p>
+</li>
+<li><p>过程：</p>
+</li>
+</ul>
+<ol>
+<li>构造根节点，根据点对应于包含T的k维空间的超矩形区域</li>
+<li>选择方差最大的维度$m$为分割维度，以T中所有实例的$x^m$坐标中位数N为切分点，将根节点的超矩形区域分割为深度为1的两个左右子节点。左子节点对应坐标$x^m$小于N的子区域，右子节点对应于坐标$x^m$大于N的子区域。将切分点保存在根节点。</li>
+<li>在左右子区域上分别重复执行步骤2，直到两个子区域没有实例存在时停止，完成kd树的构建</li>
+</ol>
+<h4 id="python实现"><a href="#python实现" class="headerlink" title="python实现"></a>python实现</h4><figure class="highlight nix"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#encoding:utf8</span></span><br><span class="line"><span class="built_in">import</span> numpy as np</span><br><span class="line">from node <span class="built_in">import</span> Node</span><br><span class="line"></span><br><span class="line">def constructKDTree(dataset,datalabel):</span><br><span class="line">	<span class="attr">length</span> = len(dataset)</span><br><span class="line">	<span class="keyword">if</span> <span class="attr">length</span> == <span class="number">0</span>:</span><br><span class="line">		return</span><br><span class="line">	<span class="attr">median</span> = length/<span class="number">2</span></span><br><span class="line">	<span class="comment">#计算维度个数</span></span><br><span class="line">	<span class="attr">dimension</span> = len(dataset[<span class="number">0</span>])</span><br><span class="line">	<span class="comment">#求每个维度的方差，axis=0是按列运算的意思，axis=1是按行运算</span></span><br><span class="line">	<span class="attr">vars</span> = np.var(dataset,<span class="attr">axis=0)</span></span><br><span class="line">	<span class="comment">#求方差最大的维度索引，即分割维度</span></span><br><span class="line">	<span class="attr">index</span> = np.argmax(vars)</span><br><span class="line">	<span class="comment">#按照方差最大的维度进行排序</span></span><br><span class="line">	<span class="attr">sorted_index</span> = dataset[:,index].argsort()</span><br><span class="line">	<span class="attr">sorted_data</span> = dataset[sorted_index]</span><br><span class="line">	<span class="attr">sorted_label</span> = datalabel[sorted_index]</span><br><span class="line">	<span class="comment">#左子树是小于中位数的部分</span></span><br><span class="line">	<span class="attr">left_data</span> = sorted_data[:median]</span><br><span class="line">	<span class="attr">left_label</span> = datalabel[:median]</span><br><span class="line">	<span class="comment">#父节点是中位数</span></span><br><span class="line">	<span class="attr">median_data</span> = sorted_data[median]</span><br><span class="line">	<span class="attr">median_label</span> = datalabel[median]</span><br><span class="line">	<span class="comment">#右子树是大于中位数的部分</span></span><br><span class="line">	<span class="attr">right_data</span> = sorted_data[median+<span class="number">1</span>:]</span><br><span class="line">	<span class="attr">right_label</span> = datalabel[median+<span class="number">1</span>:]</span><br><span class="line">	<span class="comment">#递归建立kd树</span></span><br><span class="line">	return Node(median_data,constructKDTree(left_data,left_label),constructKDTree(right_data,right_label),index,median_label)</span><br></pre></td></tr></table></figure>
+<h2 id="搜索kd树"><a href="#搜索kd树" class="headerlink" title="搜索kd树"></a>搜索kd树</h2><p>&emsp;&emsp;kd树相当于给训练数据建立了索引，所以利用kd树可以快速搜索到距离输入实例最近的训练数据点。</p>
+<h3 id="算法描述-1"><a href="#算法描述-1" class="headerlink" title="算法描述"></a>算法描述</h3><ul>
+<li>输入：构造好的kd树，输入实例x</li>
+<li>输出：x的最近邻</li>
+<li>过程：</li>
+</ul>
+<ol>
+<li>在kd树中搜索包含输入实例x的叶子结点：从根节点向下递归访问kd树，若输入实例当前维度的坐标小于切分点坐标，则移动到左子树；否则，则移动到右子树。直到子节点为叶子结点为止。</li>
+<li>以叶子结点为“当前最近结点”</li>
+<li>递归回溯，在每个节点上进行下列操作：<ul>
+<li>如果该节点保存的实例点比当前最近距离目标更近，则以该实例点为“当前最近结点”</li>
+<li>检查其子节点对应的区域是否有更近的点，即检查子节点对应的区域是否与以目标点为中心、以”当前最近距离”为半径形成的超球体相交。如果相交，则在对应的区域内可能存在距目标点更近的点，则移动到该结点，递归地进行搜索。若不相交，则向上回退。</li>
+</ul>
+</li>
+<li>当回退到根节点，搜索结束，最后的“当前结点“即为x的最近邻。</li>
+</ol>
+<h3 id="python实现-1"><a href="#python实现-1" class="headerlink" title="python实现"></a>python实现</h3><figure class="highlight nix"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line">def find_nearest_neighbor(target,tree):</span><br><span class="line">	<span class="comment">#记录到叶子结点节点前搜索过的节点</span></span><br><span class="line">	<span class="attr">path_deque</span> = path_to_leaf_node(target,tree,deque()) </span><br><span class="line">	<span class="comment">#回溯第一个节点</span></span><br><span class="line">	<span class="attr">kd_node</span> = path_deque.pop()</span><br><span class="line">	<span class="comment">#假设第一个节点为最近邻</span></span><br><span class="line">	<span class="attr">nearest_point</span> = kd_node.point</span><br><span class="line">	<span class="comment">#计算最近邻节点与输入实例间距离</span></span><br><span class="line">	<span class="attr">nearest_dist</span> = distance(target,nearest_point)</span><br><span class="line">	<span class="comment">#最近邻节点的标签</span></span><br><span class="line">	<span class="attr">nearest_label</span> = kd_node.label</span><br><span class="line">	<span class="comment">#回溯</span></span><br><span class="line">	while path_deque:</span><br><span class="line">		<span class="attr">kd_node</span> = path_deque.pop()</span><br><span class="line">		<span class="comment">#计算实例点与最近邻节点父节点的距离</span></span><br><span class="line">		<span class="attr">node_dist</span> = distance(target,kd_node.point)</span><br><span class="line">		<span class="comment">#更新最近邻节点</span></span><br><span class="line">		<span class="keyword">if</span> node_dist &lt; nearest_dist:</span><br><span class="line">			<span class="attr">nearest_point</span> = kd_node.point</span><br><span class="line">			<span class="attr">nearest_dist</span> = node_dist</span><br><span class="line">			<span class="attr">nearest_label</span> = kd_node.label</span><br><span class="line">		<span class="comment">#获取分割维度</span></span><br><span class="line">		<span class="attr">s</span> = kd_node.split</span><br><span class="line">		<span class="comment">#判断是否需要进入最近邻节点的左右子空间进行搜索</span></span><br><span class="line">		<span class="keyword">if</span> abs(target[s] - kd_node.point[s]) &lt; nearest_dist:</span><br><span class="line">			<span class="comment">#进入右子树</span></span><br><span class="line">			<span class="keyword">if</span> target[s] &lt;  kd_node.point[s]:</span><br><span class="line">				<span class="attr">path_deque</span> = path_to_leaf_node(target,kd_node.right,path_deque)</span><br><span class="line">			<span class="comment">#进入左子树</span></span><br><span class="line">			<span class="keyword">else</span>:</span><br><span class="line">				<span class="attr">path_deque</span> = path_to_leaf_node(target,kd_node.left,path_deque)</span><br><span class="line"></span><br><span class="line">	return nearest_point,nearest_label,nearest_dist</span><br></pre></td></tr></table></figure>
+<p> &emsp;&emsp;代码详见<a href="https://github.com/yajian/machine_learning/tree/master/kdtree" target="_blank" rel="noopener">kdtree</a></p>
+<h1 id="示例"><a href="#示例" class="headerlink" title="示例"></a>示例</h1><p>&emsp;&emsp;以《统计学习方法》中的例题为例，直观地解释kd树的构建和搜索。</p>
+<h2 id="问题描述"><a href="#问题描述" class="headerlink" title="问题描述"></a>问题描述</h2><p>给定一个二维空间的数据集$T=\lbrace(2,3)^T,(5,4)^T,(9,6)^T,(4,7)^T,(8,1)^T,(7,2)^T\rbrace$，其在二维空间中的位置如图所示，求点(2.1,3.1)和(2,4.5)的最近邻。</p>
+<div align="center"><br><img src="/kd树/点位置.png" width="300" height="250" title="数据分布示意"><br></div>
+
+<h2 id="构建kd树-1"><a href="#构建kd树-1" class="headerlink" title="构建kd树"></a>构建kd树</h2><p>&emsp;&emsp;首先，计算x、y方向上的方差，其中var(x)=5.805,var(y)=4.472，x方向上的方差更大所以先选取x方向为分割方向。<br>&emsp;&emsp;其次，选择x方向上的中位数，即(4,7)^T，空间划分如下图</p>
+<div align="center"><br><img src="/kd树/x1分割.png" width="300" height="250" title="第一次空间划分"><br></div><br>&emsp;&emsp;以此类推，经过三次划分构建好kd树，如gif所示<br><div align="center"><br><img src="/kd树/空间划分过程.gif" width="300" height="250" title="空间划分过程"><br></div><br>&emsp;&emsp;构建的树形结构如下图所示<br><div align="center"><br><img src="/kd树/kdtree.png" width="150" height="150" title="kdtree"><br></div>
+
+<h2 id="搜索kd树-1"><a href="#搜索kd树-1" class="headerlink" title="搜索kd树"></a>搜索kd树</h2><h3 id="点-2-1-3-1-的最近邻"><a href="#点-2-1-3-1-的最近邻" class="headerlink" title="点(2.1,3.1)的最近邻"></a>点(2.1,3.1)的最近邻</h3><p>&emsp;&emsp;首先在kd树上搜索距离点(2.1,3.1)最近的叶子结点，结果为(2，3)，距离为0.1414，搜索过程如下所示</p>
+<div align="center"><br><img src="/kd树/搜索过程1.jpeg" width="300" height="250" title="搜索过程1"><br></div>
+
+<p>&emsp;&emsp;但是叶子结点不一定是离点(2.1,3.1)最近的结点，所以向上进行回溯。先回溯到父节点(5,4)，计算距离为3.036，不满足最近邻要求。接下来判断是否需要进入父节点的其他子节点空间，以(2.1,3.1)为圆心，0.1414为半径画圆，发现该圆与切分超平面y=4不相交，因此不进入(5,4)右子节点搜索。</p>
+<p>&emsp;&emsp;继续向上回溯到父节点(7,2)，计算距离为5.022，不满足最近邻要求。接下来判断是否需要进入父节点的其他子节点空间，以(2.1,3.1)为圆心，0.1414为半径画圆，如下图所示发现该圆与切分超平面x=7不相交，因此不进入(7,2)右子节点搜索。</p>
+<div align="center"><br><img src="/kd树/子空间判断1.png" width="300" height="250" title="子空间判断1"><br></div>
+
+<p>&emsp;&emsp;至此，搜索路径中的结点已经完全回溯完，返回最近邻节点(2，3)，距离为0.1414。</p>
+<h3 id="点-2-4-5-的最近邻"><a href="#点-2-4-5-的最近邻" class="headerlink" title="点(2,4.5)的最近邻"></a>点(2,4.5)的最近邻</h3><p>&emsp;&emsp;同理先搜索叶子结点，过程如下所示</p>
+<div align="center"><br><img src="/kd树/搜索过程2.jpg" width="300" height="250" title="搜索过程2"><br></div><br>&emsp;&emsp;叶子结点为(4,7)，距离为3.202。回溯到父节点(5,4)，计算距离为3.041，最近邻更新为该点。接下来判断是否需要进入父节点的其他子节点空间，以(2,4.5)为圆心，3.041为半径画圆，如下图所示，发现该圆与切分超平面y=4相交，因此进入(5,4)左子节点搜索。<br><br><div align="center"><br><img src="/kd树/子空间判断2.png" width="300" height="250" title="子空间判断2"><br></div>
+
+<p>&emsp;&emsp;计算与点(2,3)距离为1.5，最近邻更新为当前节点。</p>
+<p>&emsp;&emsp;继续向上回溯到父节点(7,2)，计算距离为5.59，不满足最近邻要求。接下来判断是否需要进入父节点的其他子节点空间，以(2,4.5)为圆心，1.5为半径画圆，发现该圆与切分超平面x=7不相交，因此不进入(7,2)右子节点搜索。</p>
+<div align="center"><br><img src="/kd树/子空间判断3.png" width="300" height="250" title="子空间判断3"><br></div>
+
+<p>&emsp;&emsp;至此，搜索路径中的结点已经完全回溯完，返回最近邻节点(2，3)，距离为1.5。</p>
+<h1 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h1><ul>
+<li><p>统计学习方法，李航，清华大学出版社</p>
+</li>
+<li><p>机器学习实战，Peter Harrington，人民邮电出版社</p>
+</li>
+<li><p><a href="https://huyesce.github.io/K-NN%20with%20Pyhton.html" target="_blank" rel="noopener">K-NN算法及其Python实现</a></p>
+</li>
+<li><p><a href="https://www.cnblogs.com/eyeszjwang/articles/2429382.html" target="_blank" rel="noopener">k-d tree算法</a></p>
+</li>
+</ul>
+
+      
+    </div>
+    
+    
+    
+
+
+
+    
+
+    <div>
+      
+        <div>
+    
+        <div style="text-align:center;color: #ccc;font-size:14px;">-------------本文结束<i class="fa fa-paw"></i>感谢您的阅读-------------</div>
+    
+</div>
+      
+    </div>
+
+    <div>
+      
+        
+<div class="my_post_copyright">
+  <script src="//cdn.bootcss.com/clipboard.js/1.5.10/clipboard.min.js"></script>
+
+  <!-- JS库 sweetalert 可修改路径 -->
+  <script type="text/javascript" src="http://jslibs.wuxubj.cn/sweetalert_mini/jquery-1.7.1.min.js"></script>
+  <script src="http://jslibs.wuxubj.cn/sweetalert_mini/sweetalert.min.js"></script>
+  <link rel="stylesheet" type="text/css" href="http://jslibs.wuxubj.cn/sweetalert_mini/sweetalert.mini.css">
+  <p><span>本文标题:</span><a href="/kd树/">kd树</a></p>
+  <p><span>文章作者:</span><a href="/" title="访问 小建儿 的个人博客">小建儿</a></p>
+  <p><span>发布时间:</span>2018年04月16日 - 10:04</p>
+  <p><span>最后更新:</span>2018年11月17日 - 17:11</p>
+  <p><span>原始链接:</span><a href="/kd树/" title="kd树">http://yajian.github.io/kd树/</a>
+    <span class="copy-path" title="点击复制文章链接"><i class="fa fa-clipboard" data-clipboard-text="http://yajian.github.io/kd树/" aria-label="复制成功！"></i></span>
+  </p>
+  <p><span>许可协议:</span><i class="fa fa-creative-commons"></i> <a rel="license" href="https://creativecommons.org/licenses/by-nc-nd/4.0/" target="_blank" title="Attribution-NonCommercial-NoDerivatives 4.0 International (CC BY-NC-ND 4.0)">署名-非商业性使用-禁止演绎 4.0 国际</a> 转载请保留原文链接及作者。</p>  
+</div>
+<script> 
+    var clipboard = new Clipboard('.fa-clipboard');
+    clipboard.on('success', $(function(){
+      $(".fa-clipboard").click(function(){
+        swal({   
+          title: "",   
+          text: '复制成功',   
+          html: false,
+          timer: 500,   
+          showConfirmButton: false
+        });
+      });
+    }));  
+</script>
+
+      
+    </div>
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/knn/" rel="tag"><i class="fa fa-tag"></i> knn</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/KNN算法/" rel="next" title="KNN算法">
+                <i class="fa fa-chevron-left"></i> KNN算法
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/深入理解java虚拟机-2-java内存区域与内存溢出异常/" rel="prev" title="深入理解java虚拟机(2)-java内存区域与内存溢出异常">
+                深入理解java虚拟机(2)-java内存区域与内存溢出异常 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+        <!-- JiaThis Button BEGIN -->
+<div class="jiathis_style">
+<span class="jiathis_txt">分享到：</span>
+<a class="jiathis_button_fav">收藏夹</a>
+<a class="jiathis_button_copy">复制网址</a>
+<a class="jiathis_button_email">邮件</a>
+<a class="jiathis_button_weixin">微信</a>
+<a class="jiathis_button_qzone">QQ空间</a>
+<a class="jiathis_button_tqq">腾讯微博</a>
+<a class="jiathis_button_douban">豆瓣</a>
+<a class="jiathis_button_share">一键分享</a>
+
+<a href="http://www.jiathis.com/share?uid=2140465" class="jiathis jiathis_txt jiathis_separator jtico jtico_jiathis" target="_blank">更多</a>
+<a class="jiathis_counter_style"></a>
+</div>
+<script type="text/javascript">
+var jiathis_config={
+  data_track_clickback:true,
+  summary:"",
+  shortUrl:false,
+  hideMore:false
+}
+</script>
+<script type="text/javascript" src="http://v3.jiathis.com/code/jia.js?uid=" charset="utf-8"></script>
+<!-- JiaThis Button END -->
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+    <div class="comments" id="comments">
+      <div id="disqus_thread">
+        <noscript>
+          Please enable JavaScript to view the
+          <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a>
+        </noscript>
+      </div>
+    </div>
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image" src="/images/avatar.jpg" alt="小建儿">
+            
+              <p class="site-author-name" itemprop="name">小建儿</p>
+              <p class="site-description motion-element" itemprop="description">码农小白成长记</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives">
+              
+                  <span class="site-state-item-count">53</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">8</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">17</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+            <div class="feed-link motion-element">
+              <a href="/atom.xml" rel="alternate">
+                <i class="fa fa-rss"></i>
+                RSS
+              </a>
+            </div>
+          
+
+          <div class="links-of-author motion-element">
+            
+          </div>
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#简介"><span class="nav-number">1.</span> <span class="nav-text">简介</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#原理"><span class="nav-number">2.</span> <span class="nav-text">原理</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#构建kd树"><span class="nav-number">2.1.</span> <span class="nav-text">构建kd树</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#定义节点"><span class="nav-number">2.1.1.</span> <span class="nav-text">定义节点</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#构建平衡kd树"><span class="nav-number">2.1.2.</span> <span class="nav-text">构建平衡kd树</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#算法描述"><span class="nav-number">2.1.2.1.</span> <span class="nav-text">算法描述</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#python实现"><span class="nav-number">2.1.2.2.</span> <span class="nav-text">python实现</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#搜索kd树"><span class="nav-number">2.2.</span> <span class="nav-text">搜索kd树</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#算法描述-1"><span class="nav-number">2.2.1.</span> <span class="nav-text">算法描述</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#python实现-1"><span class="nav-number">2.2.2.</span> <span class="nav-text">python实现</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#示例"><span class="nav-number">3.</span> <span class="nav-text">示例</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#问题描述"><span class="nav-number">3.1.</span> <span class="nav-text">问题描述</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#构建kd树-1"><span class="nav-number">3.2.</span> <span class="nav-text">构建kd树</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#搜索kd树-1"><span class="nav-number">3.3.</span> <span class="nav-text">搜索kd树</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#点-2-1-3-1-的最近邻"><span class="nav-number">3.3.1.</span> <span class="nav-text">点(2.1,3.1)的最近邻</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#点-2-4-5-的最近邻"><span class="nav-number">3.3.2.</span> <span class="nav-text">点(2,4.5)的最近邻</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#参考"><span class="nav-number">4.</span> <span class="nav-text">参考</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+<div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">小建儿</span>
+
+  
+</div>
+
+<div class="powered-by">
+  <i class="fa fa-user-md"></i><span id="busuanzi_container_site_uv">
+    本站访客数:<span id="busuanzi_value_site_uv"></span> |
+  </span>
+</div>
+
+<!-- 
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io" rel="external nofollow">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next" rel="external nofollow">NexT.Pisces</a> v5.1.3</div>
+
+
+
+<% if (page.mathjax){ %>
+<%- partial('mathjax') %>
+<% } %>
+-->
+<div class="theme-info">
+  <div class="powered-by"></div>
+  <span class="post-count">| 博客全站共字</span>
+</div>
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/canvas-nest/canvas-nest.min.js"></script>
+  
+
+
+  
+
+     <div class="comments" id="comments">
+       
+            <div id="uyan_frame"></div>
+       
+     </div>
+   
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.3"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.3"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.3"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.3"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.3"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.3"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.3"></script>
+
+
+
+  
+
+
+  
+
+    
+      <script id="dsq-count-scr" src="https://.disqus.com/count.js" async></script>
+    
+
+    
+      <script type="text/javascript">
+        var disqus_config = function () {
+          this.page.url = 'http://yajian.github.io/kd树/';
+          this.page.identifier = 'kd树/';
+          this.page.title = 'kd树';
+        };
+        var d = document, s = d.createElement('script');
+        s.src = 'https://.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', '' + +new Date());
+        (d.head || d.body).appendChild(s);
+      </script>
+    
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+    
+
+    
+      <!-- UY BEGIN -->
+      <script type="text/javascript" src="http://v2.uyan.cc/code/uyan.js?uid=2147157"></script>
+      <!-- UY END -->
+    
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url);
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+
+  
+  
+
+  
+  
+    <script type="text/x-mathjax-config">
       MathJax.Hub.Config({
         tex2jax: {
           inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
@@ -6,20 +1428,43 @@
           skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
         }
       });
-    </script><script type="text/x-mathjax-config">
+    </script>
+
+    <script type="text/x-mathjax-config">
       MathJax.Hub.Queue(function() {
         var all = MathJax.Hub.getAllJax(), i;
         for (i=0; i < all.length; i += 1) {
           all[i].SourceElement().parentNode.className += ' has-jax';
         }
       });
-    </script><script type="text/javascript" src="//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script><script type="text/javascript" src="//cdn.bootcss.com/canvas-nest.js/1.0.0/canvas-nest.min.js"></script><script type="text/x-mathjax-config">
+    </script>
+    <script type="text/javascript" src="//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+  
+
+
+  
+
+  
+
+  
+    <script type="text/javascript" src="//cdn.bootcss.com/canvas-nest.js/1.0.0/canvas-nest.min.js"></script><!-- hexo-inject:begin --><!-- Begin: Injected MathJax -->
+<script type="text/x-mathjax-config">
   MathJax.Hub.Config("");
-</script><script type="text/x-mathjax-config">
+</script>
+
+<script type="text/x-mathjax-config">
   MathJax.Hub.Queue(function() {
     var all = MathJax.Hub.getAllJax(), i;
     for(i=0; i < all.length; i += 1) {
       all[i].SourceElement().parentNode.className += ' has-jax';
     }
   });
-</script><script type="text/javascript" src="custom_mathjax_source"></script></body></html>
+</script>
+
+<script type="text/javascript" src="custom_mathjax_source">
+</script>
+<!-- End: Injected MathJax -->
+<!-- hexo-inject:end -->
+  
+</body>
+</html>
