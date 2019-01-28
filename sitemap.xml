@@ -2,6 +2,13 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>http://yajian.github.io/word2vec/</loc>
+    
+    <lastmod>2019-01-28T02:17:25.780Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>http://yajian.github.io/softmax%E5%9B%9E%E5%BD%92/</loc>
     
     <lastmod>2019-01-15T09:58:24.700Z</lastmod>
